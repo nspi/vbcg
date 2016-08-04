@@ -51,7 +51,7 @@ run `vbcg` without parameters
 ##Contact
 Nicolai Spicher ([http://fh-dortmund.de/spicher](http://fh-dortmund.de/spicher))
 
-See website for email address and please use PGP.
+See website for email address and please use my [PGP key](http://www.fh-dortmund.de/spicher/pgp_pub.asc).
 
 Department of Computer Science, University of Applied Sciences and Arts Dortmund
 
