@@ -48,6 +48,9 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 #### Usage
 run `vbcg` without parameters
 
+## Todo
+- Update to Python 3 and current versions of all used modules
+
 ##Contact
 Nicolai Spicher ([http://fh-dortmund.de/spicher](http://fh-dortmund.de/spicher))
 
