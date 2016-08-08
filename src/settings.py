@@ -6,7 +6,9 @@ import io
 import numpy as np
 import logging
 
-std_param = [0, 0, 0, 1, 0, 0, 0.25]
+from defines import *
+
+std_param = [VAL_WEBCAM, VAL_CAMERA, VAL_ALGORITHM, VAL_CURVES, VAL_FRAMES, VAL_TRIGGER, VAL_MOTION]
 
 # Load parameters from configuration file
 def get_parameters():
@@ -49,6 +51,10 @@ def flip_parameter(idx):
 
     # Flip boolean value
     param[idx] = 1 - param[idx]
+
+    # Log to file
+    tmp_str = "Parameter: %d was changed" % (idx)
+    logging.info(tmp_str)
 
     # Store in file
     __store_parameters(param)
@@ -99,8 +105,8 @@ def __store_parameters(param):
     config.set('settings', '# Trigger the MRI via serial port?')
     config.set('settings', 'bool_use_triggerbox', param[5])
 
-    config.set('settings', '# Threshold for motion')
-    config.set('settings', 'threshold_motion', param[6])
+    config.set('settings', '# Use motion detection?')
+    config.set('settings', 'bool_use_motion_detection', param[6])
 
     # Write and close file
     config.write(config_file)

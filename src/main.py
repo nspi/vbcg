@@ -5,11 +5,14 @@ import settings
 import logger
 import gui
 
+from camera import camera
+
+
 # Initialize logging
 logger.init()
 
-# Read configuration
-parameters = settings.get_parameters()
+# Initialize camera
+cameraInstance = camera()
 
 # Initialize GUI
-gui.init()
+gui.init(cameraInstance)

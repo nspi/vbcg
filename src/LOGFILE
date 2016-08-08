@@ -1,6 +1,1154 @@
-04.08.2016 20:23:39 INFO Settings file opened
-04.08.2016 20:23:39 INFO Settings loaded from file
-04.08.2016 20:23:39 INFO GUI creation has started
-04.08.2016 20:24:34 INFO Settings file opened
-04.08.2016 20:24:34 INFO Settings loaded from file
-04.08.2016 20:24:34 INFO GUI creation has started
+08.08.2016 11:11:17 INFO Settings file opened
+08.08.2016 11:11:17 INFO Settings loaded from file
+08.08.2016 11:11:17 INFO GUI creation has started
+08.08.2016 11:11:20 INFO Settings file opened
+08.08.2016 11:11:20 INFO Settings loaded from file
+08.08.2016 11:11:20 INFO Parameter: 0 was changed
+08.08.2016 11:11:28 INFO Settings file opened
+08.08.2016 11:11:28 INFO Settings loaded from file
+08.08.2016 11:11:28 INFO Parameter: 6 was changed
+08.08.2016 11:11:31 INFO Settings file opened
+08.08.2016 11:11:31 INFO Settings loaded from file
+08.08.2016 11:11:31 INFO Parameter: 4 was changed
+08.08.2016 11:11:33 INFO Settings file opened
+08.08.2016 11:11:33 INFO Settings loaded from file
+08.08.2016 11:11:33 INFO Parameter: 5 was changed
+08.08.2016 11:12:12 INFO Settings file opened
+08.08.2016 11:12:12 INFO Settings loaded from file
+08.08.2016 11:12:12 INFO GUI creation has started
+08.08.2016 11:12:14 INFO Ending program
+08.08.2016 11:19:05 INFO Settings file opened
+08.08.2016 11:19:05 INFO Settings loaded from file
+08.08.2016 11:19:05 INFO GUI creation has started
+08.08.2016 11:19:05 INFO Creating part of the GUI that shows video
+08.08.2016 11:19:05 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 11:19:05 INFO Creating status bar
+08.08.2016 11:19:05 INFO Creating toolbar for ROI definition
+08.08.2016 11:19:05 INFO Creating toolbar with buttons
+08.08.2016 11:19:06 INFO Settings file opened
+08.08.2016 11:19:06 INFO Settings loaded from file
+08.08.2016 11:19:06 INFO Parameter: 4 was changed
+08.08.2016 11:19:06 INFO Settings file opened
+08.08.2016 11:19:06 INFO Settings loaded from file
+08.08.2016 11:19:06 INFO Parameter: 4 was changed
+08.08.2016 11:19:07 INFO Settings file opened
+08.08.2016 11:19:07 INFO Settings loaded from file
+08.08.2016 11:19:07 INFO Parameter: 4 was changed
+08.08.2016 11:19:07 INFO Settings file opened
+08.08.2016 11:19:07 INFO Settings loaded from file
+08.08.2016 11:19:07 INFO Parameter: 0 was changed
+08.08.2016 11:19:10 INFO Ending program
+08.08.2016 11:19:14 INFO Settings file opened
+08.08.2016 11:19:14 INFO Settings loaded from file
+08.08.2016 11:19:14 INFO GUI creation has started
+08.08.2016 11:19:14 INFO Creating part of the GUI that shows video
+08.08.2016 11:19:14 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 11:19:14 INFO Creating status bar
+08.08.2016 11:19:14 INFO Creating toolbar for ROI definition
+08.08.2016 11:19:14 INFO Creating toolbar with buttons
+08.08.2016 11:19:14 INFO Settings file opened
+08.08.2016 11:19:14 INFO Settings loaded from file
+08.08.2016 11:19:14 INFO GUI creation has started
+08.08.2016 11:19:14 INFO Creating part of the GUI that shows video
+08.08.2016 11:19:14 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 11:19:14 INFO Creating status bar
+08.08.2016 11:19:14 INFO Creating toolbar for ROI definition
+08.08.2016 11:19:14 INFO Creating toolbar with buttons
+08.08.2016 11:19:19 INFO Settings file opened
+08.08.2016 11:19:19 INFO Settings loaded from file
+08.08.2016 11:19:19 INFO GUI creation has started
+08.08.2016 11:19:19 INFO Creating part of the GUI that shows video
+08.08.2016 11:19:19 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 11:19:19 INFO Creating status bar
+08.08.2016 11:19:19 INFO Creating toolbar for ROI definition
+08.08.2016 11:19:19 INFO Creating toolbar with buttons
+08.08.2016 11:19:24 INFO Ending program
+08.08.2016 11:21:10 INFO Settings file opened
+08.08.2016 11:21:10 INFO Settings loaded from file
+08.08.2016 11:21:10 INFO GUI creation has started
+08.08.2016 11:21:10 INFO Creating part of the GUI that shows video
+08.08.2016 11:21:10 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 11:21:10 INFO Creating status bar
+08.08.2016 11:21:10 INFO Creating toolbar for ROI definition
+08.08.2016 11:21:10 INFO Creating toolbar with buttons
+08.08.2016 11:21:17 INFO Settings file opened
+08.08.2016 11:21:17 INFO Settings loaded from file
+08.08.2016 11:21:17 INFO Parameter: 0 was changed
+08.08.2016 11:21:18 INFO Settings file opened
+08.08.2016 11:21:18 INFO Settings loaded from file
+08.08.2016 11:21:18 INFO Parameter: 6 was changed
+08.08.2016 11:21:18 INFO Settings file opened
+08.08.2016 11:21:18 INFO Settings loaded from file
+08.08.2016 11:21:18 INFO Parameter: 4 was changed
+08.08.2016 11:21:19 INFO Settings file opened
+08.08.2016 11:21:19 INFO Settings loaded from file
+08.08.2016 11:21:19 INFO Parameter: 5 was changed
+08.08.2016 11:22:02 INFO Ending program
+08.08.2016 11:22:09 INFO Settings file opened
+08.08.2016 11:22:09 INFO Settings loaded from file
+08.08.2016 11:22:09 INFO GUI creation has started
+08.08.2016 11:22:09 INFO Creating part of the GUI that shows video
+08.08.2016 11:22:09 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 11:22:09 INFO Creating status bar
+08.08.2016 11:22:09 INFO Creating toolbar for ROI definition
+08.08.2016 11:22:09 INFO Creating toolbar with buttons
+08.08.2016 11:22:12 INFO Ending program
+08.08.2016 11:26:38 INFO Settings file opened
+08.08.2016 11:26:38 INFO Settings loaded from file
+08.08.2016 11:26:38 INFO GUI creation has started
+08.08.2016 11:26:38 INFO Creating part of the GUI that shows video
+08.08.2016 11:26:38 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 11:26:38 INFO Creating status bar
+08.08.2016 11:26:38 INFO Creating toolbar for ROI definition
+08.08.2016 11:26:39 INFO Creating toolbar with buttons
+08.08.2016 11:36:08 INFO Settings file opened
+08.08.2016 11:36:08 INFO Settings loaded from file
+08.08.2016 11:36:08 INFO GUI creation has started
+08.08.2016 11:36:08 INFO Creating part of the GUI that shows video
+08.08.2016 11:36:08 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 11:36:08 INFO Creating status bar
+08.08.2016 11:36:08 INFO Creating toolbar for ROI definition
+08.08.2016 11:36:08 INFO Creating toolbar with buttons
+08.08.2016 11:36:09 INFO Settings file opened
+08.08.2016 11:36:09 INFO Settings loaded from file
+08.08.2016 11:36:09 INFO Parameter: 5 was changed
+08.08.2016 11:36:10 INFO Settings file opened
+08.08.2016 11:36:10 INFO Settings loaded from file
+08.08.2016 11:36:10 INFO Parameter: 5 was changed
+08.08.2016 11:36:11 INFO Settings file opened
+08.08.2016 11:36:11 INFO Settings loaded from file
+08.08.2016 11:36:11 INFO Parameter: 4 was changed
+08.08.2016 11:36:11 INFO Settings file opened
+08.08.2016 11:36:11 INFO Settings loaded from file
+08.08.2016 11:36:11 INFO Parameter: 6 was changed
+08.08.2016 11:36:12 INFO Settings file opened
+08.08.2016 11:36:12 INFO Settings loaded from file
+08.08.2016 11:36:12 INFO Parameter: 6 was changed
+08.08.2016 11:36:12 INFO Settings file opened
+08.08.2016 11:36:12 INFO Settings loaded from file
+08.08.2016 11:36:12 INFO Parameter: 4 was changed
+08.08.2016 11:36:17 INFO Ending program
+08.08.2016 13:17:41 INFO Settings file opened
+08.08.2016 13:17:41 INFO Settings loaded from file
+08.08.2016 13:17:41 INFO Looking for available cameras
+08.08.2016 13:17:49 INFO Settings file opened
+08.08.2016 13:17:49 INFO Settings loaded from file
+08.08.2016 13:17:49 INFO Looking for available cameras
+08.08.2016 13:17:51 INFO GUI creation has started
+08.08.2016 13:17:51 INFO Creating part of the GUI that shows video
+08.08.2016 13:17:51 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:17:51 INFO Creating status bar
+08.08.2016 13:17:51 INFO Creating toolbar for ROI definition
+08.08.2016 13:17:51 INFO Creating toolbar with buttons
+08.08.2016 13:17:54 INFO Ending program
+08.08.2016 13:18:09 INFO Settings file opened
+08.08.2016 13:18:09 INFO Settings loaded from file
+08.08.2016 13:18:09 INFO Looking for available cameras
+08.08.2016 13:18:09 INFO GUI creation has started
+08.08.2016 13:18:09 INFO Creating part of the GUI that shows video
+08.08.2016 13:18:09 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:18:09 INFO Creating status bar
+08.08.2016 13:18:09 INFO Creating toolbar for ROI definition
+08.08.2016 13:18:09 INFO Creating toolbar with buttons
+08.08.2016 13:18:11 INFO Ending program
+08.08.2016 13:18:16 INFO Settings file opened
+08.08.2016 13:18:16 INFO Settings loaded from file
+08.08.2016 13:18:16 INFO Looking for available cameras
+08.08.2016 13:18:17 INFO GUI creation has started
+08.08.2016 13:18:17 INFO Creating part of the GUI that shows video
+08.08.2016 13:18:17 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:18:17 INFO Creating status bar
+08.08.2016 13:18:17 INFO Creating toolbar for ROI definition
+08.08.2016 13:18:17 INFO Creating toolbar with buttons
+08.08.2016 13:18:20 INFO Ending program
+08.08.2016 13:19:11 INFO Settings file opened
+08.08.2016 13:19:11 INFO Settings loaded from file
+08.08.2016 13:19:11 INFO Looking for available cameras
+08.08.2016 13:19:13 INFO GUI creation has started
+08.08.2016 13:19:13 INFO Creating part of the GUI that shows video
+08.08.2016 13:19:13 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:19:13 INFO Creating status bar
+08.08.2016 13:19:13 INFO Creating toolbar for ROI definition
+08.08.2016 13:19:13 INFO Creating toolbar with buttons
+08.08.2016 13:19:15 INFO Settings file opened
+08.08.2016 13:19:15 INFO Settings loaded from file
+08.08.2016 13:19:15 INFO Parameter: 5 was changed
+08.08.2016 13:19:16 INFO Settings file opened
+08.08.2016 13:19:16 INFO Settings loaded from file
+08.08.2016 13:19:16 INFO Parameter: 5 was changed
+08.08.2016 13:19:16 INFO Settings file opened
+08.08.2016 13:19:16 INFO Settings loaded from file
+08.08.2016 13:19:16 INFO Parameter: 5 was changed
+08.08.2016 13:19:17 INFO Ending program
+08.08.2016 13:19:26 INFO Settings file opened
+08.08.2016 13:19:26 INFO Settings loaded from file
+08.08.2016 13:19:26 INFO Looking for available cameras
+08.08.2016 13:19:28 INFO GUI creation has started
+08.08.2016 13:19:28 INFO Creating part of the GUI that shows video
+08.08.2016 13:19:28 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:19:28 INFO Creating status bar
+08.08.2016 13:19:28 INFO Creating toolbar for ROI definition
+08.08.2016 13:19:28 INFO Creating toolbar with buttons
+08.08.2016 13:19:37 INFO Ending program
+08.08.2016 13:23:53 INFO Settings file opened
+08.08.2016 13:23:53 INFO Settings loaded from file
+08.08.2016 13:23:53 INFO Looking for available cameras
+08.08.2016 13:23:53 INFO GUI creation has started
+08.08.2016 13:23:53 INFO Creating part of the GUI that shows video
+08.08.2016 13:23:53 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:23:53 INFO Creating status bar
+08.08.2016 13:23:53 INFO Creating toolbar for ROI definition
+08.08.2016 13:23:53 INFO Creating toolbar with buttons
+08.08.2016 13:24:00 INFO Ending program
+08.08.2016 13:29:31 INFO Settings file opened
+08.08.2016 13:29:31 INFO Settings loaded from file
+08.08.2016 13:29:31 INFO Looking for available cameras
+08.08.2016 13:29:31 INFO GUI creation has started
+08.08.2016 13:29:31 INFO Creating part of the GUI that shows video
+08.08.2016 13:29:31 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:29:31 INFO Creating status bar
+08.08.2016 13:29:31 INFO Creating toolbar for ROI definition
+08.08.2016 13:29:45 INFO Settings file opened
+08.08.2016 13:29:45 INFO Settings loaded from file
+08.08.2016 13:29:45 INFO Looking for available cameras
+08.08.2016 13:29:45 INFO GUI creation has started
+08.08.2016 13:29:45 INFO Creating part of the GUI that shows video
+08.08.2016 13:29:45 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:29:45 INFO Creating status bar
+08.08.2016 13:29:45 INFO Creating toolbar for ROI definition
+08.08.2016 13:31:15 INFO Settings file opened
+08.08.2016 13:31:15 INFO Settings loaded from file
+08.08.2016 13:31:15 INFO Looking for available cameras
+08.08.2016 13:31:15 INFO GUI creation has started
+08.08.2016 13:31:15 INFO Creating part of the GUI that shows video
+08.08.2016 13:31:15 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:31:15 INFO Creating status bar
+08.08.2016 13:31:15 INFO Creating toolbar for ROI definition
+08.08.2016 13:31:22 INFO Settings file opened
+08.08.2016 13:31:22 INFO Settings loaded from file
+08.08.2016 13:31:22 INFO Looking for available cameras
+08.08.2016 13:31:22 INFO GUI creation has started
+08.08.2016 13:31:22 INFO Creating part of the GUI that shows video
+08.08.2016 13:31:22 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:31:22 INFO Creating status bar
+08.08.2016 13:31:22 INFO Creating toolbar for ROI definition
+08.08.2016 13:31:36 INFO Settings file opened
+08.08.2016 13:31:36 INFO Settings loaded from file
+08.08.2016 13:31:36 INFO Looking for available cameras
+08.08.2016 13:31:36 INFO GUI creation has started
+08.08.2016 13:31:36 INFO Creating part of the GUI that shows video
+08.08.2016 13:31:36 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:31:36 INFO Creating status bar
+08.08.2016 13:31:36 INFO Creating toolbar for ROI definition
+08.08.2016 13:33:17 INFO Settings file opened
+08.08.2016 13:33:17 INFO Settings loaded from file
+08.08.2016 13:33:17 INFO Looking for available cameras
+08.08.2016 13:33:17 INFO GUI creation has started
+08.08.2016 13:33:17 INFO Creating part of the GUI that shows video
+08.08.2016 13:33:17 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:33:18 INFO Creating status bar
+08.08.2016 13:33:18 INFO Creating toolbar for ROI definition
+08.08.2016 13:36:02 INFO Settings file opened
+08.08.2016 13:36:02 INFO Settings loaded from file
+08.08.2016 13:36:02 INFO Looking for available cameras
+08.08.2016 13:36:02 INFO GUI creation has started
+08.08.2016 13:36:02 INFO Creating part of the GUI that shows video
+08.08.2016 13:36:02 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:36:02 INFO Creating status bar
+08.08.2016 13:36:02 INFO Creating toolbar for ROI definition
+08.08.2016 13:36:02 INFO Creating toolbar with buttons
+08.08.2016 13:36:04 INFO Ending program
+08.08.2016 13:37:00 INFO Settings file opened
+08.08.2016 13:37:00 INFO Settings loaded from file
+08.08.2016 13:37:00 INFO Looking for available cameras
+08.08.2016 13:37:00 INFO GUI creation has started
+08.08.2016 13:37:00 INFO Creating part of the GUI that shows video
+08.08.2016 13:37:00 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:37:00 INFO Creating status bar
+08.08.2016 13:37:00 INFO Creating toolbar for ROI definition
+08.08.2016 13:37:00 INFO Creating toolbar with buttons
+08.08.2016 13:37:04 INFO Ending program
+08.08.2016 13:38:32 INFO Settings file opened
+08.08.2016 13:38:32 INFO Settings loaded from file
+08.08.2016 13:38:32 INFO Looking for available cameras
+08.08.2016 13:40:42 INFO Settings file opened
+08.08.2016 13:40:42 INFO Settings loaded from file
+08.08.2016 13:40:42 INFO Looking for available cameras
+08.08.2016 13:40:42 INFO GUI creation has started
+08.08.2016 13:40:42 INFO Creating part of the GUI that shows video
+08.08.2016 13:40:42 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:40:42 INFO Creating status bar
+08.08.2016 13:40:42 INFO Creating toolbar for ROI definition
+08.08.2016 13:40:42 INFO Creating toolbar with buttons
+08.08.2016 13:40:44 INFO Ending program
+08.08.2016 13:42:37 INFO Settings file opened
+08.08.2016 13:42:37 INFO Settings loaded from file
+08.08.2016 13:42:37 INFO GUI creation has started
+08.08.2016 13:42:37 INFO Creating part of the GUI that shows video
+08.08.2016 13:42:37 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:42:37 INFO Creating status bar
+08.08.2016 13:42:37 INFO Creating toolbar for ROI definition
+08.08.2016 13:42:37 INFO Creating toolbar with buttons
+08.08.2016 13:42:39 INFO Ending program
+08.08.2016 13:49:56 INFO Settings file opened
+08.08.2016 13:49:56 INFO Settings loaded from file
+08.08.2016 13:49:56 INFO GUI creation has started
+08.08.2016 13:49:56 INFO Creating part of the GUI that shows video
+08.08.2016 13:49:56 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:49:56 INFO Creating status bar
+08.08.2016 13:49:56 INFO Creating toolbar for ROI definition
+08.08.2016 13:49:56 INFO Creating toolbar with buttons
+08.08.2016 13:49:58 INFO Ending program
+08.08.2016 13:50:41 INFO Settings file opened
+08.08.2016 13:50:41 INFO Settings loaded from file
+08.08.2016 13:50:41 INFO GUI creation has started
+08.08.2016 13:50:55 INFO Settings file opened
+08.08.2016 13:50:55 INFO Settings loaded from file
+08.08.2016 13:50:55 INFO GUI creation has started
+08.08.2016 13:53:29 INFO Settings file opened
+08.08.2016 13:53:29 INFO Settings loaded from file
+08.08.2016 13:53:29 INFO GUI creation has started
+08.08.2016 13:53:41 INFO Settings file opened
+08.08.2016 13:53:41 INFO Settings loaded from file
+08.08.2016 13:53:41 INFO GUI creation has started
+08.08.2016 13:53:41 INFO Creating part of the GUI that shows video
+08.08.2016 13:53:41 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:53:41 INFO Creating status bar
+08.08.2016 13:53:41 INFO Creating toolbar for ROI definition
+08.08.2016 13:53:41 INFO Creating toolbar with buttons
+08.08.2016 13:53:42 INFO Ending program
+08.08.2016 13:54:02 INFO Settings file opened
+08.08.2016 13:54:02 INFO Settings loaded from file
+08.08.2016 13:54:02 INFO GUI creation has started
+08.08.2016 13:54:02 INFO Creating part of the GUI that shows video
+08.08.2016 13:54:02 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:54:02 INFO Creating status bar
+08.08.2016 13:54:02 INFO Creating toolbar for ROI definition
+08.08.2016 13:54:02 INFO Creating toolbar with buttons
+08.08.2016 13:54:05 INFO Ending program
+08.08.2016 13:57:27 INFO Settings file opened
+08.08.2016 13:57:27 INFO Settings loaded from file
+08.08.2016 13:57:43 INFO Settings file opened
+08.08.2016 13:57:43 INFO Settings loaded from file
+08.08.2016 13:57:43 INFO GUI creation has started
+08.08.2016 13:57:43 INFO Creating part of the GUI that shows video
+08.08.2016 13:57:43 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:57:43 INFO Creating status bar
+08.08.2016 13:57:43 INFO Creating toolbar for ROI definition
+08.08.2016 13:57:43 INFO Creating toolbar with buttons
+08.08.2016 13:57:47 INFO Ending program
+08.08.2016 13:59:16 INFO Settings file opened
+08.08.2016 13:59:16 INFO Settings loaded from file
+08.08.2016 13:59:16 INFO GUI creation has started
+08.08.2016 13:59:16 INFO Creating part of the GUI that shows video
+08.08.2016 13:59:16 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 13:59:16 INFO Creating status bar
+08.08.2016 13:59:16 INFO Creating toolbar for ROI definition
+08.08.2016 13:59:16 INFO Creating toolbar with buttons
+08.08.2016 13:59:23 INFO Ending program
+08.08.2016 14:05:37 INFO GUI creation has started
+08.08.2016 14:05:37 INFO Creating part of the GUI that shows video
+08.08.2016 14:05:37 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:05:37 INFO Creating status bar
+08.08.2016 14:05:37 INFO Creating toolbar for ROI definition
+08.08.2016 14:05:38 INFO Creating toolbar with buttons
+08.08.2016 14:05:38 INFO Settings file opened
+08.08.2016 14:05:38 INFO Settings loaded from file
+08.08.2016 14:05:46 INFO GUI creation has started
+08.08.2016 14:05:46 INFO Creating part of the GUI that shows video
+08.08.2016 14:05:46 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:05:46 INFO Creating status bar
+08.08.2016 14:05:46 INFO Creating toolbar for ROI definition
+08.08.2016 14:05:46 INFO Creating toolbar with buttons
+08.08.2016 14:05:46 INFO Settings file opened
+08.08.2016 14:05:46 INFO Settings loaded from file
+08.08.2016 14:05:51 INFO Settings file opened
+08.08.2016 14:05:51 INFO Settings loaded from file
+08.08.2016 14:05:51 INFO Parameter: 0 was changed
+08.08.2016 14:05:52 INFO Ending program
+08.08.2016 14:07:18 INFO GUI creation has started
+08.08.2016 14:07:18 INFO Creating part of the GUI that shows video
+08.08.2016 14:07:18 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:07:18 INFO Creating status bar
+08.08.2016 14:07:18 INFO Creating toolbar for ROI definition
+08.08.2016 14:07:18 INFO Creating toolbar with buttons
+08.08.2016 14:07:18 INFO Settings file opened
+08.08.2016 14:07:18 INFO Settings loaded from file
+08.08.2016 14:08:51 INFO GUI creation has started
+08.08.2016 14:08:51 INFO Creating part of the GUI that shows video
+08.08.2016 14:08:51 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:08:51 INFO Creating status bar
+08.08.2016 14:08:51 INFO Creating toolbar for ROI definition
+08.08.2016 14:08:51 INFO Creating toolbar with buttons
+08.08.2016 14:08:51 INFO Settings file opened
+08.08.2016 14:08:51 INFO Settings loaded from file
+08.08.2016 14:09:38 INFO GUI creation has started
+08.08.2016 14:09:38 INFO Creating part of the GUI that shows video
+08.08.2016 14:09:38 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:09:38 INFO Creating status bar
+08.08.2016 14:09:38 INFO Creating toolbar for ROI definition
+08.08.2016 14:09:38 INFO Creating toolbar with buttons
+08.08.2016 14:09:38 INFO Settings file opened
+08.08.2016 14:09:38 INFO Settings loaded from file
+08.08.2016 14:09:40 INFO Settings file opened
+08.08.2016 14:09:40 INFO Settings loaded from file
+08.08.2016 14:09:40 INFO Parameter: 6 was changed
+08.08.2016 14:09:40 INFO Settings file opened
+08.08.2016 14:09:40 INFO Settings loaded from file
+08.08.2016 14:09:40 INFO Parameter: 0 was changed
+08.08.2016 14:09:42 INFO Ending program
+08.08.2016 14:09:51 INFO GUI creation has started
+08.08.2016 14:09:51 INFO Creating part of the GUI that shows video
+08.08.2016 14:09:51 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:09:52 INFO Creating status bar
+08.08.2016 14:09:52 INFO Creating toolbar for ROI definition
+08.08.2016 14:09:52 INFO Creating toolbar with buttons
+08.08.2016 14:09:52 INFO Settings file opened
+08.08.2016 14:09:52 INFO Settings loaded from file
+08.08.2016 14:10:14 INFO GUI creation has started
+08.08.2016 14:10:14 INFO Creating part of the GUI that shows video
+08.08.2016 14:10:14 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:10:14 INFO Creating status bar
+08.08.2016 14:10:14 INFO Creating toolbar for ROI definition
+08.08.2016 14:10:14 INFO Creating toolbar with buttons
+08.08.2016 14:10:14 INFO Settings file opened
+08.08.2016 14:10:14 INFO Settings loaded from file
+08.08.2016 14:10:17 INFO Ending program
+08.08.2016 14:10:44 INFO GUI creation has started
+08.08.2016 14:10:44 INFO Creating part of the GUI that shows video
+08.08.2016 14:10:44 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:10:45 INFO Creating status bar
+08.08.2016 14:10:45 INFO Creating toolbar for ROI definition
+08.08.2016 14:10:45 INFO Creating toolbar with buttons
+08.08.2016 14:10:45 INFO Settings file opened
+08.08.2016 14:10:45 INFO Settings loaded from file
+08.08.2016 14:10:47 INFO Ending program
+08.08.2016 14:11:32 INFO GUI creation has started
+08.08.2016 14:11:32 INFO Creating part of the GUI that shows video
+08.08.2016 14:11:32 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:11:32 INFO Creating status bar
+08.08.2016 14:11:32 INFO Creating toolbar for ROI definition
+08.08.2016 14:11:32 INFO Creating toolbar with buttons
+08.08.2016 14:11:32 INFO Settings file opened
+08.08.2016 14:11:32 INFO Settings loaded from file
+08.08.2016 14:11:35 INFO Ending program
+08.08.2016 14:13:30 INFO GUI creation has started
+08.08.2016 14:13:30 INFO Creating part of the GUI that shows video
+08.08.2016 14:13:30 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:13:30 INFO Creating status bar
+08.08.2016 14:13:30 INFO Creating toolbar for ROI definition
+08.08.2016 14:13:30 INFO Creating toolbar with buttons
+08.08.2016 14:13:30 INFO Settings file opened
+08.08.2016 14:13:30 INFO Settings loaded from file
+08.08.2016 14:13:37 INFO Settings file opened
+08.08.2016 14:13:37 INFO Settings loaded from file
+08.08.2016 14:13:37 INFO Parameter: 5 was changed
+08.08.2016 14:13:38 INFO Ending program
+08.08.2016 14:13:46 INFO GUI creation has started
+08.08.2016 14:13:46 INFO Creating part of the GUI that shows video
+08.08.2016 14:13:46 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:13:46 INFO Creating status bar
+08.08.2016 14:13:46 INFO Creating toolbar for ROI definition
+08.08.2016 14:13:46 INFO Creating toolbar with buttons
+08.08.2016 14:13:46 INFO Settings file opened
+08.08.2016 14:13:46 INFO Settings loaded from file
+08.08.2016 14:13:51 INFO Ending program
+08.08.2016 14:14:24 INFO GUI creation has started
+08.08.2016 14:14:24 INFO Creating part of the GUI that shows video
+08.08.2016 14:14:24 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:14:24 INFO Creating status bar
+08.08.2016 14:14:24 INFO Creating toolbar for ROI definition
+08.08.2016 14:14:24 INFO Creating toolbar with buttons
+08.08.2016 14:14:24 INFO Settings file opened
+08.08.2016 14:14:24 INFO Settings loaded from file
+08.08.2016 14:14:26 INFO Settings file opened
+08.08.2016 14:14:26 INFO Settings loaded from file
+08.08.2016 14:14:26 INFO Parameter: 5 was changed
+08.08.2016 14:14:35 INFO Ending program
+08.08.2016 14:14:39 INFO GUI creation has started
+08.08.2016 14:14:39 INFO Creating part of the GUI that shows video
+08.08.2016 14:14:39 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:14:39 INFO Creating status bar
+08.08.2016 14:14:39 INFO Creating toolbar for ROI definition
+08.08.2016 14:14:39 INFO Creating toolbar with buttons
+08.08.2016 14:14:39 INFO Settings file opened
+08.08.2016 14:14:39 INFO Settings loaded from file
+08.08.2016 14:14:43 INFO Ending program
+08.08.2016 14:18:13 INFO GUI creation has started
+08.08.2016 14:18:13 INFO Creating part of the GUI that shows video
+08.08.2016 14:18:13 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:18:13 INFO Creating status bar
+08.08.2016 14:18:13 INFO Creating toolbar for ROI definition
+08.08.2016 14:18:13 INFO Creating toolbar with buttons
+08.08.2016 14:18:13 INFO Settings file opened
+08.08.2016 14:18:13 INFO Settings loaded from file
+08.08.2016 14:18:15 INFO Ending program
+08.08.2016 14:18:17 INFO GUI creation has started
+08.08.2016 14:18:17 INFO Creating part of the GUI that shows video
+08.08.2016 14:18:17 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:18:17 INFO Creating status bar
+08.08.2016 14:18:17 INFO Creating toolbar for ROI definition
+08.08.2016 14:18:17 INFO Creating toolbar with buttons
+08.08.2016 14:18:17 INFO Settings file opened
+08.08.2016 14:18:17 INFO Settings loaded from file
+08.08.2016 14:18:18 INFO Settings file opened
+08.08.2016 14:18:18 INFO Settings loaded from file
+08.08.2016 14:18:18 INFO Parameter: 5 was changed
+08.08.2016 14:19:14 INFO GUI creation has started
+08.08.2016 14:19:14 INFO Creating part of the GUI that shows video
+08.08.2016 14:19:14 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:19:14 INFO Creating status bar
+08.08.2016 14:19:14 INFO Creating toolbar for ROI definition
+08.08.2016 14:19:15 INFO Creating toolbar with buttons
+08.08.2016 14:19:15 INFO Settings file opened
+08.08.2016 14:19:15 INFO Settings loaded from file
+08.08.2016 14:19:27 INFO Settings file opened
+08.08.2016 14:19:27 INFO Settings loaded from file
+08.08.2016 14:19:31 INFO Parameter: 5 was changed
+08.08.2016 14:20:00 INFO GUI creation has started
+08.08.2016 14:20:00 INFO Creating part of the GUI that shows video
+08.08.2016 14:20:00 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:20:00 INFO Creating status bar
+08.08.2016 14:20:00 INFO Creating toolbar for ROI definition
+08.08.2016 14:20:00 INFO Creating toolbar with buttons
+08.08.2016 14:20:00 INFO Settings file opened
+08.08.2016 14:20:00 INFO Settings loaded from file
+08.08.2016 14:20:02 INFO Ending program
+08.08.2016 14:20:29 INFO GUI creation has started
+08.08.2016 14:20:29 INFO Creating part of the GUI that shows video
+08.08.2016 14:20:29 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:20:29 INFO Creating status bar
+08.08.2016 14:20:29 INFO Creating toolbar for ROI definition
+08.08.2016 14:20:29 INFO Creating toolbar with buttons
+08.08.2016 14:20:29 INFO Settings file opened
+08.08.2016 14:20:29 INFO Settings loaded from file
+08.08.2016 14:20:30 INFO Ending program
+08.08.2016 14:20:34 INFO GUI creation has started
+08.08.2016 14:20:34 INFO Creating part of the GUI that shows video
+08.08.2016 14:20:34 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:20:34 INFO Creating status bar
+08.08.2016 14:20:34 INFO Creating toolbar for ROI definition
+08.08.2016 14:20:34 INFO Creating toolbar with buttons
+08.08.2016 14:20:34 INFO Settings file opened
+08.08.2016 14:20:34 INFO Settings loaded from file
+08.08.2016 14:20:35 INFO Ending program
+08.08.2016 14:23:03 INFO GUI creation has started
+08.08.2016 14:23:03 INFO Creating part of the GUI that shows video
+08.08.2016 14:23:03 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:23:03 INFO Creating status bar
+08.08.2016 14:23:03 INFO Creating toolbar for ROI definition
+08.08.2016 14:23:03 INFO Creating toolbar with buttons
+08.08.2016 14:23:03 INFO Settings file opened
+08.08.2016 14:23:03 INFO Settings loaded from file
+08.08.2016 14:23:06 INFO Ending program
+08.08.2016 14:23:24 INFO GUI creation has started
+08.08.2016 14:23:24 INFO Creating part of the GUI that shows video
+08.08.2016 14:23:24 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:23:24 INFO Creating status bar
+08.08.2016 14:23:24 INFO Creating toolbar for ROI definition
+08.08.2016 14:23:24 INFO Creating toolbar with buttons
+08.08.2016 14:23:24 INFO Settings file opened
+08.08.2016 14:23:24 INFO Settings loaded from file
+08.08.2016 14:23:26 INFO Ending program
+08.08.2016 14:23:36 INFO GUI creation has started
+08.08.2016 14:23:36 INFO Creating part of the GUI that shows video
+08.08.2016 14:23:36 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:23:37 INFO Creating status bar
+08.08.2016 14:23:37 INFO Creating toolbar for ROI definition
+08.08.2016 14:23:37 INFO Creating toolbar with buttons
+08.08.2016 14:23:37 INFO Settings file opened
+08.08.2016 14:23:37 INFO Settings loaded from file
+08.08.2016 14:23:43 INFO GUI creation has started
+08.08.2016 14:23:43 INFO Creating part of the GUI that shows video
+08.08.2016 14:23:43 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:23:43 INFO Creating status bar
+08.08.2016 14:23:43 INFO Creating toolbar for ROI definition
+08.08.2016 14:23:43 INFO Creating toolbar with buttons
+08.08.2016 14:23:43 INFO Settings file opened
+08.08.2016 14:23:43 INFO Settings loaded from file
+08.08.2016 14:23:45 INFO Ending program
+08.08.2016 14:24:03 INFO GUI creation has started
+08.08.2016 14:24:03 INFO Creating part of the GUI that shows video
+08.08.2016 14:24:03 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:24:03 INFO Creating status bar
+08.08.2016 14:24:03 INFO Creating toolbar for ROI definition
+08.08.2016 14:24:03 INFO Creating toolbar with buttons
+08.08.2016 14:24:03 INFO Settings file opened
+08.08.2016 14:24:03 INFO Settings loaded from file
+08.08.2016 14:24:07 INFO Ending program
+08.08.2016 14:24:13 INFO GUI creation has started
+08.08.2016 14:24:13 INFO Creating part of the GUI that shows video
+08.08.2016 14:24:13 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:24:13 INFO Creating status bar
+08.08.2016 14:24:13 INFO Creating toolbar for ROI definition
+08.08.2016 14:24:13 INFO Creating toolbar with buttons
+08.08.2016 14:24:13 INFO Settings file opened
+08.08.2016 14:24:13 INFO Settings loaded from file
+08.08.2016 14:24:16 INFO Ending program
+08.08.2016 14:24:46 INFO GUI creation has started
+08.08.2016 14:24:46 INFO Creating part of the GUI that shows video
+08.08.2016 14:24:46 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:24:46 INFO Creating status bar
+08.08.2016 14:24:46 INFO Creating toolbar for ROI definition
+08.08.2016 14:24:46 INFO Creating toolbar with buttons
+08.08.2016 14:24:46 INFO Settings file opened
+08.08.2016 14:24:46 INFO Settings loaded from file
+08.08.2016 14:24:48 INFO Settings file opened
+08.08.2016 14:24:48 INFO Settings loaded from file
+08.08.2016 14:24:48 INFO Parameter: 4 was changed
+08.08.2016 14:24:50 INFO Ending program
+08.08.2016 14:24:51 INFO GUI creation has started
+08.08.2016 14:24:51 INFO Creating part of the GUI that shows video
+08.08.2016 14:24:51 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:24:51 INFO Creating status bar
+08.08.2016 14:24:51 INFO Creating toolbar for ROI definition
+08.08.2016 14:24:51 INFO Creating toolbar with buttons
+08.08.2016 14:24:51 INFO Settings file opened
+08.08.2016 14:24:51 INFO Settings loaded from file
+08.08.2016 14:24:52 INFO Settings file opened
+08.08.2016 14:24:52 INFO Settings loaded from file
+08.08.2016 14:24:52 INFO Parameter: 5 was changed
+08.08.2016 14:24:52 INFO Settings file opened
+08.08.2016 14:24:52 INFO Settings loaded from file
+08.08.2016 14:24:52 INFO Parameter: 4 was changed
+08.08.2016 14:24:53 INFO Settings file opened
+08.08.2016 14:24:53 INFO Settings loaded from file
+08.08.2016 14:24:53 INFO Parameter: 0 was changed
+08.08.2016 14:24:54 INFO Ending program
+08.08.2016 14:24:56 INFO GUI creation has started
+08.08.2016 14:24:56 INFO Creating part of the GUI that shows video
+08.08.2016 14:24:56 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:24:56 INFO Creating status bar
+08.08.2016 14:24:56 INFO Creating toolbar for ROI definition
+08.08.2016 14:24:56 INFO Creating toolbar with buttons
+08.08.2016 14:24:56 INFO Settings file opened
+08.08.2016 14:24:56 INFO Settings loaded from file
+08.08.2016 14:24:58 INFO Ending program
+08.08.2016 14:24:59 INFO GUI creation has started
+08.08.2016 14:24:59 INFO Creating part of the GUI that shows video
+08.08.2016 14:24:59 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:24:59 INFO Creating status bar
+08.08.2016 14:24:59 INFO Creating toolbar for ROI definition
+08.08.2016 14:24:59 INFO Creating toolbar with buttons
+08.08.2016 14:24:59 INFO Settings file opened
+08.08.2016 14:24:59 INFO Settings loaded from file
+08.08.2016 14:25:00 INFO Ending program
+08.08.2016 14:25:27 INFO GUI creation has started
+08.08.2016 14:25:27 INFO Creating part of the GUI that shows video
+08.08.2016 14:25:27 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:25:27 INFO Creating status bar
+08.08.2016 14:25:27 INFO Creating toolbar for ROI definition
+08.08.2016 14:25:27 INFO Creating toolbar with buttons
+08.08.2016 14:25:27 INFO Settings file opened
+08.08.2016 14:25:27 INFO Settings loaded from file
+08.08.2016 14:25:28 INFO Settings file opened
+08.08.2016 14:25:28 INFO Settings loaded from file
+08.08.2016 14:25:28 INFO Parameter: 1 was changed
+08.08.2016 14:25:29 INFO Settings file opened
+08.08.2016 14:25:29 INFO Settings loaded from file
+08.08.2016 14:25:29 INFO Parameter: 5 was changed
+08.08.2016 14:25:30 INFO Ending program
+08.08.2016 14:25:31 INFO GUI creation has started
+08.08.2016 14:25:31 INFO Creating part of the GUI that shows video
+08.08.2016 14:25:31 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:25:31 INFO Creating status bar
+08.08.2016 14:25:31 INFO Creating toolbar for ROI definition
+08.08.2016 14:25:31 INFO Creating toolbar with buttons
+08.08.2016 14:25:31 INFO Settings file opened
+08.08.2016 14:25:31 INFO Settings loaded from file
+08.08.2016 14:25:34 INFO Ending program
+08.08.2016 14:26:23 INFO GUI creation has started
+08.08.2016 14:26:23 INFO Creating part of the GUI that shows video
+08.08.2016 14:26:23 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:26:23 INFO Creating status bar
+08.08.2016 14:26:23 INFO Creating toolbar for ROI definition
+08.08.2016 14:26:23 INFO Creating toolbar with buttons
+08.08.2016 14:26:23 INFO Settings file opened
+08.08.2016 14:26:23 INFO Settings loaded from file
+08.08.2016 14:26:24 INFO Settings file opened
+08.08.2016 14:26:24 INFO Settings loaded from file
+08.08.2016 14:26:24 INFO Parameter: 1 was changed
+08.08.2016 14:26:25 INFO Ending program
+08.08.2016 14:26:27 INFO GUI creation has started
+08.08.2016 14:26:27 INFO Creating part of the GUI that shows video
+08.08.2016 14:26:27 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:26:27 INFO Creating status bar
+08.08.2016 14:26:27 INFO Creating toolbar for ROI definition
+08.08.2016 14:26:27 INFO Creating toolbar with buttons
+08.08.2016 14:26:27 INFO Settings file opened
+08.08.2016 14:26:27 INFO Settings loaded from file
+08.08.2016 14:26:28 INFO Ending program
+08.08.2016 14:37:26 INFO GUI creation has started
+08.08.2016 14:37:26 INFO Creating part of the GUI that shows video
+08.08.2016 14:37:26 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:37:27 INFO Creating status bar
+08.08.2016 14:37:27 INFO Creating toolbar for ROI definition
+08.08.2016 14:37:27 INFO Creating toolbar with buttons
+08.08.2016 14:37:27 INFO Settings file opened
+08.08.2016 14:37:27 INFO Settings loaded from file
+08.08.2016 14:37:28 INFO Ending program
+08.08.2016 14:39:05 INFO GUI creation has started
+08.08.2016 14:39:05 INFO Creating part of the GUI that shows video
+08.08.2016 14:39:05 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:39:05 INFO Creating status bar
+08.08.2016 14:39:05 INFO Creating toolbar for ROI definition
+08.08.2016 14:39:05 INFO Creating toolbar with buttons
+08.08.2016 14:39:05 INFO Settings file opened
+08.08.2016 14:39:05 INFO Settings loaded from file
+08.08.2016 14:39:08 INFO Ending program
+08.08.2016 14:39:19 INFO GUI creation has started
+08.08.2016 14:39:19 INFO Creating part of the GUI that shows video
+08.08.2016 14:39:19 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:39:19 INFO Creating status bar
+08.08.2016 14:39:19 INFO Creating toolbar for ROI definition
+08.08.2016 14:39:19 INFO Creating toolbar with buttons
+08.08.2016 14:39:19 INFO Settings file opened
+08.08.2016 14:39:19 INFO Settings loaded from file
+08.08.2016 14:39:20 INFO Ending program
+08.08.2016 14:39:33 INFO GUI creation has started
+08.08.2016 14:39:33 INFO Creating part of the GUI that shows video
+08.08.2016 14:39:33 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:39:33 INFO Creating status bar
+08.08.2016 14:39:33 INFO Creating toolbar for ROI definition
+08.08.2016 14:40:01 INFO GUI creation has started
+08.08.2016 14:40:01 INFO Creating part of the GUI that shows video
+08.08.2016 14:40:01 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:40:01 INFO Creating status bar
+08.08.2016 14:40:01 INFO Creating toolbar for ROI definition
+08.08.2016 14:40:21 INFO GUI creation has started
+08.08.2016 14:40:21 INFO Creating part of the GUI that shows video
+08.08.2016 14:40:21 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:40:21 INFO Creating status bar
+08.08.2016 14:40:21 INFO Creating toolbar for ROI definition
+08.08.2016 14:40:30 INFO GUI creation has started
+08.08.2016 14:40:30 INFO Creating part of the GUI that shows video
+08.08.2016 14:40:30 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:40:30 INFO Creating status bar
+08.08.2016 14:40:30 INFO Creating toolbar for ROI definition
+08.08.2016 14:41:45 INFO GUI creation has started
+08.08.2016 14:41:45 INFO Creating part of the GUI that shows video
+08.08.2016 14:41:45 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:41:45 INFO Creating status bar
+08.08.2016 14:41:45 INFO Creating toolbar for ROI definition
+08.08.2016 14:42:00 INFO GUI creation has started
+08.08.2016 14:42:00 INFO Creating part of the GUI that shows video
+08.08.2016 14:42:00 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:42:00 INFO Creating status bar
+08.08.2016 14:42:00 INFO Creating toolbar for ROI definition
+08.08.2016 14:42:00 INFO Creating toolbar with buttons
+08.08.2016 14:42:00 INFO Settings file opened
+08.08.2016 14:42:00 INFO Settings loaded from file
+08.08.2016 14:42:03 INFO Settings file opened
+08.08.2016 14:42:03 INFO Settings loaded from file
+08.08.2016 14:42:03 INFO Parameter: 5 was changed
+08.08.2016 14:42:03 INFO Settings file opened
+08.08.2016 14:42:03 INFO Settings loaded from file
+08.08.2016 14:42:03 INFO Parameter: 4 was changed
+08.08.2016 14:42:04 INFO Settings file opened
+08.08.2016 14:42:04 INFO Settings loaded from file
+08.08.2016 14:42:04 INFO Parameter: 5 was changed
+08.08.2016 14:42:07 INFO Settings file opened
+08.08.2016 14:42:07 INFO Settings loaded from file
+08.08.2016 14:42:07 INFO Parameter: 6 was changed
+08.08.2016 14:42:11 INFO Ending program
+08.08.2016 14:47:39 INFO Camera Object was initialized
+08.08.2016 14:47:41 INFO GUI creation has started
+08.08.2016 14:47:41 INFO Creating part of the GUI that shows video
+08.08.2016 14:47:41 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:47:41 INFO Creating status bar
+08.08.2016 14:47:41 INFO Creating toolbar for ROI definition
+08.08.2016 14:49:40 INFO Camera Object was initialized
+08.08.2016 14:49:41 INFO GUI creation has started
+08.08.2016 14:49:41 INFO Creating part of the GUI that shows video
+08.08.2016 14:49:41 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:49:41 INFO Creating status bar
+08.08.2016 14:49:41 INFO Creating toolbar for ROI definition
+08.08.2016 14:50:15 INFO Camera Object was initialized
+08.08.2016 14:50:15 INFO GUI creation has started
+08.08.2016 14:50:15 INFO Creating part of the GUI that shows video
+08.08.2016 14:50:15 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:50:15 INFO Creating status bar
+08.08.2016 14:50:15 INFO Creating toolbar for ROI definition
+08.08.2016 14:50:15 INFO Creating toolbar with buttons
+08.08.2016 14:50:15 INFO Settings file opened
+08.08.2016 14:50:15 INFO Settings loaded from file
+08.08.2016 14:50:20 INFO Ending program
+08.08.2016 14:50:30 INFO Camera Object was initialized
+08.08.2016 14:50:30 INFO GUI creation has started
+08.08.2016 14:50:30 INFO Creating part of the GUI that shows video
+08.08.2016 14:50:30 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:50:30 INFO Creating status bar
+08.08.2016 14:50:30 INFO Creating toolbar for ROI definition
+08.08.2016 14:51:23 INFO Camera Object was initialized
+08.08.2016 14:51:23 INFO GUI creation has started
+08.08.2016 14:51:23 INFO Creating part of the GUI that shows video
+08.08.2016 14:51:23 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:51:23 INFO Creating status bar
+08.08.2016 14:51:23 INFO Creating toolbar for ROI definition
+08.08.2016 14:51:30 INFO Camera Object was initialized
+08.08.2016 14:51:30 INFO GUI creation has started
+08.08.2016 14:51:30 INFO Creating part of the GUI that shows video
+08.08.2016 14:51:30 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:51:30 INFO Creating status bar
+08.08.2016 14:51:30 INFO Creating toolbar for ROI definition
+08.08.2016 14:51:40 INFO Camera Object was initialized
+08.08.2016 14:51:40 INFO GUI creation has started
+08.08.2016 14:51:40 INFO Creating part of the GUI that shows video
+08.08.2016 14:51:40 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:51:41 INFO Creating status bar
+08.08.2016 14:51:41 INFO Creating toolbar for ROI definition
+08.08.2016 14:51:41 INFO Creating toolbar with buttons
+08.08.2016 14:51:41 INFO Settings file opened
+08.08.2016 14:51:41 INFO Settings loaded from file
+08.08.2016 14:51:48 INFO Ending program
+08.08.2016 14:51:57 INFO Camera Object was initialized
+08.08.2016 14:51:57 INFO GUI creation has started
+08.08.2016 14:51:57 INFO Creating part of the GUI that shows video
+08.08.2016 14:51:57 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:51:57 INFO Creating status bar
+08.08.2016 14:51:57 INFO Creating toolbar for ROI definition
+08.08.2016 14:51:57 INFO Creating toolbar with buttons
+08.08.2016 14:51:57 INFO Settings file opened
+08.08.2016 14:51:57 INFO Settings loaded from file
+08.08.2016 14:52:01 INFO Ending program
+08.08.2016 14:52:07 INFO Camera Object was initialized
+08.08.2016 14:52:07 INFO GUI creation has started
+08.08.2016 14:52:07 INFO Creating part of the GUI that shows video
+08.08.2016 14:52:07 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:52:07 INFO Creating status bar
+08.08.2016 14:52:07 INFO Creating toolbar for ROI definition
+08.08.2016 14:53:17 INFO Camera Object was initialized
+08.08.2016 14:53:17 INFO GUI creation has started
+08.08.2016 14:53:17 INFO Creating part of the GUI that shows video
+08.08.2016 14:53:17 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:53:17 INFO Creating status bar
+08.08.2016 14:53:17 INFO Creating toolbar for ROI definition
+08.08.2016 14:53:25 INFO Camera Object was initialized
+08.08.2016 14:53:25 INFO GUI creation has started
+08.08.2016 14:53:25 INFO Creating part of the GUI that shows video
+08.08.2016 14:53:25 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:53:25 INFO Creating status bar
+08.08.2016 14:53:25 INFO Creating toolbar for ROI definition
+08.08.2016 14:53:32 INFO Camera Object was initialized
+08.08.2016 14:53:32 INFO GUI creation has started
+08.08.2016 14:53:32 INFO Creating part of the GUI that shows video
+08.08.2016 14:53:32 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:53:32 INFO Creating status bar
+08.08.2016 14:53:32 INFO Creating toolbar for ROI definition
+08.08.2016 14:53:32 INFO Creating toolbar with buttons
+08.08.2016 14:53:32 INFO Settings file opened
+08.08.2016 14:53:32 INFO Settings loaded from file
+08.08.2016 14:53:36 INFO Ending program
+08.08.2016 14:54:03 INFO Camera Object was initialized
+08.08.2016 14:54:03 INFO GUI creation has started
+08.08.2016 14:54:03 INFO Creating part of the GUI that shows video
+08.08.2016 14:54:03 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:54:03 INFO Creating status bar
+08.08.2016 14:54:03 INFO Creating toolbar for ROI definition
+08.08.2016 14:54:21 INFO Camera Object was initialized
+08.08.2016 14:54:21 INFO GUI creation has started
+08.08.2016 14:54:21 INFO Creating part of the GUI that shows video
+08.08.2016 14:54:21 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:54:21 INFO Creating status bar
+08.08.2016 14:54:21 INFO Creating toolbar for ROI definition
+08.08.2016 14:54:43 INFO Camera Object was initialized
+08.08.2016 14:54:43 INFO GUI creation has started
+08.08.2016 14:54:43 INFO Creating part of the GUI that shows video
+08.08.2016 14:54:43 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:54:44 INFO Creating status bar
+08.08.2016 14:54:44 INFO Creating toolbar for ROI definition
+08.08.2016 14:54:44 INFO Creating toolbar with buttons
+08.08.2016 14:54:44 INFO Settings file opened
+08.08.2016 14:54:44 INFO Settings loaded from file
+08.08.2016 14:54:48 INFO Ending program
+08.08.2016 14:55:00 INFO Camera Object was initialized
+08.08.2016 14:55:00 INFO GUI creation has started
+08.08.2016 14:55:00 INFO Creating part of the GUI that shows video
+08.08.2016 14:55:00 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:55:00 INFO Creating status bar
+08.08.2016 14:55:00 INFO Creating toolbar for ROI definition
+08.08.2016 14:55:05 INFO Camera Object was initialized
+08.08.2016 14:55:05 INFO GUI creation has started
+08.08.2016 14:55:05 INFO Creating part of the GUI that shows video
+08.08.2016 14:55:05 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:55:05 INFO Creating status bar
+08.08.2016 14:55:05 INFO Creating toolbar for ROI definition
+08.08.2016 14:55:10 INFO Camera Object was initialized
+08.08.2016 14:55:10 INFO GUI creation has started
+08.08.2016 14:55:10 INFO Creating part of the GUI that shows video
+08.08.2016 14:55:10 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:55:10 INFO Creating status bar
+08.08.2016 14:55:10 INFO Creating toolbar for ROI definition
+08.08.2016 14:55:10 INFO Creating toolbar with buttons
+08.08.2016 14:55:10 INFO Settings file opened
+08.08.2016 14:55:10 INFO Settings loaded from file
+08.08.2016 14:55:13 INFO Ending program
+08.08.2016 14:56:09 INFO Camera Object was initialized
+08.08.2016 14:56:09 INFO GUI creation has started
+08.08.2016 14:56:09 INFO Creating part of the GUI that shows video
+08.08.2016 14:56:09 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:56:09 INFO Creating status bar
+08.08.2016 14:56:09 INFO Creating toolbar for ROI definition
+08.08.2016 14:56:09 INFO Creating toolbar with buttons
+08.08.2016 14:56:09 INFO Settings file opened
+08.08.2016 14:56:09 INFO Settings loaded from file
+08.08.2016 14:56:13 INFO Ending program
+08.08.2016 14:59:14 INFO Camera Object was initialized
+08.08.2016 14:59:14 INFO GUI creation has started
+08.08.2016 14:59:14 INFO Creating part of the GUI that shows video
+08.08.2016 14:59:14 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 14:59:14 INFO Creating status bar
+08.08.2016 14:59:14 INFO Creating toolbar for ROI definition
+08.08.2016 15:00:40 INFO Camera Object was initialized
+08.08.2016 15:00:40 INFO GUI creation has started
+08.08.2016 15:00:40 INFO Creating part of the GUI that shows video
+08.08.2016 15:00:40 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:00:40 INFO Creating status bar
+08.08.2016 15:00:40 INFO Creating toolbar for ROI definition
+08.08.2016 15:01:16 INFO Camera Object was initialized
+08.08.2016 15:01:16 INFO GUI creation has started
+08.08.2016 15:01:16 INFO Creating part of the GUI that shows video
+08.08.2016 15:01:16 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:01:16 INFO Creating status bar
+08.08.2016 15:01:16 INFO Creating toolbar for ROI definition
+08.08.2016 15:02:43 INFO Camera Object was initialized
+08.08.2016 15:02:43 INFO GUI creation has started
+08.08.2016 15:02:43 INFO Creating part of the GUI that shows video
+08.08.2016 15:02:43 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:02:43 INFO Creating status bar
+08.08.2016 15:02:43 INFO Creating toolbar for ROI definition
+08.08.2016 15:02:43 INFO Creating toolbar with buttons
+08.08.2016 15:02:43 INFO Settings file opened
+08.08.2016 15:02:43 INFO Settings loaded from file
+08.08.2016 15:02:49 INFO Ending program
+08.08.2016 15:04:15 INFO Camera Object was initialized
+08.08.2016 15:04:15 INFO GUI creation has started
+08.08.2016 15:04:15 INFO Creating part of the GUI that shows video
+08.08.2016 15:04:15 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:04:15 INFO Creating status bar
+08.08.2016 15:04:15 INFO Creating toolbar for ROI definition
+08.08.2016 15:04:15 INFO Creating toolbar with buttons
+08.08.2016 15:04:15 INFO Settings file opened
+08.08.2016 15:04:15 INFO Settings loaded from file
+08.08.2016 15:04:18 INFO Settings file opened
+08.08.2016 15:04:18 INFO Settings loaded from file
+08.08.2016 15:04:18 INFO Parameter: 6 was changed
+08.08.2016 15:04:18 INFO Settings file opened
+08.08.2016 15:04:18 INFO Settings loaded from file
+08.08.2016 15:04:18 INFO Parameter: 4 was changed
+08.08.2016 15:04:19 INFO Ending program
+08.08.2016 15:04:20 INFO Camera Object was initialized
+08.08.2016 15:04:20 INFO GUI creation has started
+08.08.2016 15:04:20 INFO Creating part of the GUI that shows video
+08.08.2016 15:04:20 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:04:20 INFO Creating status bar
+08.08.2016 15:04:20 INFO Creating toolbar for ROI definition
+08.08.2016 15:04:20 INFO Creating toolbar with buttons
+08.08.2016 15:04:20 INFO Settings file opened
+08.08.2016 15:04:20 INFO Settings loaded from file
+08.08.2016 15:04:25 INFO Ending program
+08.08.2016 15:05:32 INFO Camera Object was initialized
+08.08.2016 15:05:32 INFO GUI creation has started
+08.08.2016 15:05:32 INFO Creating part of the GUI that shows video
+08.08.2016 15:05:32 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:05:32 INFO Creating status bar
+08.08.2016 15:05:32 INFO Creating toolbar for ROI definition
+08.08.2016 15:05:32 INFO Creating toolbar with buttons
+08.08.2016 15:05:32 INFO Settings file opened
+08.08.2016 15:05:32 INFO Settings loaded from file
+08.08.2016 15:05:34 INFO Ending program
+08.08.2016 15:06:11 INFO Camera Object was initialized
+08.08.2016 15:06:11 INFO GUI creation has started
+08.08.2016 15:06:11 INFO Creating part of the GUI that shows video
+08.08.2016 15:06:11 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:06:11 INFO Camera Object was initialized
+08.08.2016 15:06:11 INFO GUI creation has started
+08.08.2016 15:06:11 INFO Creating part of the GUI that shows video
+08.08.2016 15:06:11 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:06:11 INFO Creating status bar
+08.08.2016 15:06:11 INFO Creating toolbar for ROI definition
+08.08.2016 15:06:11 INFO Creating toolbar with buttons
+08.08.2016 15:06:11 INFO Settings file opened
+08.08.2016 15:06:11 INFO Settings loaded from file
+08.08.2016 15:06:12 INFO Creating status bar
+08.08.2016 15:06:12 INFO Creating toolbar for ROI definition
+08.08.2016 15:06:12 INFO Creating toolbar with buttons
+08.08.2016 15:06:12 INFO Settings file opened
+08.08.2016 15:06:12 INFO Settings loaded from file
+08.08.2016 15:07:58 INFO Camera Object was initialized
+08.08.2016 15:08:00 INFO GUI creation has started
+08.08.2016 15:08:00 INFO Creating part of the GUI that shows video
+08.08.2016 15:08:00 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:08:00 INFO Creating status bar
+08.08.2016 15:08:00 INFO Creating toolbar for ROI definition
+08.08.2016 15:08:13 INFO Camera Object was initialized
+08.08.2016 15:08:14 INFO GUI creation has started
+08.08.2016 15:08:14 INFO Creating part of the GUI that shows video
+08.08.2016 15:08:14 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:08:14 INFO Creating status bar
+08.08.2016 15:08:15 INFO Creating toolbar for ROI definition
+08.08.2016 15:08:15 INFO Creating toolbar with buttons
+08.08.2016 15:08:15 INFO Settings file opened
+08.08.2016 15:08:15 INFO Settings loaded from file
+08.08.2016 15:08:18 INFO Settings file opened
+08.08.2016 15:08:18 INFO Settings loaded from file
+08.08.2016 15:08:18 INFO Parameter: 5 was changed
+08.08.2016 15:08:19 INFO Ending program
+08.08.2016 15:08:53 INFO Ending program
+08.08.2016 15:15:33 INFO Camera Object was initialized
+08.08.2016 15:15:34 INFO GUI creation has started
+08.08.2016 15:15:34 INFO Creating part of the GUI that shows video
+08.08.2016 15:15:34 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:15:34 INFO Creating status bar
+08.08.2016 15:15:34 INFO Creating toolbar for ROI definition
+08.08.2016 15:15:34 INFO Creating toolbar with buttons
+08.08.2016 15:17:43 INFO Camera Object was initialized
+08.08.2016 15:17:43 INFO GUI creation has started
+08.08.2016 15:17:43 INFO Creating part of the GUI that shows video
+08.08.2016 15:17:43 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:17:43 INFO Creating status bar
+08.08.2016 15:17:43 INFO Creating toolbar for ROI definition
+08.08.2016 15:17:43 INFO Creating toolbar with buttons
+08.08.2016 15:17:43 INFO Settings file opened
+08.08.2016 15:17:43 INFO Settings loaded from file
+08.08.2016 15:17:49 INFO Settings file opened
+08.08.2016 15:17:49 INFO Settings loaded from file
+08.08.2016 15:17:49 INFO Parameter: 1 was changed
+08.08.2016 15:17:53 INFO Ending program
+08.08.2016 15:18:57 INFO Camera Object was initialized
+08.08.2016 15:19:01 INFO GUI creation has started
+08.08.2016 15:19:01 INFO Creating part of the GUI that shows video
+08.08.2016 15:19:01 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:19:02 INFO Creating status bar
+08.08.2016 15:19:02 INFO Creating toolbar for ROI definition
+08.08.2016 15:19:02 INFO Creating toolbar with buttons
+08.08.2016 15:19:02 INFO Settings file opened
+08.08.2016 15:19:02 INFO Settings loaded from file
+08.08.2016 15:19:03 INFO Ending program
+08.08.2016 15:19:05 INFO Camera Object was initialized
+08.08.2016 15:19:06 INFO GUI creation has started
+08.08.2016 15:19:06 INFO Creating part of the GUI that shows video
+08.08.2016 15:19:06 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:19:06 INFO Creating status bar
+08.08.2016 15:19:06 INFO Creating toolbar for ROI definition
+08.08.2016 15:19:06 INFO Creating toolbar with buttons
+08.08.2016 15:19:06 INFO Settings file opened
+08.08.2016 15:19:06 INFO Settings loaded from file
+08.08.2016 15:19:08 INFO Ending program
+08.08.2016 15:23:30 INFO Camera Object was initialized
+08.08.2016 15:23:32 INFO GUI creation has started
+08.08.2016 15:23:32 INFO Creating part of the GUI that shows video
+08.08.2016 15:23:32 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:23:32 INFO Creating status bar
+08.08.2016 15:23:32 INFO Creating toolbar for ROI definition
+08.08.2016 15:23:32 INFO Creating toolbar with buttons
+08.08.2016 15:23:32 INFO Settings file opened
+08.08.2016 15:23:32 INFO Settings loaded from file
+08.08.2016 15:23:45 INFO Ending program
+08.08.2016 15:24:22 INFO Camera Object was initialized
+08.08.2016 15:24:23 INFO GUI creation has started
+08.08.2016 15:24:23 INFO Creating part of the GUI that shows video
+08.08.2016 15:24:23 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:24:23 INFO Creating status bar
+08.08.2016 15:24:23 INFO Creating toolbar for ROI definition
+08.08.2016 15:24:23 INFO Creating toolbar with buttons
+08.08.2016 15:24:23 INFO Settings file opened
+08.08.2016 15:24:23 INFO Settings loaded from file
+08.08.2016 15:24:27 INFO Ending program
+08.08.2016 15:34:40 INFO Camera Object was initialized
+08.08.2016 15:34:41 INFO GUI creation has started
+08.08.2016 15:34:41 INFO Creating part of the GUI that shows video
+08.08.2016 15:34:41 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:34:42 INFO Creating status bar
+08.08.2016 15:34:42 INFO Creating toolbar for ROI definition
+08.08.2016 15:34:42 INFO Creating toolbar with buttons
+08.08.2016 15:34:42 INFO Settings file opened
+08.08.2016 15:34:42 INFO Settings loaded from file
+08.08.2016 15:34:47 INFO Settings file opened
+08.08.2016 15:34:47 INFO Settings loaded from file
+08.08.2016 15:34:47 INFO Parameter: 1 was changed
+08.08.2016 15:34:48 INFO Settings file opened
+08.08.2016 15:34:48 INFO Settings loaded from file
+08.08.2016 15:34:48 INFO Parameter: 6 was changed
+08.08.2016 15:34:49 INFO Ending program
+08.08.2016 15:34:51 INFO Camera Object was initialized
+08.08.2016 15:34:54 INFO GUI creation has started
+08.08.2016 15:34:54 INFO Creating part of the GUI that shows video
+08.08.2016 15:34:54 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:34:54 INFO Creating status bar
+08.08.2016 15:34:54 INFO Creating toolbar for ROI definition
+08.08.2016 15:34:54 INFO Creating toolbar with buttons
+08.08.2016 15:34:54 INFO Settings file opened
+08.08.2016 15:34:54 INFO Settings loaded from file
+08.08.2016 15:35:02 INFO Settings file opened
+08.08.2016 15:35:02 INFO Settings loaded from file
+08.08.2016 15:35:02 INFO Parameter: 5 was changed
+08.08.2016 15:35:09 INFO Ending program
+08.08.2016 15:35:52 INFO Camera Object was initialized
+08.08.2016 15:35:54 INFO GUI creation has started
+08.08.2016 15:35:54 INFO Creating part of the GUI that shows video
+08.08.2016 15:35:54 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:35:54 INFO Creating status bar
+08.08.2016 15:35:54 INFO Creating toolbar for ROI definition
+08.08.2016 15:35:54 INFO Creating toolbar with buttons
+08.08.2016 15:35:54 INFO Settings file opened
+08.08.2016 15:35:54 INFO Settings loaded from file
+08.08.2016 15:35:56 INFO Ending program
+08.08.2016 15:36:20 INFO Camera Object was initialized
+08.08.2016 15:36:23 INFO GUI creation has started
+08.08.2016 15:36:23 INFO Creating part of the GUI that shows video
+08.08.2016 15:36:23 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:36:23 INFO Creating status bar
+08.08.2016 15:36:23 INFO Creating toolbar for ROI definition
+08.08.2016 15:36:23 INFO Creating toolbar with buttons
+08.08.2016 15:36:23 INFO Settings file opened
+08.08.2016 15:36:23 INFO Settings loaded from file
+08.08.2016 15:36:28 INFO Ending program
+08.08.2016 15:36:30 INFO Camera Object was initialized
+08.08.2016 15:36:34 INFO GUI creation has started
+08.08.2016 15:36:34 INFO Creating part of the GUI that shows video
+08.08.2016 15:36:34 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:36:34 INFO Creating status bar
+08.08.2016 15:36:34 INFO Creating toolbar for ROI definition
+08.08.2016 15:36:34 INFO Creating toolbar with buttons
+08.08.2016 15:36:34 INFO Settings file opened
+08.08.2016 15:36:34 INFO Settings loaded from file
+08.08.2016 15:36:35 INFO Settings file opened
+08.08.2016 15:36:35 INFO Settings loaded from file
+08.08.2016 15:36:35 INFO Parameter: 5 was changed
+08.08.2016 15:36:45 INFO Ending program
+08.08.2016 15:36:58 INFO Camera Object was initialized
+08.08.2016 15:37:00 INFO GUI creation has started
+08.08.2016 15:37:00 INFO Creating part of the GUI that shows video
+08.08.2016 15:37:00 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:37:00 INFO Creating status bar
+08.08.2016 15:37:00 INFO Creating toolbar for ROI definition
+08.08.2016 15:37:00 INFO Creating toolbar with buttons
+08.08.2016 15:37:00 INFO Settings file opened
+08.08.2016 15:37:00 INFO Settings loaded from file
+08.08.2016 15:37:07 INFO Ending program
+08.08.2016 15:38:21 INFO Camera Object was initialized
+08.08.2016 15:38:24 INFO GUI creation has started
+08.08.2016 15:38:24 INFO Creating part of the GUI that shows video
+08.08.2016 15:38:24 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:38:24 INFO Creating status bar
+08.08.2016 15:38:24 INFO Creating toolbar for ROI definition
+08.08.2016 15:38:24 INFO Creating toolbar with buttons
+08.08.2016 15:38:24 INFO Settings file opened
+08.08.2016 15:38:24 INFO Settings loaded from file
+08.08.2016 15:38:29 INFO Ending program
+08.08.2016 15:38:40 INFO Camera Object was initialized
+08.08.2016 15:38:43 ERROR Using frames from hard disk is (not yet) possible
+08.08.2016 15:39:17 INFO Camera Object was initialized
+08.08.2016 15:39:18 INFO GUI creation has started
+08.08.2016 15:39:18 INFO Creating part of the GUI that shows video
+08.08.2016 15:39:18 INFO Creating part of the GUI that shows the signal extracted from the video
+08.08.2016 15:39:18 INFO Creating status bar
+08.08.2016 15:39:18 INFO Creating toolbar for ROI definition
+08.08.2016 15:39:18 INFO Creating toolbar with buttons
+08.08.2016 15:39:18 INFO Settings file opened
+08.08.2016 15:39:18 INFO Settings loaded from file
+08.08.2016 15:39:22 INFO Settings file opened
+08.08.2016 15:39:22 INFO Settings loaded from file
+08.08.2016 15:39:22 INFO Parameter: 5 was changed
+08.08.2016 15:39:24 INFO Ending program

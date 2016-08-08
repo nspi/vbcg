@@ -3,10 +3,11 @@
 
 import sys
 import Tkinter as Tk
-import tkMessageBox
 import matplotlib
 import logging
+import settings
 
+from defines import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure as Mat_figure
 
@@ -15,6 +16,8 @@ matplotlib.use('TkAgg')
 # Create root widget
 root = Tk.Tk()
 
+numberCams = None
+cameraInst = None
 
 class WindowVideo(Tk.Frame):
     # In this frame the video stream is shown
@@ -52,66 +55,120 @@ class WindowSignal(Tk.Frame):
 class ToolbarButtons(Tk.Frame):
     # This toolbar allows the user to change settings
 
-    def __init__(self, parent, *args, **kwargs):
+    def __start(self):
+        # Disable buttons that change settings
+        self.check_button_1.config(state=Tk.DISABLED)
+        self.check_button_2.config(state=Tk.DISABLED)
+        self.check_button_3.config(state=Tk.DISABLED)
+        self.check_button_4.config(state=Tk.DISABLED)
+
+        # Get ROI size
+
+        # todo: Initialize camera etc
+
+    def __quit(self):
+        # End program
+        logging.info("Ending program")
+        root.quit()
+        root.destroy()
+        sys.exit()
+
+    def __init__(self, ROI):
+
+        # Initialize buttons
+        self.check_button_1 = self.check_button_2 = self.check_button_3 = self.check_button_4 = None
+
+        # Get current settings
+        self.curr_settings = settings.get_parameters()
 
         # Create GUI
         self.__create_gui()
 
     def __create_gui(self):
-        # Create GUI elements and add them to root widget
 
-        button = Tk.Button(master=root, text='Quit', command=quit)
-        button.pack(side=Tk.RIGHT)
-        button_2 = Tk.Checkbutton(master=root, text="Show curves")
-        button_2.pack(side=Tk.LEFT)
-        button_3 = Tk.Checkbutton(master=root, text="Motion detection")
-        button_3.pack(side=Tk.LEFT)
-        button_4 = Tk.Checkbutton(master=root, text="Store frames")
-        button_4.pack(side=Tk.LEFT)
-        button_5 = Tk.Checkbutton(master=root, text="Send trigger")
-        button_5.pack(side=Tk.LEFT)
+        # Create GUI elements and add them to root widget
+        self.check_button_1 = Tk.Checkbutton(master=root, text="Show curves", command=lambda: settings.flip_parameter(settings.IDX_CAMERA))
+        self.check_button_1.pack(side=Tk.LEFT)
+        if self.curr_settings[IDX_CAMERA]:
+            self.check_button_1.toggle()
+
+        self.check_button_2 = Tk.Checkbutton(master=root, text="Motion detection", command=lambda: settings.flip_parameter(settings.IDX_MOTION))
+        self.check_button_2.pack(side=Tk.LEFT)
+        if self.curr_settings[IDX_MOTION]:
+            self.check_button_2.toggle()
+
+        self.check_button_3 = Tk.Checkbutton(master=root, text="Store frames", command=lambda: settings.flip_parameter(settings.IDX_FRAMES))
+        self.check_button_3.pack(side=Tk.LEFT)
+        if self.curr_settings[IDX_FRAMES]:
+            self.check_button_3.toggle()
+
+        self.check_button_4 = Tk.Checkbutton(master=root, text="Send trigger", command=lambda: settings.flip_parameter(settings.IDX_TRIGGER))
+        self.check_button_4.pack(side=Tk.LEFT)
+        if self.curr_settings[IDX_TRIGGER]:
+            self.check_button_4.toggle()
+
+        button_quit = Tk.Button(master=root, text='Quit', command=self.__quit)
+        button_quit.pack(side=Tk.RIGHT)
+        button_start = Tk.Button(master=root, text='Start video', command=self.__start)
+        button_start.pack(side=Tk.RIGHT)
 
 
 class ToolbarROI(Tk.Frame):
     # This toolbar allows to adjust the region-of-interest (ROI)
 
-    # Initialize variables
-    x_min = x_max = y_min = y_max = 0
 
-    def __init__(self, parent, *args, **kwargs):
+    def __init__(self, parent):
+
+        # Initialize variables
+        self.x_min = self.x_max = self.y_min = self.y_max = 0
+        global numberCams
+        self.num = numberCams
 
         # Create GUI
-        self.__create_gui()
+        self.__create_gui(self)
 
-    def __create_gui(self):
+
+    def __create_gui(self, parent):
         # Create GUI elements and add them to root widget
 
         text_frame = Tk.Frame(root, width=500, height=100)
         text_frame.pack()
 
+        # Fill list with available cameras and add to menu
+        listCameras = ['']
+        for cam_idx in range(self.num):
+            tmp_string = "Camera " + str(cam_idx)
+            listCameras.append(tmp_string)
+        listCameras.pop(0)
+        listCamerasStr = Tk.StringVar()
+        dropDownList = Tk.OptionMenu(text_frame, listCamerasStr, *listCameras)
+        listCamerasStr.set(listCameras[0])
+        dropDownList.pack(side=Tk.LEFT)
+
+        # Add Textboxes for ROI definition
         label_x1 = Tk.Label(text_frame, text="X Begin:")
         label_x1.pack(side=Tk.LEFT)
         textbox_x1 = Tk.Text(text_frame, width=10, height=1)
         textbox_x1.pack(side=Tk.LEFT)
-        textbox_x1.insert(Tk.END, ToolbarROI.x_min)
+        textbox_x1.insert(Tk.END, self.x_min)
 
         label_x2 = Tk.Label(text_frame, text="X End:")
         label_x2.pack(side=Tk.LEFT)
         textbox_x2 = Tk.Text(text_frame, width=10, height=1)
         textbox_x2.pack(side=Tk.LEFT)
-        textbox_x2.insert(Tk.END, ToolbarROI.x_max)
+        textbox_x2.insert(Tk.END, self.x_max)
 
         label_y1 = Tk.Label(text_frame, text="Y Begin:")
         label_y1.pack(side=Tk.LEFT)
         textbox_y1 = Tk.Text(text_frame, width=10, height=1)
         textbox_y1.pack(side=Tk.LEFT)
-        textbox_y1.insert(Tk.END, ToolbarROI.y_min)
+        textbox_y1.insert(Tk.END, self.y_min)
 
         label_y2 = Tk.Label(text_frame, text="Y End:")
         label_y2.pack(side=Tk.LEFT)
         textbox_y2 = Tk.Text(text_frame, width=10, height=1)
         textbox_y2.pack(side=Tk.LEFT)
-        textbox_y2.insert(Tk.END, ToolbarROI.y_max)
+        textbox_y2.insert(Tk.END, self.y_max)
 
 
 class Statusbar(Tk.Frame):
@@ -161,20 +218,24 @@ class Statusbar(Tk.Frame):
 
 
 class MainGUI(Tk.Frame):
-    def __init__(self, parent, *args, **kwargs):
+    def __init__(self, parent):
 
         # Call super class
-        Tk.Frame.__init__(self, parent, *args, **kwargs)
+        Tk.Frame.__init__(self, parent)
 
-        # Part of the GUI that shows video
+        logging.info('Creating part of the GUI that shows video')
         self.video_display = WindowVideo(self)
-        # Part of the GUI that shows the signal extracted from the video
+
+        logging.info('Creating part of the GUI that shows the signal extracted from the video')
         self.signal_display = WindowSignal(self)
-        # A statusbar that shows some additionall information (FPS etc)
+
+        logging.info('Creating status bar')
         self.statusbar = Statusbar(self)
-        # A toolbar that allows the user to adjust the ROI
+
+        logging.info('Creating toolbar for ROI definition')
         self.toolbar_roi = ToolbarROI(self)
-        # A toolbar that allows the user to change settings
+
+        logging.info('Creating toolbar with buttons')
         self.toolbar_buttons = ToolbarButtons(self)
 
 
@@ -185,27 +246,18 @@ def update(gui):
     root.after(10, update, gui)
 
 
-def quit():
-    # End program
-    root.quit()
-    root.destroy()
-    sys.exit()
+def init(cameraInstance):
 
-def init():
-    # Ask if the user wants to use the camera or frames from hard drive
-    # question_src = tkMessageBox.askyesno("Set-up", "Do you want to use a live video from an OpenCV compatible camera "
-    #                                               "(YES) or already recorded frames from your hard drive (NO)?")
-    #
-    #if not question_src:
-    #    logging.error('Using frames from hard disk is (not yet) possible')
-    #    tkMessageBox.showerror("Error", "Sorry, this is not available yet.")
-    #    sys.exit()
-    #else:
+    # Get number of cameras
+    global numberCams, cameraInst
+    numberCams = cameraInstance.getNumberOfCameras()
 
+    # Create GUI
     logging.info('GUI creation has started')
-    # Create GUI elements
     gui = MainGUI(root)
+
     # Start schedular that gets current values
     root.after(1000, update, gui)
+
     # Start Tkinter event loop
     root.mainloop()
