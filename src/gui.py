@@ -10,7 +10,7 @@ from matplotlib.figure import Figure as Mat_figure
 matplotlib.use('TkAgg')
 
 from gui_statusbar import Statusbar
-from gui_toolbar import ToolbarROI
+from gui_toolbarROI import ToolbarROI
 from gui_toolbarButtons import ToolbarButtons
 from gui_windowVideo import WindowVideo
 
