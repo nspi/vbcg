@@ -4,17 +4,36 @@
 import cv2
 import numpy as np
 import logging
+import threading
 
-class camera():
+# Initialize variables
+eventCameraChosen = eventCameraReady = None
+videoStream = numberOfCameras = cameraIdx = None
 
-    numberOfCameras = None
+class cameraThread(threading.Thread):
+
+    def run(self):
+        # This function contains the main functioniality. The thread waits until a camera is ready and
+        # then provides frames
+
+        global videoStream
+
+        self.eventCameraChosen.wait()
+        logging.info("Camera thread was started. Waiting for EventCameraChosen.")
+
+        self.__openCamera()
+        logging.info("Camera was chosen. Starting video aquisition.")
+
+        self.eventCameraReady.set()
+        logging.info("Camera is ready. Other processes can acquire frames.")
+
 
     def __init__(self):
-        logging.info("Camera Object was initialized")
+        # Thread initialization
+        threading.Thread.__init__(self)
 
-        # count the cameras available (idea from http://stackoverflow.com/a/30384945)
-        # appearently there is still no OpenCV function (https://github.com/opencv/opencv/issues/4269)
-
+        # During init, the cameras available are counted (idea from http://stackoverflow.com/a/30384945)
+        # appearently there is still no clean OpenCV function (https://github.com/opencv/opencv/issues/4269)
         n = 0
 
         for i in range(5):
@@ -35,20 +54,55 @@ class camera():
 
         self.numberOfCameras = n
 
+    def __openCamera(self, cameraIndex=0):
+        # This function initializes the desired camera
+        global videoStream
+        videoStream = cv2.VideoCapture(int(self.cameraIdx))
+        logging.info("The camera was initialized")
+
+
+    def __closeCamera(self):
+        # This function releases the current camera
+        self.videoStream.release()
+        logging.info("The camera was released")
+
+
+    def setCameraIdx(self,cameraIndex):
+        global cameraIdx
+        self.cameraIdx = cameraIndex
+        logging.info("Camera Index was set because user pressed start button")
+
+
     def getNumberOfCameras(self):
+        # This function returns the number of available OpenCV cameras
         return self.numberOfCameras
 
-    def set_camera(self,cameraIndex):
 
-        # Initialize camera
-        vs = cv2.VideoCapture(cameraIndex)
+    def getFrame(self):
+        # This function delivers black frames until the user pressed ''start''
+        if self.eventCameraReady.is_set():
+            ret, frame = videoStream.read()
+            return frame
+        else:
+            return np.zeros((400, 500, 3), np.uint8)
 
-        # Get first frame
-        ret, first_frame = vs.read()
 
-        # Compute size
-        sizeFrameX = np.size(first_frame, 0)
-        sizeFrameY = np.size(first_frame, 1)
+    def __getStatus(self):
+        # This function returns true when the user has chosen a camera by clicking ''start''
+        if self.eventCameraChosen is not None:
+            return True
+        else:
+            return False
 
-        # Return size
-        return np.matrix([sizeFrameX, sizeFrameY])
+    # Setter and getter for the threading events
+    def setEventCameraChosen(self, event):
+        global eventCameraChosen
+        self.eventCameraChosen = event
+    def setEventCameraReady(self, event):
+        self.eventCameraReady = event
+    def getEventCameraReady(self):
+        global eventCameraReady
+        return self.eventCameraReady
+    def getEventCameraChosen(self):
+        global eventCameraChosen
+        return self.eventCameraChosen
