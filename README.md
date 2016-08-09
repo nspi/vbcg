@@ -1,8 +1,8 @@
 #video-based cardiac gating (vbcg)
 
 This is a prototype demonstrating our
-research activities concerning video-based vital sign monitoring in
-ultra-high-field MRI.
+research activities concerning video-based vital sign monitoring (in
+ultra-high-field MRI)
 
 ##About
 The aim of our research is to overcome the limitations of contact-based

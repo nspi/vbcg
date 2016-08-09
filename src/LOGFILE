@@ -1571,3 +1571,22 @@
 09.08.2016 17:33:03 gui INFO Main window was created
 09.08.2016 17:33:03 gui INFO Starting TkInter main loop
 09.08.2016 17:33:04 gui_toolbarButtons INFO Ending program
+09.08.2016 17:38:22 gui INFO Link to camera thread was stored in GUI class
+09.08.2016 17:38:22 gui INFO Created part of the GUI that shows video
+09.08.2016 17:38:22 gui INFO Created part of the GUI that shows the signal extracted from the video
+09.08.2016 17:38:22 gui INFO Created status bar
+09.08.2016 17:38:22 gui INFO Created toolbar for ROI definition
+09.08.2016 17:38:22 settings INFO Settings file opened
+09.08.2016 17:38:22 settings INFO Settings loaded from file
+09.08.2016 17:38:22 gui INFO Created toolbar with buttons
+09.08.2016 17:38:22 gui INFO Main window was created
+09.08.2016 17:38:22 gui INFO Starting TkInter main loop
+09.08.2016 17:38:28 gui_toolbarButtons INFO Start button has been pressed
+09.08.2016 17:38:28 gui_toolbarButtons INFO Camera is started
+09.08.2016 17:38:28 camera INFO Camera Index was set because user pressed start button
+09.08.2016 17:38:28 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+09.08.2016 17:38:28 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+09.08.2016 17:38:28 camera INFO The camera was initialized
+09.08.2016 17:38:28 camera INFO Camera was chosen. Starting video aquisition.
+09.08.2016 17:38:28 camera INFO Camera is ready. Other processes can acquire frames.
+09.08.2016 17:38:32 gui_toolbarButtons INFO Ending program
