@@ -5,6 +5,7 @@ import Tkinter as Tk
 import threading
 import Image
 import ImageTk
+import time
 
 # Initialize global variables
 root = None
@@ -28,8 +29,15 @@ class WindowVideo(Tk.Frame):
         self.__create_gui()
 
         # Start frame display as thread
-        self.displayThread = threading.Thread(target=self.__show_image)
+        self.frameCounter = 0
+        self.displayThread = threading.Thread(target=self.__showImage)
         self.displayThread.start()
+
+        # Start FPS computation thread
+        self.FPS = 0
+        self.frameCounterLastValue = 0
+        self.fpsCounterThread = threading.Thread(target=self.__computeFPS)
+        self.fpsCounterThread.start()
 
     def __create_gui(self):
         # Create GUI elements and add them to root widget
@@ -40,12 +48,29 @@ class WindowVideo(Tk.Frame):
         self.lmain = Tk.Label(self.video_frame)
         self.lmain.pack()
 
-    def __show_image(self):
+    def __showImage(self):
         # Get frame from camera and display it
 
-        self.frame = self.cameraInstance.getFrame()
+        self.isTrueFrame, self.frame = self.cameraInstance.getFrame()
+        if self.isTrueFrame:
+            self.frameCounter += 1
         self.frameConverted = Image.fromarray(self.frame)
         self.imgTK = ImageTk.PhotoImage(image=self.frameConverted)
         self.lmain.imgtk = self.imgTK
         self.lmain.configure(image=self.imgTK)
-        self.lmain.after(1, self.__show_image)
+        # Repeat thread
+        self.lmain.after(1, self.__showImage)
+
+    def __computeFPS(self):
+        #if self.get_frameCounter()>0:
+        self.FPS = self.get_frameCounter()-self.frameCounterLastValue
+        self.frameCounterLastValue = self.get_frameCounter()
+
+        # Repeat thread
+        self.video_frame.after(1000, lambda: self.__computeFPS())
+
+    def get_frameCounter(self):
+        return self.frameCounter
+
+    def get_FPS(self):
+        return str(self.FPS)

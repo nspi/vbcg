@@ -48,7 +48,7 @@ class MainWindow(Tk.Frame):
         self.signal_display = WindowSignal(self)
         logging.info('Created part of the GUI that shows the signal extracted from the video')
 
-        self.statusbar = Statusbar(self, root)
+        self.statusbar = Statusbar(self, root, self.video_display)
         logging.info('Created status bar')
 
         self.toolbar_roi = ToolbarROI(self, root)

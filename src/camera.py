@@ -34,25 +34,25 @@ class cameraThread(threading.Thread):
 
         # During init, the cameras available are counted (idea from http://stackoverflow.com/a/30384945)
         # appearently there is still no clean OpenCV function (https://github.com/opencv/opencv/issues/4269)
-        n = 0
+        # n = 0
+        #
+        # for i in range(5):
+        #     try:
+        #         cap = cv2.VideoCapture(i)
+        #         ret, frame = cap.read()
+        #         cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        #         cap.release()
+        #         cv2.destroyAllWindows()
+        #         n += 1
+        #     except:
+        #         cap.release()
+        #         cv2.destroyAllWindows()
+        #         break
+        #
+        #         tmp_str = "Found %d OpenCV-compatible cameras" % (n)
+        #         logging.info(tmp_str)
 
-        for i in range(5):
-            try:
-                cap = cv2.VideoCapture(i)
-                ret, frame = cap.read()
-                cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                cap.release()
-                cv2.destroyAllWindows()
-                n += 1
-            except:
-                cap.release()
-                cv2.destroyAllWindows()
-                break
-
-                tmp_str = "Found %d OpenCV-compatible cameras" % (n)
-                logging.info(tmp_str)
-
-        self.numberOfCameras = n
+        self.numberOfCameras = 2
 
     def __openCamera(self, cameraIndex=0):
         # This function initializes the desired camera
@@ -82,9 +82,9 @@ class cameraThread(threading.Thread):
         # This function delivers black frames until the user pressed ''start''
         if self.eventCameraReady.is_set():
             ret, frame = videoStream.read()
-            return frame
+            return True,frame
         else:
-            return np.zeros((400, 500, 3), np.uint8)
+            return False,np.zeros((400, 500, 3), np.uint8)
 
 
     def __getStatus(self):

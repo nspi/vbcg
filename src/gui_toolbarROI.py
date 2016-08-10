@@ -75,10 +75,10 @@ class ToolbarROI(Tk.Frame):
         curr_settings = settings.get_parameters()
 
         if curr_settings[IDX_FACE]:
-            self.textbox_x1.config(state=Tk.DISABLED,bg='gray')
-            self.textbox_x2.config(state=Tk.DISABLED,bg='gray')
-            self.textbox_y1.config(state=Tk.DISABLED,bg='gray')
-            self.textbox_y2.config(state=Tk.DISABLED,bg='gray')
+            self.textbox_x1.config(state=Tk.DISABLED,bg='lightgray')
+            self.textbox_x2.config(state=Tk.DISABLED,bg='lightgray')
+            self.textbox_y1.config(state=Tk.DISABLED,bg='lightgray')
+            self.textbox_y2.config(state=Tk.DISABLED,bg='lightgray')
             logging.info('Viola-Jones algorithm was activated by the user')
         else:
             self.textbox_x1.config(state=Tk.NORMAL,bg='white')
