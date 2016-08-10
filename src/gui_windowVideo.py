@@ -6,6 +6,11 @@ import threading
 import Image
 import ImageTk
 import numpy as np
+import logging
+import cv2
+import settings
+
+from defines import *
 
 # Initialize global variables
 root =  None
@@ -19,6 +24,7 @@ class WindowVideo(Tk.Frame):
         global root
         self.root = tk_root
         self.first_frame = True
+        self.faceCascade = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
 
         # Save camera object
         self.cameraInstance = cam
@@ -55,18 +61,38 @@ class WindowVideo(Tk.Frame):
     def __showImage(self):
         # Get frame from camera and display it
 
+        # Get current settings
+        self.curr_settings = settings.get_parameters()
+
+        # Get current frame
         self.isTrueFrame, self.frame = self.cameraInstance.getFrame()
 
-        if self.first_frame:
+        if self.isTrueFrame & self.first_frame:
+            # If first frame from camera is received store dimensions
+
             x_max = np.size(self.frame, 0)
             y_max = np.size(self.frame, 1)
             self.roiToolbarInstance.setROI(0, x_max, 0, y_max)
             self.first_frame = False
             self.frameCounter += 1
+            logging.info("First frame from webcam was received and ROI was adjusted")
 
         elif self.isTrueFrame:
-            x_min,x_max,y_min,y_max = self.roiToolbarInstance.getROI()
-            self.frame = self.frame[x_min:x_max, y_min:y_max]
+            # If frame is received, use Viola-Jones algorithm or manual ROI definition to crop frame
+
+            if self.curr_settings[IDX_FACE]:
+                #Use Viola-Jones
+                frameBW = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
+                faces = self.faceCascade.detectMultiScale(frameBW,scaleFactor=1.1,minNeighbors=5,
+                                                     minSize=(30, 30),flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
+                for (x, y, w, h) in faces:
+                    # todo: crop frame
+                    cv2.rectangle(self.frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            else:
+                # Otherwise: Use manual ROI input
+                x_min,x_max,y_min,y_max = self.roiToolbarInstance.getROI()
+                self.frame = self.frame[x_min:x_max, y_min:y_max]
+
             self.frameCounter += 1
 
         self.frameConverted = Image.fromarray(self.frame)

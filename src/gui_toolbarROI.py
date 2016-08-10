@@ -43,7 +43,7 @@ class ToolbarROI(Tk.Frame):
         # Add Checkbutton to decide whether to use Viola-Jones algorithm or manual ROI definition
         curr_settings = settings.get_parameters()
 
-        self.check_button_1 = Tk.Checkbutton(master=self.text_frame, text="Use Viola-Jones Algorithm", command=lambda: self.__violaJones())
+        self.check_button_1 = Tk.Checkbutton(master=self.text_frame, text="Viola-Jones (Warning: Low FPS)", command=lambda: self.__violaJones())
         self.check_button_1.pack(side=Tk.LEFT)
 
         # Add Textboxes for ROI definition
@@ -74,10 +74,10 @@ class ToolbarROI(Tk.Frame):
         # Disable Textboxes when Viola-Jones algorithm is active
         if curr_settings[IDX_FACE]:
             self.check_button_1.toggle()
-            self.textbox_x1.config(state=Tk.DISABLED, bg='lightgray')
-            self.textbox_x2.config(state=Tk.DISABLED, bg='lightgray')
-            self.textbox_y1.config(state=Tk.DISABLED, bg='lightgray')
-            self.textbox_y2.config(state=Tk.DISABLED, bg='lightgray')
+            self.textbox_x1.config(bg='lightgray')
+            self.textbox_x2.config(bg='lightgray')
+            self.textbox_y1.config(bg='lightgray')
+            self.textbox_y2.config(bg='lightgray')
 
     def __violaJones(self):
         # Action to perform when Viola-Jones button is pressed
@@ -87,16 +87,16 @@ class ToolbarROI(Tk.Frame):
         curr_settings = settings.get_parameters()
 
         if curr_settings[IDX_FACE]:
-            self.textbox_x1.config(state=Tk.DISABLED,bg='lightgray')
-            self.textbox_x2.config(state=Tk.DISABLED,bg='lightgray')
-            self.textbox_y1.config(state=Tk.DISABLED,bg='lightgray')
-            self.textbox_y2.config(state=Tk.DISABLED,bg='lightgray')
+            self.textbox_x1.config(bg='lightgray')
+            self.textbox_x2.config(bg='lightgray')
+            self.textbox_y1.config(bg='lightgray')
+            self.textbox_y2.config(bg='lightgray')
             logging.info('Viola-Jones algorithm was activated by the user')
         else:
-            self.textbox_x1.config(state=Tk.NORMAL,bg='white')
-            self.textbox_x2.config(state=Tk.NORMAL,bg='white')
-            self.textbox_y1.config(state=Tk.NORMAL,bg='white')
-            self.textbox_y2.config(state=Tk.NORMAL,bg='white')
+            self.textbox_x1.config(bg='white')
+            self.textbox_x2.config(bg='white')
+            self.textbox_y1.config(bg='white')
+            self.textbox_y2.config(bg='white')
             logging.info('Viola-Jones algorithm was disabled by the user')
 
     def __storeROI(self):

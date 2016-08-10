@@ -27,6 +27,7 @@ class ToolbarButtons(Tk.Frame):
         self.check_button_2.config(state=Tk.DISABLED)
         self.check_button_3.config(state=Tk.DISABLED)
         self.check_button_4.config(state=Tk.DISABLED)
+        self.button_start.config(state=Tk.DISABLED)
         self.dropDownList.config(state=Tk.DISABLED)
 
         # Give camera thread index of camera
@@ -104,7 +105,7 @@ class ToolbarButtons(Tk.Frame):
         if self.curr_settings[IDX_TRIGGER]:
             self.check_button_4.toggle()
 
-        button_quit = Tk.Button(master=root, text='Quit', command=self.__quit)
-        button_quit.pack(side=Tk.RIGHT)
-        button_start = Tk.Button(master=root, text='Start video', command=self.__start)
-        button_start.pack(side=Tk.RIGHT)
+        self.button_quit = Tk.Button(master=root, text='Quit', command=self.__quit)
+        self.button_quit.pack(side=Tk.RIGHT)
+        self.button_start = Tk.Button(master=root, text='Start video', command=self.__start)
+        self.button_start.pack(side=Tk.RIGHT)
