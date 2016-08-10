@@ -42,7 +42,10 @@ class MainWindow(Tk.Frame):
 
         Tk.Frame.__init__(self, parent)
 
-        self.video_display = WindowVideo(self,root,thread,cam)
+        self.toolbar_roi = ToolbarROI(self, root)
+        logging.info('Created toolbar for ROI definition')
+
+        self.video_display = WindowVideo(self, root, thread, cam, self.toolbar_roi)
         logging.info('Created part of the GUI that shows video')
 
         self.signal_display = WindowSignal(self)
@@ -51,11 +54,11 @@ class MainWindow(Tk.Frame):
         self.statusbar = Statusbar(self, root, self.video_display)
         logging.info('Created status bar')
 
-        self.toolbar_roi = ToolbarROI(self, root)
-        logging.info('Created toolbar for ROI definition')
-
         self.toolbar_buttons = ToolbarButtons(self, root, thread, cam)
         logging.info('Created toolbar with buttons')
+
+
+
 
 
 class GUI():

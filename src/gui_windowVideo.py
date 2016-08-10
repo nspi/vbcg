@@ -5,25 +5,29 @@ import Tkinter as Tk
 import threading
 import Image
 import ImageTk
-import time
+import numpy as np
 
 # Initialize global variables
-root = None
+root =  None
 
 class WindowVideo(Tk.Frame):
     # In this frame the video stream is shown
 
-    def __init__(self, parent, tk_root, thread, cam):
+    def __init__(self, parent, tk_root, thread, cam, roi):
 
         # Store variables
         global root
         self.root = tk_root
+        self.first_frame = True
 
         # Save camera object
         self.cameraInstance = cam
 
         # Save thread object
         self.threadInstance = thread
+
+        # Save ROI toolbar object
+        self.roiToolbarInstance = roi
 
         # Create GUI
         self.__create_gui()
@@ -52,18 +56,32 @@ class WindowVideo(Tk.Frame):
         # Get frame from camera and display it
 
         self.isTrueFrame, self.frame = self.cameraInstance.getFrame()
-        if self.isTrueFrame:
+
+        if self.first_frame:
+            x_max = np.size(self.frame, 0)
+            y_max = np.size(self.frame, 1)
+            self.roiToolbarInstance.set_ROI(0,x_max,0,y_max)
+            self.first_frame = False
             self.frameCounter += 1
+
+        elif self.isTrueFrame:
+            x_min,x_max,y_min,y_max = self.roiToolbarInstance.get_ROI()
+            self.frame = self.frame[x_min:x_max, y_min:y_max]
+            self.frameCounter += 1
+
         self.frameConverted = Image.fromarray(self.frame)
         self.imgTK = ImageTk.PhotoImage(image=self.frameConverted)
         self.lmain.imgtk = self.imgTK
         self.lmain.configure(image=self.imgTK)
+
         # Repeat thread
-        self.lmain.after(1, self.__showImage)
+        self.video_frame.after(1, lambda: self.__showImage())
 
     def __computeFPS(self):
-        #if self.get_frameCounter()>0:
+        # Compute FPS
         self.FPS = self.get_frameCounter()-self.frameCounterLastValue
+
+        # Update value
         self.frameCounterLastValue = self.get_frameCounter()
 
         # Repeat thread

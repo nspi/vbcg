@@ -86,6 +86,13 @@ class cameraThread(threading.Thread):
         else:
             return False,np.zeros((400, 500, 3), np.uint8)
 
+    def getResolution(self):
+        # This function returns the resolution the camera frames
+        if self.eventCameraReady.is_set():
+            ret, frame = videoStream.read()
+            return np.size(frame)
+        else:
+            return np.size(np.zeros(400, 500, 3))
 
     def __getStatus(self):
         # This function returns true when the user has chosen a camera by clicking ''start''
