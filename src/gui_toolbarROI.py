@@ -27,14 +27,14 @@ class ToolbarROI(Tk.Frame):
         self.textbox_x1 = self.textbox_x2 = self.textbox_y1 = self.textbox_y2 = None
 
         # Create GUI
-        self.__create_gui(self)
+        self.__createGUI(self)
 
         # Start thread that stores ROI
-        self.displayThread = threading.Thread(target=self.__store_ROI)
+        self.displayThread = threading.Thread(target=self.__storeROI)
         self.displayThread.start()
 
 
-    def __create_gui(self, parent):
+    def __createGUI(self, parent):
         # Create GUI elements and add them to root widget
 
         self.text_frame = Tk.Frame(root, width=500, height=100)
@@ -43,7 +43,7 @@ class ToolbarROI(Tk.Frame):
         # Add Checkbutton to decide whether to use Viola-Jones algorithm or manual ROI definition
         curr_settings = settings.get_parameters()
 
-        self.check_button_1 = Tk.Checkbutton(master=self.text_frame, text="Use Viola-Jones Algorithm", command=lambda: self.__viola_jones() )
+        self.check_button_1 = Tk.Checkbutton(master=self.text_frame, text="Use Viola-Jones Algorithm", command=lambda: self.__violaJones())
         self.check_button_1.pack(side=Tk.LEFT)
 
         # Add Textboxes for ROI definition
@@ -79,7 +79,7 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y1.config(state=Tk.DISABLED, bg='lightgray')
             self.textbox_y2.config(state=Tk.DISABLED, bg='lightgray')
 
-    def __viola_jones(self):
+    def __violaJones(self):
         # Action to perform when Viola-Jones button is pressed
         settings.flip_parameter(settings.IDX_FACE)
 
@@ -99,36 +99,48 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y2.config(state=Tk.NORMAL,bg='white')
             logging.info('Viola-Jones algorithm was disabled by the user')
 
-    def __store_ROI(self):
+    def __storeROI(self):
         # Store ROI values from textboxes when it has more than 1 symbol and it contains of numbers only
 
         # Get values from textboxes
         if len(self.textbox_x1.get("1.0", Tk.END + "-1c"))>0 &\
               (self.textbox_x1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x1.get("1.0", Tk.END + "-1c"))):
                self.x_min = int(self.textbox_x1.get("1.0", Tk.END + "-1c"))
+               logging.info("ROI x_min value was set by user.")
         if len(self.textbox_x2.get("1.0", Tk.END + "-1c"))>0 &\
               (self.textbox_x2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x2.get("1.0", Tk.END + "-1c"))):
                self.x_max = int(self.textbox_x2.get("1.0", Tk.END + "-1c"))
+               logging.info("ROI x_max value was set by user.")
+
         if len(self.textbox_y1.get("1.0", Tk.END + "-1c"))>0 &\
               (self.textbox_y1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y1.get("1.0", Tk.END + "-1c"))):
                self.y_min = int(self.textbox_y1.get("1.0", Tk.END + "-1c"))
+               logging.info("ROI y_min value was set by user.")
+
         if len(self.textbox_y2.get("1.0", Tk.END + "-1c"))>0 &\
               (self.textbox_y2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y2.get("1.0", Tk.END + "-1c"))):
                self.y_max = int(self.textbox_y2.get("1.0", Tk.END + "-1c"))
+               logging.info("ROI y_max value was set by user.")
 
         # If *_min < *_max: Correct values
         if self.x_min >= self.x_max:
             self.x_min = 0
+            self.textbox_x1.delete(1.0, Tk.END)
+            self.textbox_x1.insert(Tk.END, 0)
+            logging.warn("Your ROI definition was inadequate (x_min < x_max). The values were corrected.")
         if self.y_min >= self.y_max:
             self.y_min = 0
+            self.textbox_y1.delete(1.0, Tk.END)
+            self.textbox_y1.insert(Tk.END,0)
+            logging.warn("Your ROI definition was inadequate (y_min < y_max). The values were corrected.")
 
         # Repeat thread
-        self.text_frame.after(1000, lambda: self.__store_ROI())
+        self.text_frame.after(1000, lambda: self.__storeROI())
 
-    def get_ROI(self):
+    def getROI(self):
         return self.x_min,self.x_max,self.y_min,self.y_max
 
-    def set_ROI(self, x_min, x_max, y_min, y_max):
+    def setROI(self, x_min, x_max, y_min, y_max):
         self.x_min = x_min
         self.textbox_x1.delete(1.0, Tk.END)
         self.textbox_x1.insert(Tk.END, self.x_min)

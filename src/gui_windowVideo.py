@@ -60,12 +60,12 @@ class WindowVideo(Tk.Frame):
         if self.first_frame:
             x_max = np.size(self.frame, 0)
             y_max = np.size(self.frame, 1)
-            self.roiToolbarInstance.set_ROI(0,x_max,0,y_max)
+            self.roiToolbarInstance.setROI(0, x_max, 0, y_max)
             self.first_frame = False
             self.frameCounter += 1
 
         elif self.isTrueFrame:
-            x_min,x_max,y_min,y_max = self.roiToolbarInstance.get_ROI()
+            x_min,x_max,y_min,y_max = self.roiToolbarInstance.getROI()
             self.frame = self.frame[x_min:x_max, y_min:y_max]
             self.frameCounter += 1
 
