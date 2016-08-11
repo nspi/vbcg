@@ -106,33 +106,31 @@ class ToolbarROI(Tk.Frame):
         if len(self.textbox_x1.get("1.0", Tk.END + "-1c"))>0 &\
               (self.textbox_x1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x1.get("1.0", Tk.END + "-1c"))):
                self.x_min = int(self.textbox_x1.get("1.0", Tk.END + "-1c"))
-               logging.info("ROI x_min value was set by user.")
+
         if len(self.textbox_x2.get("1.0", Tk.END + "-1c"))>0 &\
               (self.textbox_x2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x2.get("1.0", Tk.END + "-1c"))):
                self.x_max = int(self.textbox_x2.get("1.0", Tk.END + "-1c"))
-               logging.info("ROI x_max value was set by user.")
 
         if len(self.textbox_y1.get("1.0", Tk.END + "-1c"))>0 &\
               (self.textbox_y1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y1.get("1.0", Tk.END + "-1c"))):
                self.y_min = int(self.textbox_y1.get("1.0", Tk.END + "-1c"))
-               logging.info("ROI y_min value was set by user.")
 
         if len(self.textbox_y2.get("1.0", Tk.END + "-1c"))>0 &\
               (self.textbox_y2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y2.get("1.0", Tk.END + "-1c"))):
                self.y_max = int(self.textbox_y2.get("1.0", Tk.END + "-1c"))
-               logging.info("ROI y_max value was set by user.")
+
 
         # If *_min < *_max: Correct values
-        if self.x_min >= self.x_max:
+        if self.x_min > self.x_max:
             self.x_min = 0
             self.textbox_x1.delete(1.0, Tk.END)
             self.textbox_x1.insert(Tk.END, 0)
-            logging.warn("Your ROI definition was inadequate (x_min < x_max). The values were corrected.")
-        if self.y_min >= self.y_max:
+            logging.warn("Your ROI definition was inadequate (x_min > x_max). The values were corrected.")
+        if self.y_min > self.y_max:
             self.y_min = 0
             self.textbox_y1.delete(1.0, Tk.END)
             self.textbox_y1.insert(Tk.END,0)
-            logging.warn("Your ROI definition was inadequate (y_min < y_max). The values were corrected.")
+            logging.warn("Your ROI definition was inadequate (y_min > y_max). The values were corrected.")
 
         # Repeat thread
         self.text_frame.after(1000, lambda: self.__storeROI())

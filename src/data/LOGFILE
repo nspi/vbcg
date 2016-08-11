@@ -1,0 +1,22 @@
+11.08.2016 12:07:06 gui INFO Link to camera thread was stored in GUI class
+11.08.2016 12:07:06 gui INFO Created toolbar for ROI definition
+11.08.2016 12:07:06 gui INFO Created part of the GUI that shows video
+11.08.2016 12:07:06 gui INFO Created part of the GUI that shows the signal extracted from the video
+11.08.2016 12:07:06 gui INFO Created status bar
+11.08.2016 12:07:06 gui INFO Created toolbar with buttons
+11.08.2016 12:07:06 gui INFO Main window was created
+11.08.2016 12:07:06 gui INFO Starting TkInter main loop
+11.08.2016 12:07:08 gui_toolbarButtons INFO Start button has been pressed
+11.08.2016 12:07:08 gui_toolbarButtons INFO Camera is started
+11.08.2016 12:07:08 camera INFO Camera Index was set because user pressed start button
+11.08.2016 12:07:08 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+11.08.2016 12:07:08 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+11.08.2016 12:07:08 camera INFO The camera was initialized
+11.08.2016 12:07:08 camera INFO Camera was chosen. Starting video aquisition.
+11.08.2016 12:07:08 camera INFO Camera is ready. Other processes can acquire frames.
+11.08.2016 12:07:09 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+11.08.2016 12:07:11 settings INFO Parameter: 7 was changed
+11.08.2016 12:07:11 gui_toolbarROI INFO Viola-Jones algorithm was disabled by the user
+11.08.2016 12:07:13 settings INFO Parameter: 7 was changed
+11.08.2016 12:07:13 gui_toolbarROI INFO Viola-Jones algorithm was activated by the user
+11.08.2016 12:07:15 gui_toolbarButtons INFO Ending program

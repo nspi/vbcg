@@ -19,7 +19,6 @@ def get_parameters():
             sample_config = f.read()
         config = ConfigParser.RawConfigParser()
         config.readfp(io.BytesIO(sample_config))
-        logging.info('Settings file opened')
     except IOError:
         logging.warning("Settings file not found! Creating one with standard values.")
         __store_parameters(std_param)
@@ -38,7 +37,6 @@ def get_parameters():
         param[i] = config.get('settings',option)
         # Increase counter
         i += 1
-    logging.info('Settings loaded from file')
 
     # Return parameters
     return param
