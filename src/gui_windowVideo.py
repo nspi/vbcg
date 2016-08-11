@@ -86,12 +86,11 @@ class WindowVideo(Tk.Frame):
                 faces = self.faceCascade.detectMultiScale(frameBW,scaleFactor=1.1,minNeighbors=5,
                                                      minSize=(30, 30),flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
                 for (x, y, w, h) in faces:
-                    # todo: crop frame
                     cv2.rectangle(self.frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
             else:
                 # Otherwise: Use manual ROI input
                 x_min,x_max,y_min,y_max = self.roiToolbarInstance.getROI()
-                self.frame = self.frame[x_min:x_max, y_min:y_max]
+                cv2.rectangle(self.frame,(y_min,x_min),(y_max,x_max),(0, 255, 0), 2)
 
             self.frameCounter += 1
 
