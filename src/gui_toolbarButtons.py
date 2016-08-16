@@ -5,6 +5,7 @@ import sys
 import Tkinter as Tk
 import logging
 import settings
+import threading
 
 from defines import *
 
@@ -42,24 +43,39 @@ class ToolbarButtons(Tk.Frame):
     def __quit(self):
         # End program
         logging.info("Ending program")
+
+        # If camera connection is active, close it
+        self.cameraInstance.closeCameraThread()
+
+        # Close thread running for signal display
+        self.stopFlag = self.signalDisplayInstance.getEvent()
+        self.stopFlag.set()
+
+        # Close GUI
         self.root.quit()
         self.root.destroy()
+
+        # Exit program
+        logging.debug(threading.enumerate())
         sys.exit()
 
-    def __init__(self, parent, tk_root, thread, cam):
+    def __init__(self, parent, tk_root, thread, cam, signalDisplay):
 
         # Store variables
         global root
         self.root = tk_root
 
-        # Save camera object
+        # Store camera object
         self.cameraInstance = cam
 
         # Get number of available cameras
         self.num = self.cameraInstance.getNumberOfCameras()
 
-        # Save thread object
+        # Store thread object
         self.threadInstance = thread
+
+        # Store connection to signal display
+        self.signalDisplayInstance = signalDisplay
 
         # Initialize buttons
         self.check_button_1 = self.check_button_2 = self.check_button_3 = self.check_button_4 = \
