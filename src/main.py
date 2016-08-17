@@ -14,7 +14,7 @@ eventCameraChosen = threading.Event()           # is activated when user presses
 eventCameraIsReady = threading.Event()          # is activated when camera receives frames
 
 # Initialize camera thread
-camThread = camera.cameraThread()
+camThread = camera.CameraThread()
 # Add events to camera thread
 camThread.setEventCameraChosen(eventCameraChosen)
 camThread.setEventCameraReady(eventCameraIsReady)

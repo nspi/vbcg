@@ -29,7 +29,8 @@ class ToolbarButtons(Tk.Frame):
         self.check_button_3.config(state=Tk.DISABLED)
         self.check_button_4.config(state=Tk.DISABLED)
         self.button_start.config(state=Tk.DISABLED)
-        self.dropDownList.config(state=Tk.DISABLED)
+        self.dropDownListCamera.config(state=Tk.DISABLED)
+        self.dropDownListAlgorithm.config(state=Tk.DISABLED)
 
         # Give camera thread index of camera
         logging.info("Camera is started")
@@ -83,7 +84,7 @@ class ToolbarButtons(Tk.Frame):
 
         # Initialize buttons
         self.check_button_1 = self.check_button_2 = self.check_button_3 = self.check_button_4 = \
-        self.listCamerasStr = self.dropDownList = None
+        self.listCamerasStr = self.dropDownListCamera = self.listAlgorithmStr = self.dropDownListAlgorithm =  None
 
         # Get current settings
         self.curr_settings = settings.get_parameters()
@@ -93,6 +94,9 @@ class ToolbarButtons(Tk.Frame):
 
     def __create_gui(self):
 
+        self.button_frame = Tk.Frame(root, width=500, height=100)
+        self.button_frame.pack(side=Tk.BOTTOM)
+
         # Fill list with available cameras and add to menu
         listCameras = ['']
         for cam_idx in range(self.num):
@@ -100,32 +104,58 @@ class ToolbarButtons(Tk.Frame):
             listCameras.append(tmp_string)
         listCameras.pop(0)
         self.listCamerasStr = Tk.StringVar()
-        self.dropDownList = Tk.OptionMenu(root, self.listCamerasStr, *listCameras)
+        self.dropDownListCamera = Tk.OptionMenu(self.button_frame, self.listCamerasStr, *listCameras)
         self.listCamerasStr.set(listCameras[0])
-        self.dropDownList.pack(side=Tk.LEFT)
+        self.dropDownListCamera.pack(side=Tk.LEFT)
+        # Todo: Load default camera from settings
 
-        # Create GUI elements and add them to root widget
-        self.check_button_1 = Tk.Checkbutton(master=root, text="Show curves", command=lambda: settings.flip_parameter(settings.IDX_CAMERA))
+        # Fill list with available algorithms and add to menu
+        listAlgorithms = ['']
+        listAlgorithms.append("Algorithm #1")
+        listAlgorithms.append("Algorithm #2")
+        listAlgorithms.append("Algorithm #3")
+        listAlgorithms.pop(0)
+        self.listAlgorithmStr = Tk.StringVar()
+        self.dropDownListAlgorithm = Tk.OptionMenu(self.button_frame, self.listAlgorithmStr, *listAlgorithms,
+                                                   command=lambda _: self.__changeAlgorithm())
+        self.listAlgorithmStr.set(listAlgorithms[0])
+        self.dropDownListAlgorithm.pack(side=Tk.LEFT)
+        # Todo: Load default algorithm from settings
+
+        # Create GUI elements for options and add them to menu
+        self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Show curves",
+                                             command=lambda: settings.flip_parameter(settings.IDX_CAMERA))
         self.check_button_1.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_CAMERA]:
             self.check_button_1.toggle()
 
-        self.check_button_2 = Tk.Checkbutton(master=root, text="Motion detection", command=lambda: settings.flip_parameter(settings.IDX_MOTION))
+        self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Motion detection",
+                                             command=lambda: settings.flip_parameter(settings.IDX_MOTION))
         self.check_button_2.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_MOTION]:
             self.check_button_2.toggle()
 
-        self.check_button_3 = Tk.Checkbutton(master=root, text="Store frames", command=lambda: settings.flip_parameter(settings.IDX_FRAMES))
+        self.check_button_3 = Tk.Checkbutton(master=self.button_frame, text="Store frames",
+                                             command=lambda: settings.flip_parameter(settings.IDX_FRAMES))
         self.check_button_3.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_FRAMES]:
             self.check_button_3.toggle()
 
-        self.check_button_4 = Tk.Checkbutton(master=root, text="Send trigger", command=lambda: settings.flip_parameter(settings.IDX_TRIGGER))
+        self.check_button_4 = Tk.Checkbutton(master=self.button_frame, text="Send trigger",
+                                             command=lambda: settings.flip_parameter(settings.IDX_TRIGGER))
         self.check_button_4.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_TRIGGER]:
             self.check_button_4.toggle()
 
-        self.button_quit = Tk.Button(master=root, text='Quit', command=self.__quit)
+        self.button_quit = Tk.Button(master=self.button_frame, text='Quit', command=self.__quit)
         self.button_quit.pack(side=Tk.RIGHT)
-        self.button_start = Tk.Button(master=root, text='Start video', command=self.__start)
+        self.button_start = Tk.Button(master=self.button_frame, text='Start', command=self.__start)
         self.button_start.pack(side=Tk.RIGHT)
+
+    def __changeAlgorithm(self):
+        if self.dropDownListAlgorithm.cget("text") == "Algorithm #1":
+            settings.change_parameter(IDX_ALGORITHM,1)
+        elif self.dropDownListAlgorithm.cget("text") == "Algorithm #2":
+            settings.change_parameter(IDX_ALGORITHM, 2)
+        else:
+            settings.change_parameter(IDX_ALGORITHM, 3)

@@ -19,21 +19,23 @@ class Statusbar(Tk.Frame):
         self.videoInstance = windowVideo
         self.str_counter = Tk.StringVar()
         self.fps_counter = Tk.StringVar()
+        self.currentInfo = Tk.StringVar()
         self.str_counter.set("0")
         self.fps_counter.set("0")
+        self.currentInfo.set("")
 
         # Create GUI
-        self.__create_gui(self.str_counter, self.fps_counter)
+        self.__create_gui()
 
         # Start threads that update statusbar
         self.displayThread = threading.Thread(target=self.__update_values())
         self.displayThread.start()
 
-    def __create_gui(self, parent, *args, **kwargs):
+    def __create_gui(self):
         # Create GUI elements and add them to root widget
 
         self.text_frame = Tk.Frame(root, width=500, height=100)
-        self.text_frame.pack()
+        self.text_frame.pack(side=Tk.TOP)
 
         self.label_counter_1 = Tk.Label(self.text_frame, text="Frames:")
         self.label_counter_1.pack(side=Tk.LEFT)
@@ -47,6 +49,12 @@ class Statusbar(Tk.Frame):
         self.label_counter_4 = Tk.Label(self.text_frame, text=self.fps_counter)
         self.label_counter_4.pack(side=Tk.LEFT)
 
+        self.label_counter_5 = Tk.Label(self.text_frame, text="Status:")
+        self.label_counter_5.pack(side=Tk.LEFT)
+
+        self.label_counter_6 = Tk.Label(self.text_frame, text=self.currentInfo)
+        self.label_counter_6.pack(side=Tk.LEFT)
+
     def __update_values(self):
 
         # Get values
@@ -56,6 +64,10 @@ class Statusbar(Tk.Frame):
         # Update labels
         self.label_counter_2.config(text=self.str_counter)
         self.label_counter_4.config(text=self.fps_counter)
+        self.label_counter_6.config(text=self.currentInfo)
 
         # Repeat thread
         self.label_counter_2.after(1, self.__update_values)
+
+    def updateInfoText(self, newText):
+        self.currentInfo = newText

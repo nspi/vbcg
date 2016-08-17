@@ -10,30 +10,32 @@ import threading
 eventCameraChosen = eventCameraReady = eventProgramEnd = None
 videoStream = numberOfCameras = cameraIdx = None
 
-class cameraThread(threading.Thread):
+
+class CameraThread(threading.Thread):
 
     def run(self):
         # The thread waits until a camera is ready and then provides frames.
         # When the user presses the ''quit'' button, the connection to the camera is closed
-
-        firstRun = True
+        cameraConnectionEstablished = False
 
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
 
-            if firstRun is True:
+            # Check if connection to camera has been established
+            if cameraConnectionEstablished is False:
 
                 logging.info("Camera thread was started. Waiting for EventCameraChosen.")
-                ret = self.eventCameraChosen.wait(1)
+                UserChoseCamera = self.eventCameraChosen.wait(1)
 
-                if ret:
+                if UserChoseCamera:
 
+                    # Open connection to camera
                     self.__openCamera()
+                    # Set event for other threads
                     self.eventCameraReady.set()
-
                     logging.info("Camera is ready. Other processes can acquire frames.")
-
-                    firstRun = False
+                    # Set bool variable, so that the thread can start to capture frames
+                    cameraConnectionEstablished = True
 
             # Continuosly capture frames until user ends program
             if self.eventCameraReady.is_set():
@@ -66,6 +68,8 @@ class cameraThread(threading.Thread):
         #         tmp_str = "Found %d OpenCV-compatible cameras" % (n)
         #         logging.info(tmp_str)
 
+        global videoStream
+        self.videoStream = None
         self.numberOfCameras = 2
         self.currentFrame = np.zeros((480, 640, 3), np.uint8)
         self.eventProgramEnd = threading.Event()
@@ -76,30 +80,26 @@ class cameraThread(threading.Thread):
         self.videoStream = cv2.VideoCapture(int(self.cameraIdx))
         logging.info("The camera was initialized")
 
-
     def __closeCamera(self):
         # This function releases the current camera
         global videoStream
-        self.videoStream.release()
-        logging.info("The camera was released")
-
+        if self.videoStream is not None:
+            self.videoStream.release()
+            logging.info("The camera was released")
 
     def closeCameraThread(self):
         # User pressed ''quit'' button, set events to that thread can end
         self.eventCameraReady.clear()
         self.eventProgramEnd.set()
 
-
-    def setCameraIdx(self,cameraIndex):
+    def setCameraIdx(self, cameraIndex):
         global cameraIdx
         self.cameraIdx = cameraIndex
-        logging.info("Camera Index was set because user pressed start button")
-
+        logging.info("Camera index was set because user pressed start button")
 
     def getNumberOfCameras(self):
         # This function returns the number of available OpenCV cameras
         return self.numberOfCameras
-
 
     def getFrame(self):
         # This function delivers black frames until the user pressed ''start''
@@ -107,9 +107,10 @@ class cameraThread(threading.Thread):
 
         if self.eventCameraReady.is_set():
             frame = self.currentFrame
-            return True,frame
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            return True, frame
         else:
-            return False,np.zeros((480, 640, 3), np.uint8)
+            return False, np.zeros((480, 640, 3), np.uint8)
 
     def getResolution(self):
         # This function returns the resolution the camera frames
