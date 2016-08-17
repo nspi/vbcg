@@ -114,7 +114,8 @@ class SignalPlotter(threading.Thread):
         self.curr_settings = settings.get_parameters()
 
         # Create empty vector for signal
-        self.values = np.zeros((1, 1))
+        self.valuesRaw = np.zeros((1, 1))
+        self.valuesOutput2 = np.zeros((300, 1))
 
         # Update statusbar value
         self.statusbar.updateInfoText("Waiting for enough frames...")
@@ -146,51 +147,44 @@ class SignalPlotter(threading.Thread):
                 self.mean_value = cv2.mean(self.currentFrame)[1]
 
                 # Store mean value
-                self.values = np.append(self.values, self.mean_value)
+                self.valuesRaw = np.append(self.valuesRaw, self.mean_value)
 
                 # Begin with computations when 300 data points are accumulated
-                if np.size(self.values) >= 300:
+                if np.size(self.valuesRaw) >= 300:
 
                     # Update statusbar value
-                    self.statusbar.updateInfoText("Starting computation")
+                    self.statusbar.updateInfoText("Performing computations")
 
                     # Perform algorithms depending on user selection
                     if self.curr_settings[IDX_ALGORITHM] == 1:
 
-                        # Normalize values
-                        self.valuesNorm = signal_processing.normalize(self.values)
-                        # Perform pseudo derivation
-                        self.valuesNormDiff = np.abs(np.diff(self.valuesNorm))
-                        # Get output
-                        self.valuesOutput = self.valuesNormDiff
+                        # Todo: Finish implementation of algorithm #1
+                        self.valuesOutput, self.valuesOutput2 = signal_processing.algorithm1(self.valuesRaw, self.valuesOutput2, 20)
 
                     elif self.curr_settings[IDX_ALGORITHM] == 2:
 
                         # Todo: Implement algorithm #2
-
-                        # Get output
-                        self.valuesOutput = signal_processing.normalize(self.values)
+                        self.valuesOutput = signal_processing.normalize(self.valuesRaw)
 
                     else:
 
                         # Todo: Implement algorithm #3
+                        self.valuesOutput = signal_processing.normalize(self.valuesRaw)
 
-                        # Get output
-                        self.valuesOutput = signal_processing.normalize(self.values)
-
-
-                    # Delete one data point to maintain 300 values
-                    mask = np.ones(len(self.values), dtype=bool)
-                    mask[0:np.size(self.values) - 300] = False
-                    self.values = self.values[mask]
+                    # Delete data points to maintain 300 values
+                    mask = np.ones(len(self.valuesRaw), dtype=bool)
+                    mask[0:np.size(self.valuesRaw) - 300] = False
+                    self.valuesRaw = self.valuesRaw[mask]
+                    self.valuesOutput2 = self.valuesOutput2[mask]
 
                 else:
-                    self.valuesOutput = signal_processing.normalize(self.values)
+                    self.valuesOutput = signal_processing.normalize(self.valuesRaw)
 
             # Show signal
             try:
                 self.subplotInstance.clear()
                 self.subplotInstance.plot(self.valuesOutput)
+                self.subplotInstance.plot(self.valuesOutput2)
                 self.canvasInstance.draw()
             except RuntimeError:
                 # ''Quit'' button has been pressed by a user, resulting in RuntimeError during program shutdown
