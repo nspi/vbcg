@@ -39,7 +39,7 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 `cd src;` `python main.py`
 
 ## Todo
-- Read video stream from hard 
+- Read video stream from hard disk
 - Update to Python 3 and current versions of all used modules
 
 ## Contact

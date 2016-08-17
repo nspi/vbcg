@@ -5,7 +5,6 @@ import Tkinter as Tk
 import matplotlib
 import logging
 import threading
-
 import numpy as np
 import cv2
 
@@ -89,18 +88,16 @@ class WindowSignal(Tk.Frame):
         self.canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
 
         # Call thread that displays signal
-        self.stopFlag = threading.Event()
-        self.signalPlotThread = SignalPlotter(self.stopFlag, self.cameraInstance, self.figure, self.canvas, self.subplot)
+        self.signalPlotThread = SignalPlotter(self.cameraInstance, self.figure, self.canvas, self.subplot)
         self.signalPlotThread.start()
 
-    def getEvent(self):
-        return self.stopFlag
-
+    def closeSignalPlotterThread(self):
+        self.signalPlotThread.closeSignalPlotterThread()
 
 class SignalPlotter(threading.Thread):
     # This thread is used for continously plotting the mean signal of the video in the ROI
 
-    def __init__(self, event, cam, figure, canvas, subplot):
+    def __init__(self, cam, figure, canvas, subplot):
 
         # Store camera object
         self.cameraInstance = cam
@@ -115,12 +112,17 @@ class SignalPlotter(threading.Thread):
 
         # Configure thread
         threading.Thread.__init__(self)
-        self.stopFlag = event
+        self.eventProgramEnd = threading.Event()
+        self.eventProgramEnd.clear()
+
+    def closeSignalPlotterThread(self):
+        # Activate event to end thread
+        self.eventProgramEnd.set()
 
     def run(self):
 
         # run() method of cameraThread waits for shutdown event
-        while self.stopFlag.is_set() is False:
+        while self.eventProgramEnd.is_set() is False:
 
             # Get camera event
             self.cameraActive = self.cameraInstance.getEventCameraReady()
@@ -134,16 +136,18 @@ class SignalPlotter(threading.Thread):
                 # Store mean value
                 self.values = np.append(self.values, self.mean_value)
                 # Remove value if array reached 300 values
-                if np.size(self.values) >= 30:
+                if np.size(self.values) >= 300:
                     mask = np.ones(len(self.values), dtype=bool)
-                    mask[0:np.size(self.values) - 30] = False
+                    mask[0:np.size(self.values) - 300] = False
                     self.values = self.values[mask]
 
-                # Show signal
+            # Show signal
+            try:
                 self.subplotInstance.clear()
                 self.subplotInstance.plot(self.values)
                 self.canvasInstance.draw()
+            except RuntimeError:
+                # ''Quit'' button has been pressed by a user, resulting in RuntimeError during program shutdown
+                logging.info("Signal plotting thread will be halted")
 
-        print 1
-        # todo: find out why we do not reach this line. Maybe because canvas is not available anymore?
-        logging.info("Signal plotting thread will be halted")
+                # Todo: Find a more elegant solution

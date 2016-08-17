@@ -20,3 +20,246 @@
 11.08.2016 12:07:13 settings INFO Parameter: 7 was changed
 11.08.2016 12:07:13 gui_toolbarROI INFO Viola-Jones algorithm was activated by the user
 11.08.2016 12:07:15 gui_toolbarButtons INFO Ending program
+17.08.2016 09:38:08 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:08 gui INFO Link to camera thread was stored in GUI class
+17.08.2016 09:38:08 gui INFO Created toolbar for ROI definition
+17.08.2016 09:38:08 gui INFO Created part of the GUI that shows video
+17.08.2016 09:38:08 gui INFO Created part of the GUI that shows the signal extracted from the video
+17.08.2016 09:38:08 gui INFO Created status bar
+17.08.2016 09:38:08 gui INFO Created toolbar with buttons
+17.08.2016 09:38:08 gui INFO Main window was created
+17.08.2016 09:38:08 gui INFO Starting TkInter main loop
+17.08.2016 09:38:09 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:10 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:11 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:12 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:13 gui_toolbarButtons INFO Start button has been pressed
+17.08.2016 09:38:13 gui_toolbarButtons INFO Camera is started
+17.08.2016 09:38:13 camera INFO Camera Index was set because user pressed start button
+17.08.2016 09:38:13 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+17.08.2016 09:38:13 camera INFO The camera was initialized
+17.08.2016 09:38:13 camera INFO Camera was chosen. Starting video aquisition.
+17.08.2016 09:38:13 camera INFO Camera is ready. Other processes can acquire frames.
+17.08.2016 09:38:14 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+17.08.2016 09:38:21 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+17.08.2016 09:38:21 gui_toolbarButtons INFO Signal display thread was closed
+17.08.2016 09:38:37 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:37 gui INFO Link to camera thread was stored in GUI class
+17.08.2016 09:38:37 gui INFO Created toolbar for ROI definition
+17.08.2016 09:38:37 gui INFO Created part of the GUI that shows video
+17.08.2016 09:38:37 gui INFO Created part of the GUI that shows the signal extracted from the video
+17.08.2016 09:38:37 gui INFO Created status bar
+17.08.2016 09:38:37 gui INFO Created toolbar with buttons
+17.08.2016 09:38:37 gui INFO Main window was created
+17.08.2016 09:38:37 gui INFO Starting TkInter main loop
+17.08.2016 09:38:38 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:39 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:40 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:41 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:38:42 gui_toolbarButtons INFO Start button has been pressed
+17.08.2016 09:38:42 gui_toolbarButtons INFO Camera is started
+17.08.2016 09:38:42 camera INFO Camera Index was set because user pressed start button
+17.08.2016 09:38:42 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+17.08.2016 09:38:42 camera INFO The camera was initialized
+17.08.2016 09:38:42 camera INFO Camera was chosen. Starting video aquisition.
+17.08.2016 09:38:42 camera INFO Camera is ready. Other processes can acquire frames.
+17.08.2016 09:38:43 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+17.08.2016 09:38:48 settings INFO Parameter: 7 was changed
+17.08.2016 09:38:48 gui_toolbarROI INFO Viola-Jones algorithm was disabled by the user
+17.08.2016 09:38:51 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+17.08.2016 09:38:51 gui_toolbarButtons INFO Signal display thread was closed
+17.08.2016 09:46:46 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:46:46 gui INFO Link to camera thread was stored in GUI class
+17.08.2016 09:46:46 gui INFO Created toolbar for ROI definition
+17.08.2016 09:46:46 gui INFO Created part of the GUI that shows video
+17.08.2016 09:46:46 gui INFO Created part of the GUI that shows the signal extracted from the video
+17.08.2016 09:46:46 gui INFO Created status bar
+17.08.2016 09:46:46 gui INFO Created toolbar with buttons
+17.08.2016 09:46:46 gui INFO Main window was created
+17.08.2016 09:46:46 gui INFO Starting TkInter main loop
+17.08.2016 09:46:47 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:46:48 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:46:49 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:46:49 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+17.08.2016 09:46:49 gui_toolbarButtons INFO Signal display thread was closed
+17.08.2016 09:46:49 gui_toolbarButtons INFO Camera capture thread was closed
+17.08.2016 09:46:49 gui_toolbarButtons INFO Tk mainloop() was halted
+17.08.2016 09:46:49 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140159948474176)>, <cameraThread(Thread-1, started 140159441463040)>, <SignalPlotter(Thread-5, started 140159202879232)>]
+17.08.2016 09:46:49 gui_toolbarButtons INFO Program will halt now...
+17.08.2016 09:46:50 camera INFO Camera thread will be halted
+17.08.2016 09:46:50 gui INFO Signal plotting thread will be halted
+17.08.2016 09:46:53 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:46:53 gui INFO Link to camera thread was stored in GUI class
+17.08.2016 09:46:53 gui INFO Created toolbar for ROI definition
+17.08.2016 09:46:53 gui INFO Created part of the GUI that shows video
+17.08.2016 09:46:53 gui INFO Created part of the GUI that shows the signal extracted from the video
+17.08.2016 09:46:53 gui INFO Created status bar
+17.08.2016 09:46:53 gui INFO Created toolbar with buttons
+17.08.2016 09:46:53 gui INFO Main window was created
+17.08.2016 09:46:53 gui INFO Starting TkInter main loop
+17.08.2016 09:46:54 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:46:55 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:46:55 gui_toolbarButtons INFO Start button has been pressed
+17.08.2016 09:46:55 gui_toolbarButtons INFO Camera is started
+17.08.2016 09:46:55 camera INFO Camera Index was set because user pressed start button
+17.08.2016 09:46:55 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+17.08.2016 09:46:55 camera INFO The camera was initialized
+17.08.2016 09:46:55 camera INFO Camera was chosen. Starting video aquisition.
+17.08.2016 09:46:55 camera INFO Camera is ready. Other processes can acquire frames.
+17.08.2016 09:46:56 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+17.08.2016 09:46:59 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+17.08.2016 09:46:59 gui_toolbarButtons INFO Signal display thread was closed
+17.08.2016 09:46:59 gui_toolbarButtons INFO Camera capture thread was closed
+17.08.2016 09:46:59 camera INFO Camera thread will be halted
+17.08.2016 09:46:59 gui_toolbarButtons INFO Tk mainloop() was halted
+17.08.2016 09:46:59 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140553609369408)>, <SignalPlotter(Thread-5, started 140552863475456)>]
+17.08.2016 09:46:59 gui_toolbarButtons INFO Program will halt now...
+17.08.2016 09:47:00 gui INFO Signal plotting thread will be halted
+17.08.2016 09:47:03 gui INFO Link to camera thread was stored in GUI class
+17.08.2016 09:47:03 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:47:03 gui INFO Created toolbar for ROI definition
+17.08.2016 09:47:03 gui INFO Created part of the GUI that shows video
+17.08.2016 09:47:03 gui INFO Created part of the GUI that shows the signal extracted from the video
+17.08.2016 09:47:03 gui INFO Created status bar
+17.08.2016 09:47:03 gui INFO Created toolbar with buttons
+17.08.2016 09:47:03 gui INFO Main window was created
+17.08.2016 09:47:03 gui INFO Starting TkInter main loop
+17.08.2016 09:47:04 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:47:05 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:47:06 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:47:07 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:47:08 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:47:09 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 09:47:09 gui_toolbarButtons INFO Start button has been pressed
+17.08.2016 09:47:09 gui_toolbarButtons INFO Camera is started
+17.08.2016 09:47:09 camera INFO Camera Index was set because user pressed start button
+17.08.2016 09:47:09 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+17.08.2016 09:47:09 camera INFO The camera was initialized
+17.08.2016 09:47:09 camera INFO Camera was chosen. Starting video aquisition.
+17.08.2016 09:47:09 camera INFO Camera is ready. Other processes can acquire frames.
+17.08.2016 09:47:10 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+17.08.2016 09:47:14 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+17.08.2016 09:47:14 gui_toolbarButtons INFO Signal display thread was closed
+17.08.2016 09:47:14 gui_toolbarButtons INFO Camera capture thread was closed
+17.08.2016 09:47:14 gui_toolbarButtons INFO Tk mainloop() was halted
+17.08.2016 09:47:14 camera INFO Camera thread will be halted
+17.08.2016 09:47:14 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 139816265819968)>, <SignalPlotter(Thread-5, started 139815654811392)>]
+17.08.2016 09:47:14 gui_toolbarButtons INFO Program will halt now...
+17.08.2016 09:47:15 gui INFO Signal plotting thread will be halted
+17.08.2016 10:28:44 gui INFO Link to camera thread was stored in GUI class
+17.08.2016 10:28:44 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 10:28:44 gui INFO Created toolbar for ROI definition
+17.08.2016 10:28:44 gui INFO Created part of the GUI that shows video
+17.08.2016 10:28:44 gui INFO Created part of the GUI that shows the signal extracted from the video
+17.08.2016 10:28:44 gui INFO Created status bar
+17.08.2016 10:28:44 gui INFO Created toolbar with buttons
+17.08.2016 10:28:44 gui INFO Main window was created
+17.08.2016 10:28:44 gui INFO Starting TkInter main loop
+17.08.2016 10:28:45 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 10:28:46 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 10:28:47 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 10:28:48 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 10:28:49 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 10:28:50 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 10:28:51 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 10:28:51 gui_toolbarButtons INFO Start button has been pressed
+17.08.2016 10:28:51 gui_toolbarButtons INFO Camera is started
+17.08.2016 10:28:51 camera INFO Camera Index was set because user pressed start button
+17.08.2016 10:28:51 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+17.08.2016 10:28:51 camera INFO The camera was initialized
+17.08.2016 10:28:51 camera INFO Camera was chosen. Starting video aquisition.
+17.08.2016 10:28:51 camera INFO Camera is ready. Other processes can acquire frames.
+17.08.2016 10:28:51 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+17.08.2016 10:29:44 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+17.08.2016 10:29:44 gui_toolbarButtons INFO Signal display thread was closed
+17.08.2016 10:29:44 gui_toolbarButtons INFO Camera capture thread was closed
+17.08.2016 10:29:44 camera INFO Camera thread will be halted
+17.08.2016 10:29:44 gui_toolbarButtons INFO Tk mainloop() was halted
+17.08.2016 10:29:44 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140306843916096)>, <SignalPlotter(Thread-5, started 140306230007552)>]
+17.08.2016 10:29:44 gui_toolbarButtons INFO Program will halt now...
+17.08.2016 10:29:45 gui INFO Signal plotting thread will be halted
+17.08.2016 11:16:24 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:16:24 gui INFO Link to camera thread was stored in GUI class
+17.08.2016 11:16:24 gui INFO Created toolbar for ROI definition
+17.08.2016 11:16:24 gui INFO Created part of the GUI that shows video
+17.08.2016 11:16:24 gui INFO Created part of the GUI that shows the signal extracted from the video
+17.08.2016 11:16:24 gui INFO Created status bar
+17.08.2016 11:16:24 gui INFO Created toolbar with buttons
+17.08.2016 11:16:24 gui INFO Main window was created
+17.08.2016 11:16:24 gui INFO Starting TkInter main loop
+17.08.2016 11:16:25 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:16:26 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:16:27 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:16:28 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:16:29 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:16:30 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:16:31 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:16:31 gui_toolbarButtons INFO Start button has been pressed
+17.08.2016 11:16:31 gui_toolbarButtons INFO Camera is started
+17.08.2016 11:16:31 camera INFO Camera Index was set because user pressed start button
+17.08.2016 11:16:31 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+17.08.2016 11:16:43 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+17.08.2016 11:16:43 gui_toolbarButtons INFO Signal display thread was closed
+17.08.2016 11:16:43 gui_toolbarButtons INFO Camera capture thread was closed
+17.08.2016 11:16:43 gui_toolbarButtons INFO Tk mainloop() was halted
+17.08.2016 11:16:43 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 139767810471744)>, <SignalPlotter(Thread-5, started 139767264429824)>]
+17.08.2016 11:16:43 gui_toolbarButtons INFO Program will halt now...
+17.08.2016 11:16:44 gui INFO Signal plotting thread will be halted
+17.08.2016 11:17:26 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:17:26 gui INFO Link to camera thread was stored in GUI class
+17.08.2016 11:17:26 gui INFO Created toolbar for ROI definition
+17.08.2016 11:17:26 gui INFO Created part of the GUI that shows video
+17.08.2016 11:17:27 gui INFO Created part of the GUI that shows the signal extracted from the video
+17.08.2016 11:17:27 gui INFO Created status bar
+17.08.2016 11:17:27 gui INFO Created toolbar with buttons
+17.08.2016 11:17:27 gui INFO Main window was created
+17.08.2016 11:17:27 gui INFO Starting TkInter main loop
+17.08.2016 11:17:27 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:17:28 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:17:29 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:17:30 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:17:31 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:17:32 gui_toolbarButtons INFO Start button has been pressed
+17.08.2016 11:17:32 gui_toolbarButtons INFO Camera is started
+17.08.2016 11:17:32 camera INFO Camera Index was set because user pressed start button
+17.08.2016 11:17:32 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+17.08.2016 11:17:32 camera INFO The camera was initialized
+17.08.2016 11:17:32 camera INFO Camera is ready. Other processes can acquire frames.
+17.08.2016 11:17:32 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+17.08.2016 11:17:36 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+17.08.2016 11:17:36 gui_toolbarButtons INFO Signal display thread was closed
+17.08.2016 11:17:36 gui_toolbarButtons INFO Camera capture thread was closed
+17.08.2016 11:17:36 gui_toolbarButtons INFO Tk mainloop() was halted
+17.08.2016 11:17:36 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140294007506752)>, <cameraThread(Thread-1, started 140293499832064)>, <SignalPlotter(Thread-5, started 140293461464832)>]
+17.08.2016 11:17:36 gui_toolbarButtons INFO Program will halt now...
+17.08.2016 11:17:36 camera INFO The camera was released
+17.08.2016 11:17:37 gui INFO Signal plotting thread will be halted
+17.08.2016 11:19:27 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:19:27 gui INFO Link to camera thread was stored in GUI class
+17.08.2016 11:19:27 gui INFO Created toolbar for ROI definition
+17.08.2016 11:19:27 gui INFO Created part of the GUI that shows video
+17.08.2016 11:19:27 gui INFO Created part of the GUI that shows the signal extracted from the video
+17.08.2016 11:19:27 gui INFO Created status bar
+17.08.2016 11:19:27 gui INFO Created toolbar with buttons
+17.08.2016 11:19:27 gui INFO Main window was created
+17.08.2016 11:19:27 gui INFO Starting TkInter main loop
+17.08.2016 11:19:28 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:19:29 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:19:30 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+17.08.2016 11:19:30 gui_toolbarButtons INFO Start button has been pressed
+17.08.2016 11:19:30 gui_toolbarButtons INFO Camera is started
+17.08.2016 11:19:30 camera INFO Camera Index was set because user pressed start button
+17.08.2016 11:19:30 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+17.08.2016 11:19:31 camera INFO The camera was initialized
+17.08.2016 11:19:31 camera INFO Camera is ready. Other processes can acquire frames.
+17.08.2016 11:19:31 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+17.08.2016 11:19:34 settings INFO Parameter: 7 was changed
+17.08.2016 11:19:34 gui_toolbarROI INFO Viola-Jones algorithm was activated by the user
+17.08.2016 11:19:41 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+17.08.2016 11:19:41 gui_toolbarButtons INFO Signal display thread was closed
+17.08.2016 11:19:41 gui_toolbarButtons INFO Camera capture thread was closed
+17.08.2016 11:19:41 gui_toolbarButtons INFO Tk mainloop() was halted
+17.08.2016 11:19:41 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 139913872480064)>, <cameraThread(Thread-1, started 139913364805376)>, <SignalPlotter(Thread-5, started 139913123067648)>]
+17.08.2016 11:19:41 gui_toolbarButtons INFO Program will halt now...
+17.08.2016 11:19:41 camera INFO The camera was released
+17.08.2016 11:19:42 gui INFO Signal plotting thread will be halted

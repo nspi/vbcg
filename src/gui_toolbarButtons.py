@@ -42,21 +42,25 @@ class ToolbarButtons(Tk.Frame):
 
     def __quit(self):
         # End program
-        logging.info("Ending program")
+        logging.info("User pressed ''quit'' button - now halting threads")
+
+        # Close thread running for signal display
+        self.signalDisplayInstance.closeSignalPlotterThread()
+        logging.info("Signal display thread was closed")
 
         # If camera connection is active, close it
         self.cameraInstance.closeCameraThread()
-
-        # Close thread running for signal display
-        self.stopFlag = self.signalDisplayInstance.getEvent()
-        self.stopFlag.set()
+        logging.info("Camera capture thread was closed")
 
         # Close GUI
         self.root.quit()
-        self.root.destroy()
+        logging.info("Tk mainloop() was halted")
+
+        # Debug: Store all still running threads
+        logging.debug(threading.enumerate())
 
         # Exit program
-        logging.debug(threading.enumerate())
+        logging.info("Program will halt now...")
         sys.exit()
 
     def __init__(self, parent, tk_root, thread, cam, signalDisplay):
