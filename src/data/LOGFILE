@@ -263,3 +263,124 @@
 17.08.2016 11:19:41 gui_toolbarButtons INFO Program will halt now...
 17.08.2016 11:19:41 camera INFO The camera was released
 17.08.2016 11:19:42 gui INFO Signal plotting thread will be halted
+18.08.2016 15:29:23 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+18.08.2016 15:29:23 gui INFO Link to camera thread was stored in GUI class
+18.08.2016 15:29:23 gui INFO Created toolbar for ROI definition
+18.08.2016 15:29:23 gui INFO Created part of the GUI that shows video
+18.08.2016 15:29:23 gui INFO Created status bar
+18.08.2016 15:29:23 gui INFO Created part of the GUI that shows the signal extracted from the video
+18.08.2016 15:29:23 gui INFO Created toolbar with buttons
+18.08.2016 15:29:23 gui INFO Main window was created
+18.08.2016 15:29:23 gui INFO Starting TkInter main loop
+18.08.2016 15:29:23 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:23 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:23 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:23 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:23 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+18.08.2016 15:29:23 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+18.08.2016 15:29:24 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+18.08.2016 15:29:24 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:24 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:24 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:24 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:24 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+18.08.2016 15:29:24 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+18.08.2016 15:29:25 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+18.08.2016 15:29:25 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:25 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:25 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:26 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:26 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+18.08.2016 15:29:26 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+18.08.2016 15:29:26 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+18.08.2016 15:29:27 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:27 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:27 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:27 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:27 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+18.08.2016 15:29:27 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+18.08.2016 15:29:27 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+18.08.2016 15:29:28 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:28 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:28 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:28 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:28 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+18.08.2016 15:29:28 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+18.08.2016 15:29:28 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+18.08.2016 15:29:29 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:29 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:29 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:29 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:29 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+18.08.2016 15:29:29 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+18.08.2016 15:29:29 camera INFO Camera thread was started. Waiting for EventCameraChosen.
+18.08.2016 15:29:29 gui_toolbarButtons INFO Start button has been pressed
+18.08.2016 15:29:29 gui_toolbarButtons INFO Camera is started
+18.08.2016 15:29:29 camera INFO Camera index was set because user pressed start button
+18.08.2016 15:29:29 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+18.08.2016 15:29:30 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:30 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:30 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:30 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:30 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+18.08.2016 15:29:30 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+18.08.2016 15:29:30 camera INFO The camera was initialized
+18.08.2016 15:29:30 camera INFO Camera is ready. Other processes can acquire frames.
+18.08.2016 15:29:30 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+18.08.2016 15:29:31 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:31 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:31 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:31 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:32 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:32 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:32 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:32 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:32 settings INFO Parameter: 7 was changed
+18.08.2016 15:29:32 gui_toolbarROI INFO Viola-Jones algorithm was activated by the user
+18.08.2016 15:29:33 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:33 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:33 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:33 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:34 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:34 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:34 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:34 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:35 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:35 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:35 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:35 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:36 settings INFO Parameter: 7 was changed
+18.08.2016 15:29:36 gui_toolbarROI INFO Viola-Jones algorithm was disabled by the user
+18.08.2016 15:29:36 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:36 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:36 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:36 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:37 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:37 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:37 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:37 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:38 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:38 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:38 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:38 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:39 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:39 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:39 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:39 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:40 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:40 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:40 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:40 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:41 gui_toolbarROI INFO ROI x_min value was set by user.
+18.08.2016 15:29:41 gui_toolbarROI INFO ROI x_max value was set by user.
+18.08.2016 15:29:41 gui_toolbarROI INFO ROI y_min value was set by user.
+18.08.2016 15:29:41 gui_toolbarROI INFO ROI y_max value was set by user.
+18.08.2016 15:29:42 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+18.08.2016 15:29:42 gui_toolbarButtons INFO Signal display thread was closed
+18.08.2016 15:29:42 gui_toolbarButtons INFO Camera capture thread was closed
+18.08.2016 15:29:42 gui_toolbarButtons INFO Tk mainloop() was halted
+18.08.2016 15:29:42 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140708145108800)>, <CameraThread(Thread-1, started 140707558573824)>, <SignalPlotter(Thread-6, started 140707521988352)>]
+18.08.2016 15:29:42 gui_toolbarButtons INFO Program will halt now...
+18.08.2016 15:29:42 camera INFO The camera was released
+18.08.2016 15:29:43 gui INFO Signal plotting thread will be halted
+18.08.2016 15:29:43 gui INFO Reached of signal plotting thread

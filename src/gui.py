@@ -115,7 +115,8 @@ class SignalPlotter(threading.Thread):
 
         # Create empty vector for signal
         self.valuesRaw = np.zeros((1, 1))
-        self.valuesOutput2 = np.zeros((300, 1))
+        self.valuesOutput =  np.zeros((150, 1))
+        self.valuesOutput2 = np.zeros((150, 1))
 
         # Update statusbar value
         self.statusbar.updateInfoText("Waiting for enough frames...")
@@ -138,7 +139,7 @@ class SignalPlotter(threading.Thread):
             self.cameraActive = self.cameraInstance.getEventCameraReady()
 
             # If camera is available, compute mean value and store it
-            if self.cameraActive:
+            if self.cameraActive.is_set():
 
                 # Get frame
                 tmp, self.currentFrame = self.cameraInstance.getFrame()
@@ -149,8 +150,8 @@ class SignalPlotter(threading.Thread):
                 # Store mean value
                 self.valuesRaw = np.append(self.valuesRaw, self.mean_value)
 
-                # Begin with computations when 300 data points are accumulated
-                if np.size(self.valuesRaw) >= 300:
+                # Begin with computations when 150 data points are accumulated
+                if np.size(self.valuesRaw) >= 150:
 
                     # Update statusbar value
                     self.statusbar.updateInfoText("Performing computations")
@@ -158,23 +159,24 @@ class SignalPlotter(threading.Thread):
                     # Perform algorithms depending on user selection
                     if self.curr_settings[IDX_ALGORITHM] == 1:
 
-                        # Todo: Finish implementation of algorithm #1
                         self.valuesOutput, self.valuesOutput2 = signal_processing.algorithm1(self.valuesRaw, self.valuesOutput2, 20)
 
                     elif self.curr_settings[IDX_ALGORITHM] == 2:
 
-                        # Todo: Implement algorithm #2
-                        self.valuesOutput = signal_processing.normalize(self.valuesRaw)
+                        self.HR = signal_processing.algorithm2(self.valuesRaw)
+                        tmpText = "Current heart rate: "
+                        tmpText += self.HR
+                        self.statusbar.updateInfoText(tmpText)
 
                     else:
 
-                        # Todo: Implement algorithm #3
                         self.valuesOutput = signal_processing.normalize(self.valuesRaw)
 
-                    # Delete data points to maintain 300 values
+                    # Delete data points to maintain 150 values
                     mask = np.ones(len(self.valuesRaw), dtype=bool)
-                    mask[0:np.size(self.valuesRaw) - 300] = False
+                    mask[0:np.size(self.valuesRaw) - 150] = False
                     self.valuesRaw = self.valuesRaw[mask]
+                    self.valuesOutput = self.valuesOutput[mask]
                     self.valuesOutput2 = self.valuesOutput2[mask]
 
                 else:
@@ -182,14 +184,21 @@ class SignalPlotter(threading.Thread):
 
             # Show signal
             try:
+                # Clear subplot
                 self.subplotInstance.clear()
-                self.subplotInstance.plot(self.valuesOutput)
-                self.subplotInstance.plot(self.valuesOutput2)
+
+                # If camera available, plot signal
+                if self.cameraActive.is_set():
+                    self.subplotInstance.plot(self.valuesOutput)
+                    #if self.curr_settings[IDX_ALGORITHM] == 1:
+                    self.subplotInstance.plot(self.valuesOutput2)
+
+                # Draw to canvas
                 self.canvasInstance.draw()
+
             except RuntimeError:
                 # ''Quit'' button has been pressed by a user, resulting in RuntimeError during program shutdown
                 # Todo: Find a more elegant solution
                 logging.info("Signal plotting thread will be halted")
 
         logging.info("Reached of signal plotting thread")
-

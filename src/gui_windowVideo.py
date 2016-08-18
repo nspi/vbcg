@@ -38,6 +38,9 @@ class WindowVideo(Tk.Frame):
         # Create GUI
         self.__create_gui()
 
+        # Create variable to adjust thread sleeping time to desired FPS
+        self.sleep_time = 1000/VAL_FPS
+
         # Start frame display as thread
         self.frameCounter = 0
         self.displayThread = threading.Thread(target=self.__showImage)
@@ -87,6 +90,7 @@ class WindowVideo(Tk.Frame):
                                                      minSize=(30, 30),flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
                 for (x, y, w, h) in faces:
                     cv2.rectangle(self.frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                    self.roiToolbarInstance.setROI(y, y + h, x, x + w)
             else:
                 # Otherwise: Use manual ROI input
                 x_min,x_max,y_min,y_max = self.roiToolbarInstance.getROI()
@@ -99,8 +103,19 @@ class WindowVideo(Tk.Frame):
         self.lmain.imgtk = self.imgTK
         self.lmain.configure(image=self.imgTK)
 
+        # This block dynamically adjusts the sleep time of this thread. The aim is to converge to the desired FPS of
+        # the used camera which can not be fixed due to the workload of the other threads
+        if (self.isTrueFrame) and ((self.get_frameCounter() % 25) == 0):
+            currentFPS = self.FPS
+
+            if currentFPS < VAL_FPS:
+                self.sleep_time -= 1
+            elif currentFPS > VAL_FPS:
+                self.sleep_time += 1
+
+
         # Repeat thread
-        self.video_frame.after(1, lambda: self.__showImage())
+        self.video_frame.after(self.sleep_time, lambda: self.__showImage())
 
     def __computeFPS(self):
         # Compute FPS
