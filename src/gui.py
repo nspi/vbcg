@@ -57,7 +57,7 @@ class MainWindow(Tk.Frame):
         self.statusbar = Statusbar(self, root, self.video_display)
         logging.info('Created status bar')
 
-        self.signal_display = WindowSignal(self, thread, cam, self.statusbar)
+        self.signal_display = WindowSignal(self, thread, cam, self.statusbar, self.video_display)
         logging.info('Created part of the GUI that shows the signal extracted from the video')
 
         self.toolbar_buttons = ToolbarButtons(self, root, thread, cam, self.signal_display)
@@ -69,13 +69,16 @@ class WindowSignal(Tk.Frame):
     # We have to keep it in this file because otherwise Tkinter throws an error
     # Todo: Find a more elegant solution
 
-    def __init__(self, parent, thread, cam, statusbar):
+    def __init__(self, parent, thread, cam, statusbar, video_display):
 
         # Store camera object
         self.cameraInstance = cam
 
         # Store statusbar object
         self.statusbar = statusbar
+
+        # Store video display object
+        self.video_display = video_display
 
         # Create GUI
         self.__create_gui()
@@ -89,7 +92,7 @@ class WindowSignal(Tk.Frame):
         self.canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
 
         # Call thread that displays signal
-        self.signalPlotThread = SignalPlotter(self.cameraInstance, self.figure, self.canvas, self.subplot, self.statusbar)
+        self.signalPlotThread = SignalPlotter(self.cameraInstance, self.figure, self.canvas, self.subplot, self.statusbar, self.video_display)
         self.signalPlotThread.start()
 
     def closeSignalPlotterThread(self):
@@ -99,16 +102,17 @@ class WindowSignal(Tk.Frame):
 class SignalPlotter(threading.Thread):
     # This thread is used for continously plotting the mean signal of the video in the ROI
 
-    def __init__(self, cam, figure, canvas, subplot, statusbar):
+    def __init__(self, cam, figure, canvas, subplot, statusbar, video_display):
 
         # Store camera object
         self.cameraInstance = cam
 
-        # Store figure, canvas, subplot
+        # Store figure, canvas, subplot, video_display
         self.figureInstance = figure
         self.canvasInstance = canvas
         self.subplotInstance = subplot
         self.statusbar = statusbar
+        self.video_display = video_display
 
         # Get current parameters
         self.curr_settings = settings.get_parameters()
@@ -159,17 +163,20 @@ class SignalPlotter(threading.Thread):
                     # Perform algorithms depending on user selection
                     if self.curr_settings[IDX_ALGORITHM] == 1:
 
+                        # Main algorithm
                         self.valuesOutput, self.valuesOutput2 = signal_processing.algorithm1(self.valuesRaw, self.valuesOutput2, 20)
 
                     elif self.curr_settings[IDX_ALGORITHM] == 2:
 
+                        # Main algorithm
                         self.HR = signal_processing.algorithm2(self.valuesRaw)
-                        tmpText = "Current heart rate: "
-                        tmpText += self.HR
-                        self.statusbar.updateInfoText(tmpText)
+                        self.HRstring = str(self.HR)
+                        self.video_display.set_HeartRateText(self.HRstring[0:self.HRstring.find('.')])
+
+                        self.valuesOutput = signal_processing.normalize(self.valuesRaw)
+                        self.valuesOutput2 = signal_processing.normalize(self.valuesRaw)
 
                     else:
-
                         self.valuesOutput = signal_processing.normalize(self.valuesRaw)
 
                     # Delete data points to maintain 150 values
@@ -189,9 +196,12 @@ class SignalPlotter(threading.Thread):
 
                 # If camera available, plot signal
                 if self.cameraActive.is_set():
+
+                    # Alway plot normalized raw input signal
                     self.subplotInstance.plot(self.valuesOutput)
-                    #if self.curr_settings[IDX_ALGORITHM] == 1:
-                    self.subplotInstance.plot(self.valuesOutput2)
+                    # If a certain algorithm has been activated, plot its result as well
+                    if self.curr_settings[IDX_ALGORITHM] == 1:
+                        self.subplotInstance.plot(self.valuesOutput2)
 
                 # Draw to canvas
                 self.canvasInstance.draw()

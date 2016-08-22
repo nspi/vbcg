@@ -39,7 +39,6 @@ def get_parameters():
         param[i] = config.get('settings',option)
         # Increase counter
         i += 1
-    #logging.info('Settings loaded from file')
 
     # Return parameters
     return param

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # signal_processing.py - Class for processing of the signals obtained from the video
 
+import settings
 import numpy as np
 from scipy.optimize import curve_fit
-
+from defines import *
 
 def normalize(inputSignal):
     # Normalize the signal to lie between 0 and 1
@@ -57,11 +58,16 @@ def algorithm1(inputRawSignal,inputOutputSignal,inputMagicNumber):
 
     return valuesRawOutput,OutputSignal
 
-def algorithm2(inputRawSignal,N,fps):
-    # This function computes the algorithm as described in our ISMRM 2016 contribution
+def algorithm2(inputRawSignal):
+    # This algorithm computes the HR of the subject
+
+    # Get current parameters
+    curr_settings = settings.get_parameters()
+
+    fps = curr_settings[IDX_FPS]
+    N = np.size(inputRawSignal)
     hrMin = 0.5
     hrMax = 3
-
     RawSignal = inputRawSignal
     valuesWin = RawSignal[0:N] * np.hamming(N)
 

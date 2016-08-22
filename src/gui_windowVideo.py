@@ -35,6 +35,9 @@ class WindowVideo(Tk.Frame):
         # Save ROI toolbar object
         self.roiToolbarInstance = roi
 
+        # Initialize variable that contains HR
+        self.HeartRateText = ' '
+
         # Create GUI
         self.__create_gui()
 
@@ -100,14 +103,32 @@ class WindowVideo(Tk.Frame):
 
             self.frameCounter += 1
 
+        # Add heart symbol to frame
+        # Algorithm source: http://docs.opencv.org/trunk/d0/d86/tutorial_py_image_arithmetics.html
+
         # Load heart icon
         self.iconHeart = cv2.imread('data/heart.png')
         # Convert to RGB
         self.iconHeart = cv2.cvtColor(self.iconHeart, cv2.COLOR_BGR2RGB)
-        # Apply to frame
-        self.frame[-96:,-96:,:] = self.iconHeart
+        # Create ROI
+        rows, cols, channels = self.iconHeart.shape
+        roi = self.frame[-rows:,-cols:,:]
+        # Convert heart to grayscale
+        iconHeartGray = cv2.cvtColor(self.iconHeart, cv2.COLOR_RGB2GRAY)
+        # Create mask and inverse mask with binary thresholding
+        ret, mask = cv2.threshold(iconHeartGray, 10, 255, cv2.THRESH_BINARY)
+        mask_inv = cv2.bitwise_not(mask)
+        # Background: Original frame with inverse mask
+        frameBG = cv2.bitwise_and(roi, roi, mask=mask_inv)
+        # Foreground: Heart with normal mask
+        iconHeartFG = cv2.bitwise_and(self.iconHeart, self.iconHeart, mask=mask)
+        # Add heart icon to frame
+        iconHeartFinal = cv2.add(frameBG, iconHeartFG)
+        self.frame[-rows:,-cols:,:] = iconHeartFinal
+        # Add text that displays Heart Rate
+        cv2.putText(self.frame, self.HeartRateText,  ( np.size(self.frame, 0)+90,  np.size(self.frame, 1)-200), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
-
+        # Display frame
         self.frameConverted = Image.fromarray(self.frame)
         self.imgTK = ImageTk.PhotoImage(image=self.frameConverted)
         self.lmain.imgtk = self.imgTK
@@ -142,3 +163,6 @@ class WindowVideo(Tk.Frame):
 
     def get_FPS(self):
         return str(self.FPS)
+
+    def set_HeartRateText(self, newHR):
+        self.HeartRateText = newHR
