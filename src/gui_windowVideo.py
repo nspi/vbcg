@@ -70,12 +70,14 @@ class WindowVideo(Tk.Frame):
         # Get current frame
         self.isTrueFrame, self.frame = self.cameraInstance.getFrame()
 
+        # Check if a real frame from camera or just test image is received
         if self.isTrueFrame & self.first_frame:
-            # If first frame from camera is received store dimensions
 
+            # If first frame from camera is received store dimensions
             x_max = np.size(self.frame, 0)
             y_max = np.size(self.frame, 1)
             self.roiToolbarInstance.setROI(0, x_max, 0, y_max)
+
             self.first_frame = False
             self.frameCounter += 1
             logging.info("First frame from webcam was received and ROI was adjusted")
@@ -97,6 +99,14 @@ class WindowVideo(Tk.Frame):
                 cv2.rectangle(self.frame,(y_min,x_min),(y_max,x_max),(0, 255, 0), 2)
 
             self.frameCounter += 1
+
+        # Load heart icon
+        self.iconHeart = cv2.imread('data/heart.png')
+        # Convert to RGB
+        self.iconHeart = cv2.cvtColor(self.iconHeart, cv2.COLOR_BGR2RGB)
+        # Apply to frame
+        self.frame[-96:,-96:,:] = self.iconHeart
+
 
         self.frameConverted = Image.fromarray(self.frame)
         self.imgTK = ImageTk.PhotoImage(image=self.frameConverted)
