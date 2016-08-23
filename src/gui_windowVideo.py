@@ -9,6 +9,8 @@ import numpy as np
 import logging
 import cv2
 import settings
+import os
+import datetime
 
 from defines import *
 
@@ -18,7 +20,7 @@ root =  None
 class WindowVideo(Tk.Frame):
     # In this frame the video stream is shown
 
-    def __init__(self, parent, tk_root, thread, cam, roi):
+    def __init__(self, parent, tk_root, thread, cam, roi, statusbar):
 
         # Store variables
         global root
@@ -35,6 +37,9 @@ class WindowVideo(Tk.Frame):
         # Save ROI toolbar object
         self.roiToolbarInstance = roi
 
+        # Save statusbar instance
+        self.statusbarInstance = statusbar
+
         # Initialize variable that contains HR
         self.HeartRateText = ' '
 
@@ -42,6 +47,7 @@ class WindowVideo(Tk.Frame):
         self.__create_gui()
 
         # Create variable to adjust thread sleeping time to desired FPS
+        # todo: make this dynamic
         self.sleep_time = 1000/VAL_FPS
 
         # Start frame display as thread
@@ -67,11 +73,11 @@ class WindowVideo(Tk.Frame):
     def __showImage(self):
         # Get frame from camera and display it
 
-        # Get current settings
-        self.curr_settings = settings.get_parameters()
-
         # Get current frame
         self.isTrueFrame, self.frame = self.cameraInstance.getFrame()
+
+        # Get current settings
+        self.curr_settings = settings.get_parameters()
 
         # Check if a real frame from camera or just test image is received
         if self.isTrueFrame & self.first_frame:
@@ -84,6 +90,12 @@ class WindowVideo(Tk.Frame):
             self.first_frame = False
             self.frameCounter += 1
             logging.info("First frame from webcam was received and ROI was adjusted")
+
+            # If first frame from camera is received and the user wants to store frames, create folder
+            if self.curr_settings[IDX_FRAMES]:
+                self.directory = os.path.join(os.getcwd(),'data' , datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S'))
+                os.makedirs(self.directory)
+                logging.info('Folder was created for storing frames')
 
         elif self.isTrueFrame:
             # If frame is received, use Viola-Jones algorithm or manual ROI definition to crop frame
@@ -102,6 +114,12 @@ class WindowVideo(Tk.Frame):
                 cv2.rectangle(self.frame,(y_min,x_min),(y_max,x_max),(0, 255, 0), 2)
 
             self.frameCounter += 1
+
+            # If desired by the user, store the frames in a folder
+            if self.curr_settings[IDX_FRAMES]:
+                fileName = "frame%d.jpg" % self.frameCounter
+                cv2.imwrite(os.path.join(self.directory,fileName), cv2.cvtColor(self.frame,cv2.COLOR_BGR2RGB))
+
 
         # Add heart symbol to frame
         # Algorithm source: http://docs.opencv.org/trunk/d0/d86/tutorial_py_image_arithmetics.html
@@ -128,11 +146,13 @@ class WindowVideo(Tk.Frame):
         # Add text that displays Heart Rate
         cv2.putText(self.frame, self.HeartRateText,  ( np.size(self.frame, 0)+90,  np.size(self.frame, 1)-200), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
+
         # Display frame
         self.frameConverted = Image.fromarray(self.frame)
         self.imgTK = ImageTk.PhotoImage(image=self.frameConverted)
         self.lmain.imgtk = self.imgTK
         self.lmain.configure(image=self.imgTK)
+
 
         # This block dynamically adjusts the sleep time of this thread. The aim is to converge to the desired FPS of
         # the used camera which can not be fixed due to the workload of the other threads
@@ -143,6 +163,11 @@ class WindowVideo(Tk.Frame):
                 self.sleep_time -= 1
             elif currentFPS > VAL_FPS:
                 self.sleep_time += 1
+
+
+        # Update values in statusbar
+        self.statusbarInstance.setFrameCounter(self.get_frameCounter())
+        self.statusbarInstance.setFPSCounter(self.FPS)
 
 
         # Repeat thread

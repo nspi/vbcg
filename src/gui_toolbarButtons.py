@@ -27,10 +27,11 @@ class ToolbarButtons(Tk.Frame):
         self.check_button_1.config(state=Tk.DISABLED)
         self.check_button_2.config(state=Tk.DISABLED)
         self.check_button_3.config(state=Tk.DISABLED)
-        self.check_button_4.config(state=Tk.DISABLED)
         self.button_start.config(state=Tk.DISABLED)
         self.dropDownListCamera.config(state=Tk.DISABLED)
         self.dropDownListAlgorithm.config(state=Tk.DISABLED)
+        self.textbox_fps.config(state=Tk.DISABLED)
+        self.textbox_fps.config(bg='lightgray')
 
         # Give camera thread index of camera
         logging.info("Camera is started")
@@ -98,9 +99,11 @@ class ToolbarButtons(Tk.Frame):
         self.button_frame.pack(side=Tk.BOTTOM)
 
         # Fill list with available cameras and add to menu
+        self.label_x0 = Tk.Label(self.button_frame, text="Camera:")
+        self.label_x0.pack(side=Tk.LEFT)
         listCameras = ['']
         for cam_idx in range(self.num):
-            tmp_string = "Camera " + str(cam_idx)
+            tmp_string = str(cam_idx)
             listCameras.append(tmp_string)
         listCameras.pop(0)
         self.listCamerasStr = Tk.StringVar()
@@ -109,11 +112,19 @@ class ToolbarButtons(Tk.Frame):
         self.dropDownListCamera.pack(side=Tk.LEFT)
         # Todo: Load default camera from settings
 
+        self.label_x1 = Tk.Label(self.button_frame, text="FPS:")
+        self.label_x1.pack(side=Tk.LEFT)
+        self.textbox_fps = Tk.Text(self.button_frame, width=5, height=1)
+        self.textbox_fps.pack(side=Tk.LEFT)
+        self.textbox_fps.insert(Tk.END, "30")
+
         # Fill list with available algorithms and add to menu
+        self.label_x2 = Tk.Label(self.button_frame, text="Algorithm:")
+        self.label_x2.pack(side=Tk.LEFT)
         listAlgorithms = ['']
-        listAlgorithms.append("Algorithm #1")
-        listAlgorithms.append("Algorithm #2")
-        listAlgorithms.append("Algorithm #3")
+        listAlgorithms.append("HR estimation")
+        #listAlgorithms.append("Algorithm #2")
+        #listAlgorithms.append("Algorithm #3")
         listAlgorithms.pop(0)
         self.listAlgorithmStr = Tk.StringVar()
         self.dropDownListAlgorithm = Tk.OptionMenu(self.button_frame, self.listAlgorithmStr, *listAlgorithms,
@@ -124,9 +135,9 @@ class ToolbarButtons(Tk.Frame):
 
         # Create GUI elements for options and add them to menu
         self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Show curves",
-                                             command=lambda: settings.flip_parameter(settings.IDX_CAMERA))
+                                             command=lambda: settings.flip_parameter(settings.IDX_CURVES))
         self.check_button_1.pack(side=Tk.LEFT)
-        if self.curr_settings[IDX_CAMERA]:
+        if self.curr_settings[IDX_CURVES]:
             self.check_button_1.toggle()
 
         self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Motion detection",
@@ -134,6 +145,7 @@ class ToolbarButtons(Tk.Frame):
         self.check_button_2.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_MOTION]:
             self.check_button_2.toggle()
+        self.check_button_2.config(state=Tk.DISABLED)
 
         self.check_button_3 = Tk.Checkbutton(master=self.button_frame, text="Store frames",
                                              command=lambda: settings.flip_parameter(settings.IDX_FRAMES))
@@ -141,21 +153,15 @@ class ToolbarButtons(Tk.Frame):
         if self.curr_settings[IDX_FRAMES]:
             self.check_button_3.toggle()
 
-        self.check_button_4 = Tk.Checkbutton(master=self.button_frame, text="Send trigger",
-                                             command=lambda: settings.flip_parameter(settings.IDX_TRIGGER))
-        self.check_button_4.pack(side=Tk.LEFT)
-        if self.curr_settings[IDX_TRIGGER]:
-            self.check_button_4.toggle()
-
         self.button_quit = Tk.Button(master=self.button_frame, text='Quit', command=self.__quit)
         self.button_quit.pack(side=Tk.RIGHT)
         self.button_start = Tk.Button(master=self.button_frame, text='Start', command=self.__start)
         self.button_start.pack(side=Tk.RIGHT)
 
     def __changeAlgorithm(self):
-        if self.dropDownListAlgorithm.cget("text") == "Algorithm #1":
+        if self.dropDownListAlgorithm.cget("text") == "HR estimation":
             settings.change_parameter(IDX_ALGORITHM,1)
-        elif self.dropDownListAlgorithm.cget("text") == "Algorithm #2":
-            settings.change_parameter(IDX_ALGORITHM, 2)
-        else:
-            settings.change_parameter(IDX_ALGORITHM, 3)
+        #elif self.dropDownListAlgorithm.cget("text") == "Algorithm #2":
+        #    settings.change_parameter(IDX_ALGORITHM, 2)
+        #else:
+        #    settings.change_parameter(IDX_ALGORITHM, 3)

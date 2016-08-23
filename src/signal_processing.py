@@ -33,6 +33,7 @@ def curveFit(inputSignal1, inputSignal2):
 
     return m
 
+# Todo: Complete this algorithm
 def algorithm1(inputRawSignal,inputOutputSignal,inputMagicNumber):
     # This function computes the algorithm as described in our ISMRM 2016 contribution
     RawSignal = inputRawSignal
@@ -58,29 +59,38 @@ def algorithm1(inputRawSignal,inputOutputSignal,inputMagicNumber):
 
     return valuesRawOutput,OutputSignal
 
-def algorithm2(inputRawSignal):
+def computeHR(inputRawSignal, estimatedFPS):
     # This algorithm computes the HR of the subject
 
     # Get current parameters
     curr_settings = settings.get_parameters()
 
-    fps = curr_settings[IDX_FPS]
-    N = np.size(inputRawSignal)
+    # Store signal
+    signal = inputRawSignal
+    # Store number of elements in signal
+    N = np.size(signal)
+    # Get FPS of video stream
+    fps = estimatedFPS
+    # Minimal and maximum HR (30..180 bpm)
     hrMin = 0.5
     hrMax = 3
-    RawSignal = inputRawSignal
-    valuesWin = RawSignal[0:N] * np.hamming(N)
 
-    fout = np.fft.fft(valuesWin)
+    # Use Hamming window on signal
+    valuesWin = signal[0:N] * np.hamming(N)
+    # Compute FFT
+    signalFFT = np.fft.fft(valuesWin)
+    # Compute frequency axis
     x = np.linspace(0, N / fps, N + 1)
-    freq = np.fft.fftfreq(len(valuesWin), x[1] - x[0])
+    freqAxis = np.fft.fftfreq(len(valuesWin), x[1] - x[0])
 
-    limits_bool = (hrMin < freq) & (hrMax > freq)
-    limits_idx = np.linspace(0, N - 1, N)
-    limits = limits_idx[limits_bool.nonzero()]
+    # Get boolean values if values are between hrMin and hrMax
+    limitsBool= (hrMin < freqAxis) & (hrMax > freqAxis)
+    limitsIdx = np.linspace(0, N - 1, N)
+    # Get indices of frequncies between hrMin and hrMax
+    limits = limitsIdx[limitsBool.nonzero()]
     limits = limits.astype(int)
-    max_val = limits[np.argmax(abs(fout[limits]))]
+    # Get index of maximum frequency in FFT spectrum
+    max_val = limits[np.argmax(abs(signalFFT[limits]))]
 
-    return (np.round(freq[max_val] * 60))
-
-# Todo: Implement algorithm #3
+    # Return HR, spectrum with frequency axis, and found maximum
+    return (np.round(freqAxis[max_val] * 60)), abs(signalFFT[limits]), freqAxis[limits], max_val-limits[0]
