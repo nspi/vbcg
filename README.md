@@ -5,13 +5,14 @@ This is a prototype demonstrating our research activities concerning *video-base
 We aim to apply this techniques in the context of ultra-high-field MRI but other scenarios are possible as well. 
 
 ## About
-The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototypes demonstrates several algorithms we have developed so far.
+The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the algorithms we have developed so far.
 
 #### Features
 - Read video stream from OpenCV compatible camera
-- Crop video to manually-defined ROI or use OpenCV Viola-Jones [3] implementation 
-- Heart rate estimation as described in [4]
-- Heart beat ''detection'' (used for MRI triggering) as described in [5] and [6]
+- Crop video to manually-defined ROI or use OpenCV Viola-Jones [3] implementation for face detection
+- Enable/Disable plotting of signals
+- Store frames from camera on hard disk
+- Heart rate estimation as described in [4] and live visual feedback
 
 #### License
 GNU GPL v3.0
@@ -40,7 +41,9 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 
 ## Todo
 - Read video stream from hard disk
-- Update to Python 3 and current versions of all used modules
+- More options (e.g. motion detection that pauses algorithms)
+- Update to Python 3 and current versions of all modules
+- Add algorithms from [5] and [6] 
 
 ## Contact
 Nicolai Spicher ([http://fh-dortmund.de/spicher](http://fh-dortmund.de/spicher))
