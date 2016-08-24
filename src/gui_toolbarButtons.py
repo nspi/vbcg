@@ -6,7 +6,13 @@ import Tkinter as Tk
 import logging
 import settings
 import threading
+import os
+import re
+import tkMessageBox
 
+from os import listdir
+from os.path import isfile, join
+from tkFileDialog   import askdirectory
 from defines import *
 
 
@@ -25,12 +31,13 @@ class ToolbarButtons(Tk.Frame):
 
         # Disable buttons that change settings
         self.check_button_1.config(state=Tk.DISABLED)
-        self.check_button_2.config(state=Tk.DISABLED)
+        #self.check_button_2.config(state=Tk.DISABLED)
         self.check_button_3.config(state=Tk.DISABLED)
         self.button_start.config(state=Tk.DISABLED)
         self.dropDownListCamera.config(state=Tk.DISABLED)
         self.dropDownListAlgorithm.config(state=Tk.DISABLED)
         self.textbox_fps.config(state=Tk.DISABLED)
+        self.button_files.config(state=Tk.DISABLED)
         self.textbox_fps.config(bg='lightgray')
 
         # Give camera thread index of camera
@@ -43,6 +50,7 @@ class ToolbarButtons(Tk.Frame):
         self.eventCameraChosen.set()
 
     def __quit(self):
+
         # End program
         logging.info("User pressed ''quit'' button - now halting threads")
 
@@ -71,6 +79,9 @@ class ToolbarButtons(Tk.Frame):
         global root
         self.root = tk_root
 
+        # Add exit function to X button
+        self.root.protocol("WM_DELETE_WINDOW", self.__quit)
+
         # Store camera object
         self.cameraInstance = cam
 
@@ -98,6 +109,10 @@ class ToolbarButtons(Tk.Frame):
         self.button_frame = Tk.Frame(root, width=500, height=100)
         self.button_frame.pack(side=Tk.BOTTOM)
 
+        # Add button for loading files
+        self.button_files = Tk.Button(master=self.button_frame, text='Load files from disk', command=self.__openFiles)
+        self.button_files.pack(side=Tk.LEFT)
+
         # Fill list with available cameras and add to menu
         self.label_x0 = Tk.Label(self.button_frame, text="Camera:")
         self.label_x0.pack(side=Tk.LEFT)
@@ -122,7 +137,7 @@ class ToolbarButtons(Tk.Frame):
         self.label_x2 = Tk.Label(self.button_frame, text="Algorithm:")
         self.label_x2.pack(side=Tk.LEFT)
         listAlgorithms = ['']
-        listAlgorithms.append("HR estimation")
+        listAlgorithms.append("Heart rate")
         #listAlgorithms.append("Algorithm #2")
         #listAlgorithms.append("Algorithm #3")
         listAlgorithms.pop(0)
@@ -140,12 +155,12 @@ class ToolbarButtons(Tk.Frame):
         if self.curr_settings[IDX_CURVES]:
             self.check_button_1.toggle()
 
-        self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Motion detection",
-                                             command=lambda: settings.flip_parameter(settings.IDX_MOTION))
-        self.check_button_2.pack(side=Tk.LEFT)
-        if self.curr_settings[IDX_MOTION]:
-            self.check_button_2.toggle()
-        self.check_button_2.config(state=Tk.DISABLED)
+        #self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Motion detection",
+        #                                     command=lambda: settings.flip_parameter(settings.IDX_MOTION))
+        #self.check_button_2.pack(side=Tk.LEFT)
+        #if self.curr_settings[IDX_MOTION]:
+        #    self.check_button_2.toggle()
+        #self.check_button_2.config(state=Tk.DISABLED)
 
         self.check_button_3 = Tk.Checkbutton(master=self.button_frame, text="Store frames",
                                              command=lambda: settings.flip_parameter(settings.IDX_FRAMES))
@@ -153,15 +168,70 @@ class ToolbarButtons(Tk.Frame):
         if self.curr_settings[IDX_FRAMES]:
             self.check_button_3.toggle()
 
-        self.button_quit = Tk.Button(master=self.button_frame, text='Quit', command=self.__quit)
-        self.button_quit.pack(side=Tk.RIGHT)
         self.button_start = Tk.Button(master=self.button_frame, text='Start', command=self.__start)
         self.button_start.pack(side=Tk.RIGHT)
 
     def __changeAlgorithm(self):
-        if self.dropDownListAlgorithm.cget("text") == "HR estimation":
+        if self.dropDownListAlgorithm.cget("text") == "Heart rate":
             settings.change_parameter(IDX_ALGORITHM,1)
-        #elif self.dropDownListAlgorithm.cget("text") == "Algorithm #2":
-        #    settings.change_parameter(IDX_ALGORITHM, 2)
-        #else:
-        #    settings.change_parameter(IDX_ALGORITHM, 3)
+
+    def __openFiles(self):
+        self.root.option_add('*Dialog.msg.font', 'Helvetica 10')
+        tkMessageBox.showinfo("Information", "Please choose a folder containing files with increasing number"
+                                             ", e.g. frame0.png frame1.png frame2.png ...")
+
+        # Open Tk dialog
+        self.dirName = askdirectory()
+
+        if os.path.isdir(self.dirName):
+            logging.info("User has chosen valid directory with images")
+
+            # Define variables
+            self.filesInDirSorted = []
+            self.filesInDirSortedWithFilenameAndExtension = []
+
+            try:
+
+                # Get files in directory:
+                # Format: Name + Number + Extension
+                self.filesInDir = [f for f in listdir(self.dirName) if isfile(join(self.dirName, f))]
+
+                # Remove file names and extensions from list of file.
+                # Format: Number
+                for currentFile in self.filesInDir:
+
+                    # Get file name before index
+                    m = re.search("\d", currentFile)
+                    self.fileName = currentFile[:m.start()]
+
+                    # Get file extension
+                    m2 = re.search("\.", currentFile)
+                    self.fileExtension = currentFile[m2.start():]
+
+                    # Store numbers only
+                    self.filesInDirSorted.append(currentFile[m.start():m2.start()])
+
+                # Sort files
+                self.filesInDirSorted.sort(key=int)
+
+                # Add file name and extension again.
+                # Format: Name + Number + Extension
+                for file in self.filesInDirSorted:
+                    self.filesInDirSortedWithFilenameAndExtension.append( self.fileName + file + self.fileExtension )
+
+                # Store file names in camera thread
+                self.cameraInstance.storeFramesFromDisk(self.dirName,self.filesInDirSortedWithFilenameAndExtension)
+
+                # Update GUI
+                self.dropDownListCamera.config(state=Tk.DISABLED)
+                self.textbox_fps.config(state=Tk.DISABLED)
+                self.textbox_fps.config(bg='lightgray')
+
+            except:
+                logging.error("Files in folder have a non-correct syntax.")
+                tkMessageBox.showerror("Error", "The files in this directory do not have the correct syntax "
+                                                "(e.g. frame0.png frame1.png frame2.png ...)")
+
+        else:
+            logging.error("User has chosen invalid directory with images")
+            tkMessageBox.showerror("Error", "This directory is invalid. Please choose a valid one.")

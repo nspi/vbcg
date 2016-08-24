@@ -21,25 +21,41 @@ class CameraThread(threading.Thread):
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
 
-            # Check if connection to camera has been established
-            if cameraConnectionEstablished is False:
+            # If the user added frames from hard disk, use them instead of camera
+            if self.files is not None:
 
-                logging.info("Camera thread was started. Waiting for EventCameraChosen.")
-                UserChoseCamera = self.eventCameraChosen.wait(1)
+                # Check if the user has pressed the start button
+                UserPressedStart = self.eventUserPressedStart.wait(1)
 
-                if UserChoseCamera:
+                if UserPressedStart:
 
-                    # Open connection to camera
-                    self.__openCamera()
-                    # Set event for other threads
-                    self.eventCameraReady.set()
-                    logging.info("Camera is ready. Other processes can acquire frames.")
-                    # Set bool variable, so that the thread can start to capture frames
-                    cameraConnectionEstablished = True
+                    logging.info("User pressed start and wants to use frames from hard disk")
+                    print "showing frames from hard disk..."
 
-            # Continuosly capture frames until user ends program
-            if self.eventCameraReady.is_set():
-                ret, self.currentFrame = self.videoStream.read()
+            # If the user did not choose frames from hard disk, use camera instead
+            else:
+
+                # Check if connection to camera has been established
+                if cameraConnectionEstablished is False:
+
+                    # Check if the user has pressed the start button
+                    UserPressedStart = self.eventUserPressedStart.wait(1)
+
+                    if UserPressedStart:
+
+                        logging.info("User pressed start and wants to use the camera")
+                        # Open connection to camera
+                        self.__openCamera()
+                        # Set event for other threads
+                        self.eventCameraReady.set()
+                        logging.info("Camera is ready. Other processes can acquire frames.")
+                        # Set bool variable, so that the thread can start to capture frames
+                        cameraConnectionEstablished = True
+
+                # Continuosly capture frames until user ends program
+                if self.eventCameraReady.is_set():
+                    ret, self.currentFrame = self.videoStream.read()
+
 
         # Close connection to camera
         self.__closeCamera()
@@ -73,6 +89,8 @@ class CameraThread(threading.Thread):
         self.numberOfCameras = 2
         self.currentFrame = np.zeros((480, 640, 3), np.uint8)
         self.eventProgramEnd = threading.Event()
+        self.filesDir = None
+        self.files = None
 
     def __openCamera(self):
         # This function initializes the desired camera
@@ -118,17 +136,15 @@ class CameraThread(threading.Thread):
         ret, frame = self.videoStream.read()
         return np.size(frame)
 
-    def __getStatus(self):
-        # This function returns true when the user has chosen a camera by clicking ''start''
-        if self.eventCameraChosen is not None:
-            return True
-        else:
-            return False
+    def storeFramesFromDisk(self, directory, files):
+        # This function stores the directory and files if the user wants to use frames from the hard disk
+        self.filesDir = directory
+        self.files = files
 
     # Setter and getter for the threading events
     def setEventCameraChosen(self, event):
         global eventCameraChosen
-        self.eventCameraChosen = event
+        self.eventUserPressedStart = event
 
     def setEventCameraReady(self, event):
         self.eventCameraReady = event
@@ -139,4 +155,4 @@ class CameraThread(threading.Thread):
 
     def getEventCameraChosen(self):
         global eventCameraChosen
-        return self.eventCameraChosen
+        return self.eventUserPressedStart

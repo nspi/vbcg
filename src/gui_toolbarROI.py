@@ -42,8 +42,7 @@ class ToolbarROI(Tk.Frame):
 
         # Add Checkbutton to decide whether to use Viola-Jones algorithm or manual ROI definition
         curr_settings = settings.get_parameters()
-
-        self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Viola-Jones Face Detection Algorithm", command=lambda: self.__violaJones())
+        self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Viola-Jones Face Detection", command=lambda: self.__violaJones())
         self.check_button_1.pack(side=Tk.LEFT)
 
         # Add empty box
