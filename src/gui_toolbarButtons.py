@@ -9,6 +9,7 @@ import threading
 import os
 import re
 import tkMessageBox
+import traceback
 
 from os import listdir
 from os.path import isfile, join
@@ -71,6 +72,7 @@ class ToolbarButtons(Tk.Frame):
 
         # Exit program
         logging.info("Program will halt now...")
+
         sys.exit()
 
     def __init__(self, parent, tk_root, thread, cam, signalDisplay):
@@ -226,6 +228,10 @@ class ToolbarButtons(Tk.Frame):
                 self.dropDownListCamera.config(state=Tk.DISABLED)
                 self.textbox_fps.config(state=Tk.DISABLED)
                 self.textbox_fps.config(bg='lightgray')
+                self.button_files.config(bg='green')
+                self.button_files.config(state=Tk.DISABLED)
+
+                logging.error("Files have been loaded successfully.")
 
             except:
                 logging.error("Files in folder have a non-correct syntax.")

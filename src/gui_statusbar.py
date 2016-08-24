@@ -39,13 +39,13 @@ class Statusbar(Tk.Frame):
         self.text_frame = Tk.Frame(root, width=500, height=100)
         self.text_frame.pack(side=Tk.TOP)
 
-        self.label_counter_1 = Tk.Label(self.text_frame, text="Frames:")
-        self.label_counter_1.pack(side=Tk.LEFT)
+        self.label_counter_1 = Tk.Label(self.text_frame, text="Frames (displayed):")
+        #self.label_counter_1.pack(side=Tk.LEFT)
 
         self.label_counter_2 = Tk.Label(self.text_frame, text=self.str_counter)
-        self.label_counter_2.pack(side=Tk.LEFT)
+        #self.label_counter_2.pack(side=Tk.LEFT)
 
-        self.label_counter_3 = Tk.Label(self.text_frame, text="        FPS Webcam:")
+        self.label_counter_3 = Tk.Label(self.text_frame, text="        FPS Video:")
         self.label_counter_3.pack(side=Tk.LEFT)
 
         self.label_counter_4 = Tk.Label(self.text_frame, text=self.fps_counter)

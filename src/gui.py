@@ -12,6 +12,8 @@ import logging
 
 # Create root widget
 root = Tk.Tk()
+# Set title in navigation bar
+root.wm_title("vbcg")
 
 class GUI:
     # This is the main class of the gui

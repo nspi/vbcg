@@ -14,51 +14,63 @@ videoStream = numberOfCameras = cameraIdx = None
 class CameraThread(threading.Thread):
 
     def run(self):
-        # The thread waits until a camera is ready and then provides frames.
-        # When the user presses the ''quit'' button, the connection to the camera is closed
-        cameraConnectionEstablished = False
+        # This threads provides frames from a camera or from hard disk
+        # When using frames from disk, it ends after initialization. When using a camera, it runs continuously.
+        # When the user presses the ''quit'' button, the connection to the camera is closed.
+
+        # Has a connection been established to the camera or the hard disk?
+        connectionEstablished = False
 
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
 
-            # If the user added frames from hard disk, use them instead of camera
+            # Check if the user wants to read frames from hard disk or from camera
             if self.files is not None:
 
-                # Check if the user has pressed the start button
-                UserPressedStart = self.eventUserPressedStart.wait(1)
+                # Check if connection has been established
+                if connectionEstablished is False:
 
-                if UserPressedStart:
+                    # Check if the user has pressed the start button
+                    userPressedStart = self.eventUserPressedStart.wait(1)
 
-                    logging.info("User pressed start and wants to use frames from hard disk")
-                    print "showing frames from hard disk..."
+                    if userPressedStart:
+
+                        logging.info("User pressed start and wants to use frames from hard disk")
+                        # Set event for other threads
+                        self.eventVideoReady.set()
+                        # Set bool variable, so that the thread can start to capture frames
+                        connectionEstablished = True
+                        # Set event so that this thread exits because it slows down the application
+                        self.eventProgramEnd.set()
 
             # If the user did not choose frames from hard disk, use camera instead
             else:
 
-                # Check if connection to camera has been established
-                if cameraConnectionEstablished is False:
+                # Check if connection has been established
+                if connectionEstablished is False:
 
                     # Check if the user has pressed the start button
-                    UserPressedStart = self.eventUserPressedStart.wait(1)
+                    userPressedStart = self.eventUserPressedStart.wait(1)
 
-                    if UserPressedStart:
+                    if userPressedStart:
 
                         logging.info("User pressed start and wants to use the camera")
                         # Open connection to camera
                         self.__openCamera()
                         # Set event for other threads
-                        self.eventCameraReady.set()
+                        self.eventVideoReady.set()
                         logging.info("Camera is ready. Other processes can acquire frames.")
                         # Set bool variable, so that the thread can start to capture frames
-                        cameraConnectionEstablished = True
+                        connectionEstablished = True
 
                 # Continuosly capture frames until user ends program
-                if self.eventCameraReady.is_set():
+                if self.eventVideoReady.is_set():
                     ret, self.currentFrame = self.videoStream.read()
 
 
-        # Close connection to camera
-        self.__closeCamera()
+        # Close connection to camera if it was used
+        if self.files is None:
+            self.__closeCamera()
 
     def __init__(self):
         # Thread initialization
@@ -91,6 +103,7 @@ class CameraThread(threading.Thread):
         self.eventProgramEnd = threading.Event()
         self.filesDir = None
         self.files = None
+        self.frameCounter = 0
 
     def __openCamera(self):
         # This function initializes the desired camera
@@ -107,7 +120,7 @@ class CameraThread(threading.Thread):
 
     def closeCameraThread(self):
         # User pressed ''quit'' button, set events to that thread can end
-        self.eventCameraReady.clear()
+        self.eventVideoReady.clear()
         self.eventProgramEnd.set()
 
     def setCameraIdx(self, cameraIndex):
@@ -123,11 +136,27 @@ class CameraThread(threading.Thread):
         # This function delivers black frames until the user pressed ''start''
         global videoStream
 
-        if self.eventCameraReady.is_set():
-            frame = self.currentFrame
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            return True, frame
+        if self.eventVideoReady.is_set():
+
+            # Get frames from live webcam
+            if self.files is None:
+                frame = self.currentFrame
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                return True, frame
+
+            # Get frames from hard disk
+            else:
+                try:
+                    currFile = self.filesDir + '/' + self.files[self.frameCounter]
+                    frame = cv2.imread(currFile)
+                    self.frameCounter += 1
+                    return True, frame
+                except IndexError:
+                    logging.info("Reached last file.")
+                    return False, np.zeros((480, 640, 3), np.uint8)
+
         else:
+
             return False, np.zeros((480, 640, 3), np.uint8)
 
     def getResolution(self):
@@ -147,11 +176,11 @@ class CameraThread(threading.Thread):
         self.eventUserPressedStart = event
 
     def setEventCameraReady(self, event):
-        self.eventCameraReady = event
+        self.eventVideoReady = event
 
     def getEventCameraReady(self):
         global eventCameraReady
-        return self.eventCameraReady
+        return self.eventVideoReady
 
     def getEventCameraChosen(self):
         global eventCameraChosen

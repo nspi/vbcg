@@ -47,7 +47,6 @@ class WindowVideo(Tk.Frame):
         self.__create_gui()
 
         # Create variable to adjust thread sleeping time to desired FPS
-        # todo: make this dynamic
         self.sleep_time = 1000/VAL_FPS
 
         # Start frame display as thread
@@ -72,6 +71,9 @@ class WindowVideo(Tk.Frame):
 
     def __showImage(self):
         # Get frame from camera and display it
+
+        # Set statusbar value
+        self.statusbarInstance.setFPSCounter(0)
 
         # Get current frame
         self.isTrueFrame, self.frame = self.cameraInstance.getFrame()
@@ -130,7 +132,7 @@ class WindowVideo(Tk.Frame):
         self.iconHeart = cv2.cvtColor(self.iconHeart, cv2.COLOR_BGR2RGB)
         # Create ROI
         rows, cols, channels = self.iconHeart.shape
-        roi = self.frame[-rows:,-cols:,:]
+        roi = self.frame[:rows,:cols,:]
         # Convert heart to grayscale
         iconHeartGray = cv2.cvtColor(self.iconHeart, cv2.COLOR_RGB2GRAY)
         # Create mask and inverse mask with binary thresholding
@@ -142,9 +144,9 @@ class WindowVideo(Tk.Frame):
         iconHeartFG = cv2.bitwise_and(self.iconHeart, self.iconHeart, mask=mask)
         # Add heart icon to frame
         iconHeartFinal = cv2.add(frameBG, iconHeartFG)
-        self.frame[-rows:,-cols:,:] = iconHeartFinal
+        self.frame[:rows,:cols,:] = iconHeartFinal
         # Add text that displays Heart Rate
-        cv2.putText(self.frame, self.HeartRateText,  ( np.size(self.frame, 0)+90,  np.size(self.frame, 1)-200), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        cv2.putText(self.frame, self.HeartRateText,  ( 25,50 ), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
 
         # Display frame

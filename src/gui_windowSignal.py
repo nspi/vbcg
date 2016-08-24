@@ -112,11 +112,11 @@ class SignalPlotter(threading.Thread):
         # Variable for statusbar information
         self.enoughFrames = False
 
+        # Set statusbar value
+        self.statusbarInstance.setFPSCounter2(0)
+
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
-
-            # Update values in statusbar
-            self.statusbarInstance.setFPSCounter2(self.FPS)
 
             # Get camera event
             self.cameraActive = self.cameraInstance.getEventCameraReady()
@@ -126,6 +126,9 @@ class SignalPlotter(threading.Thread):
 
             # If camera is available, compute mean value and store it
             if self.cameraActive.is_set():
+
+                # Update values in statusbar
+                self.statusbarInstance.setFPSCounter2(self.FPS)
 
                 # Update statusbar value if not enough frames available for computations
                 if not self.enoughFrames:
