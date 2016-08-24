@@ -152,6 +152,7 @@ class CameraThread(threading.Thread):
                     self.frameCounter += 1
                     return True, frame
                 except IndexError:
+                    # Todo: Restart program in this case
                     logging.info("Reached last file.")
                     return False, np.zeros((480, 640, 3), np.uint8)
 

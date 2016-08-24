@@ -123,30 +123,33 @@ class WindowVideo(Tk.Frame):
                 cv2.imwrite(os.path.join(self.directory,fileName), cv2.cvtColor(self.frame,cv2.COLOR_BGR2RGB))
 
 
-        # Add heart symbol to frame
-        # Algorithm source: http://docs.opencv.org/trunk/d0/d86/tutorial_py_image_arithmetics.html
+        # If HR estimation algorithm is chosen, add heart symbol and HR text
 
-        # Load heart icon
-        self.iconHeart = cv2.imread('data/heart.png')
-        # Convert to RGB
-        self.iconHeart = cv2.cvtColor(self.iconHeart, cv2.COLOR_BGR2RGB)
-        # Create ROI
-        rows, cols, channels = self.iconHeart.shape
-        roi = self.frame[:rows,:cols,:]
-        # Convert heart to grayscale
-        iconHeartGray = cv2.cvtColor(self.iconHeart, cv2.COLOR_RGB2GRAY)
-        # Create mask and inverse mask with binary thresholding
-        ret, mask = cv2.threshold(iconHeartGray, 10, 255, cv2.THRESH_BINARY)
-        mask_inv = cv2.bitwise_not(mask)
-        # Background: Original frame with inverse mask
-        frameBG = cv2.bitwise_and(roi, roi, mask=mask_inv)
-        # Foreground: Heart with normal mask
-        iconHeartFG = cv2.bitwise_and(self.iconHeart, self.iconHeart, mask=mask)
-        # Add heart icon to frame
-        iconHeartFinal = cv2.add(frameBG, iconHeartFG)
-        self.frame[:rows,:cols,:] = iconHeartFinal
-        # Add text that displays Heart Rate
-        cv2.putText(self.frame, self.HeartRateText,  ( 25,50 ), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        if self.curr_settings[IDX_ALGORITHM] == 1:
+            # Add heart symbol to frame
+            # Algorithm source: http://docs.opencv.org/trunk/d0/d86/tutorial_py_image_arithmetics.html
+
+            # Load heart icon
+            self.iconHeart = cv2.imread('data/heart.png')
+            # Convert to RGB
+            self.iconHeart = cv2.cvtColor(self.iconHeart, cv2.COLOR_BGR2RGB)
+            # Create ROI
+            rows, cols, channels = self.iconHeart.shape
+            roi = self.frame[:rows,:cols,:]
+            # Convert heart to grayscale
+            iconHeartGray = cv2.cvtColor(self.iconHeart, cv2.COLOR_RGB2GRAY)
+            # Create mask and inverse mask with binary thresholding
+            ret, mask = cv2.threshold(iconHeartGray, 10, 255, cv2.THRESH_BINARY)
+            mask_inv = cv2.bitwise_not(mask)
+            # Background: Original frame with inverse mask
+            frameBG = cv2.bitwise_and(roi, roi, mask=mask_inv)
+            # Foreground: Heart with normal mask
+            iconHeartFG = cv2.bitwise_and(self.iconHeart, self.iconHeart, mask=mask)
+            # Add heart icon to frame
+            iconHeartFinal = cv2.add(frameBG, iconHeartFG)
+            self.frame[:rows,:cols,:] = iconHeartFinal
+            # Add text that displays Heart Rate
+            cv2.putText(self.frame, self.HeartRateText,  ( 25,50 ), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
 
         # Display frame

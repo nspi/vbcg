@@ -103,3 +103,71 @@
 24.08.2016 16:17:01 gui_toolbarButtons INFO Program will halt now...
 24.08.2016 16:17:02 gui_windowSignal INFO Signal plotting thread will be halted
 24.08.2016 16:17:02 gui_windowSignal INFO Reached of signal plotting thread
+24.08.2016 21:27:43 gui INFO Link to camera thread was stored in GUI class
+24.08.2016 21:27:43 gui INFO Created status bar
+24.08.2016 21:27:43 gui INFO Created toolbar for ROI definition
+24.08.2016 21:27:43 gui INFO Created part of the GUI that shows video
+24.08.2016 21:27:43 gui INFO Created part of the GUI that shows the signal extracted from the video
+24.08.2016 21:27:43 gui INFO Created toolbar with buttons
+24.08.2016 21:27:43 gui INFO Main window was created
+24.08.2016 21:27:43 gui INFO Starting TkInter main loop
+24.08.2016 21:27:43 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:43 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:44 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:44 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:45 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:45 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:46 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:46 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:47 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:47 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:48 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:48 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:49 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:49 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:50 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:50 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:51 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:51 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:52 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:52 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:53 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:53 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:54 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:54 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:55 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:55 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:57 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:57 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:58 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:58 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:59 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:27:59 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:27:59 settings INFO Parameter: 4 was changed
+24.08.2016 21:28:00 gui_toolbarROI WARNING Your ROI definition was inadequate (x_min < x_max). The values were corrected.
+24.08.2016 21:28:00 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+24.08.2016 21:28:00 gui_toolbarButtons INFO Start button has been pressed
+24.08.2016 21:28:00 gui_toolbarButtons INFO Camera is started
+24.08.2016 21:28:00 camera INFO Camera index was set because user pressed start button
+24.08.2016 21:28:00 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+24.08.2016 21:28:00 camera INFO User pressed start and wants to use the camera
+24.08.2016 21:28:00 camera INFO The camera was initialized
+24.08.2016 21:28:00 camera INFO Camera is ready. Other processes can acquire frames.
+24.08.2016 21:28:00 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+24.08.2016 21:28:11 settings INFO Parameter: 7 was changed
+24.08.2016 21:28:11 gui_toolbarROI INFO Viola-Jones algorithm was activated by the user
+24.08.2016 21:28:12 settings INFO Parameter: 7 was changed
+24.08.2016 21:28:12 gui_toolbarROI INFO Viola-Jones algorithm was disabled by the user
+24.08.2016 21:28:13 settings INFO Parameter: 7 was changed
+24.08.2016 21:28:13 gui_toolbarROI INFO Viola-Jones algorithm was activated by the user
+24.08.2016 21:28:13 settings INFO Parameter: 7 was changed
+24.08.2016 21:28:13 gui_toolbarROI INFO Viola-Jones algorithm was disabled by the user
+24.08.2016 21:28:55 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+24.08.2016 21:28:55 gui_toolbarButtons INFO Signal display thread was closed
+24.08.2016 21:28:55 gui_toolbarButtons INFO Camera capture thread was closed
+24.08.2016 21:28:55 gui_toolbarButtons INFO Tk mainloop() was halted
+24.08.2016 21:28:55 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140288354522944)>, <CameraThread(Thread-1, started 140287767975680)>, <SignalPlotter(Thread-7, started 140287515027200)>]
+24.08.2016 21:28:55 gui_toolbarButtons INFO Program will halt now...
+24.08.2016 21:28:55 camera INFO The camera was released
+24.08.2016 21:28:56 gui_windowSignal INFO Signal plotting thread will be halted
+24.08.2016 21:28:56 gui_windowSignal INFO Reached of signal plotting thread

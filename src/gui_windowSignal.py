@@ -13,6 +13,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure as Mat_figure
 matplotlib.use('TkAgg')
 
+
 class WindowSignal(Tk.Frame):
     # In this frame the signal extracted from the video stream is shown
 
@@ -155,24 +156,31 @@ class SignalPlotter(threading.Thread):
                     # Perform algorithms depending on user selection
                     if self.curr_settings[IDX_ALGORITHM] == 1:
 
+                        # Compute algorithm
                         self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = signal_processing.computeHR(self.valuesRaw, self.FPS)
+                        # Store heart rate value
                         self.HRstring = str(self.HR)
                         self.video_display.set_HeartRateText(self.HRstring[0:self.HRstring.find('.')])
-
+                        # Normalize signals for display
                         self.valuesOutput = signal_processing.normalize(self.valuesRaw)
                         self.valuesOutput2 = signal_processing.normalize(self.spectrum)
 
-                    else:    # Placeholder for future algorithms
+                    elif self.curr_settings[IDX_ALGORITHM] == 2:
 
+                        # Compute algorithm
+                        self.valuesOutput2 = signal_processing.filterWaveform(self.valuesRaw,self.valuesOutput2,20)
+
+                        # Normalize signals for display
                         self.valuesOutput = signal_processing.normalize(self.valuesRaw)
-                        self.valuesOutput2 = signal_processing.normalize(self.valuesRaw)
-
+                        self.valuesOutput2 = signal_processing.normalize(self.valuesOutput2)
 
                     # Delete data points to maintain 300 values
                     mask = np.ones(len(self.valuesRaw), dtype=bool)
                     mask[0:np.size(self.valuesRaw) - 300] = False
                     self.valuesRaw = self.valuesRaw[mask]
                     self.valuesOutput = self.valuesOutput[mask]
+                    if self.curr_settings[IDX_ALGORITHM] == 2:
+                        self.valuesOutput2 = self.valuesOutput2[mask]
 
                 else:
                     self.valuesOutput = signal_processing.normalize(self.valuesRaw)
@@ -188,15 +196,12 @@ class SignalPlotter(threading.Thread):
                     self.subplotInstanceTop.clear()
                     self.subplotInstanceBottom.clear()
 
-                    # Add labels
-                    self.subplotInstanceTop.set_xlabel('Frames')
-                    self.subplotInstanceBottom.set_xlabel('Hz')
-
                     # Plot results based on algorithm
                     if self.curr_settings[IDX_ALGORITHM] == 1:
 
                         self.subplotInstanceTop.plot(self.valuesOutput)
                         self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
+                        self.subplotInstanceTop.set_xlabel('Frames')
 
                         # Plot spectrum if it is available, i.e. the algorithm has been computed once
                         if  (np.count_nonzero(self.valuesOutput2)>=1):
@@ -204,6 +209,21 @@ class SignalPlotter(threading.Thread):
                             self.subplotInstanceBottom.plot(self.spectrumAxis,self.valuesOutput2)
                             self.subplotInstanceBottom.plot(self.spectrumAxis[self.spectrumMax], self.valuesOutput2[self.spectrumMax],'r*')
                             self.subplotInstanceBottom.legend(["One-sided Amplitude spectrum"], fontsize=9)
+                            self.subplotInstanceBottom.set_xlabel('Hz')
+
+
+                    elif self.curr_settings[IDX_ALGORITHM] == 2:
+
+                        self.subplotInstanceTop.plot(self.valuesOutput)
+                        self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
+                        self.subplotInstanceTop.set_xlabel('Frames')
+
+                        # Plot spectrum if it is available, i.e. the algorithm has been computed once
+                        if  (np.count_nonzero(self.valuesOutput2)>=1):
+
+                            self.subplotInstanceBottom.plot(self.valuesOutput2)
+                            self.subplotInstanceBottom.legend(["Filtered waveform"], fontsize=9)
+                            self.subplotInstanceBottom.set_xlabel('Frames')
 
                 # Draw to canvas
                 self.canvasInstance.draw()

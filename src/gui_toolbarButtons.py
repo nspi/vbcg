@@ -9,7 +9,6 @@ import threading
 import os
 import re
 import tkMessageBox
-import traceback
 
 from os import listdir
 from os.path import isfile, join
@@ -72,7 +71,6 @@ class ToolbarButtons(Tk.Frame):
 
         # Exit program
         logging.info("Program will halt now...")
-
         sys.exit()
 
     def __init__(self, parent, tk_root, thread, cam, signalDisplay):
@@ -139,8 +137,8 @@ class ToolbarButtons(Tk.Frame):
         self.label_x2 = Tk.Label(self.button_frame, text="Algorithm:")
         self.label_x2.pack(side=Tk.LEFT)
         listAlgorithms = ['']
-        listAlgorithms.append("Heart rate")
-        #listAlgorithms.append("Algorithm #2")
+        listAlgorithms.append("Estimate Heart rate")
+        listAlgorithms.append("Filter waveform")
         #listAlgorithms.append("Algorithm #3")
         listAlgorithms.pop(0)
         self.listAlgorithmStr = Tk.StringVar()
@@ -174,8 +172,10 @@ class ToolbarButtons(Tk.Frame):
         self.button_start.pack(side=Tk.RIGHT)
 
     def __changeAlgorithm(self):
-        if self.dropDownListAlgorithm.cget("text") == "Heart rate":
-            settings.change_parameter(IDX_ALGORITHM,1)
+        if self.dropDownListAlgorithm.cget("text") == "Estimate Heart rate":
+            settings.change_parameter(IDX_ALGORITHM, 1)
+        elif self.dropDownListAlgorithm.cget("text") == "Filter waveform":
+            settings.change_parameter(IDX_ALGORITHM, 2)
 
     def __openFiles(self):
         self.root.option_add('*Dialog.msg.font', 'Helvetica 10')

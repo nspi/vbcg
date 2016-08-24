@@ -2,17 +2,23 @@
 
 This is a prototype demonstrating our research activities concerning *video-based vital sign monitoring*. 
 
-We aim to apply this techniques in the context of ultra-high-field MRI but other scenarios are possible as well. 
+We aim to apply this techniques in the context of ultra-high-field MRI but other scenarios are possible as well.
 
 ## About
 The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the algorithms we have developed so far.
 
+On Github there are several other valuable projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) regarding video-based heart rate frequency estimation. This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately.
+
 #### Features
-- Read video stream from OpenCV compatible camera
-- Crop video to manually-defined ROI or use OpenCV Viola-Jones [3] implementation for face detection
-- Enable/Disable plotting of signals
+- Read video stream from OpenCV compatible camera *or* read video stream from hard disk
+
+- Crop video to manually-defined ROI *or* use Viola-Jones algorithm for face detection [3]
+
 - Store frames from camera on hard disk
-- Heart rate estimation as described in [4] and live visual feedback
+
+- Heart rate estimation as described in [4] 
+
+- ''Prediction'' of next cardiac cycle as described in [5]
 
 #### License
 GNU GPL v3.0
@@ -39,11 +45,16 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 #### Usage
 `cd src;` `python main.py`
 
+Please note: **All results are estimated!** 
+
+If you want to obtain results with low deviation from the actual physiological values, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals (e.g. respiration when recording the chest).
+
 ## Todo
-- Read video stream from hard disk
-- More options (e.g. motion detection that pauses algorithms)
+- More options (e.g. motion detection that pauses triggering algorithms)
+
 - Update to Python 3 and current versions of all modules
-- Add algorithms from [5] and [6] 
+
+- Add algorithm from ISMRM 2015 [6]
 
 ## Contact
 Nicolai Spicher ([http://fh-dortmund.de/spicher](http://fh-dortmund.de/spicher))

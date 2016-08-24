@@ -34,8 +34,15 @@ def curveFit(inputSignal1, inputSignal2):
     return m
 
 # Todo: Complete this algorithm
-def algorithm1(inputRawSignal,inputOutputSignal,inputMagicNumber):
-    # This function computes the algorithm as described in our ISMRM 2016 contribution
+def filterWaveform(inputRawSignal, inputOutputSignal, inputMagicNumber):
+    # This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry
+    # as described in:
+    #
+    # Spicher N, Maderwald S, Ladd ME and Kukuk M. High-speed, contact-free measurement of the photoplethysmography
+    # waveform for MRI triggering Proceedings of the 24th Annual Meeting of the ISMRM, Singapore, Singapore,
+    # 07.05.-13.05.2016.
+
+
     RawSignal = inputRawSignal
     OutputSignal = inputOutputSignal
     magic_number = inputMagicNumber
@@ -53,14 +60,16 @@ def algorithm1(inputRawSignal,inputOutputSignal,inputMagicNumber):
 
     # Get output: Computed signal
     OutputSignal = np.append(OutputSignal, valueM[1])
-    OutputSignal = normalize(OutputSignal)
-    # Get outpout: Input signal
-    valuesRawOutput = valuesNorm
 
-    return valuesRawOutput,OutputSignal
+    return OutputSignal
 
 def computeHR(inputRawSignal, estimatedFPS):
-    # This algorithm computes the HR of the subject
+    # This simple algorithm computes the heart rate as described in:
+    #
+    # Spicher N, Maderwald S, Ladd ME and Kukuk M. Heart rate monitoring in ultra-high-field MRI using frequency
+    # information obtained from video signals of the human skin compared to electrocardiography and pulse oximetry.
+    # Proceedings of the 49th Annual Conference of the German Society for Biomedical Engineering, Luebeck, Germany,
+    # 16.-18.09.2015.
 
     # Get current parameters
     curr_settings = settings.get_parameters()
