@@ -22,7 +22,7 @@ root = cameraInstance = None
 
 
 class ToolbarButtons(Tk.Frame):
-    # This toolbar allows the user to change settings
+    """This toolbar allows the user to change settings"""
 
     def __start(self):
         logging.info("Start button has been pressed")
@@ -32,8 +32,7 @@ class ToolbarButtons(Tk.Frame):
 
         # Disable buttons that change settings
         self.check_button_1.config(state=Tk.DISABLED)
-        # self.check_button_2.config(state=Tk.DISABLED)
-        self.check_button_3.config(state=Tk.DISABLED)
+        self.check_button_2.config(state=Tk.DISABLED)
         self.button_start.config(state=Tk.DISABLED)
         self.dropDownListCamera.config(state=Tk.DISABLED)
         self.dropDownListAlgorithm.config(state=Tk.DISABLED)
@@ -96,7 +95,7 @@ class ToolbarButtons(Tk.Frame):
         self.signalDisplayInstance = signalDisplay
 
         # Initialize buttons
-        self.check_button_1 = self.check_button_2 = self.check_button_3 = self.check_button_4 = \
+        self.check_button_1 = self.check_button_2 = self.check_button_2 = self.check_button_4 = \
             self.listCamerasStr = self.dropDownListCamera = self.listAlgorithmStr = self.dropDownListAlgorithm = None
 
         # Get current settings
@@ -127,46 +126,49 @@ class ToolbarButtons(Tk.Frame):
         self.listCamerasStr.set(listCameras[0])
         self.dropDownListCamera.pack(side=Tk.LEFT)
 
+        # Add FPS label
         self.label_x1 = Tk.Label(self.button_frame, text="FPS:")
         self.label_x1.pack(side=Tk.LEFT)
         self.textbox_fps = Tk.Text(self.button_frame, width=5, height=1)
         self.textbox_fps.pack(side=Tk.LEFT)
         self.textbox_fps.insert(Tk.END, "30")
 
-        # Fill list with available algorithms and add to menu
+        # Fill list with available algorithms
         self.label_x2 = Tk.Label(self.button_frame, text="Algorithm:")
         self.label_x2.pack(side=Tk.LEFT)
         listAlgorithms = ['']
-        listAlgorithms.append("Estimate Heart rate")
-        listAlgorithms.append("Filter waveform")
+
+        # Choose prefered algorithm from settings
+        if self.curr_settings[IDX_ALGORITHM] == 1:
+            listAlgorithms.append("Estimate Heart rate")
+            listAlgorithms.append("Filter waveform")
+        elif self.curr_settings[IDX_ALGORITHM] == 2:
+            listAlgorithms.append("Filter waveform")
+            listAlgorithms.append("Estimate Heart rate")
+
+        # Remove empty entry
         listAlgorithms.pop(0)
         self.listAlgorithmStr = Tk.StringVar()
         self.dropDownListAlgorithm = Tk.OptionMenu(self.button_frame, self.listAlgorithmStr, *listAlgorithms,
                                                    command=lambda _: self.__changeAlgorithm())
         self.listAlgorithmStr.set(listAlgorithms[0])
         self.dropDownListAlgorithm.pack(side=Tk.LEFT)
-        # Todo: Load default algorithm from settings
 
-        # Create GUI elements for options and add them to menu
+        # Add checkbox: Show curves
         self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Show curves",
                                              command=lambda: settings.flip_parameter(settings.IDX_CURVES))
         self.check_button_1.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_CURVES]:
             self.check_button_1.toggle()
 
-        # self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Motion detection",
-        #                                     command=lambda: settings.flip_parameter(settings.IDX_MOTION))
-        # self.check_button_2.pack(side=Tk.LEFT)
-        # if self.curr_settings[IDX_MOTION]:
-        #     self.check_button_2.toggle()
-        # self.check_button_2.config(state=Tk.DISABLED)
-
-        self.check_button_3 = Tk.Checkbutton(master=self.button_frame, text="Store frames",
+        # Add checkbox: Store frames on hard disk
+        self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Store frames",
                                              command=lambda: settings.flip_parameter(settings.IDX_FRAMES))
-        self.check_button_3.pack(side=Tk.LEFT)
+        self.check_button_2.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_FRAMES]:
-            self.check_button_3.toggle()
+            self.check_button_2.toggle()
 
+        # Add start button
         self.button_start = Tk.Button(master=self.button_frame, text='Start', command=self.__start)
         self.button_start.pack(side=Tk.RIGHT)
 

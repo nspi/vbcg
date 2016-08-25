@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: ascii -*-
-"""signal_processing.py - signal processing functions"""
+"""signal_processing.py - a class for signal processing"""
 
 import numpy as np
 from scipy.optimize import curve_fit
@@ -23,6 +23,7 @@ def normalize(inputSignal):
 
 def curveFitFunc(x, a, b):
     """"linear curve fit function"""
+
     return a * x + b
 
 
@@ -30,7 +31,6 @@ def curveFit(inputSignal1, inputSignal2):
     """perform curve fitting and return slope value"""
 
     m, ret = curve_fit(curveFitFunc, inputSignal1, inputSignal2)
-
     return m
 
 
@@ -49,12 +49,16 @@ def filterWaveform(inputRawSignal, inputOutputSignal, inputMagicNumber):
 
     # Normalize values
     valuesNorm = normalize(RawSignal)
+
     # Perform pseudo derivation
     valuesNormDiff = np.abs(np.diff(valuesNorm))
+
     # Apply window
     valuesNormDiffWindow = valuesNormDiff[-magic_number:]
+
     # Prepare fit
     valuesXdata = np.linspace(0, 1, magic_number)
+
     # Apply curve fit
     valueM = curveFit(valuesXdata, valuesNormDiffWindow)
 
@@ -75,18 +79,23 @@ def computeHR(inputRawSignal, estimatedFPS):
 
     # Store signal
     signal = inputRawSignal
+
     # Store number of elements in signal
     N = np.size(signal)
+
     # Get FPS of video stream
     fps = estimatedFPS
+
     # Minimal and maximum HR (30..180 bpm)
     hrMin = 0.5
     hrMax = 3
 
     # Use Hamming window on signal
     valuesWin = signal[0:N] * np.hamming(N)
+
     # Compute FFT
     signalFFT = np.fft.fft(valuesWin)
+
     # Compute frequency axis
     x = np.linspace(0, N / fps, N + 1)
     freqAxis = np.fft.fftfreq(len(valuesWin), x[1] - x[0])
@@ -94,9 +103,11 @@ def computeHR(inputRawSignal, estimatedFPS):
     # Get boolean values if values are between hrMin and hrMax
     limitsBool = (hrMin < freqAxis) & (hrMax > freqAxis)
     limitsIdx = np.linspace(0, N - 1, N)
+
     # Get indices of frequncies between hrMin and hrMax
     limits = limitsIdx[limitsBool.nonzero()]
     limits = limits.astype(int)
+
     # Get index of maximum frequency in FFT spectrum
     max_val = limits[np.argmax(abs(signalFFT[limits]))]
 

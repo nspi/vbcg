@@ -2,12 +2,14 @@
 
 This is a prototype demonstrating our research activities concerning *video-based vital sign monitoring*. 
 
-We aim to apply this techniques in the context of ultra-high-field MRI but other scenarios are possible as well.
+We aim to apply this techniques in the context of ultra-high-field MRI but other scenarios are possible (e.g. gaming, fitness, sports)
+
+***
 
 ## About
 The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the algorithms we have developed so far.
 
-On Github there are several other valuable projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) regarding video-based heart rate frequency estimation. This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately.
+Regarding video-based heart rate frequency estimation, there are other valuable open-source projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) or commercial products (e.g. [Philips Vital Signs Camera](http://www.ip.philips.com/licensing/program/115)). This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately.
 
 #### Features
 - Read video stream from OpenCV compatible camera *or* read video stream from hard disk
@@ -24,9 +26,15 @@ On Github there are several other valuable projects (e.g. [webcam-pulse-detector
 GNU GPL v3.0
 
 #### Screenshot
-...
+TBA
+
+***
 
 ## Installation and usage
+
+Important notice:
+
+**This software can and should NOT be used for diagnosis! Results are estimated and for entertainment purposes only.** 
 
 #### Required software
 - Python 2.7
@@ -45,9 +53,9 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 #### Usage
 `cd src;` `python main.py`
 
-Please note: **All results are estimated!** 
-
 For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin (see screenshot 2), good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals (e.g. respiration when recording the chest).
+
+***
 
 ## Todo
 - More options (e.g. motion detection that pauses triggering algorithms)
@@ -56,12 +64,16 @@ For most accurate results, place your finger tip directly on the camera sensor (
 
 - Add algorithm from ISMRM 2015 [6]
 
+***
+
 ## Contact
 Nicolai Spicher ([http://fh-dortmund.de/spicher](http://fh-dortmund.de/spicher))
 
 See website for email address and please use my [PGP key](http://www.fh-dortmund.de/spicher/pgp_pub.asc).
 
 Department of Computer Science, University of Applied Sciences and Arts Dortmund
+
+***	
 
 ## References
 [1] Sun Y. and Thakor N. *Photoplethysmography Revisited: From Contact
