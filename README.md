@@ -4,8 +4,6 @@ This is a prototype demonstrating our research activities concerning *video-base
 
 We aim to apply this techniques in the context of ultra-high-field MRI but other scenarios are possible (e.g. gaming, fitness, sports)
 
-***
-
 ## About
 The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the algorithms we have developed so far.
 
@@ -13,8 +11,6 @@ Regarding video-based heart rate frequency estimation, there are other valuable 
 
 **This software can and should NOT be used for diagnosis! Results are estimated and for entertainment purposes only.**
 For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin (see screenshot 2), good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals (e.g. respiration when recording the chest). 
-
-***
 
 #### Features
 - Read video stream from OpenCV compatible camera *or* read video stream from hard disk
@@ -32,8 +28,6 @@ GNU GPL v3.0
 
 #### Screenshot
 TBA
-
-***
 
 ## Installation and usage
 
@@ -54,14 +48,10 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 #### Usage
 `cd src;` `python main.py`
 
-***
-
 ## Todo
 - Add more functions, options, and our algorithm from ISMRM 2015 [6]
 
 - Update to Python 3 and current versions of all modules
-
-***
 
 ## Contact
 Nicolai Spicher ([http://fh-dortmund.de/spicher](http://fh-dortmund.de/spicher))
@@ -69,8 +59,6 @@ Nicolai Spicher ([http://fh-dortmund.de/spicher](http://fh-dortmund.de/spicher))
 See website for email address and please use my [PGP key](http://www.fh-dortmund.de/spicher/pgp_pub.asc).
 
 Department of Computer Science, University of Applied Sciences and Arts Dortmund
-
-***	
 
 ## References
 [1] Sun Y. and Thakor N. *Photoplethysmography Revisited: From Contact
