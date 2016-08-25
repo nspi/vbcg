@@ -2,7 +2,8 @@
 # -*- coding: ascii -*-
 """gui_windowSignal.py - GUI element: frame that displays signal"""
 
-from defines import  *
+from defines import *
+from signal_processing import SignalProcessor
 
 import Tkinter as Tk
 import matplotlib
@@ -10,7 +11,6 @@ import logging
 import threading
 import numpy as np
 import cv2
-import signal_processing
 import settings
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -19,7 +19,7 @@ matplotlib.use('TkAgg')
 
 
 class WindowSignal(Tk.Frame):
-    # In this frame the signal extracted from the video stream is shown
+    """In this frame the signal extracted from the video stream is shown"""
 
     def __init__(self, parent, tk_root, thread, cam, statusbar, video_display):
 
@@ -57,17 +57,21 @@ class WindowSignal(Tk.Frame):
         self.canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
 
         # Call thread that displays signal
-        self.signalPlotThread = SignalPlotter(self.root, self.cameraInstance, self.figure, self.canvas, self.subplotTop, self.subplotBottom, self.statusbar, self.video_display)
+        self.signalPlotThread = SignalPlotter(self.root, self.cameraInstance,
+                                              self.figure, self.canvas, self.subplotTop,
+                                              self.subplotBottom, self.statusbar, self.video_display)
         self.signalPlotThread.start()
 
     def closeSignalPlotterThread(self):
+        """Closes signal plotting thread"""
         self.signalPlotThread.closeSignalPlotterThread()
 
 
 class SignalPlotter(threading.Thread):
-    # This thread is used for continously plotting the mean signal of the video in the ROI
+    """This thread is used for continously plotting the mean signal of the video in the ROI"""
 
     def __init__(self, tk_root, cam, figure, canvas, subplotTop, subplotBottom, statusbar, video_display):
+        """Initializes variables etc"""
 
         # Store camera object
         self.cameraInstance = cam
@@ -83,13 +87,16 @@ class SignalPlotter(threading.Thread):
         self.statusbarInstance = statusbar
         self.video_display = video_display
 
+        # Create signal processing object
+        self.signalProcessingInstance = SignalProcessor()
+
         # Get current parameters
         self.settingsInstance = settings
         self.curr_settings = self.settingsInstance.get_parameters()
 
         # Create empty vector for signal
         self.valuesRaw = np.zeros((1, 1))
-        self.valuesOutput =  np.zeros((300, 1))
+        self.valuesOutput = np.zeros((300, 1))
         self.valuesOutput2 = np.zeros((300, 1))
 
         # Initialize variables for FPS computation
@@ -109,10 +116,11 @@ class SignalPlotter(threading.Thread):
         self.eventProgramEnd.clear()
 
     def closeSignalPlotterThread(self):
-        # Activate event to end thread
+        """Activate event to end thread"""
         self.eventProgramEnd.set()
 
     def run(self):
+        """The main functionality of the thread: The signal is obtained, processed and plotted """
 
         # Variable for statusbar information
         self.enoughFrames = False
@@ -161,22 +169,22 @@ class SignalPlotter(threading.Thread):
                     if self.curr_settings[IDX_ALGORITHM] == 1:
 
                         # Compute algorithm
-                        self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = signal_processing.computeHR(self.valuesRaw, self.FPS)
+                        self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = self.signalProcessingInstance.computeHR(self.valuesRaw, self.FPS)
                         # Store heart rate value
                         self.HRstring = str(self.HR)
                         self.video_display.set_HeartRateText(self.HRstring[0:self.HRstring.find('.')])
                         # Normalize signals for display
-                        self.valuesOutput = signal_processing.normalize(self.valuesRaw)
-                        self.valuesOutput2 = signal_processing.normalize(self.spectrum)
+                        self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
+                        self.valuesOutput2 = self.signalProcessingInstance.normalize(self.spectrum)
 
                     elif self.curr_settings[IDX_ALGORITHM] == 2:
 
                         # Compute algorithm
-                        self.valuesOutput2 = signal_processing.filterWaveform(self.valuesRaw,self.valuesOutput2,20)
+                        self.valuesOutput2 = self.signalProcessingInstance.filterWaveform(self.valuesRaw,self.valuesOutput2,20)
 
                         # Normalize signals for display
-                        self.valuesOutput = signal_processing.normalize(self.valuesRaw)
-                        self.valuesOutput2 = signal_processing.normalize(self.valuesOutput2)
+                        self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
+                        self.valuesOutput2 = self.signalProcessingInstance.normalize(self.valuesOutput2)
 
                     # Delete data points to maintain 300 values
                     mask = np.ones(len(self.valuesRaw), dtype=bool)
@@ -187,7 +195,7 @@ class SignalPlotter(threading.Thread):
                         self.valuesOutput2 = self.valuesOutput2[mask]
 
                 else:
-                    self.valuesOutput = signal_processing.normalize(self.valuesRaw)
+                    self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
 
             # Increase counter
             self.frameCounter += 1
