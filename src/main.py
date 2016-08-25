@@ -1,29 +1,35 @@
 #!/usr/bin/env python
-# main.py - the main program
+# -*- coding: ascii -*-
+""" main.py - here starts everything
+
+    The program logic is divided in two threads:
+        (1) a video thread that acquires frames from the camera or hard disk
+        (2) a thread that manages the graphical user interaface and logic
+"""
 
 import logger
 import gui
-import camera
+import video
 import threading
 
 # Configure logging
 logger.init()
 
 # Create events for thread communication
-eventCameraChosen = threading.Event()           # is activated when user presses ''start'' button
-eventCameraIsReady = threading.Event()          # is activated when camera receives frames
+eventUserPressedStart = threading.Event()           # is activated when user presses ''start'' button
+eventVideoIsReady = threading.Event()               # is activated when frames are received from camera or hard disk
 
 # Initialize camera thread
-camThread = camera.CameraThread()
+videoThread = video.VideoThread()
 # Add events to camera thread
-camThread.setEventCameraChosen(eventCameraChosen)
-camThread.setEventCameraReady(eventCameraIsReady)
+videoThread.setEventUserPressedStart(eventUserPressedStart)
+videoThread.setEventVideoReady(eventVideoIsReady)
 # Start camera thread
-camThread.start()
+videoThread.start()
 
 # Initialize gui
-gui = gui.GUI()
+guiThread = gui.GUI()
 # Add camera thread to gui
-gui.setCamera(camThread)
+guiThread.setVideoThread(videoThread)
 # Start gui
-gui.start()
+guiThread.start()

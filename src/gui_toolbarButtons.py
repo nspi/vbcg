@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# gui.py - GUI element: toolbar with Buttons
+# -*- coding: ascii -*-
+"""gui_toolbarButtons.py - GUI element: toolbar with Buttons"""
 
 import sys
 import Tkinter as Tk
@@ -31,7 +32,7 @@ class ToolbarButtons(Tk.Frame):
 
         # Disable buttons that change settings
         self.check_button_1.config(state=Tk.DISABLED)
-        #self.check_button_2.config(state=Tk.DISABLED)
+        # self.check_button_2.config(state=Tk.DISABLED)
         self.check_button_3.config(state=Tk.DISABLED)
         self.button_start.config(state=Tk.DISABLED)
         self.dropDownListCamera.config(state=Tk.DISABLED)
@@ -40,7 +41,7 @@ class ToolbarButtons(Tk.Frame):
         self.button_files.config(state=Tk.DISABLED)
         self.textbox_fps.config(bg='lightgray')
 
-        # Give camera thread index of camera
+        # Store index of camera in thread
         logging.info("Camera is started")
         chosenCamera = self.listCamerasStr.get()[-1]
         self.cameraInstance.setCameraIdx(chosenCamera)
@@ -96,7 +97,7 @@ class ToolbarButtons(Tk.Frame):
 
         # Initialize buttons
         self.check_button_1 = self.check_button_2 = self.check_button_3 = self.check_button_4 = \
-        self.listCamerasStr = self.dropDownListCamera = self.listAlgorithmStr = self.dropDownListAlgorithm =  None
+            self.listCamerasStr = self.dropDownListCamera = self.listAlgorithmStr = self.dropDownListAlgorithm = None
 
         # Get current settings
         self.curr_settings = settings.get_parameters()
@@ -125,7 +126,6 @@ class ToolbarButtons(Tk.Frame):
         self.dropDownListCamera = Tk.OptionMenu(self.button_frame, self.listCamerasStr, *listCameras)
         self.listCamerasStr.set(listCameras[0])
         self.dropDownListCamera.pack(side=Tk.LEFT)
-        # Todo: Load default camera from settings
 
         self.label_x1 = Tk.Label(self.button_frame, text="FPS:")
         self.label_x1.pack(side=Tk.LEFT)
@@ -139,7 +139,6 @@ class ToolbarButtons(Tk.Frame):
         listAlgorithms = ['']
         listAlgorithms.append("Estimate Heart rate")
         listAlgorithms.append("Filter waveform")
-        #listAlgorithms.append("Algorithm #3")
         listAlgorithms.pop(0)
         self.listAlgorithmStr = Tk.StringVar()
         self.dropDownListAlgorithm = Tk.OptionMenu(self.button_frame, self.listAlgorithmStr, *listAlgorithms,
@@ -155,12 +154,12 @@ class ToolbarButtons(Tk.Frame):
         if self.curr_settings[IDX_CURVES]:
             self.check_button_1.toggle()
 
-        #self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Motion detection",
+        # self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Motion detection",
         #                                     command=lambda: settings.flip_parameter(settings.IDX_MOTION))
-        #self.check_button_2.pack(side=Tk.LEFT)
-        #if self.curr_settings[IDX_MOTION]:
-        #    self.check_button_2.toggle()
-        #self.check_button_2.config(state=Tk.DISABLED)
+        # self.check_button_2.pack(side=Tk.LEFT)
+        # if self.curr_settings[IDX_MOTION]:
+        #     self.check_button_2.toggle()
+        # self.check_button_2.config(state=Tk.DISABLED)
 
         self.check_button_3 = Tk.Checkbutton(master=self.button_frame, text="Store frames",
                                              command=lambda: settings.flip_parameter(settings.IDX_FRAMES))
@@ -218,11 +217,11 @@ class ToolbarButtons(Tk.Frame):
 
                 # Add file name and extension again.
                 # Format: Name + Number + Extension
-                for file in self.filesInDirSorted:
-                    self.filesInDirSortedWithFilenameAndExtension.append( self.fileName + file + self.fileExtension )
+                for currFile in self.filesInDirSorted:
+                    self.filesInDirSortedWithFilenameAndExtension.append(self.fileName + currFile + self.fileExtension)
 
                 # Store file names in camera thread
-                self.cameraInstance.storeFramesFromDisk(self.dirName,self.filesInDirSortedWithFilenameAndExtension)
+                self.cameraInstance.storeFramesFromDisk(self.dirName, self.filesInDirSortedWithFilenameAndExtension)
 
                 # Update GUI
                 self.dropDownListCamera.config(state=Tk.DISABLED)

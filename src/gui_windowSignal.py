@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: ascii -*-
+"""gui_windowSignal.py - GUI element: frame that displays signal"""
+
 from defines import  *
 
 import Tkinter as Tk

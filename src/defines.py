@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: ascii -*-
+"""defines.py - this file contains indices and standard values of program parameters"""
+
+# Meta data
+programVersion  = 0.1
+
 # Indices of parameters
 IDX_WEBCAM      = 0
 IDX_CAMERA      = 1

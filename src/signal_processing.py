@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-# signal_processing.py - Class for processing of the signals obtained from the video
+# -*- coding: ascii -*-
+"""signal_processing.py - signal processing functions"""
 
-import settings
 import numpy as np
 from scipy.optimize import curve_fit
-from defines import *
+
 
 def normalize(inputSignal):
-    # Normalize the signal to lie between 0 and 1
+    """Normalize the signal to lie between 0 and 1"""
 
     outputSignal = inputSignal
 
@@ -22,26 +22,26 @@ def normalize(inputSignal):
 
 
 def curveFitFunc(x, a, b):
-    # linear curve fit function
+    """"linear curve fit function"""
     return a * x + b
 
 
 def curveFit(inputSignal1, inputSignal2):
-    # perform curve fitting and return slope value
+    """perform curve fitting and return slope value"""
 
     m, ret = curve_fit(curveFitFunc, inputSignal1, inputSignal2)
 
     return m
 
-# Todo: Complete this algorithm
-def filterWaveform(inputRawSignal, inputOutputSignal, inputMagicNumber):
-    # This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry
-    # as described in:
-    #
-    # Spicher N, Maderwald S, Ladd ME and Kukuk M. High-speed, contact-free measurement of the photoplethysmography
-    # waveform for MRI triggering Proceedings of the 24th Annual Meeting of the ISMRM, Singapore, Singapore,
-    # 07.05.-13.05.2016.
 
+def filterWaveform(inputRawSignal, inputOutputSignal, inputMagicNumber):
+    """This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry
+        as described in:
+
+        Spicher N, Maderwald S, Ladd ME and Kukuk M. High-speed, contact-free measurement of the photoplethysmography
+        waveform for MRI triggering Proceedings of the 24th Annual Meeting of the ISMRM, Singapore, Singapore,
+        07.05.-13.05.2016.
+    """
 
     RawSignal = inputRawSignal
     OutputSignal = inputOutputSignal
@@ -63,16 +63,15 @@ def filterWaveform(inputRawSignal, inputOutputSignal, inputMagicNumber):
 
     return OutputSignal
 
-def computeHR(inputRawSignal, estimatedFPS):
-    # This simple algorithm computes the heart rate as described in:
-    #
-    # Spicher N, Maderwald S, Ladd ME and Kukuk M. Heart rate monitoring in ultra-high-field MRI using frequency
-    # information obtained from video signals of the human skin compared to electrocardiography and pulse oximetry.
-    # Proceedings of the 49th Annual Conference of the German Society for Biomedical Engineering, Luebeck, Germany,
-    # 16.-18.09.2015.
 
-    # Get current parameters
-    curr_settings = settings.get_parameters()
+def computeHR(inputRawSignal, estimatedFPS):
+    """This simple algorithm computes the heart rate as described in:
+
+        Spicher N, Maderwald S, Ladd ME and Kukuk M. Heart rate monitoring in ultra-high-field MRI using frequency
+        information obtained from video signals of the human skin compared to electrocardiography and pulse oximetry.
+        Proceedings of the 49th Annual Conference of the German Society for Biomedical Engineering, Luebeck, Germany,
+        16.-18.09.2015.
+    """
 
     # Store signal
     signal = inputRawSignal
@@ -93,7 +92,7 @@ def computeHR(inputRawSignal, estimatedFPS):
     freqAxis = np.fft.fftfreq(len(valuesWin), x[1] - x[0])
 
     # Get boolean values if values are between hrMin and hrMax
-    limitsBool= (hrMin < freqAxis) & (hrMax > freqAxis)
+    limitsBool = (hrMin < freqAxis) & (hrMax > freqAxis)
     limitsIdx = np.linspace(0, N - 1, N)
     # Get indices of frequncies between hrMin and hrMax
     limits = limitsIdx[limitsBool.nonzero()]

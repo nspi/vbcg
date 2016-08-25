@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# gui.py - GUI element: statusbar
+# -*- coding: ascii -*-
+"""gui_statusbar.py - GUI element: statusbar"""
 
 import Tkinter as Tk
 import threading

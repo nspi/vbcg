@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# logger.py - tool for storing logs of the main program
+# -*- coding: ascii -*-
+"""logger.py - tool for storing logs of the main program"""
 
 import logging
 

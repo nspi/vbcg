@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-# gui.py - GUI element: frame that displays video
+# -*- coding: ascii -*-
+"""gui_windowVideo.py - GUI element: frame that displays video"""
 
 import Tkinter as Tk
 import threading
@@ -15,10 +16,11 @@ import datetime
 from defines import *
 
 # Initialize global variables
-root =  None
+root = None
+
 
 class WindowVideo(Tk.Frame):
-    # In this frame the video stream is shown
+    """In this frame the video stream is shown"""
 
     def __init__(self, parent, tk_root, thread, cam, roi, statusbar):
 
@@ -61,7 +63,7 @@ class WindowVideo(Tk.Frame):
         self.fpsCounterThread.start()
 
     def __create_gui(self):
-        # Create GUI elements and add them to root widget
+        """Create GUI elements and add them to root widget"""
 
         self.video_frame = Tk.Frame(root, width=500, height=400)
         self.video_frame.config(background="gray")
@@ -70,7 +72,7 @@ class WindowVideo(Tk.Frame):
         self.lmain.pack()
 
     def __showImage(self):
-        # Get frame from camera and display it
+        """Get frame from camera and display it"""
 
         # Set statusbar value
         self.statusbarInstance.setFPSCounter(0)
@@ -95,7 +97,8 @@ class WindowVideo(Tk.Frame):
 
             # If first frame from camera is received and the user wants to store frames, create folder
             if self.curr_settings[IDX_FRAMES]:
-                self.directory = os.path.join(os.getcwd(),'data' , datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S'))
+                self.directory = os.path.join(os.getcwd(), 'data',
+                                              datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S'))
                 os.makedirs(self.directory)
                 logging.info('Folder was created for storing frames')
 
@@ -103,25 +106,24 @@ class WindowVideo(Tk.Frame):
             # If frame is received, use Viola-Jones algorithm or manual ROI definition to crop frame
 
             if self.curr_settings[IDX_FACE]:
-                #Use Viola-Jones
+                # Use Viola-Jones
                 frameBW = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
-                faces = self.faceCascade.detectMultiScale(frameBW,scaleFactor=1.1,minNeighbors=5,
-                                                     minSize=(30, 30),flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
+                faces = self.faceCascade.detectMultiScale(frameBW, scaleFactor=1.1, minNeighbors=5,
+                                                          minSize=(30, 30), flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
                 for (x, y, w, h) in faces:
                     cv2.rectangle(self.frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                     self.roiToolbarInstance.setROI(y, y + h, x, x + w)
             else:
                 # Otherwise: Use manual ROI input
-                x_min,x_max,y_min,y_max = self.roiToolbarInstance.getROI()
-                cv2.rectangle(self.frame,(y_min,x_min),(y_max,x_max),(0, 255, 0), 2)
+                x_min, x_max, y_min, y_max = self.roiToolbarInstance.getROI()
+                cv2.rectangle(self.frame, (y_min, x_min), (y_max, x_max), (0, 255, 0), 2)
 
             self.frameCounter += 1
 
             # If desired by the user, store the frames in a folder
             if self.curr_settings[IDX_FRAMES]:
                 fileName = "frame%d.jpg" % self.frameCounter
-                cv2.imwrite(os.path.join(self.directory,fileName), cv2.cvtColor(self.frame,cv2.COLOR_BGR2RGB))
-
+                cv2.imwrite(os.path.join(self.directory, fileName), cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB))
 
         # If HR estimation algorithm is chosen, add heart symbol and HR text
 
@@ -135,7 +137,7 @@ class WindowVideo(Tk.Frame):
             self.iconHeart = cv2.cvtColor(self.iconHeart, cv2.COLOR_BGR2RGB)
             # Create ROI
             rows, cols, channels = self.iconHeart.shape
-            roi = self.frame[:rows,:cols,:]
+            roi = self.frame[:rows, :cols, :]
             # Convert heart to grayscale
             iconHeartGray = cv2.cvtColor(self.iconHeart, cv2.COLOR_RGB2GRAY)
             # Create mask and inverse mask with binary thresholding
@@ -147,10 +149,9 @@ class WindowVideo(Tk.Frame):
             iconHeartFG = cv2.bitwise_and(self.iconHeart, self.iconHeart, mask=mask)
             # Add heart icon to frame
             iconHeartFinal = cv2.add(frameBG, iconHeartFG)
-            self.frame[:rows,:cols,:] = iconHeartFinal
+            self.frame[:rows, :cols, :] = iconHeartFinal
             # Add text that displays Heart Rate
-            cv2.putText(self.frame, self.HeartRateText,  ( 25,50 ), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-
+            cv2.putText(self.frame, self.HeartRateText, (25, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
         # Display frame
         self.frameConverted = Image.fromarray(self.frame)
@@ -158,10 +159,9 @@ class WindowVideo(Tk.Frame):
         self.lmain.imgtk = self.imgTK
         self.lmain.configure(image=self.imgTK)
 
-
         # This block dynamically adjusts the sleep time of this thread. The aim is to converge to the desired FPS of
         # the used camera which can not be fixed due to the workload of the other threads
-        if (self.isTrueFrame) and ((self.get_frameCounter() % 25) == 0):
+        if self.isTrueFrame and (self.get_frameCounter() % 25) == 0:
             currentFPS = self.FPS
 
             if currentFPS < VAL_FPS:
@@ -169,17 +169,15 @@ class WindowVideo(Tk.Frame):
             elif currentFPS > VAL_FPS:
                 self.sleep_time += 1
 
-
         # Update values in statusbar
         self.statusbarInstance.setFrameCounter(self.get_frameCounter())
         self.statusbarInstance.setFPSCounter(self.FPS)
-
 
         # Repeat thread
         self.video_frame.after(self.sleep_time, lambda: self.__showImage())
 
     def __computeFPS(self):
-        # Compute FPS
+        """Compute FPS"""
         self.FPS = self.get_frameCounter()-self.frameCounterLastValue
 
         # Update value
@@ -188,11 +186,12 @@ class WindowVideo(Tk.Frame):
         # Repeat thread
         self.video_frame.after(1000, lambda: self.__computeFPS())
 
+    # Setter and getter following
+
     def get_frameCounter(self):
+        """Returns number of frames shown so far"""
         return self.frameCounter
 
-    def get_FPS(self):
-        return str(self.FPS)
-
     def set_HeartRateText(self, newHR):
+        """Set Heart Rate Text"""
         self.HeartRateText = newHR

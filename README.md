@@ -47,7 +47,7 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 
 Please note: **All results are estimated!** 
 
-If you want to obtain results with low deviation from the actual physiological values, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals (e.g. respiration when recording the chest).
+For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin (see screenshot 2), good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals (e.g. respiration when recording the chest).
 
 ## Todo
 - More options (e.g. motion detection that pauses triggering algorithms)
