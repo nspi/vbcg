@@ -86,7 +86,7 @@ class ToolbarButtons(Tk.Frame):
         self.cameraInstance = cam
 
         # Get number of available cameras
-        self.num = self.cameraInstance.getNumberOfCameras()
+        self.numberOfCameras = self.cameraInstance.getNumberOfCameras()
 
         # Store thread object
         self.threadInstance = thread
@@ -117,14 +117,20 @@ class ToolbarButtons(Tk.Frame):
         self.label_x0 = Tk.Label(self.button_frame, text="Camera:")
         self.label_x0.pack(side=Tk.LEFT)
         listCameras = ['']
-        for cam_idx in range(self.num):
-            tmp_string = str(cam_idx)
-            listCameras.append(tmp_string)
-        listCameras.pop(0)
+        # If cameras are available, fill list
+        if self.numberOfCameras > 0:
+            for cam_idx in range(self.numberOfCameras):
+                tmp_string = str(cam_idx)
+                listCameras.append(tmp_string)
+            listCameras.pop(0)
+        # Add list to Button
         self.listCamerasStr = Tk.StringVar()
         self.dropDownListCamera = Tk.OptionMenu(self.button_frame, self.listCamerasStr, *listCameras)
         self.listCamerasStr.set(listCameras[0])
         self.dropDownListCamera.pack(side=Tk.LEFT)
+        # If no camera is available, disable button
+        if self.numberOfCameras == 0:
+            self.dropDownListCamera.config(state=Tk.DISABLED)
 
         # Add FPS label
         self.label_x1 = Tk.Label(self.button_frame, text="FPS:")

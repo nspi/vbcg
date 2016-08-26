@@ -95,9 +95,9 @@ class SignalPlotter(threading.Thread):
         self.curr_settings = self.settingsInstance.get_parameters()
 
         # Create empty vector for signal
-        self.valuesRaw = np.zeros((1, 1))
-        self.valuesOutput = np.zeros((300, 1))
-        self.valuesOutput2 = np.zeros((300, 1))
+        self.valuesRaw = np.zeros((1, 1))           # Raw signal from video
+        self.valuesOutput = np.zeros((300, 1))      # Filtered signal for top plot
+        self.valuesOutput2 = np.zeros((300, 1))     # Filtered signal for bottom plot
 
         # Initialize variables for FPS computation
         self.frameCounter = 0
@@ -169,10 +169,13 @@ class SignalPlotter(threading.Thread):
                     if self.curr_settings[IDX_ALGORITHM] == 1:
 
                         # Compute algorithm
-                        self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = self.signalProcessingInstance.computeHR(self.valuesRaw, self.FPS)
+                        self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = \
+                            self.signalProcessingInstance.computeHR(self.valuesRaw, self.FPS)
+
                         # Store heart rate value
                         self.HRstring = str(self.HR)
                         self.video_display.set_HeartRateText(self.HRstring[0:self.HRstring.find('.')])
+
                         # Normalize signals for display
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
                         self.valuesOutput2 = self.signalProcessingInstance.normalize(self.spectrum)
@@ -180,11 +183,18 @@ class SignalPlotter(threading.Thread):
                     elif self.curr_settings[IDX_ALGORITHM] == 2:
 
                         # Compute algorithm
-                        self.valuesOutput2 = self.signalProcessingInstance.filterWaveform(self.valuesRaw,self.valuesOutput2,20)
+                        self.boolTrigger, self.valuesFiltered = \
+                            self.signalProcessingInstance.filterWaveform(self.valuesRaw,self.valuesOutput2,20,10)
+
+                        # Send trigger
+                        if self.boolTrigger is True:
+                            print "Trigger"
+                            self.video_display.displayHeartTrigger()
+
 
                         # Normalize signals for display
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
-                        self.valuesOutput2 = self.signalProcessingInstance.normalize(self.valuesOutput2)
+                        self.valuesOutput2 = self.signalProcessingInstance.normalize(self.valuesFiltered)
 
                     # Delete data points to maintain 300 values
                     mask = np.ones(len(self.valuesRaw), dtype=bool)
@@ -220,7 +230,7 @@ class SignalPlotter(threading.Thread):
 
                             self.subplotInstanceBottom.plot(self.spectrumAxis,self.valuesOutput2)
                             self.subplotInstanceBottom.plot(self.spectrumAxis[self.spectrumMax], self.valuesOutput2[self.spectrumMax],'r*')
-                            self.subplotInstanceBottom.legend(["One-sided Amplitude spectrum"], fontsize=9)
+                            self.subplotInstanceBottom.legend(["One-sided Amplitude spectrum","Maximum value"], fontsize=9)
                             self.subplotInstanceBottom.set_xlabel('Hz')
 
 

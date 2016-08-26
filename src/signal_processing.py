@@ -9,6 +9,12 @@ from scipy.optimize import curve_fit
 class SignalProcessor:
     """This class provides the essential signal processing algorithms"""
 
+    def __init__(self):
+
+        # Define Variables for function filterWaveform()
+        self.valueLastRunningMax = 0
+        self.counterRunningMax = 0
+
     def normalize(self, inputSignal):
         """Normalize the signal to lie between 0 and 1"""
 
@@ -23,7 +29,18 @@ class SignalProcessor:
 
         return outputSignal
 
-    def filterWaveform(self, inputRawSignal, inputOutputSignal, inputMagicNumber):
+
+    def __curveFitFunc(self, x, a, b):
+        """"linear curve fit function"""
+        return a * x + b
+
+
+    def __curveFit(self, inputSignal1, inputSignal2):
+        """perform curve fitting and return slope value"""
+        m, ret = curve_fit(self.__curveFitFunc, inputSignal1, inputSignal2)
+        return m
+
+    def filterWaveform(self, inputRawSignal, inputOutputSignal, MagicNumber, MagicNumber2):
         """This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry
            as described in:
 
@@ -34,7 +51,6 @@ class SignalProcessor:
 
         RawSignal = inputRawSignal
         OutputSignal = inputOutputSignal
-        magic_number = inputMagicNumber
 
         # Normalize values
         valuesNorm = self.normalize(RawSignal)
@@ -43,10 +59,10 @@ class SignalProcessor:
         valuesNormDiff = np.abs(np.diff(valuesNorm))
 
         # Apply window
-        valuesNormDiffWindow = valuesNormDiff[-magic_number:]
+        valuesNormDiffWindow = valuesNormDiff[-MagicNumber:]
 
         # Prepare fit
-        valuesXdata = np.linspace(0, 1, magic_number)
+        valuesXdata = np.linspace(0, 1, MagicNumber)
 
         # Apply curve fit
         valueM = self.__curveFit(valuesXdata, valuesNormDiffWindow)
@@ -54,7 +70,22 @@ class SignalProcessor:
         # Get output: Computed signal
         OutputSignal = np.append(OutputSignal, valueM[1])
 
-        return OutputSignal
+        # Apply running max window
+        valueRunningMax = np.amax(OutputSignal[-MagicNumber:])
+
+        # Increase counter is running max is equal. Otherwise reset counter.
+        if valueRunningMax == self.valueLastRunningMax:
+            self.counterRunningMax += 1
+        else:
+            self.counterRunningMax = 0
+            self.valueLastRunningMax = valueRunningMax
+
+        # If the running maximum was stable long enough, return True. Else, return false.
+        if self.counterRunningMax == MagicNumber2:
+            self.counterRunningMax = 0
+            return True, OutputSignal
+        else:
+            return False, OutputSignal
 
     def computeHR(self, inputRawSignal, estimatedFPS):
         """This simple algorithm computes the heart rate as described in:
@@ -101,12 +132,3 @@ class SignalProcessor:
 
         # Return HR, spectrum with frequency axis, and found maximum
         return (np.round(freqAxis[max_val] * 60)), abs(signalFFT[limits]), freqAxis[limits], max_val-limits[0]
-
-    def __curveFitFunc(self, x, a, b):
-        """"linear curve fit function"""
-        return a * x + b
-
-    def __curveFit(self, inputSignal1, inputSignal2):
-        """perform curve fitting and return slope value"""
-        m, ret = curve_fit(self.__curveFitFunc, inputSignal1, inputSignal2)
-        return m

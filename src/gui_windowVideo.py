@@ -42,6 +42,11 @@ class WindowVideo(Tk.Frame):
         # Save statusbar instance
         self.statusbarInstance = statusbar
 
+        # Initialize threading event for display of trigger symbol
+        self.eventShowTrigger = threading.Event()
+        # A counter that is used to determine how long the symbol is shown
+        self.counterShownTriggerSymbol = 0
+
         # Initialize variable that contains HR
         self.HeartRateText = ' '
 
@@ -153,6 +158,35 @@ class WindowVideo(Tk.Frame):
             # Add text that displays Heart Rate
             cv2.putText(self.frame, self.HeartRateText, (25, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
+        elif self.curr_settings[IDX_ALGORITHM] == 2:
+
+            if self.eventShowTrigger.is_set():
+                # Counter
+                self.counterShownTriggerSymbol += 1
+                # Load heart icon
+                self.iconHeart = cv2.imread('data/heartbeat.png')
+                # Convert to RGB
+                self.iconHeart = cv2.cvtColor(self.iconHeart, cv2.COLOR_BGR2RGB)
+                # Create ROI
+                rows, cols, channels = self.iconHeart.shape
+                roi = self.frame[:rows, :cols, :]
+                # Convert heart to grayscale
+                iconHeartGray = cv2.cvtColor(self.iconHeart, cv2.COLOR_RGB2GRAY)
+                # Create mask and inverse mask with binary thresholding
+                ret, mask = cv2.threshold(iconHeartGray, 10, 255, cv2.THRESH_BINARY)
+                mask_inv = cv2.bitwise_not(mask)
+                # Background: Original frame with inverse mask
+                frameBG = cv2.bitwise_and(roi, roi, mask=mask_inv)
+                # Foreground: Heart with normal mask
+                iconHeartFG = cv2.bitwise_and(self.iconHeart, self.iconHeart, mask=mask)
+                # Add heart icon to frame
+                iconHeartFinal = cv2.add(frameBG, iconHeartFG)
+                self.frame[:rows, :cols, :] = iconHeartFinal
+                # Clear event if symbol has been shown for approx 1/3 sec
+                if self.counterShownTriggerSymbol>=self.FPS/3:
+                    self.counterShownTriggerSymbol = 0
+                    self.eventShowTrigger.clear()
+
         # Display frame
         self.frameConverted = Image.fromarray(self.frame)
         self.imgTK = ImageTk.PhotoImage(image=self.frameConverted)
@@ -195,3 +229,7 @@ class WindowVideo(Tk.Frame):
     def set_HeartRateText(self, newHR):
         """Set Heart Rate Text"""
         self.HeartRateText = newHR
+
+    def displayHeartTrigger(self):
+        """Activate event so that the heart as a symbol for a trigger is shown"""
+        self.eventShowTrigger.set()
