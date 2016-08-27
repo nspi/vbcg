@@ -41,8 +41,8 @@ class SignalProcessor:
         return m
 
     def filterWaveform(self, inputRawSignal, inputOutputSignal, MagicNumber, MagicNumber2):
-        """This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry
-           as described in:
+        """This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry.
+           This is a real-time implementation of the algorithm described in:
 
            Spicher N, Maderwald S, Ladd ME and Kukuk M. High-speed, contact-free measurement of the photoplethysmography
            waveform for MRI triggering Proceedings of the 24th Annual Meeting of the ISMRM, Singapore, Singapore,

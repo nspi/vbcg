@@ -6,6 +6,8 @@ import cv2
 import numpy as np
 import logging
 import threading
+import sys
+import os
 
 # Initialize variables
 eventUserPressedStart = eventCameraReady = eventProgramEnd = None
@@ -156,6 +158,9 @@ class VideoThread(threading.Thread):
                     # Read frame
                     frame = cv2.imread(currFile)
 
+                    # Convert color to RGB
+                    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
                     # Increase counter
                     self.frameCounter += 1
 
@@ -163,8 +168,8 @@ class VideoThread(threading.Thread):
                     return True, frame
 
                 except IndexError:
-                    # Todo: Restart program in this case
-                    logging.info("Reached last file.")
+                    logging.info("Reached last file. Restarting program.")
+                    os.execl(sys.executable, sys.executable, *sys.argv)
                     return False, np.zeros((480, 640, 3), np.uint8)
 
         else:

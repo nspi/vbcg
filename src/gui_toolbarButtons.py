@@ -30,6 +30,10 @@ class ToolbarButtons(Tk.Frame):
         # Get Event
         self.eventCameraChosen = self.cameraInstance.getEventCameraChosen()
 
+        # Use and store new FPS value (Because tkInter Text Widgets do not have an onchange() event or similar
+        self.curr_settings[IDX_FPS] = int(self.textbox_fps.get("1.0", Tk.END + "-1c"))
+        settings.change_parameter(IDX_FPS,int(self.textbox_fps.get("1.0", Tk.END + "-1c")))
+
         # Disable buttons that change settings
         self.check_button_1.config(state=Tk.DISABLED)
         self.check_button_2.config(state=Tk.DISABLED)
@@ -135,9 +139,11 @@ class ToolbarButtons(Tk.Frame):
         # Add FPS label
         self.label_x1 = Tk.Label(self.button_frame, text="FPS:")
         self.label_x1.pack(side=Tk.LEFT)
+        # Add FPS textbox
         self.textbox_fps = Tk.Text(self.button_frame, width=5, height=1)
+        # ADD FPS value from settings
+        self.textbox_fps.insert(Tk.END, int(self.curr_settings[IDX_FPS]))
         self.textbox_fps.pack(side=Tk.LEFT)
-        self.textbox_fps.insert(Tk.END, "30")
 
         # Fill list with available algorithms
         self.label_x2 = Tk.Label(self.button_frame, text="Algorithm:")
@@ -145,10 +151,10 @@ class ToolbarButtons(Tk.Frame):
         listAlgorithms = ['']
 
         # Choose prefered algorithm from settings
-        if self.curr_settings[IDX_ALGORITHM] == 1:
+        if self.curr_settings[IDX_ALGORITHM] == 0:
             listAlgorithms.append("Estimate Heart rate")
             listAlgorithms.append("Filter waveform")
-        elif self.curr_settings[IDX_ALGORITHM] == 2:
+        elif self.curr_settings[IDX_ALGORITHM] == 1:
             listAlgorithms.append("Filter waveform")
             listAlgorithms.append("Estimate Heart rate")
 
@@ -180,9 +186,9 @@ class ToolbarButtons(Tk.Frame):
 
     def __changeAlgorithm(self):
         if self.dropDownListAlgorithm.cget("text") == "Estimate Heart rate":
-            settings.change_parameter(IDX_ALGORITHM, 1)
+            settings.change_parameter(IDX_ALGORITHM, 0)
         elif self.dropDownListAlgorithm.cget("text") == "Filter waveform":
-            settings.change_parameter(IDX_ALGORITHM, 2)
+            settings.change_parameter(IDX_ALGORITHM, 1)
 
     def __openFiles(self):
         self.root.option_add('*Dialog.msg.font', 'Helvetica 10')
@@ -238,7 +244,11 @@ class ToolbarButtons(Tk.Frame):
                 self.button_files.config(bg='green')
                 self.button_files.config(state=Tk.DISABLED)
 
-                logging.error("Files have been loaded successfully.")
+                # Show messagebox
+                tkMessageBox.showinfo("Information", "Frames have been loaded. When all frames have been processed, "
+                                                     "the program will reset.")
+
+                logging.info("Files have been loaded successfully.")
 
             except:
                 logging.error("Files in folder have a non-correct syntax.")

@@ -4,7 +4,9 @@
 
     The program logic is divided in two threads:
         (1) a video thread that acquires frames from the camera or hard disk
-        (2) a thread that manages the graphical user interaface and logic
+        (2) a thread that manages the graphical user interaface and signal processing
+
+    Please note that both threads have different processing speeds, denoted in the statusbar.
 """
 
 import logger

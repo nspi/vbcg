@@ -166,7 +166,7 @@ class SignalPlotter(threading.Thread):
                     self.statusbarInstance.updateInfoText("Performing computations")
 
                     # Perform algorithms depending on user selection
-                    if self.curr_settings[IDX_ALGORITHM] == 1:
+                    if self.curr_settings[IDX_ALGORITHM] == 0:
 
                         # Compute algorithm
                         self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = \
@@ -180,17 +180,15 @@ class SignalPlotter(threading.Thread):
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
                         self.valuesOutput2 = self.signalProcessingInstance.normalize(self.spectrum)
 
-                    elif self.curr_settings[IDX_ALGORITHM] == 2:
+                    elif self.curr_settings[IDX_ALGORITHM] == 1:
 
                         # Compute algorithm
                         self.boolTrigger, self.valuesFiltered = \
-                            self.signalProcessingInstance.filterWaveform(self.valuesRaw,self.valuesOutput2,20,10)
+                            self.signalProcessingInstance.filterWaveform(self.valuesRaw, self.valuesOutput2, 10, 5)
 
                         # Send trigger
                         if self.boolTrigger is True:
-                            print "Trigger"
                             self.video_display.displayHeartTrigger()
-
 
                         # Normalize signals for display
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
@@ -201,7 +199,7 @@ class SignalPlotter(threading.Thread):
                     mask[0:np.size(self.valuesRaw) - 300] = False
                     self.valuesRaw = self.valuesRaw[mask]
                     self.valuesOutput = self.valuesOutput[mask]
-                    if self.curr_settings[IDX_ALGORITHM] == 2:
+                    if self.curr_settings[IDX_ALGORITHM] == 1:
                         self.valuesOutput2 = self.valuesOutput2[mask]
 
                 else:
@@ -219,29 +217,30 @@ class SignalPlotter(threading.Thread):
                     self.subplotInstanceBottom.clear()
 
                     # Plot results based on algorithm
-                    if self.curr_settings[IDX_ALGORITHM] == 1:
+                    if self.curr_settings[IDX_ALGORITHM] == 0:
 
                         self.subplotInstanceTop.plot(self.valuesOutput)
                         self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
                         self.subplotInstanceTop.set_xlabel('Frames')
 
                         # Plot spectrum if it is available, i.e. the algorithm has been computed once
-                        if  (np.count_nonzero(self.valuesOutput2)>=1):
+                        if np.count_nonzero(self.valuesOutput2) >= 1:
 
-                            self.subplotInstanceBottom.plot(self.spectrumAxis,self.valuesOutput2)
-                            self.subplotInstanceBottom.plot(self.spectrumAxis[self.spectrumMax], self.valuesOutput2[self.spectrumMax],'r*')
-                            self.subplotInstanceBottom.legend(["One-sided Amplitude spectrum","Maximum value"], fontsize=9)
+                            self.subplotInstanceBottom.plot(self.spectrumAxis, self.valuesOutput2)
+                            self.subplotInstanceBottom.plot(self.spectrumAxis[self.spectrumMax],
+                                                            self.valuesOutput2[self.spectrumMax], 'r*')
+                            self.subplotInstanceBottom.legend(["One-sided Amplitude spectrum", "Maximum value"],
+                                                              fontsize=9)
                             self.subplotInstanceBottom.set_xlabel('Hz')
 
-
-                    elif self.curr_settings[IDX_ALGORITHM] == 2:
+                    elif self.curr_settings[IDX_ALGORITHM] == 1:
 
                         self.subplotInstanceTop.plot(self.valuesOutput)
                         self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
                         self.subplotInstanceTop.set_xlabel('Frames')
 
                         # Plot spectrum if it is available, i.e. the algorithm has been computed once
-                        if  (np.count_nonzero(self.valuesOutput2)>=1):
+                        if np.count_nonzero(self.valuesOutput2) >= 1:
 
                             self.subplotInstanceBottom.plot(self.valuesOutput2)
                             self.subplotInstanceBottom.legend(["Filtered waveform"], fontsize=9)
@@ -252,11 +251,9 @@ class SignalPlotter(threading.Thread):
 
             except RuntimeError:
                 # ''Quit'' button has been pressed by a user, resulting in RuntimeError during program shutdown
-                # Todo: Find a more elegant solution
                 logging.info("Signal plotting thread will be halted")
 
         logging.info("Reached of signal plotting thread")
-
 
     def __computeFPS(self):
 
@@ -268,7 +265,3 @@ class SignalPlotter(threading.Thread):
 
                 # Restart
                 self.root.after(1000, lambda: self.__computeFPS())
-
-
-    def get_frameCounter(self):
-        return self.frameCounter

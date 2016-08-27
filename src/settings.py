@@ -10,7 +10,7 @@ import logging
 from defines import *
 
 # Standard parameters if no settings.ini is available
-std_param = [VAL_WEBCAM, VAL_CAMERA, VAL_ALGORITHM, VAL_CURVES, VAL_FRAMES, VAL_TRIGGER, VAL_MOTION, VAL_FACE, VAL_FPS]
+std_param = [VAL_WEBCAM, VAL_CAMERA, VAL_ALGORITHM, VAL_CURVES, VAL_FRAMES, VAL_FACE, VAL_FPS]
 
 
 def get_parameters():
@@ -29,7 +29,7 @@ def get_parameters():
         logging.critical("Unexpected error")
 
     # Store data from configuration file in array
-    param = np.zeros(9)
+    param = np.zeros(7)
 
     # Read settings
     options = config.options('settings')
@@ -105,17 +105,11 @@ def __store_parameters(param):
     config.set('settings', '# Store frames on hard disk?')
     config.set('settings', 'bool_store_frames', param[4])
 
-    config.set('settings', '# Trigger the MRI via serial port?')
-    config.set('settings', 'bool_use_triggerbox', param[5])
-
-    config.set('settings', '# Use motion detection?')
-    config.set('settings', 'bool_use_motion_detection', param[6])
-
     config.set('settings', '# Use viola jones algorithm?')
-    config.set('settings', 'bool_use_face_detection', param[7])
+    config.set('settings', 'bool_use_face_detection', param[5])
 
     config.set('settings', '# What is the FPS of the camera?')
-    config.set('settings', 'val_fps', param[8])
+    config.set('settings', 'val_fps', param[6])
 
     # Write and close file
     config.write(config_file)
