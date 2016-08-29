@@ -12,20 +12,12 @@
 import logger
 import gui
 import video
-import threading
 
 # Configure logging
 logger.init()
 
-# Create events for thread communication
-eventUserPressedStart = threading.Event()           # is activated when user presses ''start'' button
-eventVideoIsReady = threading.Event()               # is activated when frames are received from camera or hard disk
-
 # Initialize camera thread
 videoThread = video.VideoThread()
-# Add events to camera thread
-videoThread.setEventUserPressedStart(eventUserPressedStart)
-videoThread.setEventVideoReady(eventVideoIsReady)
 # Start camera thread
 videoThread.start()
 

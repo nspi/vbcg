@@ -7,7 +7,7 @@ from gui_toolbarROI import ToolbarROI
 from gui_toolbarButtons import ToolbarButtons
 from gui_windowVideo import WindowVideo
 from gui_windowSignal import WindowSignal
-from defines import programVersion
+from defines import __version__
 
 import Tkinter as Tk
 import logging
@@ -16,7 +16,7 @@ import logging
 root = Tk.Tk()
 
 # Set title in navigation bar
-root.wm_title("vbcg " + str(programVersion))
+root.wm_title("vbcg " + str(__version__))
 
 
 class GUI(object):
@@ -56,3 +56,29 @@ class MainWindow(object):
 
         self.toolbar_buttons = ToolbarButtons(self, root, GUI_thread, videoThread, self.signal_display)
         logging.info('Created toolbar with buttons')
+
+    # Getter (for unit tests only)
+
+    def getStatusbar(self):
+        """Returns statusbar"""
+        return self.statusbar
+
+    def getToolbarButtons(self):
+        """Returns toolbar with buttons"""
+        return self.toolbar_buttons
+
+    def getToolbarROI(self):
+        """Returns ROI toolbar"""
+        return self.toolbar_roi
+
+    def getVideoDisplay(self):
+        """Returns video display window"""
+        return self.video_display
+
+    def getSignalDisplay(self):
+        """"Returns signal display window"""
+        return self.signal_display
+
+    def getRoot(self):
+        """Return Tkinter root widget"""
+        return root

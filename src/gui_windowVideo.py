@@ -131,12 +131,15 @@ class WindowVideo(Tk.Frame):
                 cv2.imwrite(os.path.join(self.directory, fileName), cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB))
 
         # Depending on chosen algorithm, display frames with icon
+        current_location = os.path.dirname(os.path.realpath(__file__))
+        current_location = current_location + '/'
 
         if self.curr_settings[IDX_ALGORITHM] == 0:
             # Add heart symbol to frame
 
             # Add heart icon
-            self.frame = self.__addFigureToPlot(self.frame, 'data/heart.png' )
+            heart_location = current_location + 'data/heart.png'
+            self.frame = self.__addFigureToPlot(self.frame, heart_location)
             # Add text that displays Heart Rate
             cv2.putText(self.frame, self.HeartRateText, (25, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
@@ -147,7 +150,8 @@ class WindowVideo(Tk.Frame):
                 # Counter used to decide how long icon is shown
                 self.counterShownTriggerSymbol += 1
                 # Add heart icon
-                self.frame = self.__addFigureToPlot(self.frame, 'data/heartbeat.png')
+                heart_location = current_location + 'data/heartbeat.png'
+                self.frame = self.__addFigureToPlot(self.frame, heart_location)
                 # Clear event if symbol has been shown for approx 1/3 sec
                 if self.counterShownTriggerSymbol>=self.FPS/3:
                     self.counterShownTriggerSymbol = 0
@@ -190,6 +194,7 @@ class WindowVideo(Tk.Frame):
         """This function is used to add a file from hard disk to the figure
         Algorithm source: http://docs.opencv.org/trunk/d0/d86/tutorial_py_image_arithmetics.html
         """
+
         # Load heart icon
         iconHeart = cv2.imread(figureLocation)
         # Convert to RGB

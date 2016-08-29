@@ -6,6 +6,7 @@ import ConfigParser
 import io
 import numpy as np
 import logging
+import os
 
 from defines import *
 
@@ -18,7 +19,9 @@ def get_parameters():
 
     # Try opening configuration file, otherwise create one with standard values
     try:
-        with open('settings.ini') as f:
+        current_location =  os.path.dirname(os.path.realpath(__file__))
+        current_location_settings = current_location + '/' + 'settings.ini'
+        with open(current_location_settings) as f:
             sample_config = f.read()
         config = ConfigParser.RawConfigParser()
         config.readfp(io.BytesIO(sample_config))

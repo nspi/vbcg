@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: ascii -*-
-"""defines.py - this file contains indices and standard values of program parameters"""
+"""defines.py - this file contains meta data and program parameters"""
 
 # Meta data
-programVersion  = 0.1
+__author__ = "Nicolai Spicher"
+__credits__ = ["Nicolai Spicher", "Stefan Maderwald", "Markus Kukuk", "Mark E. Ladd"]
+__license__ = "GPL v3"
+__version__ = "0.1"
+__maintainer__ = "Nicolai Spicher"
+__email__ = "nicolai[dot]spicher[at]fh-dortmund[dot]de"
+__status__ = "Beta"
 
 # Indices of parameters
 IDX_WEBCAM      = 0

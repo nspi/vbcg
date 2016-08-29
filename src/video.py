@@ -9,11 +9,6 @@ import threading
 import sys
 import os
 
-# Initialize variables
-eventUserPressedStart = eventCameraReady = eventProgramEnd = None
-videoStream = numberOfCameras = cameraIdx = None
-
-
 class VideoThread(threading.Thread):
     """ This class provides frames from a camera or from hard disk as a thread
         When using frames from disk, it ends after initialization. When using a camera, it runs continuously.
@@ -87,11 +82,19 @@ class VideoThread(threading.Thread):
         # Thread initialization
         threading.Thread.__init__(self)
 
-        # Event: Is activated when user closed the application.
+        # Set camera to default value
+        self.cameraIdx = 0
+
+        # Event is activated when user presses ''start'' button
+        self.eventUserPressedStart = threading.Event()
+
+        # Event is activated when frames are received from camera or hard disk
+        self.eventVideoReady = threading.Event()
+
+        # Event is activated when user closed the application.
         self.eventProgramEnd = threading.Event()
 
         # Video stream object, is filled later
-        global videoStream
         self.videoStream = None
 
         # A black frame that is displayed until the user has started the program
@@ -125,6 +128,7 @@ class VideoThread(threading.Thread):
 
             tmp_str = "Found " + str(self.numberOfCameras) + " OpenCV-compatible cameras"
             logging.info(tmp_str)
+
 
     def getFrame(self):
         """This function delivers frames from the camera or the hard disk for the GUI
@@ -194,12 +198,12 @@ class VideoThread(threading.Thread):
         self.eventVideoReady.clear()
         self.eventProgramEnd.set()
 
+    # Setter and Getter following:
+
     def storeFramesFromDisk(self, directory, files):
         """This function stores the directory and files if the user wants to use frames from the hard disk"""
         self.filesDir = directory
         self.files = files
-
-    # Setter and Getter following:
 
     def setCameraIdx(self, cameraIndex):
         """ Store index of camera that user has chosen using the GUI"""
@@ -210,15 +214,6 @@ class VideoThread(threading.Thread):
     def getNumberOfCameras(self):
         """This function returns the number of available OpenCV cameras for the GUI"""
         return self.numberOfCameras
-
-    def setEventUserPressedStart(self, event):
-        """ Setter for eventUserPressedStart"""
-        global eventUserPressedStart
-        self.eventUserPressedStart = event
-
-    def setEventVideoReady(self, event):
-        """ Setter for eventVideoReady"""
-        self.eventVideoReady = event
 
     def getEventCameraReady(self):
         """ Getter for eventUserPressedStart"""

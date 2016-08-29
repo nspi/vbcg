@@ -45,9 +45,11 @@ class ToolbarButtons(Tk.Frame):
         self.textbox_fps.config(bg='lightgray')
 
         # Store index of camera in thread
-        logging.info("Camera is started")
-        chosenCamera = self.listCamerasStr.get()[-1]
-        self.cameraInstance.setCameraIdx(chosenCamera)
+
+        if self.numberOfCameras > 0:
+            logging.info("Camera is started")
+            chosenCamera = self.listCamerasStr.get()[-1]
+            self.cameraInstance.setCameraIdx(chosenCamera)
 
         # Update event for camera event
         logging.info("Enabling event: eventCameraChosen ")
