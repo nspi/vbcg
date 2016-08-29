@@ -10,6 +10,9 @@ __version__ = "0.1"
 __maintainer__ = "Nicolai Spicher"
 __email__ = "nicolai[dot]spicher[at]fh-dortmund[dot]de"
 __status__ = "Beta"
+__url__ = "https://github.com/nspi/vbcg"
+__description__ = "A real-time application for video-based estimation of the heart rate" \
+                  " frequency and the phase of the cardiac cycle."
 
 # Indices of parameters
 IDX_WEBCAM      = 0

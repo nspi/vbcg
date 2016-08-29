@@ -246,8 +246,14 @@ class SignalPlotter(threading.Thread):
                             self.subplotInstanceBottom.legend(["Filtered waveform"], fontsize=9)
                             self.subplotInstanceBottom.set_xlabel('Frames')
 
+                else:
+                    # Needed for windows implementation, otherwise the canvas is blank
+                    self.subplotInstanceTop.clear()
+                    self.subplotInstanceBottom.clear()
+
                 # Draw to canvas
                 self.canvasInstance.draw()
+                # Todo: Here hangs the windows implementation
 
             except RuntimeError:
                 # ''Quit'' button has been pressed by a user, resulting in RuntimeError during program shutdown

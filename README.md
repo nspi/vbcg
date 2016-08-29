@@ -14,17 +14,19 @@ For most accurate results, place your finger tip directly on the camera sensor (
 
 #### Features
 - Read video stream from OpenCV compatible camera *or* read video stream from hard disk
-
 - Crop video to manually-defined ROI *or* use Viola-Jones algorithm for face detection [3]
-
 - Store frames from camera on hard disk
-
 - Heart rate estimation as described in [4] 
-
 - ''Prediction'' of next cardiac cycle as described in [5]
 
 #### License
 GNU GPL v3.0
+
+#### Compatible operating systems
+The current stable master branch has been tested on:
+- Ubuntu 14.04
+- Windows 8.1
+- Mac OSX
 
 #### Screenshot
 TBA
@@ -49,9 +51,9 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 `cd src;` `python main.py`
 
 ## Todo
-- Add more functions, options, and our algorithm from ISMRM 2015 [6]
-
 - Update to Python 3 and current versions of all modules
+- Add more functions, options, and our algorithm from ISMRM 2015 [6]
+- Add videos recorded under ideal conditions that can be used as reference
 
 ## Contact
 Nicolai Spicher ([http://fh-dortmund.de/spicher](http://fh-dortmund.de/spicher))
