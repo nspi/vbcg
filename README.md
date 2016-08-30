@@ -64,6 +64,14 @@ For Windows, there is a stand-alone installer of the current master branch: TBA 
 
 TBA
 
+## Available data
+| Name          | Information   								  | Download |
+| ------------- |:-------------------------------------------------------------------------------:|:--------:|
+| Test          | synthetic test video. Source code for generation in matlab/			  |  here    |
+| Finger        | finger of a volunteer was placed on camera. Frames were rescaled to 640x360     |  here    |
+| MRI		| recorded during the study described in [4]      				  |  here    |
+| ------------- |:-------------------------------------------------------------------------------:|---------:|
+
 
 ## Todo
 - Update to Python 3 and current versions of all modules
