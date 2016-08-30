@@ -70,7 +70,6 @@ TBA
 | Test          | synthetic test video. Source code for generation in matlab/			  |  here    |
 | Finger        | finger of a volunteer was placed on camera. Frames were rescaled to 640x360     |  here    |
 | MRI		| recorded during the study described in [4]      				  |  here    |
-| ------------- |:-------------------------------------------------------------------------------:|---------:|
 
 
 ## Todo
