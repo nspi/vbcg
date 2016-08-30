@@ -12,6 +12,7 @@ import threading
 import numpy as np
 import cv2
 import settings
+import datetime
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure as Mat_figure
@@ -87,6 +88,9 @@ class SignalPlotter(threading.Thread):
         self.statusbarInstance = statusbar
         self.video_display = video_display
 
+        # Fix FPS of Signal plotter
+        self.FPS = 5
+
         # Create signal processing object
         self.signalProcessingInstance = SignalProcessor()
 
@@ -96,16 +100,8 @@ class SignalPlotter(threading.Thread):
 
         # Create empty vector for signal
         self.valuesRaw = np.zeros((0, 0))           # Raw signal from video
-        self.valuesOutput = np.zeros((300, 1))      # Filtered signal for top plot
-        self.valuesOutput2 = np.zeros((300, 1))     # Filtered signal for bottom plot
-
-        # Initialize variables for FPS computation
-        self.frameCounter = 0
-        self.frameCounterLastValue = 0
-
-        # Start thread for FPS computation
-        self.fpsCounterThread = threading.Thread(target=self.__computeFPS)
-        self.fpsCounterThread.start()
+        self.valuesOutput = np.zeros((150, 1))      # Filtered signal for top plot
+        self.valuesOutput2 = np.zeros((150, 1))     # Filtered signal for bottom plot
 
         # Update statusbar value
         self.statusbarInstance.updateInfoText("Please choose a camera")
@@ -130,6 +126,9 @@ class SignalPlotter(threading.Thread):
 
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
+
+            # Get time
+            self.startTime = datetime.datetime.now()
 
             # Get camera event
             self.cameraActive = self.cameraInstance.getEventCameraReady()
@@ -156,8 +155,8 @@ class SignalPlotter(threading.Thread):
                 # Store mean value
                 self.valuesRaw = np.append(self.valuesRaw, self.mean_value)
 
-                # Begin with computations when 300 data points are accumulated
-                if np.size(self.valuesRaw) >= 300:
+                # Begin with computations when 150 data points are accumulated
+                if np.size(self.valuesRaw) >= 150:
 
                     # Set variable
                     self.enoughFrames = True
@@ -200,9 +199,9 @@ class SignalPlotter(threading.Thread):
                         #    1 - self.valuesOutput2[np.where(self.valuesOutput2 != 0)[0]]
                         #print  self.valuesOutput2
 
-                    # Delete data points to maintain 300 values
+                    # Delete data points to maintain 150 values
                     mask = np.ones(len(self.valuesRaw), dtype=bool)
-                    mask[0:np.size(self.valuesRaw) - 300] = False
+                    mask[0:np.size(self.valuesRaw) - 150] = False
                     self.valuesRaw = self.valuesRaw[mask]
                     self.valuesOutput = self.valuesOutput[mask]
                     if self.curr_settings[IDX_ALGORITHM] == 1:
@@ -257,22 +256,17 @@ class SignalPlotter(threading.Thread):
                 # Draw to canvas
                 self.canvasInstance.draw()
 
-                # Increase counter
-                self.frameCounter += 1
-
             except RuntimeError:
                 # ''Quit'' button has been pressed by a user, resulting in RuntimeError during program shutdown
                 logging.info("Signal plotting thread will be halted")
 
+            # Compute time that this thread used
+            self.endTime = datetime.datetime.now()
+            # Compute difference to desired FPS
+            self.diffTime = (self.endTime - self.startTime).total_seconds()
+            self.waitTime = 1.0/self.FPS - self.diffTime
+            # If thread was too fast, wait
+            if self.waitTime > 0:
+                cv2.waitKey(int(self.waitTime*1000))
+
         logging.info("Reached of signal plotting thread")
-
-    def __computeFPS(self):
-
-                # Compute FPS
-                self.FPS = (self.frameCounter - self.frameCounterLastValue)/2
-
-                # Update value
-                self.frameCounterLastValue = self.frameCounter
-
-                # Restart
-                self.root.after(2000, lambda: self.__computeFPS())

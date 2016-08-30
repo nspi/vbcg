@@ -89,11 +89,12 @@ class WindowVideo(Tk.Frame):
 
     def __showImage(self):
         """Get frame from camera and display it"""
-        # Get current settings
-        self.curr_settings = settings.get_parameters()
 
         # Set statusbar value
         self.statusbarInstance.setFPSCounter(0)
+
+        # Get current settings
+        self.curr_settings = settings.get_parameters()
 
         # Get current frame
         self.isTrueFrame, self.frame = self.cameraInstance.getFrame()
@@ -189,6 +190,7 @@ class WindowVideo(Tk.Frame):
 
         # Repeat thread
         self.video_frame.after(int(self.sleep_time), lambda: self.__showImage())
+
 
     def __computeFPS(self):
         """Compute FPS"""

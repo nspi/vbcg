@@ -164,8 +164,6 @@ class VideoThread(threading.Thread):
             # Get frames from hard disk
             else:
                 try:
-                    # Wait
-                    cv2.waitKey(int(self.sleep_time))
 
                     # Construct file directory and name
                     currFile = self.filesDir + '/' + self.files[self.frameCounter]
