@@ -95,7 +95,7 @@ class SignalPlotter(threading.Thread):
         self.curr_settings = self.settingsInstance.get_parameters()
 
         # Create empty vector for signal
-        self.valuesRaw = np.zeros((1, 1))           # Raw signal from video
+        self.valuesRaw = np.zeros((0, 0))           # Raw signal from video
         self.valuesOutput = np.zeros((300, 1))      # Filtered signal for top plot
         self.valuesOutput2 = np.zeros((300, 1))     # Filtered signal for bottom plot
 
@@ -151,7 +151,7 @@ class SignalPlotter(threading.Thread):
                 tmp, self.currentFrame = self.cameraInstance.getFrame()
 
                 # Compute mean value
-                self.mean_value = cv2.mean(self.currentFrame)[1]
+                self.mean_value = cv2.mean(self.currentFrame)[0]
 
                 # Store mean value
                 self.valuesRaw = np.append(self.valuesRaw, self.mean_value)
@@ -192,7 +192,13 @@ class SignalPlotter(threading.Thread):
 
                         # Normalize signals for display
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
-                        self.valuesOutput2 = self.signalProcessingInstance.normalize(self.valuesFiltered)
+                        self.valuesOutput2 = self.valuesFiltered
+
+                        #print  self.valuesOutput2
+                        # Invert values where they are != 0
+                        #self.valuesOutput2[np.where(self.valuesOutput2 != 0)[0]] = \
+                        #    1 - self.valuesOutput2[np.where(self.valuesOutput2 != 0)[0]]
+                        #print  self.valuesOutput2
 
                     # Delete data points to maintain 300 values
                     mask = np.ones(len(self.valuesRaw), dtype=bool)
@@ -204,9 +210,6 @@ class SignalPlotter(threading.Thread):
 
                 else:
                     self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
-
-            # Increase counter
-            self.frameCounter += 1
 
             try:
                 # If camera available and the user enabled the option, plot signal
@@ -239,7 +242,7 @@ class SignalPlotter(threading.Thread):
                         self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
                         self.subplotInstanceTop.set_xlabel('Frames')
 
-                        # Plot spectrum if it is available, i.e. the algorithm has been computed once
+                        # Plot filtered signal if it is available, i.e. the algorithm has been computed once
                         if np.count_nonzero(self.valuesOutput2) >= 1:
 
                             self.subplotInstanceBottom.plot(self.valuesOutput2)
@@ -247,13 +250,15 @@ class SignalPlotter(threading.Thread):
                             self.subplotInstanceBottom.set_xlabel('Frames')
 
                 else:
-                    # Needed for windows implementation, otherwise the canvas is blank
+                    # Needed for windows implementation, otherwise the whole GUI is blank
                     self.subplotInstanceTop.clear()
                     self.subplotInstanceBottom.clear()
 
                 # Draw to canvas
                 self.canvasInstance.draw()
-                # Todo: Here hangs the windows implementation
+
+                # Increase counter
+                self.frameCounter += 1
 
             except RuntimeError:
                 # ''Quit'' button has been pressed by a user, resulting in RuntimeError during program shutdown
@@ -264,10 +269,10 @@ class SignalPlotter(threading.Thread):
     def __computeFPS(self):
 
                 # Compute FPS
-                self.FPS = self.frameCounter - self.frameCounterLastValue
+                self.FPS = (self.frameCounter - self.frameCounterLastValue)/2
 
                 # Update value
                 self.frameCounterLastValue = self.frameCounter
 
                 # Restart
-                self.root.after(1000, lambda: self.__computeFPS())
+                self.root.after(2000, lambda: self.__computeFPS())

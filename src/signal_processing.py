@@ -34,6 +34,24 @@ class SignalProcessor:
         """"linear curve fit function"""
         return a * x + b
 
+    def nextpow2(self, number):
+        """Simple implementation of MATLAB nextpow2 """
+        currValue = 2
+        while currValue <= number:
+            currValue = currValue * 2
+        return currValue
+
+    def computeZeroPaddingValues(self, number):
+        """During zero padding, we want to fill zeros before and after signal.
+        This function computes the number of zeros"""
+
+        numberOfZerosBeforeSignal = np.floor(number/2)
+        if np.fmod(number, 2) == 1:
+            numberOfZerosAfterSignal = numberOfZerosBeforeSignal+1
+        else:
+            numberOfZerosAfterSignal = numberOfZerosBeforeSignal
+
+        return numberOfZerosBeforeSignal, numberOfZerosAfterSignal
 
     def __curveFit(self, inputSignal1, inputSignal2):
         """perform curve fitting and return slope value"""
@@ -94,20 +112,32 @@ class SignalProcessor:
         information obtained from video signals of the human skin compared to electrocardiography and pulse oximetry.
         Proceedings of the 49th Annual Conference of the German Society for Biomedical Engineering, Luebeck, Germany,
         16.-18.09.2015.
+
+        Plese note that a moving average filter as described in section 2.4) is not applied.
         """
 
-        # Store signal
-        signal = inputRawSignal
+        # Store normalized signal
+        signal = self.normalize(inputRawSignal)
 
         # Store number of elements in signal
         N = np.size(signal)
 
-        # Get FPS of video stream
+        # Store FPS of video stream
         fps = estimatedFPS
 
-        # Minimal and maximum HR (30..180 bpm)
+        # Parameters: Minimal and maximum HR (48..180 bpm)
         hrMin = 0.5
         hrMax = 3
+
+        # Compute next power of 2 from N
+        nextN = self.nextpow2(N)
+
+        # Zero padding: Fill before and after signal with zeros
+        numberBefore, numberAfter = self.computeZeroPaddingValues(nextN-N)
+        signal = np.concatenate((np.zeros(numberBefore),signal,np.zeros(numberAfter)),0)
+
+        # Use new N value instead
+        N = nextN
 
         # Use Hamming window on signal
         valuesWin = signal[0:N] * np.hamming(N)

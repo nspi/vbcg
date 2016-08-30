@@ -8,6 +8,10 @@ import logging
 import threading
 import sys
 import os
+import settings
+
+from defines import *
+
 
 class VideoThread(threading.Thread):
     """ This class provides frames from a camera or from hard disk as a thread
@@ -104,6 +108,10 @@ class VideoThread(threading.Thread):
         self.filesDir = None
         self.files = None
 
+        # Create variable to adjust thread sleeping time to desired FPS
+        self.curr_settings = settings.get_parameters()
+        self.sleep_time = 1000 / self.curr_settings[IDX_FPS]
+
         # A counter of loaded frames, used for loading frames from hard disk
         self.frameCounter = 0
 
@@ -156,6 +164,9 @@ class VideoThread(threading.Thread):
             # Get frames from hard disk
             else:
                 try:
+                    # Wait
+                    cv2.waitKey(int(self.sleep_time))
+
                     # Construct file directory and name
                     currFile = self.filesDir + '/' + self.files[self.frameCounter]
 

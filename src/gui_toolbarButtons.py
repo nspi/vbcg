@@ -116,7 +116,7 @@ class ToolbarButtons(Tk.Frame):
         self.button_frame.pack(side=Tk.BOTTOM)
 
         # Add button for loading files
-        self.button_files = Tk.Button(master=self.button_frame, text='Load files from disk', command=self.__openFiles)
+        self.button_files = Tk.Button(master=self.button_frame, text='Load files', command=self.__openFiles)
         self.button_files.pack(side=Tk.LEFT)
 
         # Fill list with available cameras and add to menu

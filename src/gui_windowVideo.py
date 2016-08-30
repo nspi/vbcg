@@ -61,8 +61,11 @@ class WindowVideo(Tk.Frame):
         # Create GUI
         self.__create_gui()
 
+        # Get current settings
+        self.curr_settings = settings.get_parameters()
+
         # Create variable to adjust thread sleeping time to desired FPS
-        self.sleep_time = 1000/VAL_FPS
+        self.sleep_time = 1000/self.curr_settings[IDX_FPS]
 
         # Start frame display as thread
         self.frameCounter = 0
@@ -86,15 +89,14 @@ class WindowVideo(Tk.Frame):
 
     def __showImage(self):
         """Get frame from camera and display it"""
+        # Get current settings
+        self.curr_settings = settings.get_parameters()
 
         # Set statusbar value
         self.statusbarInstance.setFPSCounter(0)
 
         # Get current frame
         self.isTrueFrame, self.frame = self.cameraInstance.getFrame()
-
-        # Get current settings
-        self.curr_settings = settings.get_parameters()
 
         # Check if a real frame from camera or just test image is received
         if self.isTrueFrame & self.first_frame:
@@ -176,9 +178,9 @@ class WindowVideo(Tk.Frame):
         if self.isTrueFrame and (self.get_frameCounter() % 25) == 0:
             currentFPS = self.FPS
 
-            if currentFPS < VAL_FPS:
+            if currentFPS < self.curr_settings[IDX_FPS]:
                 self.sleep_time -= 1
-            elif currentFPS > VAL_FPS:
+            elif currentFPS > self.curr_settings[IDX_FPS]:
                 self.sleep_time += 1
 
         # Update values in statusbar
@@ -186,7 +188,7 @@ class WindowVideo(Tk.Frame):
         self.statusbarInstance.setFPSCounter(self.FPS)
 
         # Repeat thread
-        self.video_frame.after(self.sleep_time, lambda: self.__showImage())
+        self.video_frame.after(int(self.sleep_time), lambda: self.__showImage())
 
     def __computeFPS(self):
         """Compute FPS"""

@@ -5,6 +5,7 @@ This is a prototype demonstrating our research activities concerning *video-base
 We aim to apply this techniques in the context of ultra-high-field MRI but other scenarios are possible (e.g. gaming, sports)
 
 ## About
+#### Software description
 The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the algorithms we have developed so far.
 
 Regarding video-based heart rate frequency estimation, there are other valuable open-source projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) or commercial products (e.g. [Philips Vital Signs Camera](http://www.ip.philips.com/licensing/program/115)). This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately.
@@ -19,14 +20,14 @@ For most accurate results, place your finger tip directly on the camera sensor (
 - Heart rate estimation as described in [4] 
 - ''Prediction'' of next cardiac cycle as described in [5]
 
-#### License
-GNU GPL v3.0
-
 #### Compatible operating systems
-The current stable master branch has been tested on:
+The current master branch has been tested on:
 - Ubuntu 14.04
 - Windows 8.1
 - Mac OSX
+
+#### License
+GNU GPL v3.0
 
 #### Screenshot
 TBA
@@ -43,12 +44,26 @@ TBA
 - OpenCV 2.4 python bindings
 
 #### Installation
-run `make` (which is at the moment basically `pip install -r requirements.txt`  and installs required packages via pip).
 
+**Linux/Mac**
+
+run `make` (which is at the moment basically `pip install -r requirements.txt`  and installs required packages via pip).
 OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install python-opencv python-tk`).
 
+**Windows**
+
+For Windows, there is a stand-alone installer of the current master branch: TBA (warning XXX MB filesize)
+
 #### Usage
+
+**Linux/Mac**
+
 `cd src;` `python main.py`
+
+**Windows**
+
+TBA
+
 
 ## Todo
 - Update to Python 3 and current versions of all modules
