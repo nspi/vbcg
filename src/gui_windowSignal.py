@@ -57,6 +57,8 @@ class WindowSignal(Tk.Frame):
         self.canvas.show()
         self.canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
 
+        # Todo: Divide SignalPlotter in (1) Signal Plotting and (2) Display threads
+
         # Call thread that displays signal
         self.signalPlotThread = SignalPlotter(self.root, self.cameraInstance,
                                               self.figure, self.canvas, self.subplotTop,
@@ -100,7 +102,7 @@ class SignalPlotter(threading.Thread):
         self.curr_settings = self.settingsInstance.get_parameters()
 
         # Create empty vector for signal
-        self.valuesRaw = np.zeros((0, 0))           # Raw signal from video
+        self.valuesRaw = np.zeros((0, 0))                         # Raw signal from video
         self.valuesOutput = np.zeros((self.lengthSignal, 1))      # Filtered signal for top plot
         self.valuesOutput2 = np.zeros((self.lengthSignal, 1))     # Filtered signal for bottom plot
 

@@ -125,13 +125,13 @@ class ToolbarROI(Tk.Frame):
             self.y_max = int(self.textbox_y2.get("1.0", Tk.END + "-1c"))
 
         # If *_min < *_max: Correct values
-        if self.x_min >= self.x_max:
+        if self.x_min > self.x_max:
             self.x_min = 0
             self.textbox_x1.delete(1.0, Tk.END)
             self.textbox_x1.insert(Tk.END, 0)
             logging.warn("Your ROI definition was inadequate (x_min < x_max). The values were corrected.")
 
-        if self.y_min >= self.y_max:
+        if self.y_min > self.y_max:
             self.y_min = 0
             self.textbox_y1.delete(1.0, Tk.END)
             self.textbox_y1.insert(Tk.END, 0)

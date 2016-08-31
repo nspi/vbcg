@@ -38,7 +38,7 @@ class WindowVideo(Tk.Frame):
         self.first_frame = True
         self.faceCascade = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
 
-        # Save camera object
+         # Save camera object
         self.cameraInstance = cam
 
         # Save thread object

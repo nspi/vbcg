@@ -4,7 +4,7 @@
 
 import numpy as np
 from scipy.optimize import curve_fit
-
+import sys
 
 class SignalProcessor:
     """This class provides the essential signal processing algorithms"""
@@ -115,8 +115,12 @@ class SignalProcessor:
         Plese note that a moving average filter as described in section 2.4) is not applied.
         """
 
-        # Store normalized signal
+        # Get normalized signal
         signal = self.normalize(inputRawSignal)
+
+        # Store signal on hard disk for evaluation purposes
+        #np.savetxt("test.txt",signal)
+        #sys.exit()
 
         # Store number of elements in signal
         N = np.size(signal)
@@ -125,7 +129,7 @@ class SignalProcessor:
         fps = estimatedFPS
 
         # Parameters: Minimal and maximum HR (48..180 bpm)
-        hrMin = 0.5
+        hrMin = 0.8
         hrMax = 3
 
         # Compute next power of 2 from N

@@ -9,6 +9,7 @@ import threading
 import sys
 import os
 import settings
+import datetime
 
 from defines import *
 
@@ -46,6 +47,9 @@ class VideoThread(threading.Thread):
                         # Set bool variable, so that the thread can start to capture frames
                         connectionEstablished = True
 
+                        # Timer for dynamic FPS adjustment
+                        self.startTime = datetime.datetime.now()
+
                 # Continuosly capture frames until user ends program
                 if self.eventVideoReady.is_set():
 
@@ -53,14 +57,23 @@ class VideoThread(threading.Thread):
                         # Construct file directory and name
                         currFile = self.filesDir + '/' + self.files[self.frameCounter]
 
+                        # Compute difference to desired FPS
+                        self.endTime = datetime.datetime.now()
+                        self.diffTime = (self.endTime - self.startTime).total_seconds()
+                        self.waitTime = self.sleep_time - self.diffTime
+
+                        # If thread was too fast, wait
+                        if self.waitTime > 0:
+                            cv2.waitKey(int(self.waitTime))
+
                         # Read frame
                         self.currentFrame = cv2.imread(currFile)
 
+                        # Set timer again
+                        self.startTime = datetime.datetime.now()
+
                         # Increase counter
                         self.frameCounter += 1
-
-                        # Wait
-                        cv2.waitKey(int(self.sleep_time))
 
                     except IndexError:
                         logging.info("Reached last file. Restarting program.")
@@ -88,14 +101,23 @@ class VideoThread(threading.Thread):
                         # Set bool variable, so that the thread can start to capture frames
                         connectionEstablished = True
 
+                        # Timer for dynamic FPS adjustment
+                        self.startTime = datetime.datetime.now()
+
                 # Continuosly capture frames until user ends program
                 if self.eventVideoReady.is_set():
 
+                    # Compute difference to desired FPS
+                    self.endTime = datetime.datetime.now()
+                    self.diffTime = (self.endTime - self.startTime).total_seconds()
+                    self.waitTime = self.sleep_time - self.diffTime
+
+                    # If thread was too fast, wait
+                    if self.waitTime > 0:
+                        cv2.waitKey(int(self.waitTime))
+
                     # Read frame
                     ret, self.currentFrame = self.videoStream.read()
-
-                    # Wait
-                    cv2.waitKey(int(self.sleep_time))
 
         # Shutdown reached: Close connection to camera if it was used
         if self.files is None:
@@ -158,6 +180,7 @@ class VideoThread(threading.Thread):
             tmp_str = "Found " + str(self.numberOfCameras) + " OpenCV-compatible cameras"
             logging.info(tmp_str)
 
+        self.numberOfCameras = 2
 
     def getFrame(self):
         """This function delivers frames from the camera or the hard disk for the GUI
