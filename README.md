@@ -24,7 +24,6 @@ For most accurate results, place your finger tip directly on the camera sensor (
 #### Compatible operating systems
 The current master branch has been tested on:
 - Ubuntu 14.04
-- Windows 8.1
 - Mac OSX
 
 #### License
@@ -46,24 +45,18 @@ TBA
 
 #### Installation
 
-**Linux/Mac**
+*Linux/Mac*
 
 run `make` (which is at the moment basically `pip install -r requirements.txt`  and installs required packages via pip).
 OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install python-opencv python-tk`).
 
-**Windows**
+*Windows*
 
-For Windows, there is a stand-alone installer of the current master branch: TBA (warning XXX MB filesize)
+An installer for Microsoft Windows will be available soon.
 
 #### Usage
 
-**Linux/Mac**
-
 `cd src;` `python main.py`
-
-**Windows**
-
-TBA
 
 ## Available data
 | Name          | Information   								  | Download 	    |
@@ -74,6 +67,7 @@ TBA
 
 ## Todo
 - Update to Python 3 and current versions of all modules
+- Add an installer for Microsoft Windows 
 - Add more functions, options, and our algorithm from ISMRM 2015 [6]
 - Add videos recorded under ideal conditions that can be used as reference
 
