@@ -5,6 +5,7 @@ This is a prototype demonstrating our research activities concerning *video-base
 We aim to apply this techniques in the context of ultra-high-field MRI but other scenarios are possible (e.g. gaming, sports)
 
 ## About
+
 #### Software description
 The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the algorithms we have developed so far.
 
@@ -65,12 +66,11 @@ For Windows, there is a stand-alone installer of the current master branch: TBA 
 TBA
 
 ## Available data
-| Name          | Information   								  | Download |
-| ------------- |:-------------------------------------------------------------------------------:|:--------:|
-| Test          | synthetic test video. Source code for generation in matlab/			  |  here    |
-| Finger        | finger of a volunteer was placed on camera. Frames were rescaled to 640x360     |  here    |
-| MRI		| recorded during the study described in [4]      				  |  here    |
-
+| Name          | Information   								  | Download 	    |
+| ------------- |---------------------------------------------------------------------------------|:---------------:|
+| Test          | synthetic test video. Source code for generation can be found in utilities/	  |  [here](TBA)    |
+| Finger        | finger of a volunteer was placed on camera. Frames were rescaled to 640x360     |  [here](TBA)    |
+| MRI		| forehead of a volunteer recorded during MRI examination as described in [4] 	  |  [here](TBA)    |
 
 ## Todo
 - Update to Python 3 and current versions of all modules

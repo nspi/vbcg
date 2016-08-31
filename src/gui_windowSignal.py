@@ -88,8 +88,9 @@ class SignalPlotter(threading.Thread):
         self.statusbarInstance = statusbar
         self.video_display = video_display
 
-        # Fix FPS of Signal plotter
+        # Fix length of shown signal and FPS of Signal plotter
         self.FPS = 5
+        self.lengthSignal = 128
 
         # Create signal processing object
         self.signalProcessingInstance = SignalProcessor()
@@ -100,8 +101,8 @@ class SignalPlotter(threading.Thread):
 
         # Create empty vector for signal
         self.valuesRaw = np.zeros((0, 0))           # Raw signal from video
-        self.valuesOutput = np.zeros((150, 1))      # Filtered signal for top plot
-        self.valuesOutput2 = np.zeros((150, 1))     # Filtered signal for bottom plot
+        self.valuesOutput = np.zeros((self.lengthSignal, 1))      # Filtered signal for top plot
+        self.valuesOutput2 = np.zeros((self.lengthSignal, 1))     # Filtered signal for bottom plot
 
         # Update statusbar value
         self.statusbarInstance.updateInfoText("Please choose a camera")
@@ -155,8 +156,8 @@ class SignalPlotter(threading.Thread):
                 # Store mean value
                 self.valuesRaw = np.append(self.valuesRaw, self.mean_value)
 
-                # Begin with computations when 150 data points are accumulated
-                if np.size(self.valuesRaw) >= 150:
+                # Begin with computations when enough data points are accumulated
+                if np.size(self.valuesRaw) >= self.lengthSignal:
 
                     # Set variable
                     self.enoughFrames = True
@@ -193,15 +194,9 @@ class SignalPlotter(threading.Thread):
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
                         self.valuesOutput2 = self.valuesFiltered
 
-                        #print  self.valuesOutput2
-                        # Invert values where they are != 0
-                        #self.valuesOutput2[np.where(self.valuesOutput2 != 0)[0]] = \
-                        #    1 - self.valuesOutput2[np.where(self.valuesOutput2 != 0)[0]]
-                        #print  self.valuesOutput2
-
-                    # Delete data points to maintain 150 values
+                    # Delete data points to maintain self.lengthSignal values
                     mask = np.ones(len(self.valuesRaw), dtype=bool)
-                    mask[0:np.size(self.valuesRaw) - 150] = False
+                    mask[0:np.size(self.valuesRaw) - self.lengthSignal] = False
                     self.valuesRaw = self.valuesRaw[mask]
                     self.valuesOutput = self.valuesOutput[mask]
                     if self.curr_settings[IDX_ALGORITHM] == 1:

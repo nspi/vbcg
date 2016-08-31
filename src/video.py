@@ -14,8 +14,7 @@ from defines import *
 
 
 class VideoThread(threading.Thread):
-    """ This class provides frames from a camera or from hard disk as a thread
-        When using frames from disk, it ends after initialization. When using a camera, it runs continuously.
+    """ This class acquires frames from a camera or from hard disk as a thread and provides them to others
         When the user presses the ''x'' button, the connection to the camera is closed.
     """
 
@@ -47,8 +46,25 @@ class VideoThread(threading.Thread):
                         # Set bool variable, so that the thread can start to capture frames
                         connectionEstablished = True
 
-                        # Set event so that this thread exits because it slows down the application
-                        self.eventProgramEnd.set()
+                # Continuosly capture frames until user ends program
+                if self.eventVideoReady.is_set():
+
+                    try:
+                        # Construct file directory and name
+                        currFile = self.filesDir + '/' + self.files[self.frameCounter]
+
+                        # Read frame
+                        self.currentFrame = cv2.imread(currFile)
+
+                        # Increase counter
+                        self.frameCounter += 1
+
+                        # Wait
+                        cv2.waitKey(int(self.sleep_time))
+
+                    except IndexError:
+                        logging.info("Reached last file. Restarting program.")
+                        os.execl(sys.executable, sys.executable, *sys.argv)
 
             # If the user did not choose frames from hard disk, use camera instead
             else:
@@ -74,7 +90,12 @@ class VideoThread(threading.Thread):
 
                 # Continuosly capture frames until user ends program
                 if self.eventVideoReady.is_set():
+
+                    # Read frame
                     ret, self.currentFrame = self.videoStream.read()
+
+                    # Wait
+                    cv2.waitKey(int(self.sleep_time))
 
         # Shutdown reached: Close connection to camera if it was used
         if self.files is None:
@@ -149,10 +170,7 @@ class VideoThread(threading.Thread):
         # Waiting for the user to press the ''start'' button
         if self.eventVideoReady.is_set():
 
-            # Get frames from camera
-            if self.files is None:
-
-                # Read current frame from thread
+                 # Read current frame from thread
                 frame = self.currentFrame
 
                 # Convert color to RGB
@@ -160,30 +178,6 @@ class VideoThread(threading.Thread):
 
                 # Return status and frame
                 return True, frame
-
-            # Get frames from hard disk
-            else:
-                try:
-
-                    # Construct file directory and name
-                    currFile = self.filesDir + '/' + self.files[self.frameCounter]
-
-                    # Read frame
-                    frame = cv2.imread(currFile)
-
-                    # Convert color to RGB
-                    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-                    # Increase counter
-                    self.frameCounter += 1
-
-                    # Return status and frame
-                    return True, frame
-
-                except IndexError:
-                    logging.info("Reached last file. Restarting program.")
-                    os.execl(sys.executable, sys.executable, *sys.argv)
-                    return False, np.zeros((480, 640, 3), np.uint8)
 
         else:
             # Return false as status and black frame

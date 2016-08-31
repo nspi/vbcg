@@ -90,16 +90,13 @@ class WindowVideo(Tk.Frame):
     def __showImage(self):
         """Get frame from camera and display it"""
 
-        # Set statusbar value
-        self.statusbarInstance.setFPSCounter(0)
-
         # Get current settings
         self.curr_settings = settings.get_parameters()
 
         # Get current frame
         self.isTrueFrame, self.frame = self.cameraInstance.getFrame()
 
-        # Check if a real frame from camera or just test image is received
+        # Check if first frame is received
         if self.isTrueFrame & self.first_frame:
 
             # If first frame from camera is received store dimensions
@@ -118,42 +115,44 @@ class WindowVideo(Tk.Frame):
                 os.makedirs(self.directory)
                 logging.info('Folder was created for storing frames')
 
+        # Process all following frames
         elif self.isTrueFrame:
-            # If frame is received, use Viola-Jones algorithm or manual ROI definition to crop frame
 
+            # Increase frame counter
+            self.frameCounter += 1
+
+            # Use Viola Jones Algorithm for Face Detection
             if self.curr_settings[IDX_FACE]:
-                # Use Viola-Jones
                 frameBW = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
                 faces = self.faceCascade.detectMultiScale(frameBW, scaleFactor=1.1, minNeighbors=5,
                                                           minSize=(30, 30), flags=cv2.cv.CV_HAAR_SCALE_IMAGE)
                 for (x, y, w, h) in faces:
                     cv2.rectangle(self.frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
                     self.roiToolbarInstance.setROI(y, y + h, x, x + w)
+
+            # Otherwise: Use manual ROI input
             else:
-                # Otherwise: Use manual ROI input
                 x_min, x_max, y_min, y_max = self.roiToolbarInstance.getROI()
                 cv2.rectangle(self.frame, (y_min, x_min), (y_max, x_max), (0, 255, 0), 2)
 
-            self.frameCounter += 1
-
-            # If desired by the user, store the frames in a folder
+            # Store frame on hard disk
             if self.curr_settings[IDX_FRAMES]:
                 fileName = "frame%d.jpg" % self.frameCounter
                 cv2.imwrite(os.path.join(self.directory, fileName), cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB))
 
-        # Depending on chosen algorithm, display frames with icon
+        # Display icon
         current_location = os.path.dirname(os.path.realpath(__file__))
         current_location = current_location + '/'
 
+        # Heart icon
         if self.curr_settings[IDX_ALGORITHM] == 0:
-            # Add heart symbol to frame
-
             # Add heart icon
             heart_location = current_location + 'data/heart.png'
             self.frame = self.__addFigureToPlot(self.frame, heart_location)
             # Add text that displays Heart Rate
             cv2.putText(self.frame, self.HeartRateText, (25, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
+        # Heartbeat icon
         elif self.curr_settings[IDX_ALGORITHM] == 1:
 
             # If signal processing algorithm set trigger event
@@ -174,23 +173,12 @@ class WindowVideo(Tk.Frame):
         self.lmain.imgtk = self.imgTK
         self.lmain.configure(image=self.imgTK)
 
-        # This block dynamically adjusts the sleep time of this thread. The aim is to converge to the desired FPS of
-        # the used camera which can not be fixed due to the workload of the other threads
-        if self.isTrueFrame and (self.get_frameCounter() % 25) == 0:
-            currentFPS = self.FPS
-
-            if currentFPS < self.curr_settings[IDX_FPS]:
-                self.sleep_time -= 1
-            elif currentFPS > self.curr_settings[IDX_FPS]:
-                self.sleep_time += 1
-
         # Update values in statusbar
         self.statusbarInstance.setFrameCounter(self.get_frameCounter())
         self.statusbarInstance.setFPSCounter(self.FPS)
 
-        # Repeat thread
-        self.video_frame.after(int(self.sleep_time), lambda: self.__showImage())
-
+        # Repeat thread immediately
+        self.video_frame.after(1, lambda: self.__showImage())
 
     def __computeFPS(self):
         """Compute FPS"""

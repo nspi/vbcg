@@ -13,9 +13,12 @@ from defines import *
 # Standard parameters if no settings.ini is available
 std_param = [VAL_WEBCAM, VAL_CAMERA, VAL_ALGORITHM, VAL_CURVES, VAL_FRAMES, VAL_FACE, VAL_FPS]
 
-
+# Todo: fix rarely encountered NoSectionError: No section: 'settings'
 def get_parameters():
     """Load parameters from configuration file"""
+
+    # Store data from configuration file in array
+    param = np.zeros(7)
 
     # Try opening configuration file, otherwise create one with standard values
     try:
@@ -25,25 +28,23 @@ def get_parameters():
             sample_config = f.read()
         config = ConfigParser.RawConfigParser()
         config.readfp(io.BytesIO(sample_config))
+
+        # Read settings
+        options = config.options('settings')
+
+        # Iterate throughout each option
+        i = 0
+        for option in options:
+            # Store value in array
+            param[i] = config.get('settings', option)
+            # Increase counter
+            i += 1
+
     except IOError:
         logging.warning("Settings file not found! Creating one with standard values.")
         __store_parameters(std_param)
     except:
         logging.critical("Unexpected error")
-
-    # Store data from configuration file in array
-    param = np.zeros(7)
-
-    # Read settings
-    options = config.options('settings')
-
-    # Iterate throughout each option
-    i = 0
-    for option in options:
-        # Store value in array
-        param[i] = config.get('settings',option)
-        # Increase counter
-        i += 1
 
     # Return parameters
     return param

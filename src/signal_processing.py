@@ -29,6 +29,10 @@ class SignalProcessor:
 
         return outputSignal
 
+    def __curveFit(self, inputSignal1, inputSignal2):
+        """perform curve fitting and return slope value"""
+        m, ret = curve_fit(self.__curveFitFunc, inputSignal1, inputSignal2)
+        return m
 
     def __curveFitFunc(self, x, a, b):
         """"linear curve fit function"""
@@ -52,11 +56,6 @@ class SignalProcessor:
             numberOfZerosAfterSignal = numberOfZerosBeforeSignal
 
         return numberOfZerosBeforeSignal, numberOfZerosAfterSignal
-
-    def __curveFit(self, inputSignal1, inputSignal2):
-        """perform curve fitting and return slope value"""
-        m, ret = curve_fit(self.__curveFitFunc, inputSignal1, inputSignal2)
-        return m
 
     def filterWaveform(self, inputRawSignal, inputOutputSignal, MagicNumber, MagicNumber2):
         """This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry.
@@ -130,14 +129,14 @@ class SignalProcessor:
         hrMax = 3
 
         # Compute next power of 2 from N
-        nextN = self.nextpow2(N)
+        #nextN = self.nextpow2(N)
 
         # Zero padding: Fill before and after signal with zeros
-        numberBefore, numberAfter = self.computeZeroPaddingValues(nextN-N)
-        signal = np.concatenate((np.zeros(numberBefore),signal,np.zeros(numberAfter)),0)
+        #numberBefore, numberAfter = self.computeZeroPaddingValues(nextN-N)
+        #signal = np.concatenate((np.zeros(numberBefore),signal,np.zeros(numberAfter)),0)
 
         # Use new N value instead
-        N = nextN
+        #N = nextN
 
         # Use Hamming window on signal
         valuesWin = signal[0:N] * np.hamming(N)
