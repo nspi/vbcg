@@ -37,6 +37,8 @@ class Statusbar(Tk.Frame):
     def __create_gui(self):
         # Create GUI elements and add them to root widget
 
+        # Todo: clean up
+
         self.text_frame = Tk.Frame(root, width=500, height=100)
         self.text_frame.pack(side=Tk.TOP)
 
@@ -47,18 +49,18 @@ class Statusbar(Tk.Frame):
         #self.label_counter_2.pack(side=Tk.LEFT)
 
         self.label_counter_3 = Tk.Label(self.text_frame, text="        FPS Video (Top):")
-        self.label_counter_3.pack(side=Tk.LEFT)
+        #self.label_counter_3.pack(side=Tk.LEFT)
 
         self.label_counter_4 = Tk.Label(self.text_frame, text=self.fps_counter)
-        self.label_counter_4.pack(side=Tk.LEFT)
+        #self.label_counter_4.pack(side=Tk.LEFT)
 
         self.label_counter_5 = Tk.Label(self.text_frame, text="        FPS Signal Processing (Bottom):")
-        self.label_counter_5.pack(side=Tk.LEFT)
+        #self.label_counter_5.pack(side=Tk.LEFT)
 
         self.label_counter_6 = Tk.Label(self.text_frame, text=self.fps_counter2)
-        self.label_counter_6.pack(side=Tk.LEFT)
+        #self.label_counter_6.pack(side=Tk.LEFT)
 
-        self.label_counter_7 = Tk.Label(self.text_frame, text="        Status:")
+        self.label_counter_7 = Tk.Label(self.text_frame, text="Status:")
         self.label_counter_7.pack(side=Tk.LEFT)
 
         self.label_counter_7 = Tk.Label(self.text_frame, text=self.currentInfo, font ="Verdana 9 bold")

@@ -1,0 +1,161 @@
+from defines import *
+from signal_processing import SignalProcessor
+
+import logging
+import threading
+import numpy as np
+import cv2
+import settings
+import datetime
+
+class GuiSignalPlotter(threading.Thread):
+    """This thread is used for continously plotting the mean signal of the video in the ROI"""
+
+    def __init__(self, tk_root, cam, figure, canvas, subplotTop, subplotBottom, statusbar,
+                 video_display, frameQueuePlot):
+        """Initializes variables etc"""
+
+        # Store camera object
+        self.cameraInstance = cam
+
+        # Store root object
+        self.root = tk_root
+
+        # Store figure, canvas, subplot, video_display
+        self.figureInstance = figure
+        self.canvasInstance = canvas
+        self.subplotInstanceTop = subplotTop
+        self.subplotInstanceBottom = subplotBottom
+        self.statusbarInstance = statusbar
+        self.video_display = video_display
+
+        # Store frame queue
+        self.frameQueue = frameQueuePlot
+
+        # Fix length of shown signal and FPS of Signal plotter
+        self.FPS = 5
+        self.lengthSignal = 1000
+
+        # Create signal processing object
+        self.signalProcessingInstance = SignalProcessor()
+
+        # Get current parameters
+        self.settingsInstance = settings
+        self.curr_settings = self.settingsInstance.get_parameters()
+
+        # Update statusbar value
+        self.statusbarInstance.updateInfoText("Please choose a camera")
+
+        # Configure itself as thread
+        threading.Thread.__init__(self)
+        self.eventProgramEnd = threading.Event()
+        self.eventProgramEnd.clear()
+
+    def closeSignalPlotterThread(self):
+        """Activate event to end thread"""
+        self.eventProgramEnd.set()
+
+    def __waitToAdjustFPS(self, startTime, endTime):
+        # Compute difference to desired FPS
+        self.diffTime = (endTime - startTime).total_seconds()
+        self.waitTime = 1.0 / self.FPS - self.diffTime
+        # If thread was too fast, wait
+        if self.waitTime > 0:
+            cv2.waitKey(int(self.waitTime * 1000))
+
+    def run(self):
+        """The main functionality of the thread: The signal is obtained and plotted"""
+
+        # Variable for statusbar information
+        self.enoughFrames = False
+
+        # Set statusbar value
+        self.statusbarInstance.setFPSCounter2(0)
+
+        # run() method of cameraThread waits for shutdown event
+        while self.eventProgramEnd.is_set() is False:
+
+            # Get time
+            self.startTime = datetime.datetime.now()
+
+            # Get camera event
+            self.cameraActive = self.cameraInstance.getEventCameraReady()
+
+            # Get current options
+            self.curr_settings = self.settingsInstance.get_parameters()
+
+            # Get dictionary from queue
+            if self.frameQueue.empty() is False:
+
+                self.dict = self.frameQueue.get()
+
+                # Get data from dictionary
+                if self.curr_settings[IDX_ALGORITHM] == 0:
+                    self.valuesOutput = self.dict['valuesOutput']
+                    self.valuesOutput2 = self.dict['valuesOutput2']
+                    self.spectrumAxis = self.dict['spectrumAxis']
+                    self.spectrumMax = self.dict['spectrumMax']
+
+                elif self.curr_settings[IDX_ALGORITHM] == 1:
+                    self.valuesOutput = self.dict['valuesOutput']
+                    self.valuesOutput2 = self.dict['valuesOutput2']
+
+                try:
+
+                    # If camera available and the user enabled the option, plot signal
+                    if self.cameraActive.is_set() and self.curr_settings[IDX_CURVES]:
+
+                        # Clear subplot
+                        self.subplotInstanceTop.clear()
+                        self.subplotInstanceBottom.clear()
+
+                        # Plot results based on algorithm
+                        if self.curr_settings[IDX_ALGORITHM] == 0:
+
+                            self.subplotInstanceTop.plot(self.valuesOutput)
+                            self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
+                            self.subplotInstanceTop.set_xlabel('Frames')
+
+                            # Plot spectrum if it is available, i.e. the algorithm has been computed once
+                            if np.count_nonzero(self.valuesOutput2) >= 1:
+                                self.subplotInstanceBottom.plot(self.spectrumAxis, self.valuesOutput2)
+                                self.subplotInstanceBottom.plot(self.spectrumAxis[self.spectrumMax],
+                                                                self.valuesOutput2[self.spectrumMax], 'r*')
+                            # Otherwise, plot placehoder
+                            else:
+                                self.subplotInstanceBottom.plot(self.valuesOutput2)
+
+                            self.subplotInstanceBottom.legend(["One-sided Amplitude spectrum", "Maximum value"],fontsize=9)
+                            self.subplotInstanceBottom.set_xlabel('Hz')
+
+                        elif self.curr_settings[IDX_ALGORITHM] == 1:
+
+                            self.subplotInstanceTop.plot(self.valuesOutput)
+                            self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
+                            self.subplotInstanceTop.set_xlabel('Frames')
+
+                            # Plot filtered signal if it is available, i.e. the algorithm has been computed once
+                            if np.count_nonzero(self.valuesOutput2) >= 1:
+                                self.subplotInstanceBottom.plot(self.valuesOutput2)
+                                self.subplotInstanceBottom.legend(["Filtered waveform"], fontsize=9)
+                                self.subplotInstanceBottom.set_xlabel('Frames')
+
+                    else:
+                        # Needed for windows implementation, otherwise the whole GUI stays blank
+                        self.subplotInstanceTop.clear()
+                        self.subplotInstanceBottom.clear()
+
+                except RuntimeError:
+                    # ''Quit'' button has been pressed by a user, resulting in RuntimeError during program shutdown
+                    logging.info("Signal plotting thread will be halted")
+
+                # Draw canvas
+                self.canvasInstance.draw()
+
+            # Wait and start from beginning of thread
+            self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())
+
+        logging.info("Reached of signal plotting thread")
+
+
+

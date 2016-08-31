@@ -129,7 +129,7 @@ class SignalProcessor:
         fps = estimatedFPS
 
         # Parameters: Minimal and maximum HR (48..180 bpm)
-        hrMin = 0.8
+        hrMin = 0.5
         hrMax = 3
 
         # Compute next power of 2 from N

@@ -60,8 +60,8 @@ class ToolbarButtons(Tk.Frame):
         # End program
         logging.info("User pressed ''quit'' button - now halting threads")
 
-        # Close thread running for signal display
-        self.signalDisplayInstance.closeSignalPlotterThread()
+        # Close threads running for signal display and processing
+        self.signalDisplayInstance.closeThreads()
         logging.info("Signal display thread was closed")
 
         # If camera connection is active, close it
