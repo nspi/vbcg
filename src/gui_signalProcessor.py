@@ -44,12 +44,16 @@ class GuiSignalProcessor(threading.Thread):
         self.settingsInstance = settings
         self.curr_settings = self.settingsInstance.get_parameters()
 
-        # Fix length of shown signal and FPS
+        # Fix FPS and length of shown signal
         self.FPS = self.curr_settings[IDX_FPS]
+
         if self.curr_settings[IDX_ALGORITHM] == 0:
             self.lengthSignal = 500
         else:
             self.lengthSignal = 200
+
+        # Temporary variable
+        self.firstRun = True
 
         # Initialize variables that will contain results later
         self.valuesRaw = np.zeros((self.lengthSignal, 1))            # Raw signal from video
@@ -74,9 +78,12 @@ class GuiSignalProcessor(threading.Thread):
         # Compute difference to desired FPS
         self.diffTime = (endTime - startTime).total_seconds()
         self.waitTime = 1.0 / self.FPS - self.diffTime
-        # If thread was too fast, wait
-        if self.waitTime > 0:
+
+        if int(self.waitTime*1000) > 0:
             cv2.waitKey(int(self.waitTime * 1000))
+        elif int(self.waitTime*1000) == 0:
+            cv2.waitKey(33)
+
 
     def run(self):
         """The main functionality of the thread: The signal is obtained and plotted"""
@@ -93,14 +100,22 @@ class GuiSignalProcessor(threading.Thread):
             # If real frames are available, start main activity
             if realFramesAvailable is True:
 
-                # Update statusbar value
-                self.statusbarInstance.updateInfoText("Processing frames")
+                if self.firstRun is True:
 
-                # Get current settings
-                self.curr_settings = self.settingsInstance.get_parameters()
+                    # Update statusbar value
+                    self.statusbarInstance.updateInfoText("Processing frames")
+
+                    # Get current settings
+                    self.curr_settings = self.settingsInstance.get_parameters()
+
+                    # Update FPS
+                    self.FPS = self.curr_settings[IDX_FPS]
+                    self.colorChannel = int(self.curr_settings[IDX_COLORCHANNEL])
+
+                    self.firstRun = False
 
                 # Compute mean value
-                self.mean_value = cv2.mean(self.currentFrame)[1]
+                self.mean_value = cv2.mean(self.currentFrame)[self.colorChannel]
 
                 # Store mean value
                 self.valuesRaw = np.append(self.valuesRaw, self.mean_value)
@@ -127,7 +142,7 @@ class GuiSignalProcessor(threading.Thread):
 
                         # Compute algorithm
                         self.boolTrigger, self.valuesFiltered = \
-                            self.signalProcessingInstance.filterWaveform(self.valuesRaw, self.valuesOutput2, 10, 10)
+                            self.signalProcessingInstance.filterWaveform(self.valuesRaw, self.valuesOutput2, 10, 5)
 
                         # Send trigger
                         if self.boolTrigger is True:

@@ -4,7 +4,7 @@
 
 import numpy as np
 from scipy.optimize import curve_fit
-import sys
+
 
 class SignalProcessor:
     """This class provides the essential signal processing algorithms"""
@@ -25,7 +25,7 @@ class SignalProcessor:
             maxVal = np.max(np.abs(outputSignal))
             minVal = np.min(np.abs(outputSignal))
             # MinMax normalization
-            outputSignal = (outputSignal-minVal)/(maxVal-minVal)
+            outputSignal = (outputSignal - minVal) / (maxVal - minVal)
 
         return outputSignal
 
@@ -49,9 +49,9 @@ class SignalProcessor:
         """During zero padding, we want to fill zeros before and after signal.
         This function computes the number of zeros"""
 
-        numberOfZerosBeforeSignal = np.floor(number/2)
+        numberOfZerosBeforeSignal = np.floor(number / 2)
         if np.fmod(number, 2) == 1:
-            numberOfZerosAfterSignal = numberOfZerosBeforeSignal+1
+            numberOfZerosAfterSignal = numberOfZerosBeforeSignal + 1
         else:
             numberOfZerosAfterSignal = numberOfZerosBeforeSignal
 
@@ -119,10 +119,6 @@ class SignalProcessor:
         # Get normalized signal
         signal = self.normalize(inputRawSignal)
 
-        # Store signal on hard disk for evaluation purposes
-        #np.savetxt("test.txt",signal)
-        #sys.exit()
-
         # Store number of elements in signal
         N = np.size(signal)
 
@@ -134,14 +130,14 @@ class SignalProcessor:
         hrMax = 3
 
         # Compute next power of 2 from N
-        nextN = self.nextpow2(N)
+        #nextN = self.nextpow2(N)
 
         # Zero padding: Fill before and after signal with zeros
-        numberBefore, numberAfter = self.computeZeroPaddingValues(nextN-N)
-        signal = np.concatenate((np.zeros(numberBefore),signal,np.zeros(numberAfter)),0)
+        #numberBefore, numberAfter = self.computeZeroPaddingValues(nextN - N)
+        #signal = np.concatenate((np.zeros(numberBefore), signal, np.zeros(numberAfter)), 0)
 
         # Use new N value instead
-        N = nextN
+        #N = nextN
 
         # Use Hamming window on signal
         valuesWin = signal[0:N] * np.hamming(N)
@@ -165,4 +161,4 @@ class SignalProcessor:
         max_val = limits[np.argmax(abs(signalFFT[limits]))]
 
         # Return HR, spectrum with frequency axis, and found maximum
-        return (np.round(freqAxis[max_val] * 60)), abs(signalFFT[limits]), freqAxis[limits], max_val-limits[0]
+        return (np.round(freqAxis[max_val] * 60)), abs(signalFFT[limits]), freqAxis[limits], max_val - limits[0]

@@ -6,9 +6,8 @@ import cv2
 import numpy as np
 import logging
 import threading
-import sys
-import os
 import settings
+import time
 import datetime
 
 from defines import *
@@ -28,6 +27,9 @@ class VideoThread(threading.Thread):
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
 
+            # Timer for dynamic FPS adjustment
+            self.startTime = datetime.datetime.now()
+
             # Check if the user wants to read frames from hard disk or from camera
             if self.files is not None:
 
@@ -41,14 +43,15 @@ class VideoThread(threading.Thread):
 
                         logging.info("User pressed start and wants to use frames from hard disk")
 
+                        # Create variable to adjust thread sleeping time to desired FPS
+                        self.curr_settings = settings.get_parameters()
+                        self.FPS = self.curr_settings[IDX_FPS]
+
                         # Set event for other threads
                         self.eventVideoReady.set()
 
                         # Set bool variable, so that the thread can start to capture frames
                         connectionEstablished = True
-
-                        # Timer for dynamic FPS adjustment
-                        self.startTime = datetime.datetime.now()
 
                 # Continuosly capture frames until user ends program
                 if self.eventVideoReady.is_set():
@@ -57,27 +60,17 @@ class VideoThread(threading.Thread):
                         # Construct file directory and name
                         currFile = self.filesDir + '/' + self.files[self.frameCounter]
 
-                        # Compute difference to desired FPS
-                        self.endTime = datetime.datetime.now()
-                        self.diffTime = (self.endTime - self.startTime).total_seconds()
-                        self.waitTime = self.sleep_time - self.diffTime
-
-                        # If thread was too fast, wait
-                        if self.waitTime > 0:
-                            cv2.waitKey(int(self.waitTime))
-
                         # Read frame
                         self.currentFrame = cv2.imread(currFile)
-
-                        # Set timer again
-                        self.startTime = datetime.datetime.now()
 
                         # Increase counter
                         self.frameCounter += 1
 
                     except IndexError:
-                        logging.info("Reached last file. Restarting program.")
-                        os.execl(sys.executable, sys.executable, *sys.argv)
+                        logging.info("Reached last file.")
+
+                    # Wait and start from beginning of thread
+                    self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())
 
             # If the user did not choose frames from hard disk, use camera instead
             else:
@@ -91,6 +84,10 @@ class VideoThread(threading.Thread):
                     if userPressedStart:
 
                         logging.info("User pressed start and wants to use the camera")
+
+                        # Create variable to adjust thread sleeping time to desired FPS
+                        self.curr_settings = settings.get_parameters()
+                        self.FPS = self.curr_settings[IDX_FPS]
 
                         # Open connection to camera
                         self.__openCamera()
@@ -107,17 +104,11 @@ class VideoThread(threading.Thread):
                 # Continuosly capture frames until user ends program
                 if self.eventVideoReady.is_set():
 
-                    # Compute difference to desired FPS
-                    self.endTime = datetime.datetime.now()
-                    self.diffTime = (self.endTime - self.startTime).total_seconds()
-                    self.waitTime = self.sleep_time - self.diffTime
-
-                    # If thread was too fast, wait
-                    if self.waitTime > 0:
-                        cv2.waitKey(int(self.waitTime))
-
                     # Read frame
                     ret, self.currentFrame = self.videoStream.read()
+
+                # Wait and start from beginning of thread
+                self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())
 
         # Shutdown reached: Close connection to camera if it was used
         if self.files is None:
@@ -141,6 +132,10 @@ class VideoThread(threading.Thread):
         # Event is activated when user closed the application.
         self.eventProgramEnd = threading.Event()
 
+        # Create variable to adjust thread sleeping time to desired FPS
+        self.curr_settings = settings.get_parameters()
+        self.FPS = self.curr_settings[IDX_FPS]
+
         # Video stream object, is filled later
         self.videoStream = None
 
@@ -150,10 +145,6 @@ class VideoThread(threading.Thread):
         # If the user wants to read frames from the hard disk, the directory and file names are stored here
         self.filesDir = None
         self.files = None
-
-        # Create variable to adjust thread sleeping time to desired FPS
-        self.curr_settings = settings.get_parameters()
-        self.sleep_time = 1000 / self.curr_settings[IDX_FPS]
 
         # A counter of loaded frames, used for loading frames from hard disk
         self.frameCounter = 0
@@ -203,6 +194,14 @@ class VideoThread(threading.Thread):
         else:
             # Return false as status and black frame
             return False, np.zeros((480, 640, 3), np.uint8)
+
+    def __waitToAdjustFPS(self, startTime, endTime):
+        # Compute difference to desired FPS
+        self.diffTime = (endTime - startTime).total_seconds()
+        self.waitTime = 1.0 / self.FPS - self.diffTime
+        # If thread was too fast, wait
+        if self.waitTime > 0:
+            time.sleep(self.waitTime)
 
     def __openCamera(self):
         """This function initializes the desired camera"""

@@ -42,7 +42,7 @@ class Test(unittest.TestCase):
 
         # Close threads
         self.videoThread.closeCameraThread()
-        self.winSignal.closeSignalPlotterThread()
+        self.winSignal.closeThreads()
 
         # Close root widget
         self.root.quit()

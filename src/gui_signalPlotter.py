@@ -7,7 +7,6 @@ from defines import *
 import logging
 import threading
 import numpy as np
-import cv2
 import settings
 import datetime
 
@@ -51,16 +50,8 @@ class GuiSignalPlotter(threading.Thread):
         """Activate event to end thread"""
         self.eventProgramEnd.set()
 
-    def __waitToAdjustFPS(self, startTime, endTime):
-        # Compute difference to desired FPS
-        self.diffTime = (endTime - startTime).total_seconds()
-        self.waitTime = 1.0 / self.FPS - self.diffTime
-        # If thread was too fast, wait
-        if self.waitTime > 0:
-            cv2.waitKey(int(self.waitTime * 1000))
-
     def run(self):
-        """The main functionality of the thread: The signal is obtained and plotted"""
+        """The main functionality of the thread: The signal is obtained and plotted as fast as possible (no waiting)"""
 
         # Variable for statusbar information
         self.enoughFrames = False
@@ -148,8 +139,5 @@ class GuiSignalPlotter(threading.Thread):
 
                 # Draw canvas
                 self.canvasInstance.draw()
-
-            # Wait and start from beginning of thread
-            self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())
 
         logging.info("Reached end of signal plotting thread")

@@ -33,10 +33,10 @@ class Test(unittest.TestCase):
     def test_getFrame(self):
         ret_1, ret_2 = self.videoThread.getFrame()
         assert_false(ret_1)
-        assert_is_instance( ret_2, np.ndarray )
+        assert_is_instance(ret_2, np.ndarray)
 
     def test_getNumberofCameras(self):
-        assert_is_instance( self.videoThread.getNumberOfCameras(), int)
+        assert_is_instance(self.videoThread.getNumberOfCameras(), int)
 
     # Test if getter return correct types AFTER start button has been pressed
 
@@ -58,4 +58,3 @@ class Test(unittest.TestCase):
 
 if __name__ == '__main__':
     nose.main()
-

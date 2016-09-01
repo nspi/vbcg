@@ -27,12 +27,12 @@ class ToolbarButtons(Tk.Frame):
     def __start(self):
         logging.info("Start button has been pressed")
 
+        # Use and store new FPS value
+        self.curr_settings[IDX_FPS] = int(self.textbox_fps.get("1.0", Tk.END + "-1c"))
+        settings.change_parameter(IDX_FPS,self.curr_settings[IDX_FPS])
+
         # Get Event
         self.eventCameraChosen = self.cameraInstance.getEventCameraChosen()
-
-        # Use and store new FPS value (Because tkInter Text Widgets do not have an onchange() event or similar
-        self.curr_settings[IDX_FPS] = int(self.textbox_fps.get("1.0", Tk.END + "-1c"))
-        settings.change_parameter(IDX_FPS,int(self.textbox_fps.get("1.0", Tk.END + "-1c")))
 
         # Disable buttons that change settings
         self.check_button_1.config(state=Tk.DISABLED)
@@ -45,7 +45,6 @@ class ToolbarButtons(Tk.Frame):
         self.textbox_fps.config(bg='lightgray')
 
         # Store index of camera in thread
-
         if self.numberOfCameras > 0:
             logging.info("Camera is started")
             chosenCamera = self.listCamerasStr.get()[-1]
@@ -143,7 +142,7 @@ class ToolbarButtons(Tk.Frame):
         self.label_x1.pack(side=Tk.LEFT)
         # Add FPS textbox
         self.textbox_fps = Tk.Text(self.button_frame, width=5, height=1)
-        # ADD FPS value from settings
+        # Add FPS value from settings
         self.textbox_fps.insert(Tk.END, int(self.curr_settings[IDX_FPS]))
         self.textbox_fps.pack(side=Tk.LEFT)
 

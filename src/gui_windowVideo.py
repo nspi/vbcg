@@ -21,8 +21,6 @@ import settings
 import os
 import datetime
 
-
-
 # Initialize global variables
 root = None
 
@@ -38,7 +36,7 @@ class WindowVideo(Tk.Frame):
         self.first_frame = True
         self.faceCascade = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
 
-         # Save camera object
+        # Save camera object
         self.cameraInstance = cam
 
         # Save thread object
@@ -52,6 +50,7 @@ class WindowVideo(Tk.Frame):
 
         # Initialize threading event for display of trigger symbol
         self.eventShowTrigger = threading.Event()
+
         # A counter that is used to determine how long the symbol is shown
         self.counterShownTriggerSymbol = 0
 
@@ -65,7 +64,7 @@ class WindowVideo(Tk.Frame):
         self.curr_settings = settings.get_parameters()
 
         # Create variable to adjust thread sleeping time to desired FPS
-        self.sleep_time = 1000/self.curr_settings[IDX_FPS]
+        self.sleep_time = 1000 / self.curr_settings[IDX_FPS]
 
         # Start frame display as thread
         self.frameCounter = 0
@@ -98,6 +97,9 @@ class WindowVideo(Tk.Frame):
 
         # Check if first frame is received
         if self.isTrueFrame & self.first_frame:
+
+            # Disable RGB selection button
+            self.roiToolbarInstance.disableRGBselection()
 
             # If first frame from camera is received store dimensions
             x_max = np.size(self.frame, 0)
@@ -163,7 +165,7 @@ class WindowVideo(Tk.Frame):
                 heart_location = current_location + 'data/heartbeat.png'
                 self.frame = self.__addFigureToPlot(self.frame, heart_location)
                 # Clear event if symbol has been shown for approx 1/3 sec
-                if self.counterShownTriggerSymbol>=self.FPS/3:
+                if self.counterShownTriggerSymbol >= self.FPS / 3:
                     self.counterShownTriggerSymbol = 0
                     self.eventShowTrigger.clear()
 
@@ -182,7 +184,7 @@ class WindowVideo(Tk.Frame):
 
     def __computeFPS(self):
         """Compute FPS"""
-        self.FPS = self.get_frameCounter()-self.frameCounterLastValue
+        self.FPS = self.get_frameCounter() - self.frameCounterLastValue
 
         # Update value
         self.frameCounterLastValue = self.get_frameCounter()

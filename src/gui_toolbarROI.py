@@ -30,8 +30,10 @@ class ToolbarROI(Tk.Frame):
         self.__createGUI()
 
         # Start thread that stores ROI
-        self.displayThread = threading.Thread(target=self.__storeROI)
-        self.displayThread.start()
+        self.storeROIThread = threading.Thread(target=self.__storeROI)
+        self.storeColorThread = threading.Thread(target=self.__storeColorChannel)
+        self.storeROIThread.start()
+        self.storeColorThread.start()
 
     def __createGUI(self):
         """Create GUI elements and add them to root widget"""
@@ -42,14 +44,27 @@ class ToolbarROI(Tk.Frame):
 
         # Add Checkbutton to decide whether to use Viola-Jones algorithm or manual ROI definition
         curr_settings = settings.get_parameters()
-        self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Viola-Jones Face Detection",
+        self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Face Detection",
                                              command=lambda: self.__violaJones())
         self.check_button_1.pack(side=Tk.LEFT)
 
         # Add empty box
         # Todo: use a dynamic solution
-        self.label_x1 = Tk.Label(self.button_frame, text="                  ")
-        self.label_x1.pack(side=Tk.LEFT)
+        self.label_x0 = Tk.Label(self.button_frame, text="  ")
+        self.label_x0.pack(side=Tk.LEFT)
+
+        # Fill list with available cameras and add to menu
+        self.label_color_channels = Tk.Label(self.button_frame, text="Color channel:")
+        self.label_color_channels.pack(side=Tk.LEFT)
+        list_color_channels = ['']
+        list_color_channels.append('R')
+        list_color_channels.append('G')
+        list_color_channels.append('B')
+        list_color_channels.pop(0)
+        self.list_color_channelsStr = Tk.StringVar()
+        self.dropDownListColorChannel = Tk.OptionMenu(self.button_frame, self.list_color_channelsStr, *list_color_channels)
+        self.list_color_channelsStr.set(list_color_channels[0])
+        self.dropDownListColorChannel.pack(side=Tk.LEFT)
 
         # Add Textboxes for ROI definition
         self.label_x1 = Tk.Label(self.button_frame, text="X Begin:")
@@ -86,10 +101,11 @@ class ToolbarROI(Tk.Frame):
 
     def __violaJones(self):
         """Action to perform when Viola-Jones button is pressed"""
-        settings.flip_parameter(settings.IDX_FACE)
 
         # Get current parameters
         curr_settings = settings.get_parameters()
+        settings.flip_parameter(settings.IDX_FACE)
+
 
         if curr_settings[IDX_FACE]:
             self.textbox_x1.config(bg='lightgray')
@@ -103,6 +119,20 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y1.config(bg='white')
             self.textbox_y2.config(bg='white')
             logging.info('Viola-Jones algorithm was disabled by the user')
+
+    def __storeColorChannel(self):
+        """ Stores the desired color channel that is used for signal processing"""
+
+        chan = self.list_color_channelsStr.get()
+
+        if chan == "R":
+            settings.change_parameter(IDX_COLORCHANNEL, 0)
+        elif chan == "G":
+            settings.change_parameter(IDX_COLORCHANNEL, 1)
+        else:
+            settings.change_parameter(IDX_COLORCHANNEL, 2)
+
+        self.button_frame.after(1000, lambda: self.__storeColorChannel())
 
     def __storeROI(self):
         """Store ROI values from textboxes when it has more than 1 symbol and it contains of numbers only"""
@@ -141,6 +171,9 @@ class ToolbarROI(Tk.Frame):
         self.button_frame.after(1000, lambda: self.__storeROI())
 
     # Setter and getter following
+
+    def disableRGBselection(self):
+        self.dropDownListColorChannel.config(state=Tk.DISABLED)
 
     def getROI(self):
         """Returns current ROI definition"""

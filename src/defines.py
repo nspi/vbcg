@@ -22,6 +22,7 @@ IDX_CURVES      = 3
 IDX_FRAMES      = 4
 IDX_FACE        = 5
 IDX_FPS         = 6
+IDX_COLORCHANNEL= 7
 
 # Standard values of parameters
 VAL_WEBCAM      = 1
@@ -31,3 +32,4 @@ VAL_CURVES      = 1
 VAL_FRAMES      = 0
 VAL_FACE        = 0
 VAL_FPS         = 25
+VAL_COLORCHANNEL= 1
