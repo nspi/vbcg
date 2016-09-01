@@ -112,7 +112,8 @@ class SignalProcessor:
         Proceedings of the 49th Annual Conference of the German Society for Biomedical Engineering, Luebeck, Germany,
         16.-18.09.2015.
 
-        Plese note that a moving average filter as described in section 2.4) is not applied.
+        Plese note that the different length of the input signal N and that a moving average filter as described in
+        section 2.4) of the referenec is not applied.
         """
 
         # Get normalized signal
@@ -133,14 +134,14 @@ class SignalProcessor:
         hrMax = 3
 
         # Compute next power of 2 from N
-        #nextN = self.nextpow2(N)
+        nextN = self.nextpow2(N)
 
         # Zero padding: Fill before and after signal with zeros
-        #numberBefore, numberAfter = self.computeZeroPaddingValues(nextN-N)
-        #signal = np.concatenate((np.zeros(numberBefore),signal,np.zeros(numberAfter)),0)
+        numberBefore, numberAfter = self.computeZeroPaddingValues(nextN-N)
+        signal = np.concatenate((np.zeros(numberBefore),signal,np.zeros(numberAfter)),0)
 
         # Use new N value instead
-        #N = nextN
+        N = nextN
 
         # Use Hamming window on signal
         valuesWin = signal[0:N] * np.hamming(N)

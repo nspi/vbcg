@@ -733,3 +733,73 @@
 31.08.2016 22:53:18 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140009019230016)>, <VideoThread(Thread-1, started 140008432682752)>, <GuiSignalProcessor(Thread-7, started 140008385537792)>, <GuiSignalPlotter(Thread-6, started 140008393930496)>]
 31.08.2016 22:53:18 gui_toolbarButtons INFO Program will halt now...
 31.08.2016 22:53:18 video INFO The camera was released
+01.09.2016 10:04:11 video INFO Found 1 OpenCV-compatible cameras
+01.09.2016 10:04:11 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 10:04:11 gui INFO Created status bar
+01.09.2016 10:04:11 gui INFO Created toolbar for ROI definition
+01.09.2016 10:04:11 gui INFO Created part of the GUI that shows video
+01.09.2016 10:04:11 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 10:04:11 gui INFO Created toolbar with buttons
+01.09.2016 10:04:11 gui INFO Main window was created
+01.09.2016 10:04:11 gui INFO Starting TkInter main loop
+01.09.2016 10:04:49 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 10:04:49 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 10:04:49 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 10:04:49 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 10:04:49 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140160963860288)>, <VideoThread(Thread-1, started 140160377313024)>, <GuiSignalPlotter(Thread-6, started 140160338564864)>, <GuiSignalProcessor(Thread-7, started 140160330172160)>]
+01.09.2016 10:04:49 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 10:04:53 video INFO Found 1 OpenCV-compatible cameras
+01.09.2016 10:04:53 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 10:04:53 gui INFO Created status bar
+01.09.2016 10:04:53 gui INFO Created toolbar for ROI definition
+01.09.2016 10:04:53 gui INFO Created part of the GUI that shows video
+01.09.2016 10:04:53 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 10:04:53 gui INFO Created toolbar with buttons
+01.09.2016 10:04:53 gui INFO Main window was created
+01.09.2016 10:04:53 gui INFO Starting TkInter main loop
+01.09.2016 10:05:47 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 10:05:47 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 10:05:47 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 10:05:47 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 10:05:47 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140580095227712)>, <VideoThread(Thread-1, started 140579508680448)>, <GuiSignalProcessor(Thread-7, started 140579461535488)>, <GuiSignalPlotter(Thread-6, started 140579469928192)>]
+01.09.2016 10:05:47 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 10:07:56 video INFO Found 1 OpenCV-compatible cameras
+01.09.2016 10:07:56 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 10:07:56 gui INFO Created status bar
+01.09.2016 10:07:56 gui INFO Created toolbar for ROI definition
+01.09.2016 10:07:56 gui INFO Created part of the GUI that shows video
+01.09.2016 10:07:57 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 10:07:57 gui INFO Created toolbar with buttons
+01.09.2016 10:07:57 gui INFO Main window was created
+01.09.2016 10:07:57 gui INFO Starting TkInter main loop
+01.09.2016 10:10:35 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 10:10:38 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 10:10:44 gui_toolbarButtons INFO Start button has been pressed
+01.09.2016 10:10:44 gui_toolbarButtons INFO Camera is started
+01.09.2016 10:10:44 video INFO Camera index was set because user pressed start button
+01.09.2016 10:10:44 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+01.09.2016 10:10:44 video INFO User pressed start and wants to use frames from hard disk
+01.09.2016 10:10:44 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+01.09.2016 10:10:48 settings INFO Parameter: 5 was changed
+01.09.2016 10:10:48 gui_toolbarROI INFO Viola-Jones algorithm was activated by the user
+01.09.2016 10:10:50 settings INFO Parameter: 5 was changed
+01.09.2016 10:10:50 settings CRITICAL Unexpected error
+01.09.2016 10:10:50 settings CRITICAL Unexpected error
+01.09.2016 10:10:50 gui_toolbarROI INFO Viola-Jones algorithm was disabled by the user
+01.09.2016 10:11:16 video INFO Reached last file. Restarting program.
+01.09.2016 10:11:17 video INFO Found 1 OpenCV-compatible cameras
+01.09.2016 10:11:17 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 10:11:17 gui INFO Created status bar
+01.09.2016 10:11:17 gui INFO Created toolbar for ROI definition
+01.09.2016 10:11:17 gui INFO Created part of the GUI that shows video
+01.09.2016 10:11:17 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 10:11:17 gui INFO Created toolbar with buttons
+01.09.2016 10:11:17 gui INFO Main window was created
+01.09.2016 10:11:17 gui INFO Starting TkInter main loop
+01.09.2016 10:11:22 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 10:11:22 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 10:11:22 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 10:11:22 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 10:11:22 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140136817940288)>, <VideoThread(Thread-1, started 140136231393024)>, <GuiSignalProcessor(Thread-7, started 140136184248064)>, <GuiSignalPlotter(Thread-6, started 140136192640768)>]
+01.09.2016 10:11:22 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 10:11:22 gui_signalProcessor INFO Reached end of signal processing thread

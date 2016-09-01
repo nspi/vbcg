@@ -6,7 +6,7 @@
 __author__ = "Nicolai Spicher"
 __credits__ = ["Nicolai Spicher", "Stefan Maderwald", "Markus Kukuk", "Mark E. Ladd"]
 __license__ = "GPL v3"
-__version__ = "0.1"
+__version__ = "v0.1-beta"
 __maintainer__ = "Nicolai Spicher"
 __email__ = "nicolai[dot]spicher[at]fh-dortmund[dot]de"
 __status__ = "Beta"
@@ -30,4 +30,4 @@ VAL_ALGORITHM   = 0
 VAL_CURVES      = 1
 VAL_FRAMES      = 0
 VAL_FACE        = 0
-VAL_FPS         = 30
+VAL_FPS         = 25

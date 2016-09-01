@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: ascii -*-
+"""gui_signalProcessor.py - Thread for processing the signal from the video"""
+
 from defines import *
 from signal_processing import SignalProcessor
 
@@ -7,6 +11,7 @@ import numpy as np
 import cv2
 import settings
 import datetime
+
 
 class GuiSignalProcessor(threading.Thread):
     """This thread is used for continously plotting the mean signal of the video in the ROI"""
@@ -39,11 +44,14 @@ class GuiSignalProcessor(threading.Thread):
         self.settingsInstance = settings
         self.curr_settings = self.settingsInstance.get_parameters()
 
-        # Fix length of shown signal and FPS of Signal plotter
+        # Fix length of shown signal and FPS
         self.FPS = self.curr_settings[IDX_FPS]
-        self.lengthSignal = 500
+        if self.curr_settings[IDX_ALGORITHM] == 0:
+            self.lengthSignal = 500
+        else:
+            self.lengthSignal = 200
 
-        # Create empty vector for signal
+        # Initialize variables that will contain results later
         self.valuesRaw = np.zeros((self.lengthSignal, 1))            # Raw signal from video
         self.valuesOutput = np.zeros((self.lengthSignal, 1))         # Filtered signal for top plot
         self.valuesOutput2 = np.zeros((self.lengthSignal, 1))        # Filtered signal for bottom plot
@@ -85,8 +93,14 @@ class GuiSignalProcessor(threading.Thread):
             # If real frames are available, start main activity
             if realFramesAvailable is True:
 
+                # Update statusbar value
+                self.statusbarInstance.updateInfoText("Processing frames")
+
+                # Get current settings
+                self.curr_settings = self.settingsInstance.get_parameters()
+
                 # Compute mean value
-                self.mean_value = cv2.mean(self.currentFrame)[0]
+                self.mean_value = cv2.mean(self.currentFrame)[1]
 
                 # Store mean value
                 self.valuesRaw = np.append(self.valuesRaw, self.mean_value)
@@ -113,7 +127,7 @@ class GuiSignalProcessor(threading.Thread):
 
                         # Compute algorithm
                         self.boolTrigger, self.valuesFiltered = \
-                            self.signalProcessingInstance.filterWaveform(self.valuesRaw, self.valuesOutput2, 10, 5)
+                            self.signalProcessingInstance.filterWaveform(self.valuesRaw, self.valuesOutput2, 10, 10)
 
                         # Send trigger
                         if self.boolTrigger is True:
@@ -143,3 +157,5 @@ class GuiSignalProcessor(threading.Thread):
 
             # Wait and start from beginning of thread
             self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())
+
+        logging.info("Reached end of signal processing thread")

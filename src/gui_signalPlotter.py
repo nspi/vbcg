@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: ascii -*-
+"""gui_signalPlotter.py - Thread for plotting the signal from the video"""
+
 from defines import *
-from signal_processing import SignalProcessor
 
 import logging
 import threading
@@ -8,8 +11,9 @@ import cv2
 import settings
 import datetime
 
+
 class GuiSignalPlotter(threading.Thread):
-    """This thread is used for continously plotting the mean signal of the video in the ROI"""
+    """This thread is used for continously plotting the signal in the ROI"""
 
     def __init__(self, tk_root, cam, figure, canvas, subplotTop, subplotBottom, statusbar,
                  video_display, frameQueuePlot):
@@ -34,17 +38,9 @@ class GuiSignalPlotter(threading.Thread):
 
         # Fix length of shown signal and FPS of Signal plotter
         self.FPS = 5
-        self.lengthSignal = 1000
 
-        # Create signal processing object
-        self.signalProcessingInstance = SignalProcessor()
-
-        # Get current parameters
+        # Get current settings instance
         self.settingsInstance = settings
-        self.curr_settings = self.settingsInstance.get_parameters()
-
-        # Update statusbar value
-        self.statusbarInstance.updateInfoText("Please choose a camera")
 
         # Configure itself as thread
         threading.Thread.__init__(self)
@@ -125,7 +121,8 @@ class GuiSignalPlotter(threading.Thread):
                             else:
                                 self.subplotInstanceBottom.plot(self.valuesOutput2)
 
-                            self.subplotInstanceBottom.legend(["One-sided Amplitude spectrum", "Maximum value"],fontsize=9)
+                            self.subplotInstanceBottom.legend(["One-sided Amplitude spectrum",
+                                                               "Maximum value"], fontsize=9)
                             self.subplotInstanceBottom.set_xlabel('Hz')
 
                         elif self.curr_settings[IDX_ALGORITHM] == 1:
@@ -155,7 +152,4 @@ class GuiSignalPlotter(threading.Thread):
             # Wait and start from beginning of thread
             self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())
 
-        logging.info("Reached of signal plotting thread")
-
-
-
+        logging.info("Reached end of signal plotting thread")

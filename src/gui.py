@@ -22,13 +22,14 @@ root.wm_title("vbcg " + str(__version__))
 class GUI(object):
     """This is the main class of the gui. Here, we use Tkinter for thread management"""
 
-    def setVideoThread(self, videoThread):
-        """Register camera thread"""
+    def start(self, videoThread):
+        """Create GUI"""
+
+        # Store camera thread
         self.cameraThread = videoThread
         logging.info("Link to thread that delivers video frames was stored in GUI thread")
 
-    def start(self):
-        """Create GUI"""
+        # Create Window
         MainWindow(self, self.cameraThread)
         logging.info('Main window was created')
 

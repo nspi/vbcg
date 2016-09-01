@@ -39,7 +39,7 @@ int main( int argc, const char** argv )
     int sec = 60;
 
     // OpenCV video capture
-    cv::VideoCapture capture(1);
+    cv::VideoCapture capture(0);
     // Contains file name of frame
     char file[10];
     // Needed for string functions
