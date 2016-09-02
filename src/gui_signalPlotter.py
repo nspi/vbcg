@@ -50,6 +50,10 @@ class GuiSignalPlotter(threading.Thread):
     def run(self):
         """The main functionality of the thread: The signal is obtained and plotted as fast as possible (no waiting)"""
 
+        # Todo: Fix rare error:
+        # self.spectrumAxis = self.dict['spectrumAxis']
+        # KeyError: 'spectrumAxis'
+
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
 
@@ -92,7 +96,6 @@ class GuiSignalPlotter(threading.Thread):
 
                             self.subplotInstanceTop.plot(self.valuesOutput)
                             self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
-                            self.subplotInstanceTop.set_xlabel('Frames')
 
                             # Plot spectrum if it is available, i.e. the algorithm has been computed once
                             if np.count_nonzero(self.valuesOutput2) >= 1:
@@ -111,7 +114,6 @@ class GuiSignalPlotter(threading.Thread):
 
                             self.subplotInstanceTop.plot(self.valuesOutput)
                             self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
-                            self.subplotInstanceTop.set_xlabel('Frames')
 
                             # Plot filtered signal if it is available, i.e. the algorithm has been computed once
                             if np.count_nonzero(self.valuesOutput2) >= 1:

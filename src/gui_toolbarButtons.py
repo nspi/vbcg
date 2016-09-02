@@ -246,8 +246,7 @@ class ToolbarButtons(Tk.Frame):
                 self.button_files.config(state=Tk.DISABLED)
 
                 # Show messagebox
-                tkMessageBox.showinfo("Information", "Frames have been loaded. When all frames have been processed, "
-                                                     "the program will reset.")
+                tkMessageBox.showinfo("Information", "Frames have been loaded successfully.")
 
                 logging.info("Files have been loaded successfully.")
 

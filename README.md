@@ -11,26 +11,28 @@ The aim of our research is to overcome the limitations of contact-based hardware
 
 Regarding video-based heart rate frequency estimation, there are other valuable open-source projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) or commercial products (e.g. [Philips Vital Signs Camera](http://www.ip.philips.com/licensing/program/115)). This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately.
 
-**This software can NOT be used for diagnosis! Results are estimated and for entertainment purposes only.**
-For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin (see screenshot 2), good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals (e.g. respiration when recording the chest). 
-
-#### Features
-- Read video stream from OpenCV compatible camera *or* read video stream from hard disk
-- Crop video to manually-defined ROI *or* use Viola-Jones algorithm for face detection [3]
-- Store frames from camera on hard disk
-- Heart rate estimation as described in [4] 
-- ''Prediction'' of next cardiac cycle as described in [5]
-
-#### Compatible operating systems
-The current master branch has been tested on:
-- Ubuntu 14.04
-- Mac OSX
+> This software can NOT be used for diagnosis. Results are estimated and for entertainment purposes only!
 
 #### License
 GNU GPL v3.0
 
-#### Screenshot
-TBA
+#### Features
+- Read video stream from OpenCV compatible camera *or* read video stream from hard disk
+
+- Crop video to manually-defined ROI *or* use Viola-Jones algorithm for face detection [3]
+
+- Store frames from camera on hard disk
+
+- Heart rate estimation as described in [4] 
+
+- ''Prediction'' of next cardiac cycle as described in [5]
+
+## Screenshots
+| Screenshot (click to enlarge) | Screenshot (click to enlarge) | Video (click to play) |
+| ------------- |-------------| -----|
+| <a href="http://www.fh-dortmund.de/spicher/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_1.png" width="256"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_2.png" width="256"></a> | <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshot_3.png" width="256"></a> |
+
+**Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration (see screenshot 2, there are four well-pronounced breathing cycles). Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions.
 
 ## Installation and usage
 
@@ -39,37 +41,38 @@ TBA
   - numpy >= 1.8.2
   - matplotlib >= 1.3.1
   - scipy >= 0.13.3
-  - several smaller modules
+  - several other modules
 - TK toolkit python bindings (tkInter >= 2.7.5)
 - OpenCV 2.4 python bindings
 
 #### Installation
 
-*Linux/Mac*
-
-run `make` (which is at the moment basically `pip install -r requirements.txt`  and installs required packages via pip).
+Run `make` (which is at the moment basically `pip install -r requirements.txt`  and installs required packages via pip).
 OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install python-opencv python-tk`).
-
-*Windows*
-
-An installer for Microsoft Windows will be available soon.
 
 #### Usage
 
 `cd src;` `python main.py`
 
-## Available data
-| Name          | Information   								  | Download 	    |
-| ------------- |---------------------------------------------------------------------------------|:---------------:|
-| Test          | synthetic test video. Source code for generation can be found in utilities/	  |  [here](TBA)    |
-| Finger        | finger of a volunteer was placed on camera. Frames were rescaled to 640x360     |  [here](TBA)    |
-| MRI		| forehead of a volunteer recorded during MRI examination as described in [4] 	  |  [here](TBA)    |
+#### Compatibility
+The current master branch has been tested on Ubuntu 14.04. 
 
 ## Todo
+- Add support for Microsoft Windows and Mac OSX
+
 - Update to Python 3 and current versions of all modules
-- Add an installer for Microsoft Windows 
-- Add more functions, options, and our algorithm from ISMRM 2015 [6]
-- Add videos recorded under ideal conditions that can be used as reference
+
+- Add algorithm from ISMRM 2015 [6]
+
+## Available data
+| Information   								  | FPS | Duration | Resolution | Download 	    |
+|---------------------------------------------------------------------------------|:---:|:--------:|:-------:|:-------:|
+| The finger of a volunteer was placed directly on the camera of an off-the-shelf smartphone (see screenshot 1). | 25 | 2:00 | 640x360 |  [here](https://fh-dortmund.sciebo.de/index.php/s/HtU70L5jz73wOJd/download)    |
+| The forehead of a volunteer undergoing MRI examination was recorded with a MRI-compatible camera (see screenshot 2).| 25 | 2:00 | 720x480 | [here](https://fh-dortmund.sciebo.de/index.php/s/Q3pmdOvhDInk5oi/download)    |
+| A volunteer was recorded during office work using the webcam of an off-the-shelf business laptop. A pulse oximeter was applied as reference (see screenshot 3). | 30 | 1:00 | 640x480 | [here](https://fh-dortmund.sciebo.de/index.php/s/Q3pmdOvhDInk5oi/download)    |
+
+## Credits
+heart.png and heartbeat.png: Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> are licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
 
 ## Contact
 Nicolai Spicher ([http://fh-dortmund.de/spicher](http://fh-dortmund.de/spicher))

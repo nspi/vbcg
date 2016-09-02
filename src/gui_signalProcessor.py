@@ -75,10 +75,11 @@ class GuiSignalProcessor(threading.Thread):
         self.diffTime = (endTime - startTime).total_seconds()
         self.waitTime = 1.0 / self.FPS - self.diffTime
 
+        # Wait the remaining to reach desired FPS
         if int(self.waitTime*1000) > 0:
             cv2.waitKey(int(self.waitTime * 1000))
         elif int(self.waitTime*1000) == 0:
-            cv2.waitKey(33)
+            cv2.waitKey(33) # cv2.waitKey(0) results in error
 
 
     def run(self):

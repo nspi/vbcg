@@ -103,9 +103,8 @@ class ToolbarROI(Tk.Frame):
         """Action to perform when Viola-Jones button is pressed"""
 
         # Get current parameters
+        settings.flip_parameter(IDX_FACE)
         curr_settings = settings.get_parameters()
-        settings.flip_parameter(settings.IDX_FACE)
-
 
         if curr_settings[IDX_FACE]:
             self.textbox_x1.config(bg='lightgray')
