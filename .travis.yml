@@ -5,7 +5,7 @@ sudo: required
 python:
   - "2.7"
 
-before_install: sudo apt-get install libblas-dev liblapack-dev libatlas-dev  
+before_install: sudo apt-get install libblas-dev liblapack-dev libatlas-dev python-opencv
 
 install: "pip install -r requirements.txt"
 

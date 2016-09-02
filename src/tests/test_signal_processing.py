@@ -30,7 +30,8 @@ class Test(unittest.TestCase):
         ret_1, ret_2 = self.signal_processor.filterWaveform(np.random.rand(100),
                                                             np.random.rand(100),
                                                             np.random.randint(10) + 10,
-                                                            np.random.randint(10) + 10)
+                                                            np.random.randint(10) + 10,
+                                                            0.5)
         assert_false(ret_1)
         assert_is_instance(ret_2, np.ndarray)
 
