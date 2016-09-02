@@ -2,6 +2,10 @@
 # -*- coding: ascii -*-
 """test_video.py - tests for src/video.py"""
 
+# Needed so that Travis CI can find cv2.so
+import sys
+sys.path.insert(0,'/usr/lib/pyshared/python2.7')
+
 import unittest
 import nose
 import threading
