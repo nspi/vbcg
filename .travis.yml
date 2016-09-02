@@ -6,6 +6,8 @@ before_install:
  - sudo apt-get update
  - sudo apt-get install libblas-dev liblapack-dev libatlas-dev python-opencv python-dev python-tk
  - sudo dpkg -L python-opencv
+ - "export DISPLAY=:99.0"
+ - "sh -e /etc/init.d/xvfb start"
 
 install:
   - "pip install --pre -r requirements.txt"
