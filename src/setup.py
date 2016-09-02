@@ -12,7 +12,8 @@ setup(
     description=defines.__description__,
     install_requires=['scipy>=0.13.3',
                       'numpy>=1.8.2',
-                      'matplotlib>=1.3.1'
+                      'matplotlib>=1.3.1',
+                      'Pillow>=2.3.0'
                       ],
 
 )

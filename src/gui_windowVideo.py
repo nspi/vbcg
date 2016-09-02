@@ -3,14 +3,8 @@
 """gui_windowVideo.py - GUI element: frame that displays video"""
 
 from defines import *
-from sys import platform
-
-if platform == "linux" or platform == "linux2":
-    import Image
-    import ImageTk
-else:
-    from PIL import Image
-    from PIL import ImageTk
+from PIL import Image
+from PIL import ImageTk
 
 import Tkinter as Tk
 import threading
