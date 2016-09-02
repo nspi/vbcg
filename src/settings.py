@@ -8,8 +8,6 @@ import numpy as np
 import logging
 import os
 
-from defines import *
-
 # Standard parameters if no settings.ini is available
 std_param = [1, 1, 0, 1, 0, 0, 30, 1]
 
@@ -21,13 +19,13 @@ def get_parameters():
     param = np.zeros(8)
     parameter_acquired = False
 
-    # Acquire parameters until they are acquirerd
+    # Acquire parameters until they are acquired
     while parameter_acquired is False:
 
         try:
             # Open file
             current_location = os.path.dirname(os.path.realpath(__file__))
-            current_location_settings = current_location + '/' + 'settings.ini'
+            current_location_settings = current_location + os.sep + 'settings.ini'
             with open(current_location_settings) as f:
                 sample_config = f.read()
             config = ConfigParser.RawConfigParser()
@@ -66,7 +64,7 @@ def flip_parameter(idx):
     param[idx] = 1 - param[idx]
 
     # Log to file
-    tmp_str = "Parameter: %d was changed" % (idx)
+    tmp_str = "Parameter: %d was changed" % idx
     logging.info(tmp_str)
 
     # Store in file
@@ -97,7 +95,7 @@ def __store_parameters(param):
 
     parameter_stored = False
 
-    # Acquire parameters until they are acquirerd
+    # Acquire parameters until they are acquired
     while parameter_stored is False:
 
         try:
@@ -141,6 +139,6 @@ def __store_parameters(param):
             parameter_stored = True
 
         except:
-            logging.warn("Writing to settings.ini was not sucessful. Trying again.")
+            logging.warn("Writing to settings.ini was not successful. Trying again.")
 
     return 0
