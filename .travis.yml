@@ -2,12 +2,16 @@ language: python
 
 sudo: required
 
+before_install:
+ - sudo apt-get update
+ - sudo apt-get install libblas-dev liblapack-dev libatlas-dev python-opencv python-dev
+ - sudo dpkg -L python-opencv
+
+install:
+  - "pip install --pre -r requirements.txt"
+
 python:
   - "2.7"
-
-before_install: sudo apt-get install libblas-dev liblapack-dev libatlas-dev python-opencv python-dev
-
-install: "pip install -r requirements.txt"
 
 # Todo: Add other tests requiring opencv
 script: "nosetests src/tests/test_signal_processing.py"
