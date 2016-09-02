@@ -5,7 +5,8 @@ sudo: required
 python:
   - "2.7"
 
-virtualenv: system_site_packages: true
+virtualenv:
+  system_site_packages: true
 
 before_install: sudo apt-get install libblas-dev liblapack-dev libatlas-dev python-opencv python-dev
 
