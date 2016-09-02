@@ -13,5 +13,4 @@ install:
 python:
   - "2.7"
 
-# Todo: Add other tests requiring opencv
-script: "nosetests src/tests/test_signal_processing.py"
+script: "nosetests"
