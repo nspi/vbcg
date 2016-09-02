@@ -803,3 +803,213 @@
 01.09.2016 10:11:22 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140136817940288)>, <VideoThread(Thread-1, started 140136231393024)>, <GuiSignalProcessor(Thread-7, started 140136184248064)>, <GuiSignalPlotter(Thread-6, started 140136192640768)>]
 01.09.2016 10:11:22 gui_toolbarButtons INFO Program will halt now...
 01.09.2016 10:11:22 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:34:45 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:34:46 gui INFO Created status bar
+01.09.2016 16:34:46 gui INFO Created toolbar for ROI definition
+01.09.2016 16:34:46 gui INFO Created part of the GUI that shows video
+01.09.2016 16:34:46 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:34:46 gui INFO Created toolbar with buttons
+01.09.2016 16:34:46 gui INFO Main window was created
+01.09.2016 16:34:46 gui INFO Starting TkInter main loop
+01.09.2016 16:35:10 gui_toolbarButtons ERROR User has chosen invalid directory with images
+01.09.2016 16:36:32 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:36:33 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:36:34 gui_toolbarButtons INFO Start button has been pressed
+01.09.2016 16:36:34 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+01.09.2016 16:36:34 video INFO User pressed start and wants to use frames from hard disk
+01.09.2016 16:36:34 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+01.09.2016 16:37:04 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 16:37:04 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 16:37:04 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 16:37:04 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 16:37:04 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140026891360064)>, <VideoThread(Thread-1, started 140026304812800)>, <GuiSignalPlotter(Thread-7, started 140026051888896)>, <GuiSignalProcessor(Thread-8, started 140026043496192)>]
+01.09.2016 16:37:04 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 16:37:04 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:37:07 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:37:07 gui INFO Created status bar
+01.09.2016 16:37:07 gui INFO Created toolbar for ROI definition
+01.09.2016 16:37:07 gui INFO Created part of the GUI that shows video
+01.09.2016 16:37:08 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:37:08 gui INFO Created toolbar with buttons
+01.09.2016 16:37:08 gui INFO Main window was created
+01.09.2016 16:37:08 gui INFO Starting TkInter main loop
+01.09.2016 16:37:27 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:37:28 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:37:33 gui_toolbarButtons INFO Start button has been pressed
+01.09.2016 16:37:33 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+01.09.2016 16:37:33 video INFO User pressed start and wants to use frames from hard disk
+01.09.2016 16:37:33 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+01.09.2016 16:38:23 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 16:38:23 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 16:38:23 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 16:38:23 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 16:38:23 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140029052110656)>, <VideoThread(Thread-1, started 140028465563392)>, <GuiSignalProcessor(Thread-8, started 140028069840640)>, <GuiSignalPlotter(Thread-7, started 140028078233344)>]
+01.09.2016 16:38:23 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 16:38:23 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:38:45 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:38:45 gui INFO Created status bar
+01.09.2016 16:38:45 gui INFO Created toolbar for ROI definition
+01.09.2016 16:38:45 gui INFO Created part of the GUI that shows video
+01.09.2016 16:38:46 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:38:46 gui INFO Created toolbar with buttons
+01.09.2016 16:38:46 gui INFO Main window was created
+01.09.2016 16:38:46 gui INFO Starting TkInter main loop
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:38:46 settings WARNING Unexpected error when reading configuration. Trying again.
+01.09.2016 16:39:19 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:39:20 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:39:26 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 16:39:26 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 16:39:26 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 16:39:26 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 16:39:26 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140006742517568)>, <VideoThread(Thread-1, started 140006155970304)>, <GuiSignalPlotter(Thread-7, started 140006037186304)>, <GuiSignalProcessor(Thread-8, started 140006028793600)>]
+01.09.2016 16:39:26 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 16:39:26 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:39:30 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:39:30 gui INFO Created status bar
+01.09.2016 16:39:30 gui INFO Created toolbar for ROI definition
+01.09.2016 16:39:30 gui INFO Created part of the GUI that shows video
+01.09.2016 16:39:30 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:39:30 gui INFO Created toolbar with buttons
+01.09.2016 16:39:30 gui INFO Main window was created
+01.09.2016 16:39:30 gui INFO Starting TkInter main loop
+01.09.2016 16:39:49 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:39:51 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:40:55 gui_toolbarButtons INFO Start button has been pressed
+01.09.2016 16:40:55 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+01.09.2016 16:40:55 video INFO User pressed start and wants to use frames from hard disk
+01.09.2016 16:40:55 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+01.09.2016 16:41:00 settings INFO Parameter: 5 was changed
+01.09.2016 16:41:00 gui_toolbarROI INFO Viola-Jones algorithm was disabled by the user
+01.09.2016 16:41:00 settings INFO Parameter: 5 was changed
+01.09.2016 16:41:00 gui_toolbarROI INFO Viola-Jones algorithm was activated by the user
+01.09.2016 16:41:20 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 16:41:20 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 16:41:20 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 16:41:20 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 16:41:20 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140719577585472)>, <VideoThread(Thread-1, started 140718991038208)>, <GuiSignalProcessor(Thread-8, started 140718863832832)>, <GuiSignalPlotter(Thread-7, started 140718872225536)>]
+01.09.2016 16:41:20 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 16:41:20 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:41:25 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:41:25 gui INFO Created status bar
+01.09.2016 16:41:25 gui INFO Created toolbar for ROI definition
+01.09.2016 16:41:26 gui INFO Created part of the GUI that shows video
+01.09.2016 16:41:26 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:41:26 gui INFO Created toolbar with buttons
+01.09.2016 16:41:26 gui INFO Main window was created
+01.09.2016 16:41:26 gui INFO Starting TkInter main loop
+01.09.2016 16:42:02 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:42:03 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:42:07 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 16:42:07 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 16:42:07 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 16:42:07 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 16:42:07 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140401171179328)>, <VideoThread(Thread-1, started 140400584632064)>, <GuiSignalProcessor(Thread-8, started 140400190809856)>, <GuiSignalPlotter(Thread-7, started 140400199202560)>]
+01.09.2016 16:42:07 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 16:42:07 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:42:10 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:42:10 gui INFO Created status bar
+01.09.2016 16:42:10 gui INFO Created toolbar for ROI definition
+01.09.2016 16:42:10 gui INFO Created part of the GUI that shows video
+01.09.2016 16:42:10 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:42:10 gui INFO Created toolbar with buttons
+01.09.2016 16:42:10 gui INFO Main window was created
+01.09.2016 16:42:10 gui INFO Starting TkInter main loop
+01.09.2016 16:42:31 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:42:32 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:42:33 gui_toolbarButtons INFO Start button has been pressed
+01.09.2016 16:42:33 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+01.09.2016 16:42:33 video INFO User pressed start and wants to use frames from hard disk
+01.09.2016 16:42:33 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+01.09.2016 16:42:42 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 16:42:42 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 16:42:42 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 16:42:42 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 16:42:42 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 139826023356224)>, <VideoThread(Thread-1, started 139825436808960)>, <GuiSignalProcessor(Thread-8, started 139825311102720)>, <GuiSignalPlotter(Thread-7, started 139825319495424)>]
+01.09.2016 16:42:42 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 16:42:42 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:42:45 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:42:45 gui INFO Created status bar
+01.09.2016 16:42:45 gui INFO Created toolbar for ROI definition
+01.09.2016 16:42:45 gui INFO Created part of the GUI that shows video
+01.09.2016 16:42:46 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:42:46 gui INFO Created toolbar with buttons
+01.09.2016 16:42:46 gui INFO Main window was created
+01.09.2016 16:42:46 gui INFO Starting TkInter main loop
+01.09.2016 16:43:08 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:43:08 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:43:12 gui_toolbarButtons INFO Start button has been pressed
+01.09.2016 16:43:12 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+01.09.2016 16:43:12 video INFO User pressed start and wants to use frames from hard disk
+01.09.2016 16:43:12 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+01.09.2016 16:43:48 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:43:48 gui INFO Created status bar
+01.09.2016 16:43:48 gui INFO Created toolbar for ROI definition
+01.09.2016 16:43:48 gui INFO Created part of the GUI that shows video
+01.09.2016 16:43:48 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:43:48 gui INFO Created toolbar with buttons
+01.09.2016 16:43:48 gui INFO Main window was created
+01.09.2016 16:43:48 gui INFO Starting TkInter main loop
+01.09.2016 16:44:09 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:44:10 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:44:12 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 16:44:12 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 16:44:12 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 16:44:12 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 16:44:12 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 139624744281920)>, <VideoThread(Thread-1, started 139624157734656)>, <GuiSignalPlotter(Thread-7, started 139624106170112)>, <GuiSignalProcessor(Thread-8, started 139624097777408)>]
+01.09.2016 16:44:12 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 16:44:12 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:44:15 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:44:15 gui INFO Created status bar
+01.09.2016 16:44:15 gui INFO Created toolbar for ROI definition
+01.09.2016 16:44:15 gui INFO Created part of the GUI that shows video
+01.09.2016 16:44:15 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:44:15 gui INFO Created toolbar with buttons
+01.09.2016 16:44:15 gui INFO Main window was created
+01.09.2016 16:44:15 gui INFO Starting TkInter main loop
+01.09.2016 16:44:37 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:44:38 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:44:41 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 16:44:41 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 16:44:41 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 16:44:41 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 16:44:41 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 139864977893184)>, <VideoThread(Thread-1, started 139864391345920)>, <GuiSignalProcessor(Thread-8, started 139863990986496)>, <GuiSignalPlotter(Thread-7, started 139863999379200)>]
+01.09.2016 16:44:41 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:44:41 gui_toolbarButtons INFO Program will halt now...
+01.09.2016 16:44:43 gui INFO Link to thread that delivers video frames was stored in GUI thread
+01.09.2016 16:44:43 gui INFO Created status bar
+01.09.2016 16:44:44 gui INFO Created toolbar for ROI definition
+01.09.2016 16:44:44 gui INFO Created part of the GUI that shows video
+01.09.2016 16:44:44 gui INFO Created part of the GUI that shows the signal extracted from the video
+01.09.2016 16:44:44 gui INFO Created toolbar with buttons
+01.09.2016 16:44:44 gui INFO Main window was created
+01.09.2016 16:44:44 gui INFO Starting TkInter main loop
+01.09.2016 16:45:04 gui_toolbarButtons INFO User has chosen valid directory with images
+01.09.2016 16:45:05 gui_toolbarButtons INFO Files have been loaded successfully.
+01.09.2016 16:45:10 gui_toolbarButtons INFO Start button has been pressed
+01.09.2016 16:45:10 gui_toolbarButtons INFO Enabling event: eventCameraChosen 
+01.09.2016 16:45:10 video INFO User pressed start and wants to use frames from hard disk
+01.09.2016 16:45:10 gui_windowVideo INFO First frame from webcam was received and ROI was adjusted
+01.09.2016 16:45:16 gui_toolbarROI WARNING Your ROI definition was inadequate (y_min < y_max). The values were corrected.
+01.09.2016 16:47:00 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+01.09.2016 16:47:00 gui_toolbarButtons INFO Signal display thread was closed
+01.09.2016 16:47:00 gui_toolbarButtons INFO Camera capture thread was closed
+01.09.2016 16:47:00 gui_toolbarButtons INFO Tk mainloop() was halted
+01.09.2016 16:47:00 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 139778721503040)>, <VideoThread(Thread-1, started 139778134955776)>, <GuiSignalPlotter(Thread-7, started 139777881921280)>, <GuiSignalProcessor(Thread-8, started 139777873528576)>]
+01.09.2016 16:47:00 gui_signalProcessor INFO Reached end of signal processing thread
+01.09.2016 16:47:00 gui_toolbarButtons INFO Program will halt now...

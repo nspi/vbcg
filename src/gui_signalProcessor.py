@@ -46,11 +46,7 @@ class GuiSignalProcessor(threading.Thread):
 
         # Fix FPS and length of shown signal
         self.FPS = self.curr_settings[IDX_FPS]
-
-        if self.curr_settings[IDX_ALGORITHM] == 0:
-            self.lengthSignal = 500
-        else:
-            self.lengthSignal = 200
+        self.lengthSignal = 500
 
         # Temporary variable
         self.firstRun = True
@@ -142,7 +138,7 @@ class GuiSignalProcessor(threading.Thread):
 
                         # Compute algorithm
                         self.boolTrigger, self.valuesFiltered = \
-                            self.signalProcessingInstance.filterWaveform(self.valuesRaw, self.valuesOutput2, 10, 5)
+                            self.signalProcessingInstance.filterWaveform(self.valuesRaw, self.valuesOutput2, 9, 3, 0.5)
 
                         # Send trigger
                         if self.boolTrigger is True:

@@ -35,9 +35,6 @@ class GuiSignalPlotter(threading.Thread):
         # Store frame queue
         self.frameQueue = frameQueuePlot
 
-        # Fix length of shown signal and FPS of Signal plotter
-        self.FPS = 5
-
         # Get current settings instance
         self.settingsInstance = settings
 
@@ -52,12 +49,6 @@ class GuiSignalPlotter(threading.Thread):
 
     def run(self):
         """The main functionality of the thread: The signal is obtained and plotted as fast as possible (no waiting)"""
-
-        # Variable for statusbar information
-        self.enoughFrames = False
-
-        # Set statusbar value
-        self.statusbarInstance.setFPSCounter2(0)
 
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
