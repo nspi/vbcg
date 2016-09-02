@@ -1,4 +1,4 @@
-# video-based cardiac gating (vbcg)
+# video-based cardiac gating (vbcg) [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=master)](https://travis-ci.org/nspi/vbcg)
 
 This is a prototype demonstrating our research activities concerning *video-based vital sign monitoring*. 
 
@@ -69,7 +69,7 @@ The current master branch has been tested on Ubuntu 14.04.
 |---------------------------------------------------------------------------------|:---:|:--------:|:-------:|:-------:|
 | The finger of a volunteer was placed directly on the camera of an off-the-shelf smartphone (see screenshot 1). | 25 | 2:00 | 640x360 |  [here](https://fh-dortmund.sciebo.de/index.php/s/HtU70L5jz73wOJd/download)    |
 | The forehead of a volunteer undergoing MRI examination was recorded with a MRI-compatible camera (see screenshot 2).| 25 | 2:00 | 720x480 | [here](https://fh-dortmund.sciebo.de/index.php/s/Q3pmdOvhDInk5oi/download)    |
-| A volunteer was recorded during office work using the webcam of an off-the-shelf business laptop. A pulse oximeter was applied as reference (see screenshot 3). | 30 | 1:00 | 640x480 | [here](https://fh-dortmund.sciebo.de/index.php/s/Q3pmdOvhDInk5oi/download)    |
+| A volunteer was recorded during office work using the webcam of an off-the-shelf business laptop. A pulse oximeter was applied as reference (see screenshot 3). | 30 | 1:00 | 640x480 | [here](https://fh-dortmund.sciebo.de/index.php/s/nuQtY1f8x31FYqc/download)    |
 
 ## Credits
 heart.png and heartbeat.png: Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> are licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
