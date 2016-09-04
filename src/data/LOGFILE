@@ -327,3 +327,35 @@
 04.09.2016 15:01:14 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 139989756749632)>, <VideoThread(Thread-1, started 139989248812800)>, <GuiSignalPlotter(Thread-7, started 139989201934080)>, <GuiSignalProcessor(Thread-8, started 139989193541376)>]
 04.09.2016 15:01:14 gui_toolbarButtons INFO Program will halt now...
 04.09.2016 15:01:14 gui_signalProcessor INFO Reached end of signal processing thread
+04.09.2016 15:40:20 video INFO Found 1 OpenCV-compatible cameras
+04.09.2016 15:40:20 gui INFO Link to thread that delivers video frames was stored in GUI thread
+04.09.2016 15:40:20 gui INFO Created status bar
+04.09.2016 15:40:20 gui INFO Created toolbar for ROI definition
+04.09.2016 15:40:20 gui INFO Created part of the GUI that shows video
+04.09.2016 15:40:21 gui INFO Created part of the GUI that shows the signal extracted from the video
+04.09.2016 15:40:21 gui INFO Created toolbar with buttons
+04.09.2016 15:40:21 gui INFO Main window was created
+04.09.2016 15:40:21 gui INFO Starting TkInter main loop
+04.09.2016 15:40:22 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+04.09.2016 15:40:22 gui_toolbarButtons INFO Signal display thread was closed
+04.09.2016 15:40:22 gui_toolbarButtons INFO Camera capture thread was closed
+04.09.2016 15:40:22 gui_toolbarButtons INFO Tk mainloop() was halted
+04.09.2016 15:40:22 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 139689520863040)>, <VideoThread(Thread-1, started 139689012926208)>, <GuiSignalProcessor(Thread-8, started 139688957654784)>, <GuiSignalPlotter(Thread-7, started 139688966047488)>]
+04.09.2016 15:40:22 gui_toolbarButtons INFO Program will halt now...
+04.09.2016 15:40:22 gui_signalProcessor INFO Reached end of signal processing thread
+04.09.2016 15:40:59 video INFO Found 1 OpenCV-compatible cameras
+04.09.2016 15:40:59 gui INFO Link to thread that delivers video frames was stored in GUI thread
+04.09.2016 15:40:59 gui INFO Created status bar
+04.09.2016 15:40:59 gui INFO Created toolbar for ROI definition
+04.09.2016 15:40:59 gui INFO Created part of the GUI that shows video
+04.09.2016 15:40:59 gui INFO Created part of the GUI that shows the signal extracted from the video
+04.09.2016 15:40:59 gui INFO Created toolbar with buttons
+04.09.2016 15:40:59 gui INFO Main window was created
+04.09.2016 15:40:59 gui INFO Starting TkInter main loop
+04.09.2016 15:41:04 gui_toolbarButtons INFO User pressed ''quit'' button - now halting threads
+04.09.2016 15:41:04 gui_toolbarButtons INFO Signal display thread was closed
+04.09.2016 15:41:04 gui_toolbarButtons INFO Camera capture thread was closed
+04.09.2016 15:41:04 gui_toolbarButtons INFO Tk mainloop() was halted
+04.09.2016 15:41:04 gui_toolbarButtons DEBUG [<_MainThread(MainThread, started 140290184894272)>, <VideoThread(Thread-1, started 140289676957440)>, <GuiSignalProcessor(Thread-8, started 140289621686016)>, <GuiSignalPlotter(Thread-7, started 140289630078720)>]
+04.09.2016 15:41:04 gui_toolbarButtons INFO Program will halt now...
+04.09.2016 15:41:04 gui_signalProcessor INFO Reached end of signal processing thread

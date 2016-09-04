@@ -58,7 +58,7 @@ class Test(unittest.TestCase):
         """Check if figure can be added to plot"""
         emptyFrame = np.zeros((480, 640, 3), np.uint8)
         videoDisplay = self.mainWindow.getVideoDisplay()
-        returnedFrame = videoDisplay._WindowVideo__addFigureToPlot(emptyFrame, 'data/heart.png')
+        returnedFrame = videoDisplay._WindowVideo__addFigureToPlot(emptyFrame, '../data/heart2.png')
         assert_is_instance(returnedFrame, np.ndarray)
 
     def test_gui_VideoDisplay_get_frameCounter(self):
