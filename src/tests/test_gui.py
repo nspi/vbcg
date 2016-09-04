@@ -2,6 +2,10 @@
 # -*- coding: ascii -*-
 """test_gui.py - tests for all GUI elements"""
 
+# Needed so that Travis CI can find cv2.so
+import sys
+sys.path.insert(0, '/usr/lib/pyshared/python2.7')
+
 import unittest
 import nose
 import video
@@ -10,10 +14,6 @@ import Tkinter as tk
 import numpy as np
 
 from nose.tools import assert_is_instance
-
-# Needed so that Travis CI can find cv2.so
-import sys
-sys.path.insert(0, '/usr/lib/pyshared/python2.7')
 
 
 class Test(unittest.TestCase):
