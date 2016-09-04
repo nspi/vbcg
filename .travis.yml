@@ -16,3 +16,6 @@ python:
   - "2.7"
 
 script: "nosetests"
+
+notifications:
+  email: false

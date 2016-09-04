@@ -4,8 +4,6 @@
 
 import numpy as np
 import datetime
-import scipy.optimize as sci
-import scipy.signal as sig
 
 
 class SignalProcessor:
@@ -19,7 +17,6 @@ class SignalProcessor:
 
         # Get time for filterWaveform() algorithm
         self.currTime = datetime.datetime.now()
-
 
     def filterWaveform(self, inputRawSignal, inputOutputSignal, inputParam1, inputParam2, inputParam3):
         """This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry.
@@ -56,7 +53,7 @@ class SignalProcessor:
         valueM = self.__curveFit(valuesXdata, valuesNormDiffWindow)
 
         # Get output: Computed signal
-        OutputSignal = np.append(OutputSignal, valueM[1])
+        OutputSignal = np.append(OutputSignal, valueM[0])
 
         # Apply running max window
         valueRunningMax = np.amax(OutputSignal[-inputParam1:])
@@ -93,8 +90,8 @@ class SignalProcessor:
         Proceedings of the 49th Annual Conference of the German Society for Biomedical Engineering, Luebeck, Germany,
         16.-18.09.2015.
 
-        Plese note that the different length of the input signal N and that a moving average filter as described in
-        section 2.4) of the referenec is not applied.
+        Please note that the different length of the input signal N and that a moving average filter as described in
+        section 2.4) of the reference is not applied.
         """
 
         # Get normalized signal
@@ -135,7 +132,7 @@ class SignalProcessor:
         limitsBool = (hrMin < freqAxis) & (hrMax > freqAxis)
         limitsIdx = np.linspace(0, N - 1, N)
 
-        # Get indices of frequncies between hrMin and hrMax
+        # Get indices of frequencies between hrMin and hrMax
         limits = limitsIdx[limitsBool.nonzero()]
         limits = limits.astype(int)
 
@@ -151,7 +148,7 @@ class SignalProcessor:
 
         outputSignal = inputSignal
 
-        # Prohobit dividing by zero
+        # Prohibit dividing by zero
         if np.max(np.abs(outputSignal)) > 0:
             maxVal = np.max(np.abs(outputSignal))
             minVal = np.min(np.abs(outputSignal))
@@ -165,17 +162,9 @@ class SignalProcessor:
         """perform curve fitting and return slope value"""
 
         # Todo: Add gaussian weights
-
-        # Perform curve fit with weighted signal
-        m, ret = sci.curve_fit(self.__curveFitFunc, inputSignal1, inputSignal2)
+        m = np.polyfit(inputSignal1, inputSignal2, 1)
 
         return m
-
-
-    def __curveFitFunc(self, x, a, b):
-        """"linear curve fit function"""
-        return a * x + b
-
 
     def nextpow2(self, number):
         """Simple implementation of MATLAB nextpow2 """
@@ -183,7 +172,6 @@ class SignalProcessor:
         while currValue <= number:
             currValue = currValue * 2
         return currValue
-
 
     def computeZeroPaddingValues(self, number):
         """During zero padding, we want to fill zeros before and after signal.

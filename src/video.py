@@ -53,7 +53,7 @@ class VideoThread(threading.Thread):
                         # Set bool variable, so that the thread can start to capture frames
                         connectionEstablished = True
 
-                # Continuosly capture frames until user ends program
+                # Continuously capture frames until user ends program
                 if self.eventVideoReady.is_set():
 
                     try:
@@ -101,7 +101,7 @@ class VideoThread(threading.Thread):
                         # Timer for dynamic FPS adjustment
                         self.startTime = datetime.datetime.now()
 
-                # Continuosly capture frames until user ends program
+                # Continuously capture frames until user ends program
                 if self.eventVideoReady.is_set():
 
                     # Read frame
@@ -150,7 +150,7 @@ class VideoThread(threading.Thread):
         self.frameCounter = 0
 
         # During init, the cameras available are counted (idea from http://stackoverflow.com/a/30384945)
-        # appearently there is still no clean OpenCV-based solution (https://github.com/opencv/opencv/issues/4269)
+        # apparently there is still no clean OpenCV-based solution (https://github.com/opencv/opencv/issues/4269)
         self.numberOfCameras = 0
 
         for i in range(2):

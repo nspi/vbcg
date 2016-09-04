@@ -12,7 +12,7 @@ import threading
 import numpy as np
 import video
 
-from nose.tools import assert_is_instance, assert_false
+from nose.tools import assert_is_instance, assert_false, assert_equal, assert_true
 
 
 class Test(unittest.TestCase):
@@ -26,7 +26,23 @@ class Test(unittest.TestCase):
         # Kill thread
         self.videoThread.closeCameraThread()
 
-    # Test if getter return correct types BEFORE start button has been pressed
+    # Test more complex functions
+
+    def test_setCameraIdx(self):
+        self.videoThread.setCameraIdx(5)
+        assert_equal(self.videoThread.cameraIdx,5)
+
+    def test_storeFramesFromDisk(self):
+        self.videoThread.storeFramesFromDisk("test/","files")
+        assert_equal(self.videoThread.files,"files")
+        assert_equal(self.videoThread.filesDir,"test/")
+
+    def test_closeCameraThread(self):
+        assert_false(self.videoThread.eventProgramEnd.is_set())
+        self.videoThread.closeCameraThread()
+        assert_true(self.videoThread.eventProgramEnd.is_set())
+
+    # Test simple getter
 
     def test_getEventCameraReady(self):
         assert_is_instance(self.videoThread.getEventCameraReady(), threading._Event)
@@ -39,26 +55,9 @@ class Test(unittest.TestCase):
         assert_false(ret_1)
         assert_is_instance(ret_2, np.ndarray)
 
-    def test_getNumberofCameras(self):
+    def test_getNumberOfCameras(self):
         assert_is_instance(self.videoThread.getNumberOfCameras(), int)
 
-    # Test if getter return correct types AFTER start button has been pressed
-
-    def test_getEventCameraReady_after(self):
-        self.videoThread.getEventCameraChosen().set()
-        yield self.test_getEventCameraReady()
-
-    def test_getEventCameraChosen_after(self):
-        self.videoThread.getEventCameraChosen().set()
-        yield self.test_getEventCameraReady()
-
-    def test_getFrame_after(self):
-        self.videoThread.getEventCameraChosen().set()
-        yield self.test_getEventCameraReady()
-
-    def test_getNumberofCameras_after(self):
-        self.videoThread.getEventCameraChosen().set()
-        yield self.test_getEventCameraReady()
 
 if __name__ == '__main__':
     nose.main()

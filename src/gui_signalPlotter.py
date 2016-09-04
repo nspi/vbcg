@@ -102,7 +102,7 @@ class GuiSignalPlotter(threading.Thread):
                                 self.subplotInstanceBottom.plot(self.spectrumAxis, self.valuesOutput2)
                                 self.subplotInstanceBottom.plot(self.spectrumAxis[self.spectrumMax],
                                                                 self.valuesOutput2[self.spectrumMax], 'r*')
-                            # Otherwise, plot placehoder
+                            # Otherwise, plot placeholder
                             else:
                                 self.subplotInstanceBottom.plot(self.valuesOutput2)
 

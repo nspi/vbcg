@@ -7,7 +7,7 @@ import nose
 import numpy as np
 
 from signal_processing import SignalProcessor
-from nose.tools import assert_is_instance, assert_false, assert_equal
+from nose.tools import assert_is_instance, assert_false, assert_equal, assert_almost_equal
 
 
 class Test(unittest.TestCase):
@@ -15,6 +15,10 @@ class Test(unittest.TestCase):
     def setUp(self):
         # Create instance
         self.signal_processor = SignalProcessor()
+
+    def test__curveFit(self):
+        m = self.signal_processor._SignalProcessor__curveFit([0, 1, 2, 3, 4], [0, 5, 10, 15, 20])
+        assert_almost_equal(m[0], 5)
 
     def test_normalize(self):
         assert_is_instance(self.signal_processor.normalize(np.random.rand(100)), np.ndarray)
@@ -41,6 +45,7 @@ class Test(unittest.TestCase):
         assert_is_instance(ret_2, np.ndarray)
         assert_is_instance(ret_3, np.ndarray)
         assert_is_instance(ret_4, int)
+
 
 if __name__ == '__main__':
     nose.main()

@@ -179,7 +179,7 @@ class ToolbarROI(Tk.Frame):
         return self.x_min, self.x_max, self.y_min, self.y_max
 
     def setROI(self, x_min, x_max, y_min, y_max):
-        """Sets ROI to new defintion"""
+        """Sets ROI to new definition"""
         self.x_min = x_min
         self.textbox_x1.delete(1.0, Tk.END)
         self.textbox_x1.insert(Tk.END, self.x_min)

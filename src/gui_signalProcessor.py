@@ -79,8 +79,7 @@ class GuiSignalProcessor(threading.Thread):
         if int(self.waitTime*1000) > 0:
             cv2.waitKey(int(self.waitTime * 1000))
         elif int(self.waitTime*1000) == 0:
-            cv2.waitKey(33) # cv2.waitKey(0) results in error
-
+            cv2.waitKey(33)  # cv2.waitKey(0) results in error
 
     def run(self):
         """The main functionality of the thread: The signal is obtained and plotted"""
