@@ -169,14 +169,14 @@ class ToolbarButtons(Tk.Frame):
 
         # Add checkbox: Show curves
         self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Show curves",
-                                             command=lambda: settings.flip_parameter(settings.IDX_CURVES))
+                                             command=lambda: settings.flip_parameter(IDX_CURVES))
         self.check_button_1.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_CURVES]:
             self.check_button_1.toggle()
 
         # Add checkbox: Store frames on hard disk
         self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Store frames",
-                                             command=lambda: settings.flip_parameter(settings.IDX_FRAMES))
+                                             command=lambda: settings.flip_parameter(IDX_FRAMES))
         self.check_button_2.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_FRAMES]:
             self.check_button_2.toggle()

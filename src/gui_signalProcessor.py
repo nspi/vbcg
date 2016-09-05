@@ -14,7 +14,7 @@ import datetime
 
 
 class GuiSignalProcessor(threading.Thread):
-    """This thread is used for continously plotting the mean signal of the video in the ROI"""
+    """This thread is used for continuously plotting the mean signal of the video in the ROI"""
 
     def __init__(self, tk_root, cam, figure, canvas, subplotTop, subplotBottom, statusbar,
                  video_display, frameQueuePlot):
@@ -61,7 +61,7 @@ class GuiSignalProcessor(threading.Thread):
         # Update statusbar value
         self.statusbarInstance.updateInfoText("Please choose a camera")
 
-        # Configure iself as thread
+        # Configure itself as thread
         threading.Thread.__init__(self)
         self.eventProgramEnd = threading.Event()
         self.eventProgramEnd.clear()
@@ -96,13 +96,13 @@ class GuiSignalProcessor(threading.Thread):
             # If real frames are available, start main activity
             if realFramesAvailable is True:
 
+                # Get current settings
+                self.curr_settings = self.settingsInstance.get_parameters()
+
                 if self.firstRun is True:
 
                     # Update statusbar value
                     self.statusbarInstance.updateInfoText("Processing frames")
-
-                    # Get current settings
-                    self.curr_settings = self.settingsInstance.get_parameters()
 
                     # Update FPS
                     self.FPS = self.curr_settings[IDX_FPS]
@@ -156,15 +156,15 @@ class GuiSignalProcessor(threading.Thread):
                     if self.curr_settings[IDX_ALGORITHM] == 1:
                         self.valuesOutput2 = self.valuesOutput2[mask]
 
-            # Store data in dictionary
-            if self.curr_settings[IDX_ALGORITHM] == 0:
-                self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2,
-                             'spectrumAxis': self.spectrumAxis, 'spectrumMax': self.spectrumMax}
-            elif self.curr_settings[IDX_ALGORITHM] == 1:
-                self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2}
+                # Store data in dictionary
+                if self.curr_settings[IDX_ALGORITHM] == 0:
+                    self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2,
+                                 'spectrumAxis': self.spectrumAxis, 'spectrumMax': self.spectrumMax}
+                elif self.curr_settings[IDX_ALGORITHM] == 1:
+                    self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2}
 
-            # Put dictionary in queue
-            self.frameQueue.put(self.dict)
+                # Put dictionary in queue
+                self.frameQueue.put(self.dict)
 
             # Wait and start from beginning of thread
             self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())

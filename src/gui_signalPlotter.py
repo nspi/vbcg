@@ -73,10 +73,15 @@ class GuiSignalPlotter(threading.Thread):
 
                 # Get data from dictionary
                 if self.curr_settings[IDX_ALGORITHM] == 0:
-                    self.valuesOutput = self.dict['valuesOutput']
-                    self.valuesOutput2 = self.dict['valuesOutput2']
-                    self.spectrumAxis = self.dict['spectrumAxis']
-                    self.spectrumMax = self.dict['spectrumMax']
+                    try:
+                        self.valuesOutput = self.dict['valuesOutput']
+                        self.valuesOutput2 = self.dict['valuesOutput2']
+                        self.spectrumAxis = self.dict['spectrumAxis']
+                        self.spectrumMax = self.dict['spectrumMax']
+                    except KeyError:
+                        # just to be safe if the algorithm has been changed since initialization of self.curr_settings
+                        self.valuesOutput = self.dict['valuesOutput']
+                        self.valuesOutput2 = self.dict['valuesOutput2']
 
                 elif self.curr_settings[IDX_ALGORITHM] == 1:
                     self.valuesOutput = self.dict['valuesOutput']

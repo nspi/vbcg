@@ -9,6 +9,7 @@ import threading
 import settings
 import time
 import datetime
+import os
 
 from defines import *
 
@@ -58,7 +59,7 @@ class VideoThread(threading.Thread):
 
                     try:
                         # Construct file directory and name
-                        currFile = self.filesDir + '/' + self.files[self.frameCounter]
+                        currFile = self.filesDir + os.sep + self.files[self.frameCounter]
 
                         # Read frame
                         self.currentFrame = cv2.imread(currFile)
