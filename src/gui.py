@@ -9,6 +9,10 @@ from gui_windowVideo import WindowVideo
 from gui_windowSignal import WindowSignal
 from defines import __version__
 
+from sys import platform
+
+import cv2
+import numpy as np
 import Tkinter as Tk
 import logging
 
@@ -32,6 +36,15 @@ class GUI(object):
         # Create Window
         MainWindow(self, self.cameraThread)
         logging.info('Main window was created')
+
+        # If we are under windows, we need an OpenCV window so that waitKey() works...
+        if platform == "win32":
+            img = np.zeros((150, 600, 3), np.uint8)
+            cv2.putText(img, 'Please do not close this window', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            cv2.putText(img, '     (minimizing is okay!)     ', (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            cv2.namedWindow("win")
+            cv2.imshow("win", img)
+
 
         # Start Tkinter thread
         logging.info('Starting TkInter main loop')

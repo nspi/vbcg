@@ -107,7 +107,8 @@ class WindowVideo(Tk.Frame):
             # If first frame from camera is received and the user wants to store frames, create folder
             if self.curr_settings[IDX_FRAMES]:
                 self.directory = os.path.join(os.getcwd(), 'data',
-                                              datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S'))
+                                              datetime.datetime.now().strftime('%Y-%m-%d_%H.%M.%S'))
+                # for window compatibility, colon has been replaced by dot
                 os.makedirs(self.directory)
                 logging.info('Folder was created for storing frames')
 
