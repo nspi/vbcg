@@ -36,7 +36,7 @@ class WindowSignal(Tk.Frame):
     def __create_gui(self):
 
         # Add subplots
-        self.figure = Mat_figure(figsize=(5, 4), dpi=100)
+        self.figure = Mat_figure(figsize=(5, 3), dpi=100)
         self.subplotTop = self.figure.add_subplot(211)
         self.subplotBottom = self.figure.add_subplot(212)
 

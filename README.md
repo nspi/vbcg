@@ -7,6 +7,7 @@ We aim to apply this techniques in the context of ultra-high-field MRI but other
 ## About
 
 #### Software description
+
 The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the algorithms we have developed so far.
 
 Regarding video-based heart rate frequency estimation, there are other valuable open-source projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) or commercial products (e.g. [Philips Vital Signs Camera](http://www.ip.philips.com/licensing/program/115)). This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately.
@@ -14,9 +15,11 @@ Regarding video-based heart rate frequency estimation, there are other valuable 
 > This software can NOT be used for diagnosis. Results are estimated and for entertainment purposes only!
 
 #### License
+
 GNU GPL v3.0
 
 #### Features
+
 - Read video stream from OpenCV compatible camera *or* read video stream from hard disk
 
 - Crop video to manually-defined ROI *or* use Viola-Jones algorithm for face detection [3]
@@ -28,15 +31,17 @@ GNU GPL v3.0
 - ''Prediction'' of next cardiac cycle as described in [5]
 
 ## Screenshots
-| Screenshot (click to enlarge) | Screenshot (click to enlarge) | Video (click to play) |
-| ------------- |-------------| -----|
-| <a href="http://www.fh-dortmund.de/spicher/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_1.png" width="256"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_2.png" width="256"></a> | <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshot_3.png" width="256"></a> |
+| Screenshot (click to enlarge) | Screenshot (click to enlarge) |
+| ------------- |-------------| 
+| <a href="http://www.fh-dortmund.de/spicher/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_1.png" width="200"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_2.png" width="200"></a> | 
+| <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshot_3.png" width="200"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_4.png" width="200"></a> |
 
-**Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration (see screenshot 2, there are four well-pronounced breathing cycles). Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions.
+**Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration (see screenshot 2, there are four well-pronounced breathing cycles). Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions. Additionally, we used the videos from the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website for evaluation (see screenshot 4).
 
 ## Installation and usage
 
 #### Required software
+
 - Python 2.7
   - numpy >= 1.8.2
   - matplotlib >= 1.3.1
@@ -55,7 +60,8 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 `cd src;` `python main.py`
 
 #### Compatibility
-The current master branch has been tested on Ubuntu 14.04 and Microsoft Windows 7.
+
+The current development branch is tested on Ubuntu 14.04 (and on Ubuntu 12.04 using [Travis-CI](https://travis-ci.org/nspi/vbcg)). The current master branch is additionally tested on Windows 7. 
 
 ## Available data
 | Information   								  | FPS | Duration | Resolution | Download 	    |

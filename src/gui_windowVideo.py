@@ -191,26 +191,31 @@ class WindowVideo(Tk.Frame):
         """This function is used to add a file from hard disk to the figure
         Algorithm source: http://docs.opencv.org/trunk/d0/d86/tutorial_py_image_arithmetics.html
         """
+        # Get size of frame
+        height, width, channels = frame.shape
 
-        # Load heart icon
-        iconHeart = cv2.imread(figureLocation)
-        # Convert to RGB
-        iconHeart = cv2.cvtColor(iconHeart, cv2.COLOR_BGR2RGB)
-        # Create ROI
-        rows, cols, channels = iconHeart.shape
-        roi = frame[:rows, :cols, :]
-        # Convert heart to grayscale
-        iconHeartGray = cv2.cvtColor(iconHeart, cv2.COLOR_RGB2GRAY)
-        # Create mask and inverse mask with binary thresholding
-        ret, mask = cv2.threshold(iconHeartGray, 10, 255, cv2.THRESH_BINARY)
-        mask_inv = cv2.bitwise_not(mask)
-        # Background: Original frame with inverse mask
-        frameBG = cv2.bitwise_and(roi, roi, mask=mask_inv)
-        # Foreground: Heart with normal mask
-        iconHeartFG = cv2.bitwise_and(iconHeart, iconHeart, mask=mask)
-        # Add heart icon to frame
-        iconHeartFinal = cv2.add(frameBG, iconHeartFG)
-        frame[:rows, :cols, :] = iconHeartFinal
+        # Only add icon when the frame is big enough
+        if height >= 100 and width >= 100:
+
+            # Load heart icon
+            iconHeart = cv2.imread(figureLocation)
+            # Convert to RGB
+            iconHeart = cv2.cvtColor(iconHeart, cv2.COLOR_BGR2RGB)
+            # Create ROI
+            rows, cols, channels = iconHeart.shape
+            roi = frame[:rows, :cols, :]
+            # Convert heart to greyscale
+            iconHeartGray = cv2.cvtColor(iconHeart, cv2.COLOR_RGB2GRAY)
+            # Create mask and inverse mask with binary thresholding
+            ret, mask = cv2.threshold(iconHeartGray, 10, 255, cv2.THRESH_BINARY)
+            mask_inv = cv2.bitwise_not(mask)
+            # Background: Original frame with inverse mask
+            frameBG = cv2.bitwise_and(roi, roi, mask=mask_inv)
+            # Foreground: Heart with normal mask
+            iconHeartFG = cv2.bitwise_and(iconHeart, iconHeart, mask=mask)
+            # Add heart icon to frame
+            iconHeartFinal = cv2.add(frameBG, iconHeartFG)
+            frame[:rows, :cols, :] = iconHeartFinal
 
         return frame
 
