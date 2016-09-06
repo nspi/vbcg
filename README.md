@@ -31,10 +31,12 @@ GNU GPL v3.0
 - ''Prediction'' of next cardiac cycle as described in [5]
 
 ## Screenshots
-| Screenshot (click to enlarge) | Screenshot (click to enlarge) |
+|  |  |
 | ------------- |-------------| 
-| <a href="http://www.fh-dortmund.de/spicher/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_1.png" width="200"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_2.png" width="200"></a> | 
-| <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshot_3.png" width="200"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_4.png" width="200"></a> |
+| Screenshot (click to enlarge) | Screenshot (click to enlarge) |
+| <a href="http://www.fh-dortmund.de/spicher/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_1.png" width="256"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_2.png" width="256"></a> | 
+| Video (click to play) | Screenshot (click to enlarge) |
+| <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshot_3.png" width="256"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_4.png" width="256"></a> |
 
 **Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration (see screenshot 2, there are four well-pronounced breathing cycles). Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions. Additionally, we used the videos from the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website for evaluation (see screenshot 4).
 
