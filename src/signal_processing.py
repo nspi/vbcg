@@ -4,7 +4,9 @@
 
 import numpy as np
 import datetime
+import settings
 
+from defines import *
 
 class SignalProcessor:
     """This class provides the essential signal processing algorithms"""
@@ -12,13 +14,16 @@ class SignalProcessor:
     def __init__(self):
 
         # Define variables for function filterWaveform()
-        self.valueLastRunningMax = 0
-        self.counterRunningMax = 0
+        self.value_last_running_max = 0
+        self.counter_running_max = 0
 
         # Get time for filterWaveform() algorithm
-        self.currTime = datetime.datetime.now()
+        self.curr_time = datetime.datetime.now()
 
-    def filterWaveform(self, inputRawSignal, inputOutputSignal, inputParam1, inputParam2, inputParam3):
+        # Initialize variables
+        self.time_diff = None
+
+    def filter_waveform(self, input_raw_signal, input_output_signal, input_param_1, input_param_2, input_param_3):
         """This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry.
            This is a real-time implementation of the algorithm described in:
 
@@ -34,55 +39,55 @@ class SignalProcessor:
         """
 
         # Get signals
-        RawSignal = inputRawSignal
-        OutputSignal = inputOutputSignal
+        raw_signal = input_raw_signal
+        output_signal = input_output_signal
 
         # Normalize values
-        valuesNorm = self.normalize(RawSignal)
+        values_norm = self.normalize(raw_signal)
 
         # Perform pseudo-derivation
-        valuesNormDiff = np.abs(np.diff(valuesNorm))
+        values_norm_diff = np.abs(np.diff(values_norm))
 
         # Apply window
-        valuesNormDiffWindow = valuesNormDiff[-inputParam1:]
+        values_norm_diff_window = values_norm_diff[-input_param_1:]
 
         # Prepare fit
-        valuesXdata = np.linspace(0, 1, inputParam1)
+        values_x_data = np.linspace(0, 1, input_param_1)
 
         # Apply curve fit
-        valueM = self.__curveFit(valuesXdata, valuesNormDiffWindow)
+        value_m = self.__curve_fit(values_x_data, values_norm_diff_window)
 
         # Get output: Computed signal
-        OutputSignal = np.append(OutputSignal, valueM[0])
+        output_signal = np.append(output_signal, value_m[0])
 
         # Apply running max window
-        valueRunningMax = np.amax(OutputSignal[-inputParam1:])
+        value_running_max = np.amax(output_signal[-input_param_1:])
 
         # Increase counter if running max is equal to last value. Otherwise reset counter.
-        if valueRunningMax == self.valueLastRunningMax:
-            self.counterRunningMax += 1
+        if value_running_max == self.value_last_running_max:
+            self.counter_running_max += 1
         else:
-            self.counterRunningMax = 0
-            self.valueLastRunningMax = valueRunningMax
+            self.counter_running_max = 0
+            self.value_last_running_max = value_running_max
 
         # Compute time since last trigger was sent
-        self.timeDiff = (datetime.datetime.now()-self.currTime).total_seconds()
+        self.time_diff = (datetime.datetime.now() - self.curr_time).total_seconds()
 
         # If the running maximum was stable long enough and enough time has passed, return True
-        if self.counterRunningMax == inputParam2 and self.timeDiff>inputParam3:
+        if self.counter_running_max == input_param_2 and self.time_diff > input_param_3:
 
             # Reset counter
-            self.counterRunningMax = 0
+            self.counter_running_max = 0
 
             # Reset time
-            self.currTime = datetime.datetime.now()
+            self.curr_time = datetime.datetime.now()
 
-            return True, OutputSignal
+            return True, output_signal
 
         else:
-            return False, OutputSignal
+            return False, output_signal
 
-    def computeHR(self, inputRawSignal, estimatedFPS):
+    def compute_heart_rate(self, input_raw_signal, estimated_fps):
         """This simple algorithm computes the heart rate as described in:
 
         Spicher N, Maderwald S, Ladd ME and Kukuk M. Heart rate monitoring in ultra-high-field MRI using frequency
@@ -95,92 +100,95 @@ class SignalProcessor:
         """
 
         # Get normalized signal
-        signal = self.normalize(inputRawSignal)
+        signal = self.normalize(input_raw_signal)
 
         # Store number of elements in signal
-        N = np.size(signal)
+        n = np.size(signal)
 
         # Store FPS of video stream
-        fps = estimatedFPS
+        fps = estimated_fps
 
         # Parameters: Minimal and maximum HR (48..180 bpm)
-        hrMin = 0.5
-        hrMax = 3
+        hr_min = 0.5
+        hr_max = 3
 
-        # Todo: Add zero padding as an option in future release
-        # Compute next power of 2 from N
-        # nextN = self.nextpow2(N)
+        # Get current settings
+        curr_settings = settings.get_parameters()
 
-        # Zero padding: Fill before and after signal with zeros
-        # numberBefore, numberAfter = self.computeZeroPaddingValues(nextN - N)
-        # signal = np.concatenate((np.zeros(numberBefore), signal, np.zeros(numberAfter)), 0)
+        # Apply zero padding if it is enabled
+        if curr_settings[IDX_ZERO_PADDING]:
 
-        # Use new N value instead
-        # N = nextN
+            # Compute next power of 2 from N
+            next_n = self.nextpow2(self.nextpow2(self.nextpow2(n)))
+
+            # Zero padding: Fill before and after signal with zeros
+            number_before, number_after = self.compute_zero_padding_values(next_n - n)
+            signal = np.concatenate((np.zeros(number_before), signal, np.zeros(number_after)), 0)
+
+            # Use new N value instead
+            n = next_n
 
         # Use Hamming window on signal
-        valuesWin = signal[0:N] * np.hamming(N)
+        values_win = signal[0:n] * np.hamming(n)
 
         # Compute FFT
-        signalFFT = np.fft.fft(valuesWin)
+        signal_fft = np.fft.fft(values_win)
 
         # Compute frequency axis
-        x = np.linspace(0, N / fps, N + 1)
-        freqAxis = np.fft.fftfreq(len(valuesWin), x[1] - x[0])
+        x = np.linspace(0, n / fps, n + 1)
+        freq_axis = np.fft.fftfreq(len(values_win), x[1] - x[0])
 
         # Get boolean values if values are between hrMin and hrMax
-        limitsBool = (hrMin < freqAxis) & (hrMax > freqAxis)
-        limitsIdx = np.linspace(0, N - 1, N)
+        limits_bool = (hr_min < freq_axis) & (hr_max > freq_axis)
+        limits_idx = np.linspace(0, n - 1, n)
 
         # Get indices of frequencies between hrMin and hrMax
-        limits = limitsIdx[limitsBool.nonzero()]
+        limits = limits_idx[limits_bool.nonzero()]
         limits = limits.astype(int)
 
         # Get index of maximum frequency in FFT spectrum
-        max_val = limits[np.argmax(abs(signalFFT[limits]))]
+        max_val = limits[np.argmax(abs(signal_fft[limits]))]
 
         # Return HR, spectrum with frequency axis, and found maximum
-        return (np.round(freqAxis[max_val] * 60)), abs(signalFFT[limits]), freqAxis[limits], max_val - limits[0]
+        return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], max_val - limits[0]
 
-
-    def normalize(self, inputSignal):
+    def normalize(self, input_signal):
         """Normalize the signal to lie between 0 and 1"""
 
-        outputSignal = inputSignal
+        output_signal = input_signal
 
         # Prohibit dividing by zero
-        if np.max(np.abs(outputSignal)) > 0:
-            maxVal = np.max(np.abs(outputSignal))
-            minVal = np.min(np.abs(outputSignal))
+        if np.max(np.abs(output_signal)) > 0:
+            max_val = np.max(np.abs(output_signal))
+            min_val = np.min(np.abs(output_signal))
             # MinMax normalization
-            outputSignal = (outputSignal - minVal) / (maxVal - minVal)
+            output_signal = (output_signal - min_val) / (max_val - min_val)
 
-        return outputSignal
+        return output_signal
 
-
-    def __curveFit(self, inputSignal1, inputSignal2):
+    def __curve_fit(self, input_signal_1, input_signal_2):
         """perform curve fitting and return slope value"""
 
         # Todo: Add gaussian weights
-        m = np.polyfit(inputSignal1, inputSignal2, 1)
+        m = np.polyfit(input_signal_1, input_signal_2, 1)
 
         return m
 
     def nextpow2(self, number):
-        """Simple implementation of MATLAB nextpow2 """
-        currValue = 2
-        while currValue <= number:
-            currValue = currValue * 2
-        return currValue
+        """Simple implementation of MATLAB nextpow2() """
+        curr_value = 2
+        while curr_value <= number:
+            curr_value *= 2
+        return curr_value
 
-    def computeZeroPaddingValues(self, number):
+    def compute_zero_padding_values(self, number):
         """During zero padding, we want to fill zeros before and after signal.
         This function computes the number of zeros"""
 
-        numberOfZerosBeforeSignal = np.floor(number / 2)
+        number_of_zeros_before_signal = np.floor(number / 2)
         if np.fmod(number, 2) == 1:
-            numberOfZerosAfterSignal = numberOfZerosBeforeSignal + 1
+            number_of_zeros_after_signal = number_of_zeros_before_signal + 1
         else:
-            numberOfZerosAfterSignal = numberOfZerosBeforeSignal
+            number_of_zeros_after_signal = number_of_zeros_before_signal
 
-        return numberOfZerosBeforeSignal, numberOfZerosAfterSignal
+        return number_of_zeros_before_signal, number_of_zeros_after_signal

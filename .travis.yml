@@ -10,12 +10,16 @@ before_install:
  - "sh -e /etc/init.d/xvfb start"
 
 install:
+  -  pip install coveralls
   - "pip install --pre -r requirements.txt"
 
 python:
   - "2.7"
 
-script: "nosetests"
+script: "nosetests --with-coverage --cover-erase --cover-package=."
+
+after_success:
+  - coveralls
 
 notifications:
   email: false

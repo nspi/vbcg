@@ -13,7 +13,7 @@ import tkMessageBox
 
 from os import listdir
 from os.path import isfile, join
-from tkFileDialog   import askdirectory
+from tkFileDialog import askdirectory
 from defines import *
 
 
@@ -29,10 +29,10 @@ class ToolbarButtons(Tk.Frame):
 
         # Use and store new FPS value
         self.curr_settings[IDX_FPS] = int(self.textbox_fps.get("1.0", Tk.END + "-1c"))
-        settings.change_parameter(IDX_FPS,self.curr_settings[IDX_FPS])
+        settings.change_parameter(IDX_FPS, self.curr_settings[IDX_FPS])
 
         # Get Event
-        self.eventCameraChosen = self.cameraInstance.getEventCameraChosen()
+        self.eventCameraChosen = self.cameraInstance.get_event_camera_chosen()
 
         # Disable buttons that change settings
         self.check_button_1.config(state=Tk.DISABLED)
@@ -47,8 +47,8 @@ class ToolbarButtons(Tk.Frame):
         # Store index of camera in thread
         if self.numberOfCameras > 0:
             logging.info("Camera is started")
-            chosenCamera = self.listCamerasStr.get()[-1]
-            self.cameraInstance.setCameraIdx(chosenCamera)
+            chosen_camera = self.listCamerasStr.get()[-1]
+            self.cameraInstance.set_camera_idx(chosen_camera)
 
         # Update event for camera event
         logging.info("Enabling event: eventCameraChosen ")
@@ -64,7 +64,7 @@ class ToolbarButtons(Tk.Frame):
         logging.info("Signal display thread was closed")
 
         # If camera connection is active, close it
-        self.cameraInstance.closeCameraThread()
+        self.cameraInstance.close_camera_thread()
         logging.info("Camera capture thread was closed")
 
         # Close GUI
@@ -78,11 +78,12 @@ class ToolbarButtons(Tk.Frame):
         logging.info("Program will halt now...")
         sys.exit()
 
-    def __init__(self, parent, tk_root, thread, cam, signalDisplay):
+    def __init__(self, parent, tk_root, thread, cam, signal_display):
 
         # Store variables
         global root
         self.root = tk_root
+        self.parent = parent
 
         # Add exit function to X button
         self.root.protocol("WM_DELETE_WINDOW", self.__quit)
@@ -91,13 +92,13 @@ class ToolbarButtons(Tk.Frame):
         self.cameraInstance = cam
 
         # Get number of available cameras
-        self.numberOfCameras = self.cameraInstance.getNumberOfCameras()
+        self.numberOfCameras = self.cameraInstance.get_number_of_cameras()
 
         # Store thread object
         self.threadInstance = thread
 
         # Store connection to signal display
-        self.signalDisplayInstance = signalDisplay
+        self.signalDisplayInstance = signal_display
 
         # Initialize buttons
         self.check_button_1 = self.check_button_2 = self.check_button_2 = self.check_button_4 = \
@@ -115,23 +116,23 @@ class ToolbarButtons(Tk.Frame):
         self.button_frame.pack(side=Tk.BOTTOM)
 
         # Add button for loading files
-        self.button_files = Tk.Button(master=self.button_frame, text='Load files', command=self.__openFiles)
+        self.button_files = Tk.Button(master=self.button_frame, text='Load files', command=self.__open_files)
         self.button_files.pack(side=Tk.LEFT)
 
         # Fill list with available cameras and add to menu
         self.label_x0 = Tk.Label(self.button_frame, text="Camera:")
         self.label_x0.pack(side=Tk.LEFT)
-        listCameras = ['']
+        list_of_cameras = ['']
         # If cameras are available, fill list
         if self.numberOfCameras > 0:
             for cam_idx in range(self.numberOfCameras):
                 tmp_string = str(cam_idx)
-                listCameras.append(tmp_string)
-            listCameras.pop(0)
+                list_of_cameras.append(tmp_string)
+            list_of_cameras.pop(0)
         # Add list to Button
         self.listCamerasStr = Tk.StringVar()
-        self.dropDownListCamera = Tk.OptionMenu(self.button_frame, self.listCamerasStr, *listCameras)
-        self.listCamerasStr.set(listCameras[0])
+        self.dropDownListCamera = Tk.OptionMenu(self.button_frame, self.listCamerasStr, *list_of_cameras)
+        self.listCamerasStr.set(list_of_cameras[0])
         self.dropDownListCamera.pack(side=Tk.LEFT)
         # If no camera is available, disable button
         if self.numberOfCameras == 0:
@@ -149,22 +150,22 @@ class ToolbarButtons(Tk.Frame):
         # Fill list with available algorithms
         self.label_x2 = Tk.Label(self.button_frame, text="Algorithm:")
         self.label_x2.pack(side=Tk.LEFT)
-        listAlgorithms = ['']
+        list_of_algorithms = ['']
 
-        # Choose prefered algorithm from settings
+        # Choose preferred algorithm from settings
         if self.curr_settings[IDX_ALGORITHM] == 0:
-            listAlgorithms.append("Estimate Heart rate")
-            listAlgorithms.append("Filter waveform")
+            list_of_algorithms.append("Estimate Heart rate")
+            list_of_algorithms.append("Filter waveform")
         elif self.curr_settings[IDX_ALGORITHM] == 1:
-            listAlgorithms.append("Filter waveform")
-            listAlgorithms.append("Estimate Heart rate")
+            list_of_algorithms.append("Filter waveform")
+            list_of_algorithms.append("Estimate Heart rate")
 
         # Remove empty entry
-        listAlgorithms.pop(0)
+        list_of_algorithms.pop(0)
         self.listAlgorithmStr = Tk.StringVar()
-        self.dropDownListAlgorithm = Tk.OptionMenu(self.button_frame, self.listAlgorithmStr, *listAlgorithms,
-                                                   command=lambda _: self.__changeAlgorithm())
-        self.listAlgorithmStr.set(listAlgorithms[0])
+        self.dropDownListAlgorithm = Tk.OptionMenu(self.button_frame, self.listAlgorithmStr, *list_of_algorithms,
+                                                   command=lambda _: self.__change_algorithm())
+        self.listAlgorithmStr.set(list_of_algorithms[0])
         self.dropDownListAlgorithm.pack(side=Tk.LEFT)
 
         # Add checkbox: Show curves
@@ -185,13 +186,13 @@ class ToolbarButtons(Tk.Frame):
         self.button_start = Tk.Button(master=self.button_frame, text='Start', command=self.__start)
         self.button_start.pack(side=Tk.RIGHT)
 
-    def __changeAlgorithm(self):
+    def __change_algorithm(self):
         if self.dropDownListAlgorithm.cget("text") == "Estimate Heart rate":
             settings.change_parameter(IDX_ALGORITHM, 0)
         elif self.dropDownListAlgorithm.cget("text") == "Filter waveform":
             settings.change_parameter(IDX_ALGORITHM, 1)
 
-    def __openFiles(self):
+    def __open_files(self):
         self.root.option_add('*Dialog.msg.font', 'Helvetica 10')
         tkMessageBox.showinfo("Information", "Please choose a folder containing files with increasing number"
                                              ", e.g. frame0.png frame1.png frame2.png ...")
@@ -236,7 +237,7 @@ class ToolbarButtons(Tk.Frame):
                     self.filesInDirSortedWithFilenameAndExtension.append(self.fileName + currFile + self.fileExtension)
 
                 # Store file names in camera thread
-                self.cameraInstance.storeFramesFromDisk(self.dirName, self.filesInDirSortedWithFilenameAndExtension)
+                self.cameraInstance.store_frames_from_disk(self.dirName, self.filesInDirSortedWithFilenameAndExtension)
 
                 # Update GUI
                 self.dropDownListCamera.config(state=Tk.DISABLED)

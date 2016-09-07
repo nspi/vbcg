@@ -23,7 +23,7 @@ class VideoThread(threading.Thread):
         """ This block is performed until the user ends the program"""
 
         # Has a connection been established to the camera or the hard disk?
-        connectionEstablished = False
+        connection_established = False
 
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
@@ -35,34 +35,34 @@ class VideoThread(threading.Thread):
             if self.files is not None:
 
                 # Check if connection has been established
-                if connectionEstablished is False:
+                if connection_established is False:
 
                     # Check if the user has pressed the start button
-                    userPressedStart = self.eventUserPressedStart.wait(1)
+                    user_pressed_start = self.eventUserPressedStart.wait(1)
 
-                    if userPressedStart:
+                    if user_pressed_start:
 
                         logging.info("User pressed start and wants to use frames from hard disk")
 
                         # Create variable to adjust thread sleeping time to desired FPS
-                        self.curr_settings = settings.get_parameters()
-                        self.FPS = self.curr_settings[IDX_FPS]
+                        self.currSettings = settings.get_parameters()
+                        self.FPS = self.currSettings[IDX_FPS]
 
                         # Set event for other threads
                         self.eventVideoReady.set()
 
                         # Set bool variable, so that the thread can start to capture frames
-                        connectionEstablished = True
+                        connection_established = True
 
                 # Continuously capture frames until user ends program
                 if self.eventVideoReady.is_set():
 
                     try:
                         # Construct file directory and name
-                        currFile = self.filesDir + os.sep + self.files[self.frameCounter]
+                        curr_file = self.filesDir + os.sep + self.files[self.frameCounter]
 
                         # Read frame
-                        self.currentFrame = cv2.imread(currFile)
+                        self.currentFrame = cv2.imread(curr_file)
 
                         # Increase counter
                         self.frameCounter += 1
@@ -71,33 +71,33 @@ class VideoThread(threading.Thread):
                         logging.info("Reached last file.")
 
                     # Wait and start from beginning of thread
-                    self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())
+                    self.__wait_to_adjust_fps(self.startTime, datetime.datetime.now())
 
             # If the user did not choose frames from hard disk, use camera instead
             else:
 
                 # Check if connection has been established
-                if connectionEstablished is False:
+                if connection_established is False:
 
                     # Check if the user has pressed the start button
-                    userPressedStart = self.eventUserPressedStart.wait(1)
+                    user_pressed_start = self.eventUserPressedStart.wait(1)
 
-                    if userPressedStart:
+                    if user_pressed_start:
 
                         logging.info("User pressed start and wants to use the camera")
 
                         # Create variable to adjust thread sleeping time to desired FPS
-                        self.curr_settings = settings.get_parameters()
-                        self.FPS = self.curr_settings[IDX_FPS]
+                        self.currSettings = settings.get_parameters()
+                        self.FPS = self.currSettings[IDX_FPS]
 
                         # Open connection to camera
-                        self.__openCamera()
+                        self.__open_camera()
 
                         # Set event for other threads
                         self.eventVideoReady.set()
 
                         # Set bool variable, so that the thread can start to capture frames
-                        connectionEstablished = True
+                        connection_established = True
 
                         # Timer for dynamic FPS adjustment
                         self.startTime = datetime.datetime.now()
@@ -109,11 +109,11 @@ class VideoThread(threading.Thread):
                     ret, self.currentFrame = self.videoStream.read()
 
                 # Wait and start from beginning of thread
-                self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())
+                self.__wait_to_adjust_fps(self.startTime, datetime.datetime.now())
 
         # Shutdown reached: Close connection to camera if it was used
         if self.files is None:
-            self.__closeCamera()
+            self.__close_camera()
 
     def __init__(self):
         """ Initialization of class. The system is scanned for OpenCV compatible cameras and variables are set """
@@ -134,11 +134,11 @@ class VideoThread(threading.Thread):
         self.eventProgramEnd = threading.Event()
 
         # Create variable to adjust thread sleeping time to desired FPS
-        self.curr_settings = settings.get_parameters()
-        self.FPS = self.curr_settings[IDX_FPS]
+        self.currSettings = settings.get_parameters()
+        self.FPS = self.currSettings[IDX_FPS]
 
-        # Video stream object, is filled later
-        self.videoStream = None
+        # Initialize variables
+        self.videoStream = self.startTime = None
 
         # A black frame that is displayed until the user has started the program
         self.currentFrame = np.zeros((480, 640, 3), np.uint8)
@@ -172,7 +172,7 @@ class VideoThread(threading.Thread):
             tmp_str = "Found " + str(self.numberOfCameras) + " OpenCV-compatible cameras"
             logging.info(tmp_str)
 
-    def getFrame(self):
+    def get_frame(self):
         """This function delivers frames from the camera or the hard disk for the GUI
 
             Returns:
@@ -196,48 +196,48 @@ class VideoThread(threading.Thread):
             # Return false as status and black frame
             return False, np.zeros((480, 640, 3), np.uint8)
 
-    def __waitToAdjustFPS(self, startTime, endTime):
+    def __wait_to_adjust_fps(self, start_time, end_time):
         # Compute difference to desired FPS
-        self.diffTime = (endTime - startTime).total_seconds()
+        self.diffTime = (end_time - start_time).total_seconds()
         self.waitTime = 1.0 / self.FPS - self.diffTime
         # If thread was too fast, wait
         if self.waitTime > 0:
             time.sleep(self.waitTime)
 
-    def __openCamera(self):
+    def __open_camera(self):
         """This function initializes the desired camera"""
         self.videoStream = cv2.VideoCapture(int(self.cameraIdx))
         logging.info("The camera was initialized")
 
-    def __closeCamera(self):
+    def __close_camera(self):
         """This function releases the current camera"""
         if self.videoStream is not None:
             self.videoStream.release()
             logging.info("The camera was released")
 
-    def closeCameraThread(self):
+    def close_camera_thread(self):
         """User pressed ''quit'' button, set events to that thread can end"""
         self.eventVideoReady.clear()
         self.eventProgramEnd.set()
 
-    def storeFramesFromDisk(self, directory, files):
+    def store_frames_from_disk(self, directory, files):
         """This function stores the directory and files if the user wants to use frames from the hard disk"""
         self.filesDir = directory
         self.files = files
 
-    def setCameraIdx(self, cameraIndex):
+    def set_camera_idx(self, camera_index):
         """ Store index of camera that user has chosen using the GUI"""
-        self.cameraIdx = cameraIndex
+        self.cameraIdx = camera_index
         logging.info("Camera index was set because user pressed start button")
 
-    def getNumberOfCameras(self):
+    def get_number_of_cameras(self):
         """This function returns the number of available OpenCV cameras for the GUI"""
         return self.numberOfCameras
 
-    def getEventCameraReady(self):
+    def get_event_camera_ready(self):
         """ Getter for eventUserPressedStart"""
         return self.eventVideoReady
 
-    def getEventCameraChosen(self):
+    def get_event_camera_chosen(self):
         """ Getter for eventUserPressedStart"""
         return self.eventUserPressedStart

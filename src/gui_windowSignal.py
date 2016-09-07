@@ -69,5 +69,5 @@ class WindowSignal(Tk.Frame):
 
     def closeThreads(self):
         """Closes signal plotting and processing threads"""
-        self.signalPlotThread.closeSignalPlotterThread()
-        self.signalProcessorThread.closeSignalPlotterThread()
+        self.signalPlotThread.close_signal_plotter_thread()
+        self.signalProcessorThread.close_signal_processor_thread()

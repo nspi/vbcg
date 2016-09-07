@@ -15,21 +15,23 @@ __description__ = "A real-time application for video-based estimation of the hea
                   " frequency and the phase of the cardiac cycle."
 
 # Indices of parameters
-IDX_WEBCAM      = 0
-IDX_CAMERA      = 1
-IDX_ALGORITHM   = 2
-IDX_CURVES      = 3
-IDX_FRAMES      = 4
-IDX_FACE        = 5
-IDX_FPS         = 6
-IDX_COLORCHANNEL= 7
+IDX_WEBCAM       = 0
+IDX_CAMERA       = 1
+IDX_ALGORITHM    = 2
+IDX_CURVES       = 3
+IDX_FRAMES       = 4
+IDX_FACE         = 5
+IDX_FPS          = 6
+IDX_COLORCHANNEL = 7
+IDX_ZERO_PADDING = 8
 
 # Standard values of parameters
-VAL_WEBCAM      = 1
-VAL_CAMERA      = 1
-VAL_ALGORITHM   = 0
-VAL_CURVES      = 1
-VAL_FRAMES      = 0
-VAL_FACE        = 0
-VAL_FPS         = 25
-VAL_COLORCHANNEL= 1
+VAL_WEBCAM       = 1
+VAL_CAMERA       = 1
+VAL_ALGORITHM    = 0
+VAL_CURVES       = 1
+VAL_FRAMES       = 0
+VAL_FACE         = 0
+VAL_FPS          = 25
+VAL_COLORCHANNEL = 1
+VAL_ZERO_PADDING = 1
