@@ -51,7 +51,7 @@ class ToolbarROI(Tk.Frame):
 
         # Add empty box
         # Todo: use a dynamic solution
-        self.label_x0 = Tk.Label(self.button_frame, text="  ")
+        self.label_x0 = Tk.Label(self.button_frame, text="    ")
         self.label_x0.pack(side=Tk.LEFT)
 
         # Fill list with available cameras and add to menu
@@ -65,32 +65,44 @@ class ToolbarROI(Tk.Frame):
         self.list_color_channelsStr.set(list_color_channels[0])
         self.dropDownListColorChannel.pack(side=Tk.LEFT)
 
+        # Add empty box
+        self.label_x0 = Tk.Label(self.button_frame, text="    ")
+        self.label_x0.pack(side=Tk.LEFT)
+
         # Add text boxes for ROI definition
         self.label_x1 = Tk.Label(self.button_frame, text="X Begin:")
         self.label_x1.pack(side=Tk.LEFT)
-        self.textbox_x1 = Tk.Text(self.button_frame, width=10, height=1)
+        self.textbox_x1 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_x1.pack(side=Tk.LEFT)
         self.textbox_x1.insert(Tk.END, self.x_min)
 
         self.label_x2 = Tk.Label(self.button_frame, text="X End:")
         self.label_x2.pack(side=Tk.LEFT)
-        self.textbox_x2 = Tk.Text(self.button_frame, width=10, height=1)
+        self.textbox_x2 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_x2.pack(side=Tk.LEFT)
         self.textbox_x2.insert(Tk.END, self.x_max)
 
         self.label_y1 = Tk.Label(self.button_frame, text="Y Begin:")
         self.label_y1.pack(side=Tk.LEFT)
-        self.textbox_y1 = Tk.Text(self.button_frame, width=10, height=1)
+        self.textbox_y1 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_y1.pack(side=Tk.LEFT)
         self.textbox_y1.insert(Tk.END, self.y_min)
 
         self.label_y2 = Tk.Label(self.button_frame, text="Y End:")
         self.label_y2.pack(side=Tk.LEFT)
-        self.textbox_y2 = Tk.Text(self.button_frame, width=10, height=1)
+        self.textbox_y2 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_y2.pack(side=Tk.LEFT)
         self.textbox_y2.insert(Tk.END, self.y_max)
 
-        # Disable Textboxes when Viola-Jones algorithm is active
+        # Add empty box
+        self.label_x0 = Tk.Label(self.button_frame, text="  ")
+        self.label_x0.pack(side=Tk.LEFT)
+
+        # Add button for option menu
+        self.button_options = Tk.Button(self.button_frame, text="Options", width=4, command=self.__open_options_menu)
+        self.button_options.pack(side=Tk.LEFT)
+
+        # Disable text boxes when Viola-Jones algorithm is active
         if curr_settings[IDX_FACE]:
             self.check_button_1.toggle()
             self.textbox_x1.config(bg='lightgray')
@@ -117,6 +129,40 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y1.config(bg='white')
             self.textbox_y2.config(bg='white')
             logging.info('Viola-Jones algorithm was disabled by the user')
+
+    def __enable_or_disable_fft_zero_padding(self):
+        """Action to perform when corresponding button is pressed"""
+
+        # Get current parameters
+        curr_settings = settings.get_parameters()
+
+        # Change parameter
+        settings.flip_parameter(IDX_ZERO_PADDING)
+
+        if curr_settings[IDX_ZERO_PADDING]:
+            logging.info('User enabled Zero padding for FFT algorithm')
+        else:
+            logging.info('User disabled Zero padding for FFT algorithm')
+
+    def __open_options_menu(self):
+
+        # Get current option
+        curr_settings = settings.get_parameters()
+
+        # Create window
+        menu = Tk.Toplevel()
+        menu.wm_geometry("300x70")
+
+        # Add label
+        self.label_y2 = Tk.Label(menu, text="Heart Rate estimation algorithm: ", anchor="w")
+        self.label_y2.pack(side=Tk.TOP, fill="both")
+
+        # Add content
+        button_zero_padding = Tk.Checkbutton(menu, text="Enable zero-padding when using FFT", anchor="w",
+                                             command=self.__enable_or_disable_fft_zero_padding)
+        button_zero_padding.pack(side=Tk.TOP,fill="both")
+        if curr_settings[IDX_ZERO_PADDING]:
+            button_zero_padding.toggle()
 
     def __store_color_channel(self):
         """ Stores the desired color channel that is used for signal processing"""

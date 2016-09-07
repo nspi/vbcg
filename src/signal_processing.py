@@ -4,7 +4,9 @@
 
 import numpy as np
 import datetime
+import settings
 
+from defines import *
 
 class SignalProcessor:
     """This class provides the essential signal processing algorithms"""
@@ -110,16 +112,21 @@ class SignalProcessor:
         hr_min = 0.5
         hr_max = 3
 
-        # Todo: Add zero padding as an option in future release
-        # Compute next power of 2 from N
-        # nextN = self.nextpow2(N)
+        # Get current settings
+        curr_settings = settings.get_parameters()
 
-        # Zero padding: Fill before and after signal with zeros
-        # numberBefore, numberAfter = self.computeZeroPaddingValues(nextN - N)
-        # signal = np.concatenate((np.zeros(numberBefore), signal, np.zeros(numberAfter)), 0)
+        # Apply zero padding if it is enabled
+        if curr_settings[IDX_ZERO_PADDING]:
 
-        # Use new N value instead
-        # N = nextN
+            # Compute next power of 2 from N
+            next_n = self.nextpow2(self.nextpow2(self.nextpow2(n)))
+
+            # Zero padding: Fill before and after signal with zeros
+            number_before, number_after = self.compute_zero_padding_values(next_n - n)
+            signal = np.concatenate((np.zeros(number_before), signal, np.zeros(number_after)), 0)
+
+            # Use new N value instead
+            n = next_n
 
         # Use Hamming window on signal
         values_win = signal[0:n] * np.hamming(n)
