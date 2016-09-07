@@ -28,34 +28,34 @@ class Test(unittest.TestCase):
 
     # Test more complex functions
 
-    def test_setCameraIdx(self):
+    def test_set_camera_idx(self):
         self.videoThread.set_camera_idx(5)
         assert_equal(self.videoThread.cameraIdx,5)
 
-    def test_storeFramesFromDisk(self):
+    def test_store_frames_from_disk(self):
         self.videoThread.store_frames_from_disk("test/", "files")
         assert_equal(self.videoThread.files,"files")
         assert_equal(self.videoThread.filesDir,"test/")
 
-    def test_closeCameraThread(self):
+    def test_close_camera_thread(self):
         assert_false(self.videoThread.eventProgramEnd.is_set())
         self.videoThread.close_camera_thread()
         assert_true(self.videoThread.eventProgramEnd.is_set())
 
     # Test simple getter
 
-    def test_getEventCameraReady(self):
+    def test_get_event_camera_ready(self):
         assert_is_instance(self.videoThread.get_event_camera_ready(), threading._Event)
 
-    def test_getEventCameraChosen(self):
+    def test_get_event_camera_chosen(self):
         assert_is_instance(self.videoThread.get_event_camera_chosen(), threading._Event)
 
-    def test_getFrame(self):
+    def test_get_frame(self):
         ret_1, ret_2 = self.videoThread.get_frame()
         assert_false(ret_1)
         assert_is_instance(ret_2, np.ndarray)
 
-    def test_getNumberOfCameras(self):
+    def test_get_number_of_cameras(self):
         assert_is_instance(self.videoThread.get_number_of_cameras(), int)
 
 

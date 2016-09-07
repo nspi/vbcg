@@ -16,8 +16,8 @@ class Test(unittest.TestCase):
         # Create instance
         self.signal_processor = SignalProcessor()
 
-    def test__curveFit(self):
-        m = self.signal_processor._SignalProcessor__curveFit([0, 1, 2, 3, 4], [0, 5, 10, 15, 20])
+    def test__curve_fit(self):
+        m = self.signal_processor._SignalProcessor__curve_fit([0, 1, 2, 3, 4], [0, 5, 10, 15, 20])
         assert_almost_equal(m[0], 5)
 
     def test_normalize(self):
@@ -26,11 +26,11 @@ class Test(unittest.TestCase):
     def test_nextpow2(self):
         assert_equal(self.signal_processor.nextpow2(100), 128)
 
-    def test_computeZeroPaddingValues(self):
+    def test_compute_zero_padding_values(self):
         ret_1, ret_2 = self.signal_processor.compute_zero_padding_values(128)
         assert_equal(ret_1, ret_2)
 
-    def test_filterWaveform(self):
+    def test_filter_waveform(self):
         ret_1, ret_2 = self.signal_processor.filter_waveform(np.random.rand(100),
                                                              np.random.rand(100),
                                                              np.random.randint(10) + 10,
@@ -39,8 +39,9 @@ class Test(unittest.TestCase):
         assert_false(ret_1)
         assert_is_instance(ret_2, np.ndarray)
 
-    def test_computeHR(self):
-        ret_1, ret_2, ret_3, ret_4 = self.signal_processor.compute_heart_rate(np.random.rand(100), np.random.randint(10) + 10)
+    def test_compute_heart_rate(self):
+        ret_1, ret_2, ret_3, ret_4 = self.signal_processor.compute_heart_rate(np.random.rand(100),
+                                                                              np.random.randint(10) + 10)
         assert_is_instance(ret_1, float)
         assert_is_instance(ret_2, np.ndarray)
         assert_is_instance(ret_3, np.ndarray)
