@@ -11,7 +11,6 @@ import nose
 import video
 import gui
 import Tkinter as tk
-import numpy as np
 
 from nose.tools import assert_is_instance
 

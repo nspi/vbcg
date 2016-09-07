@@ -101,7 +101,9 @@ def __store_parameters(param):
         try:
 
             # Open file
-            config_file = open('settings.ini', 'w')
+            current_location = os.path.dirname(os.path.realpath(__file__))
+            current_location_settings = current_location + os.sep + 'settings.ini'
+            config_file = open(current_location_settings, 'w')
             config = ConfigParser.ConfigParser(allow_no_value=True)
 
             # Add content
