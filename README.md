@@ -20,9 +20,9 @@ GNU GPL v3.0
 
 #### Build status
 
-Master branch&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=master)](https://travis-ci.org/nspi/vbcg)
+Master branch&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=master)](https://travis-ci.org/nspi/vbcg) [![Coverage Status](https://coveralls.io/repos/github/nspi/vbcg/badge.svg?branch=master)](https://coveralls.io/github/nspi/vbcg?branch=master)
 
-Develop branch [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=develop)](https://travis-ci.org/nspi/vbcg)
+Develop branch [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=develop)](https://travis-ci.org/nspi/vbcg) [![Coverage Status](https://coveralls.io/repos/github/nspi/vbcg/badge.svg?branch=develop)](https://coveralls.io/github/nspi/vbcg?branch=develop)
 
 #### Features
 
