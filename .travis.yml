@@ -15,7 +15,7 @@ install:
 python:
   - "2.7"
 
-script: "nosetests"
+script: "nosetests --with-coverage --cover-erase --cover-package=."
 
 notifications:
   email: false

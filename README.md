@@ -1,4 +1,4 @@
-# video-based cardiac gating (vbcg) [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=master)](https://travis-ci.org/nspi/vbcg)
+# video-based cardiac gating (vbcg) 
 
 This is a prototype demonstrating our research activities concerning *video-based vital sign monitoring*. 
 
@@ -17,6 +17,12 @@ Regarding video-based heart rate frequency estimation, there are other valuable 
 #### License
 
 GNU GPL v3.0
+
+#### Build status
+
+Master branch&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=master)](https://travis-ci.org/nspi/vbcg)
+
+Develop branch [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=develop)](https://travis-ci.org/nspi/vbcg)
 
 #### Features
 
