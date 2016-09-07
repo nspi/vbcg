@@ -10,14 +10,14 @@ str_counter = fps_counter = fps_counter2 = root = None
 
 
 class Statusbar(Tk.Frame):
-    # This statusbar shows additional information
-    # All values are updated from outside by using setters.
+    """This statusbar shows additional information. All values are updated from other threads by using setters. """
 
     def __init__(self, parent, tk_root):
 
         # Store variables
         global str_counter, fps_counter, root, fps_counter2
         self.root = tk_root
+        self.parent = parent
         self.str_counter = Tk.StringVar()
         self.fps_counter = Tk.StringVar()
         self.fps_counter2 = Tk.StringVar()
@@ -43,27 +43,27 @@ class Statusbar(Tk.Frame):
         self.text_frame.pack(side=Tk.TOP)
 
         self.label_counter_1 = Tk.Label(self.text_frame, text="Frames (displayed):")
-        #self.label_counter_1.pack(side=Tk.LEFT)
+        # self.label_counter_1.pack(side=Tk.LEFT)
 
         self.label_counter_2 = Tk.Label(self.text_frame, text=self.str_counter)
-        #self.label_counter_2.pack(side=Tk.LEFT)
+        # self.label_counter_2.pack(side=Tk.LEFT)
 
         self.label_counter_3 = Tk.Label(self.text_frame, text="        FPS Video (Top):")
-        #self.label_counter_3.pack(side=Tk.LEFT)
+        # self.label_counter_3.pack(side=Tk.LEFT)
 
         self.label_counter_4 = Tk.Label(self.text_frame, text=self.fps_counter)
-        #self.label_counter_4.pack(side=Tk.LEFT)
+        # self.label_counter_4.pack(side=Tk.LEFT)
 
         self.label_counter_5 = Tk.Label(self.text_frame, text="        FPS Signal Processing (Bottom):")
-        #self.label_counter_5.pack(side=Tk.LEFT)
+        # self.label_counter_5.pack(side=Tk.LEFT)
 
         self.label_counter_6 = Tk.Label(self.text_frame, text=self.fps_counter2)
-        #self.label_counter_6.pack(side=Tk.LEFT)
+        # self.label_counter_6.pack(side=Tk.LEFT)
 
         self.label_counter_7 = Tk.Label(self.text_frame, text="Status:")
         self.label_counter_7.pack(side=Tk.LEFT)
 
-        self.label_counter_7 = Tk.Label(self.text_frame, text=self.currentInfo, font ="Verdana 9 bold")
+        self.label_counter_7 = Tk.Label(self.text_frame, text=self.currentInfo, font="Verdana 9 bold")
         self.label_counter_7.pack(side=Tk.LEFT)
 
     def __update_values(self):
@@ -77,14 +77,18 @@ class Statusbar(Tk.Frame):
         # Repeat thread
         self.label_counter_2.after(1, self.__update_values)
 
-    def updateInfoText(self, newText):
-        self.currentInfo = newText
+    def update_info_text(self, new_text):
+        """Update text in statusbar"""
+        self.currentInfo = new_text
 
-    def setFrameCounter(self, newValue):
-        self.str_counter = str(newValue)
+    def set_frame_counter(self, new_value):
+        """Update total frame counter"""
+        self.str_counter = str(new_value)
 
-    def setFPSCounter(self, newValue):
-        self.fps_counter = str(newValue)
+    def set_fps_counter(self, new_value):
+        """Update FPS value of frame display"""
+        self.fps_counter = str(new_value)
 
-    def setFPSCounter2(self, newValue):
-        self.fps_counter2 = str(newValue)
+    def set_fps_counter2(self, new_value):
+        """Update FPS value of signal display"""
+        self.fps_counter2 = str(new_value)

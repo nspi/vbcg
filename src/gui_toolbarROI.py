@@ -21,31 +21,32 @@ class ToolbarROI(Tk.Frame):
         # Store variables
         global root
         self.root = tk_root
+        self.parent = parent
         self.x_min = self.x_max = self.y_min = self.y_max = 0
 
         # Initialize buttons
         self.textbox_x1 = self.textbox_x2 = self.textbox_y1 = self.textbox_y2 = None
 
         # Create GUI
-        self.__createGUI()
+        self.__create_gui()
 
         # Start thread that stores ROI
-        self.storeROIThread = threading.Thread(target=self.__storeROI)
-        self.storeColorThread = threading.Thread(target=self.__storeColorChannel)
+        self.storeROIThread = threading.Thread(target=self.__store_roi)
+        self.storeColorThread = threading.Thread(target=self.__store_color_channel)
         self.storeROIThread.start()
         self.storeColorThread.start()
 
-    def __createGUI(self):
+    def __create_gui(self):
         """Create GUI elements and add them to root widget"""
 
-        # Create frame that contains all folloowing elements
+        # Create frame that contains all following elements
         self.button_frame = Tk.Frame(root, width=500, height=100)
         self.button_frame.pack(side=Tk.BOTTOM)
 
         # Add Checkbutton to decide whether to use Viola-Jones algorithm or manual ROI definition
         curr_settings = settings.get_parameters()
         self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Face Detection",
-                                             command=lambda: self.__violaJones())
+                                             command=lambda: self.__enable_or_disable_viola_jones_algorithm())
         self.check_button_1.pack(side=Tk.LEFT)
 
         # Add empty box
@@ -56,17 +57,15 @@ class ToolbarROI(Tk.Frame):
         # Fill list with available cameras and add to menu
         self.label_color_channels = Tk.Label(self.button_frame, text="Color channel:")
         self.label_color_channels.pack(side=Tk.LEFT)
-        list_color_channels = ['']
-        list_color_channels.append('R')
-        list_color_channels.append('G')
-        list_color_channels.append('B')
+        list_color_channels = [' ', 'R', 'G', 'B']
         list_color_channels.pop(0)
         self.list_color_channelsStr = Tk.StringVar()
-        self.dropDownListColorChannel = Tk.OptionMenu(self.button_frame, self.list_color_channelsStr, *list_color_channels)
+        self.dropDownListColorChannel = Tk.OptionMenu(self.button_frame,
+                                                      self.list_color_channelsStr, *list_color_channels)
         self.list_color_channelsStr.set(list_color_channels[0])
         self.dropDownListColorChannel.pack(side=Tk.LEFT)
 
-        # Add Textboxes for ROI definition
+        # Add text boxes for ROI definition
         self.label_x1 = Tk.Label(self.button_frame, text="X Begin:")
         self.label_x1.pack(side=Tk.LEFT)
         self.textbox_x1 = Tk.Text(self.button_frame, width=10, height=1)
@@ -99,7 +98,7 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y1.config(bg='lightgray')
             self.textbox_y2.config(bg='lightgray')
 
-    def __violaJones(self):
+    def __enable_or_disable_viola_jones_algorithm(self):
         """Action to perform when Viola-Jones button is pressed"""
 
         # Get current parameters
@@ -119,7 +118,7 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y2.config(bg='white')
             logging.info('Viola-Jones algorithm was disabled by the user')
 
-    def __storeColorChannel(self):
+    def __store_color_channel(self):
         """ Stores the desired color channel that is used for signal processing"""
 
         chan = self.list_color_channelsStr.get()
@@ -131,9 +130,9 @@ class ToolbarROI(Tk.Frame):
         else:
             settings.change_parameter(IDX_COLORCHANNEL, 2)
 
-        self.button_frame.after(1000, lambda: self.__storeColorChannel())
+        self.button_frame.after(1000, lambda: self.__store_color_channel())
 
-    def __storeROI(self):
+    def __store_roi(self):
         """Store ROI values from textboxes when it has more than 1 symbol and it contains of numbers only"""
 
         # Get values from textboxes
@@ -167,18 +166,19 @@ class ToolbarROI(Tk.Frame):
             logging.warn("Your ROI definition was inadequate (y_min < y_max). The values were corrected.")
 
         # Repeat thread
-        self.button_frame.after(1000, lambda: self.__storeROI())
+        self.button_frame.after(1000, lambda: self.__store_roi())
 
     # Setter and getter following
 
-    def disableRGBselection(self):
+    def disable_color_channel_selection(self):
+        """Disables the button for RGB selection"""
         self.dropDownListColorChannel.config(state=Tk.DISABLED)
 
-    def getROI(self):
+    def get_roi(self):
         """Returns current ROI definition"""
         return self.x_min, self.x_max, self.y_min, self.y_max
 
-    def setROI(self, x_min, x_max, y_min, y_max):
+    def set_roi(self, x_min, x_max, y_min, y_max):
         """Sets ROI to new definition"""
         self.x_min = x_min
         self.textbox_x1.delete(1.0, Tk.END)

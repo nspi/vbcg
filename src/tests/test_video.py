@@ -24,39 +24,39 @@ class Test(unittest.TestCase):
 
     def tearDown(self):
         # Kill thread
-        self.videoThread.closeCameraThread()
+        self.videoThread.close_camera_thread()
 
     # Test more complex functions
 
     def test_setCameraIdx(self):
-        self.videoThread.setCameraIdx(5)
+        self.videoThread.set_camera_idx(5)
         assert_equal(self.videoThread.cameraIdx,5)
 
     def test_storeFramesFromDisk(self):
-        self.videoThread.storeFramesFromDisk("test/","files")
+        self.videoThread.store_frames_from_disk("test/", "files")
         assert_equal(self.videoThread.files,"files")
         assert_equal(self.videoThread.filesDir,"test/")
 
     def test_closeCameraThread(self):
         assert_false(self.videoThread.eventProgramEnd.is_set())
-        self.videoThread.closeCameraThread()
+        self.videoThread.close_camera_thread()
         assert_true(self.videoThread.eventProgramEnd.is_set())
 
     # Test simple getter
 
     def test_getEventCameraReady(self):
-        assert_is_instance(self.videoThread.getEventCameraReady(), threading._Event)
+        assert_is_instance(self.videoThread.get_event_camera_ready(), threading._Event)
 
     def test_getEventCameraChosen(self):
-        assert_is_instance(self.videoThread.getEventCameraChosen(), threading._Event)
+        assert_is_instance(self.videoThread.get_event_camera_chosen(), threading._Event)
 
     def test_getFrame(self):
-        ret_1, ret_2 = self.videoThread.getFrame()
+        ret_1, ret_2 = self.videoThread.get_frame()
         assert_false(ret_1)
         assert_is_instance(ret_2, np.ndarray)
 
     def test_getNumberOfCameras(self):
-        assert_is_instance(self.videoThread.getNumberOfCameras(), int)
+        assert_is_instance(self.videoThread.get_number_of_cameras(), int)
 
 
 if __name__ == '__main__':

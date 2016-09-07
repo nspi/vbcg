@@ -27,20 +27,20 @@ class Test(unittest.TestCase):
         assert_equal(self.signal_processor.nextpow2(100), 128)
 
     def test_computeZeroPaddingValues(self):
-        ret_1, ret_2 = self.signal_processor.computeZeroPaddingValues(128)
+        ret_1, ret_2 = self.signal_processor.compute_zero_padding_values(128)
         assert_equal(ret_1, ret_2)
 
     def test_filterWaveform(self):
-        ret_1, ret_2 = self.signal_processor.filterWaveform(np.random.rand(100),
-                                                            np.random.rand(100),
-                                                            np.random.randint(10) + 10,
-                                                            np.random.randint(10) + 10,
-                                                            0.5)
+        ret_1, ret_2 = self.signal_processor.filter_waveform(np.random.rand(100),
+                                                             np.random.rand(100),
+                                                             np.random.randint(10) + 10,
+                                                             np.random.randint(10) + 10,
+                                                             0.5)
         assert_false(ret_1)
         assert_is_instance(ret_2, np.ndarray)
 
     def test_computeHR(self):
-        ret_1, ret_2, ret_3, ret_4 = self.signal_processor.computeHR(np.random.rand(100), np.random.randint(10) + 10)
+        ret_1, ret_2, ret_3, ret_4 = self.signal_processor.compute_heart_rate(np.random.rand(100), np.random.randint(10) + 10)
         assert_is_instance(ret_1, float)
         assert_is_instance(ret_2, np.ndarray)
         assert_is_instance(ret_3, np.ndarray)

@@ -16,8 +16,8 @@ import datetime
 class GuiSignalProcessor(threading.Thread):
     """This thread is used for continuously plotting the mean signal of the video in the ROI"""
 
-    def __init__(self, tk_root, cam, figure, canvas, subplotTop, subplotBottom, statusbar,
-                 video_display, frameQueuePlot):
+    def __init__(self, tk_root, cam, figure, canvas, subplot_top, subplot_bottom, statusbar,
+                 video_display, frame_queue):
         """Initializes variables etc"""
 
         # Store camera object
@@ -29,23 +29,29 @@ class GuiSignalProcessor(threading.Thread):
         # Store figure, canvas, subplot, video_display
         self.figureInstance = figure
         self.canvasInstance = canvas
-        self.subplotInstanceTop = subplotTop
-        self.subplotInstanceBottom = subplotBottom
+        self.subplotInstanceTop = subplot_top
+        self.subplotInstanceBottom = subplot_bottom
         self.statusbarInstance = statusbar
         self.video_display = video_display
 
         # Store frame queue
-        self.frameQueue = frameQueuePlot
+        self.frameQueue = frame_queue
+
+        # Initialize variables
+        self.startTime = self.cameraActive = self.currSettings = self.dict = self.spectrumAxis = \
+            self.spectrumMax = self.valuesOutput = self.valuesOutput2 = self.realFramesAvailable =\
+            self.currentFrame = self.colorChannel = self.mean_value = self.HR = self.HRstring =\
+            self.spectrum = self.boolTrigger = self.valuesFiltered = None
 
         # Create signal processing object
         self.signalProcessingInstance = SignalProcessor()
 
         # Get current parameters
         self.settingsInstance = settings
-        self.curr_settings = self.settingsInstance.get_parameters()
+        self.currSettings = self.settingsInstance.get_parameters()
 
         # Fix FPS and length of shown signal
-        self.FPS = self.curr_settings[IDX_FPS]
+        self.FPS = self.currSettings[IDX_FPS]
         self.lengthSignal = 500
 
         # Temporary variable
@@ -59,20 +65,20 @@ class GuiSignalProcessor(threading.Thread):
         self.spectrumMax = 1                                         # For HR algorithm only: Estimated Heart Rate
 
         # Update statusbar value
-        self.statusbarInstance.updateInfoText("Please choose a camera")
+        self.statusbarInstance.update_info_text("Please choose a camera")
 
         # Configure itself as thread
         threading.Thread.__init__(self)
         self.eventProgramEnd = threading.Event()
         self.eventProgramEnd.clear()
 
-    def closeSignalPlotterThread(self):
+    def close_signal_processor_thread(self):
         """Activate event to end thread"""
         self.eventProgramEnd.set()
 
-    def __waitToAdjustFPS(self, startTime, endTime):
+    def __wait_to_adjust_fps(self, start_time, end_time):
         # Compute difference to desired FPS
-        self.diffTime = (endTime - startTime).total_seconds()
+        self.diffTime = (end_time - start_time).total_seconds()
         self.waitTime = 1.0 / self.FPS - self.diffTime
 
         # Wait the remaining to reach desired FPS
@@ -91,22 +97,22 @@ class GuiSignalProcessor(threading.Thread):
             self.startTime = datetime.datetime.now()
 
             # Get frame
-            realFramesAvailable, self.currentFrame = self.cameraInstance.getFrame()
+            self.realFramesAvailable, self.currentFrame = self.cameraInstance.get_frame()
 
             # If real frames are available, start main activity
-            if realFramesAvailable is True:
+            if self.realFramesAvailable is True:
 
                 # Get current settings
-                self.curr_settings = self.settingsInstance.get_parameters()
+                self.currSettings = self.settingsInstance.get_parameters()
 
                 if self.firstRun is True:
 
                     # Update statusbar value
-                    self.statusbarInstance.updateInfoText("Processing frames")
+                    self.statusbarInstance.update_info_text("Processing frames")
 
                     # Update FPS
-                    self.FPS = self.curr_settings[IDX_FPS]
-                    self.colorChannel = int(self.curr_settings[IDX_COLORCHANNEL])
+                    self.FPS = self.currSettings[IDX_FPS]
+                    self.colorChannel = int(self.currSettings[IDX_COLORCHANNEL])
 
                     self.firstRun = False
 
@@ -120,29 +126,29 @@ class GuiSignalProcessor(threading.Thread):
                 if np.size(self.valuesRaw) >= self.lengthSignal:
 
                     # Perform algorithms depending on user selection
-                    if self.curr_settings[IDX_ALGORITHM] == 0:
+                    if self.currSettings[IDX_ALGORITHM] == 0:
 
                         # Compute algorithm
                         self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = \
-                            self.signalProcessingInstance.computeHR(self.valuesRaw, self.FPS)
+                            self.signalProcessingInstance.compute_heart_rate(self.valuesRaw, self.FPS)
 
                         # Store heart rate value
                         self.HRstring = str(self.HR)
-                        self.video_display.set_HeartRateText(self.HRstring[0:self.HRstring.find('.')])
+                        self.video_display.set_heart_rate_text(self.HRstring[0:self.HRstring.find('.')])
 
                         # Normalize signals for display
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
                         self.valuesOutput2 = self.signalProcessingInstance.normalize(self.spectrum)
 
-                    elif self.curr_settings[IDX_ALGORITHM] == 1:
+                    elif self.currSettings[IDX_ALGORITHM] == 1:
 
                         # Compute algorithm
                         self.boolTrigger, self.valuesFiltered = \
-                            self.signalProcessingInstance.filterWaveform(self.valuesRaw, self.valuesOutput2, 9, 3, 0.5)
+                            self.signalProcessingInstance.filter_waveform(self.valuesRaw, self.valuesOutput2, 9, 3, 0.5)
 
                         # Send trigger
                         if self.boolTrigger is True:
-                            self.video_display.displayHeartTrigger()
+                            self.video_display.display_heart_trigger()
 
                         # Normalize signals for display
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
@@ -153,20 +159,20 @@ class GuiSignalProcessor(threading.Thread):
                     mask[0:np.size(self.valuesRaw) - self.lengthSignal] = False
                     self.valuesRaw = self.valuesRaw[mask]
                     self.valuesOutput = self.valuesOutput[mask]
-                    if self.curr_settings[IDX_ALGORITHM] == 1:
+                    if self.currSettings[IDX_ALGORITHM] == 1:
                         self.valuesOutput2 = self.valuesOutput2[mask]
 
                 # Store data in dictionary
-                if self.curr_settings[IDX_ALGORITHM] == 0:
+                if self.currSettings[IDX_ALGORITHM] == 0:
                     self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2,
                                  'spectrumAxis': self.spectrumAxis, 'spectrumMax': self.spectrumMax}
-                elif self.curr_settings[IDX_ALGORITHM] == 1:
+                elif self.currSettings[IDX_ALGORITHM] == 1:
                     self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2}
 
                 # Put dictionary in queue
                 self.frameQueue.put(self.dict)
 
             # Wait and start from beginning of thread
-            self.__waitToAdjustFPS(self.startTime, datetime.datetime.now())
+            self.__wait_to_adjust_fps(self.startTime, datetime.datetime.now())
 
         logging.info("Reached end of signal processing thread")

@@ -12,10 +12,10 @@ import datetime
 
 
 class GuiSignalPlotter(threading.Thread):
-    """This thread is used for continously plotting the signal in the ROI"""
+    """This thread is used for continuously plotting the signal in the ROI"""
 
-    def __init__(self, tk_root, cam, figure, canvas, subplotTop, subplotBottom, statusbar,
-                 video_display, frameQueuePlot):
+    def __init__(self, tk_root, cam, figure, canvas, subplot_top, subplot_bottom, statusbar,
+                 video_display, frame_queue):
         """Initializes variables etc"""
 
         # Store camera object
@@ -27,13 +27,17 @@ class GuiSignalPlotter(threading.Thread):
         # Store figure, canvas, subplot, video_display
         self.figureInstance = figure
         self.canvasInstance = canvas
-        self.subplotInstanceTop = subplotTop
-        self.subplotInstanceBottom = subplotBottom
+        self.subplotInstanceTop = subplot_top
+        self.subplotInstanceBottom = subplot_bottom
         self.statusbarInstance = statusbar
         self.video_display = video_display
 
         # Store frame queue
-        self.frameQueue = frameQueuePlot
+        self.frameQueue = frame_queue
+
+        # Initialize variables
+        self.startTime = self.cameraActive = self.currSettings = self.dict = self.spectrumAxis = \
+            self.spectrumMax = self.valuesOutput = self.valuesOutput2 = None
 
         # Get current settings instance
         self.settingsInstance = settings
@@ -43,16 +47,12 @@ class GuiSignalPlotter(threading.Thread):
         self.eventProgramEnd = threading.Event()
         self.eventProgramEnd.clear()
 
-    def closeSignalPlotterThread(self):
+    def close_signal_plotter_thread(self):
         """Activate event to end thread"""
         self.eventProgramEnd.set()
 
     def run(self):
         """The main functionality of the thread: The signal is obtained and plotted as fast as possible (no waiting)"""
-
-        # Todo: Fix rare error:
-        # self.spectrumAxis = self.dict['spectrumAxis']
-        # KeyError: 'spectrumAxis'
 
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
@@ -61,10 +61,10 @@ class GuiSignalPlotter(threading.Thread):
             self.startTime = datetime.datetime.now()
 
             # Get camera event
-            self.cameraActive = self.cameraInstance.getEventCameraReady()
+            self.cameraActive = self.cameraInstance.get_event_camera_ready()
 
             # Get current options
-            self.curr_settings = self.settingsInstance.get_parameters()
+            self.currSettings = self.settingsInstance.get_parameters()
 
             # Get dictionary from queue
             if self.frameQueue.empty() is False:
@@ -72,7 +72,7 @@ class GuiSignalPlotter(threading.Thread):
                 self.dict = self.frameQueue.get()
 
                 # Get data from dictionary
-                if self.curr_settings[IDX_ALGORITHM] == 0:
+                if self.currSettings[IDX_ALGORITHM] == 0:
                     try:
                         self.valuesOutput = self.dict['valuesOutput']
                         self.valuesOutput2 = self.dict['valuesOutput2']
@@ -83,21 +83,21 @@ class GuiSignalPlotter(threading.Thread):
                         self.valuesOutput = self.dict['valuesOutput']
                         self.valuesOutput2 = self.dict['valuesOutput2']
 
-                elif self.curr_settings[IDX_ALGORITHM] == 1:
+                elif self.currSettings[IDX_ALGORITHM] == 1:
                     self.valuesOutput = self.dict['valuesOutput']
                     self.valuesOutput2 = self.dict['valuesOutput2']
 
                 try:
 
                     # If camera available and the user enabled the option, plot signal
-                    if self.cameraActive.is_set() and self.curr_settings[IDX_CURVES]:
+                    if self.cameraActive.is_set() and self.currSettings[IDX_CURVES]:
 
                         # Clear subplot
                         self.subplotInstanceTop.clear()
                         self.subplotInstanceBottom.clear()
 
                         # Plot results based on algorithm
-                        if self.curr_settings[IDX_ALGORITHM] == 0:
+                        if self.currSettings[IDX_ALGORITHM] == 0:
 
                             self.subplotInstanceTop.plot(self.valuesOutput)
                             self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
@@ -115,7 +115,7 @@ class GuiSignalPlotter(threading.Thread):
                                                                "Maximum value"], fontsize=9)
                             self.subplotInstanceBottom.set_xlabel('Hz')
 
-                        elif self.curr_settings[IDX_ALGORITHM] == 1:
+                        elif self.currSettings[IDX_ALGORITHM] == 1:
 
                             self.subplotInstanceTop.plot(self.valuesOutput)
                             self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
