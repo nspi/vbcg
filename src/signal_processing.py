@@ -119,7 +119,7 @@ class SignalProcessor:
         if curr_settings[IDX_ZERO_PADDING]:
 
             # Compute next power of 2 from N
-            next_n = self.nextpow2(self.nextpow2(self.nextpow2(n)))
+            next_n = self.nextpow2(self.nextpow2(n))
 
             # Zero padding: Fill before and after signal with zeros
             number_before, number_after = self.compute_zero_padding_values(next_n - n)

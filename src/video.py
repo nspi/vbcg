@@ -235,7 +235,7 @@ class VideoThread(threading.Thread):
         return self.numberOfCameras
 
     def get_event_camera_ready(self):
-        """ Getter for eventUserPressedStart"""
+        """ Getter for eventVideoReady"""
         return self.eventVideoReady
 
     def get_event_camera_chosen(self):

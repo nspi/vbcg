@@ -7,6 +7,7 @@ import io
 import numpy as np
 import logging
 import os
+import sys
 
 # Standard parameters if no settings.ini is available
 std_param = [1, 1, 0, 1, 0, 0, 30, 1, 1]
@@ -147,3 +148,10 @@ def __store_parameters(param):
             logging.warn("Writing to settings.ini was not successful. Trying again.")
 
     return 0
+
+def determine_if_under_testing():
+    """This function returns true is we are currently using nosetests. This is required for testing of the GUI"""
+    if 'nose' in sys.modules.keys():
+        return True
+    else:
+        return False

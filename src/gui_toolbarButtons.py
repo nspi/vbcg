@@ -75,8 +75,9 @@ class ToolbarButtons(Tk.Frame):
         logging.debug(threading.enumerate())
 
         # Exit program
-        logging.info("Program will halt now...")
-        sys.exit()
+        if settings.determine_if_under_testing() is False:
+            logging.info("Program will halt now...")
+            sys.exit()
 
     def __init__(self, parent, tk_root, thread, cam, signal_display):
 
