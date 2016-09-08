@@ -12,7 +12,6 @@ import video
 import gui
 import Tkinter as tk
 import settings
-import time
 
 from defines import *
 from nose.tools import assert_is_instance, assert_equal, assert_true, assert_not_equal
