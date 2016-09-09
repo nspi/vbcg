@@ -41,6 +41,8 @@ class Test(unittest.TestCase):
         print "Create gui thread"
         print datetime.datetime.now()
         self.guiThread = gui.GUI()
+        print "Start gui thread"
+        print datetime.datetime.now()
         self.guiThread.start(self.videoThread)
 
         # Get window

@@ -16,6 +16,7 @@ import numpy as np
 import Tkinter as Tk
 import logging
 import settings
+import datetime
 
 # Create root widget
 root = Tk.Tk()
@@ -29,16 +30,25 @@ class GUI(object):
 
     def start(self, video_thread):
         """Create GUI"""
+        print "Entered start()"
+        print datetime.datetime.now()
 
         # Store camera thread
+        print "Store camera thread"
+        print datetime.datetime.now()
         self.cameraThread = video_thread
         logging.info("Link to thread that delivers video frames was stored in GUI thread")
 
         # Create Window
+        print "Create main window"
+        print datetime.datetime.now()
         self.main_window = MainWindow(self, self.cameraThread)
         logging.info('Main window was created')
 
         # If we are under windows, we need an OpenCV window so that waitKey() works...
+        print "Check if under windows"
+        print datetime.datetime.now()
+
         if platform == "win32":
             img = np.zeros((150, 600, 3), np.uint8)
             cv2.putText(img, 'Please do not close this window', (10, 50),
@@ -49,9 +59,17 @@ class GUI(object):
             cv2.imshow("win", img)
 
         # Start Tkinter thread
+        print "Check if in testing"
+        print datetime.datetime.now()
         if settings.determine_if_under_testing() is False:
+            print "This should not appear when using tests"
+            print datetime.datetime.now()
             logging.info('Starting TkInter main loop')
             root.mainloop()
+
+        print "reached end of start()"
+        print datetime.datetime.now()
+
 
     def get_window(self):
         """Returns the main window"""
