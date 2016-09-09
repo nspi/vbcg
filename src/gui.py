@@ -18,15 +18,17 @@ import logging
 import settings
 import datetime
 
-# Create root widget
-root = Tk.Tk()
-
-# Set title in navigation bar
-root.wm_title("vbcg " + str(__version__))
-
 
 class GUI(object):
     """This is the main class of the gui. Here, we use Tkinter for thread management"""
+
+    def __init__(self):
+
+        # Create root widget
+        self.root = Tk.Tk()
+
+        # Set title in navigation bar
+        self.root.wm_title("vbcg " + str(__version__))
 
     def start(self, video_thread):
         """Create GUI"""
@@ -42,7 +44,7 @@ class GUI(object):
         # Create Window
         print "Create main window"
         print datetime.datetime.now()
-        self.main_window = MainWindow(self, self.cameraThread)
+        self.main_window = MainWindow(self, self.cameraThread, self.root)
         logging.info('Main window was created')
 
         # If we are under windows, we need an OpenCV window so that waitKey() works...
@@ -65,7 +67,7 @@ class GUI(object):
             print "This should not appear when using tests"
             print datetime.datetime.now()
             logging.info('Starting TkInter main loop')
-            root.mainloop()
+            self.root.mainloop()
 
         print "reached end of start()"
         print datetime.datetime.now()
@@ -78,14 +80,16 @@ class GUI(object):
     def clear(self):
         """Deletes main window and then quits Tkinter mainloop()"""
         self.main_window.clear()
-        root.quit()
-        root.destroy()
+        self.root.quit()
+        self.root.destroy()
 
 
 class MainWindow(object):
     """This class contains all GUI elements of the main window"""
 
-    def __init__(self, gui_thread, video_thread):
+    def __init__(self, gui_thread, video_thread, root):
+
+        self.root = root
 
         self.statusbar = Statusbar(self, root)
         logging.info('Created status bar')
@@ -132,7 +136,6 @@ class MainWindow(object):
         """"Returns signal display window"""
         return self.signal_display
 
-    @staticmethod
-    def get_root():
+    def get_root(self):
         """Return Tkinter root widget"""
-        return root
+        return self.root

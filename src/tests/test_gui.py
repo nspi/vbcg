@@ -14,6 +14,7 @@ import Tkinter as tk
 import settings
 import time
 import datetime
+import threading
 
 from defines import *
 from nose.tools import assert_is_instance, assert_equal, assert_true, assert_not_equal, assert_dict_contains_subset
@@ -21,7 +22,8 @@ from nose.tools import assert_is_instance, assert_equal, assert_true, assert_not
 
 class Test(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         """ Initialize GUI and GUI elements """
         print "Start setUp"
         print datetime.datetime.now()
@@ -35,7 +37,6 @@ class Test(unittest.TestCase):
         # Reload gui module (because of global Tk.Tk())
         print "Reload gui.py"
         print datetime.datetime.now()
-        reload(gui)
 
         # Create GUI
         print "Create gui thread"
@@ -62,7 +63,8 @@ class Test(unittest.TestCase):
         print "Starting test"
         print datetime.datetime.now()
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(self):
         """Destroy GUI"""
 
         print "Test has ended, starting teardown"
@@ -73,9 +75,11 @@ class Test(unittest.TestCase):
         self.guiThread.clear()
         self.videoThread.close_camera_thread()
 
+        print "printing list of threads"
+        print threading.enumerate()
+
         print "teardown has ended. "
         print datetime.datetime.now()
-
     # gui_windowVideo.py
 
     def test_gui_VideoDisplay_get_frame_counter(self):
