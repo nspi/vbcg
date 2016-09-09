@@ -13,6 +13,7 @@ import gui
 import Tkinter as tk
 import settings
 import time
+import datetime
 
 from defines import *
 from nose.tools import assert_is_instance, assert_equal, assert_true, assert_not_equal, assert_dict_contains_subset
@@ -22,35 +23,56 @@ class Test(unittest.TestCase):
 
     def setUp(self):
         """ Initialize GUI and GUI elements """
+        print "Start setUp"
+        print datetime.datetime.now()
 
         # Create video thread
+        print "Starting video thread"
+        print datetime.datetime.now()
         self.videoThread = video.VideoThread()
         self.videoThread.start()
 
         # Reload gui module (because of global Tk.Tk())
+        print "Reload gui.py"
+        print datetime.datetime.now()
         reload(gui)
 
         # Create GUI
+        print "Create gui thread"
+        print datetime.datetime.now()
         self.guiThread = gui.GUI()
         self.guiThread.start(self.videoThread)
 
         # Get window
+        print "Get main window"
+        print datetime.datetime.now()
         self.mainWindow = self.guiThread.get_window()
 
         # Get GUI elements
+        print "Get gui elements"
+        print datetime.datetime.now()
         self.toolbar_roi = self.mainWindow.get_toolbar_roi()
         self.toolbar_buttons = self.mainWindow.get_toolbar_buttons()
         self.statusbar = self.mainWindow.get_statusbar()
         self.winSignal = self.mainWindow.get_signal_display()
         self.winVideo = self.mainWindow.get_video_display()
 
+        print "Starting test"
+        print datetime.datetime.now()
+
     def tearDown(self):
         """Destroy GUI"""
+
+        print "Test has ended, starting teardown"
+        print datetime.datetime.now()
 
         # Close threads
         self.winSignal.closeThreads()
         self.guiThread.clear()
         self.videoThread.close_camera_thread()
+
+        print "teardown has ended. "
+        print datetime.datetime.now()
 
     # gui_windowVideo.py
 
