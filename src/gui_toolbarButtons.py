@@ -187,6 +187,9 @@ class ToolbarButtons(Tk.Frame):
         self.button_start = Tk.Button(master=self.button_frame, text='Start', command=self.__start)
         self.button_start.pack(side=Tk.RIGHT)
 
+    def clear(self):
+        self.button_frame.destroy()
+
     def __change_algorithm(self):
         if self.dropDownListAlgorithm.cget("text") == "Estimate Heart rate":
             settings.change_parameter(IDX_ALGORITHM, 0)

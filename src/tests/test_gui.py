@@ -12,49 +12,45 @@ import video
 import gui
 import Tkinter as tk
 import settings
+import time
 
 from defines import *
-from nose.tools import assert_is_instance, assert_equal, assert_true, assert_not_equal
+from nose.tools import assert_is_instance, assert_equal, assert_true, assert_not_equal, assert_dict_contains_subset
 
 
 class Test(unittest.TestCase):
 
-    @classmethod
-    def setUpClass(self):
+    def setUp(self):
         """ Initialize GUI and GUI elements """
 
-        print 1
         # Create video thread
         self.videoThread = video.VideoThread()
         self.videoThread.start()
-        print 2
+
+        # Reload gui module (because of global Tk.Tk())
+        reload(gui)
+
         # Create GUI
         self.guiThread = gui.GUI()
-        self.mainWindow = gui.MainWindow(self.guiThread, self.videoThread)
-        print 3
-        # Get TK root widget
-        self.root = self.mainWindow.get_root()
-        print 4
-        # Obtain GUI elements
+        self.guiThread.start(self.videoThread)
+
+        # Get window
+        self.mainWindow = self.guiThread.get_window()
+
+        # Get GUI elements
         self.toolbar_roi = self.mainWindow.get_toolbar_roi()
         self.toolbar_buttons = self.mainWindow.get_toolbar_buttons()
         self.statusbar = self.mainWindow.get_statusbar()
         self.winSignal = self.mainWindow.get_signal_display()
         self.winVideo = self.mainWindow.get_video_display()
 
-    @classmethod
-    def tearDownClass(self):
+    def tearDown(self):
         """Destroy GUI"""
-        print 5
-        # Close threads
-        self.videoThread.close_camera_thread()
-        self.winSignal.closeThreads()
-        print 6
-        # Close root widget
-        self.root.quit()
-        self.root.destroy()
-        print 7
 
+        # Close threads
+        self.winSignal.closeThreads()
+        self.guiThread.clear()
+        self.videoThread.close_camera_thread()
 
     # gui_windowVideo.py
 
@@ -72,8 +68,6 @@ class Test(unittest.TestCase):
         """ Check if event can be set"""
         self.winVideo.display_heart_trigger()
         assert_true(self.winVideo.eventShowTrigger.is_set())
-
-
 
     # gui_toolbarButtons.py
 
@@ -103,8 +97,6 @@ class Test(unittest.TestCase):
         """Check if activation of quit button has an effect"""
         self.toolbar_buttons._ToolbarButtons__quit()
         assert_true(self.toolbar_buttons.cameraInstance.eventProgramEnd.is_set())
-
-
 
     # gui_toolbarROI.py
 
@@ -167,6 +159,85 @@ class Test(unittest.TestCase):
         # Compare
         assert_not_equal(before, after)
 
+    def test_gui_signalProcessor(self):
+        """Check if output of gui_signalProcessor.py contains correct dictionary"""
+
+        # Store old FPS
+        self.curr_settings = settings.get_parameters()
+        self.fps_backup = self.curr_settings[IDX_FPS]
+
+        # Adjust to FPS of test video
+        settings.change_parameter(IDX_FPS, 25)
+
+        # Store frame location in video thread
+        file_names = ["1.jpg"]
+        for num in range(2, 1000):
+            file_names.append(str(num) + ".jpg")
+        self.videoThread.store_frames_from_disk("tests/test_frames", file_names)
+
+        # Activate video thread
+        self.videoThread.eventVideoReady.set()
+        self.videoThread.eventUserPressedStart.set()
+
+        # Get signal processor
+        signal_processor = self.winSignal.get_signal_processor()
+
+        # Wait
+        time.sleep(1)
+
+        # Get dict
+        current_dictionary = signal_processor.dict
+
+        # Get current options
+        self.currSettings = settings.get_parameters()
+
+        # Compare returned value to expected value
+        if self.currSettings[IDX_ALGORITHM] == 0:
+            expected_dictionary = {'valuesOutput': 1, 'valuesOutput2': 1, 'spectrumAxis': 1, 'spectrumMax': 1}
+            self.assertEquals(expected_dictionary.keys(), current_dictionary.keys())
+        elif self.currSettings[IDX_ALGORITHM] == 1:
+            expected_dictionary = {'valuesOutput': 1, 'valuesOutput2': 1}
+            self.assertEquals(expected_dictionary.keys(), current_dictionary.keys())
+        else:
+            assert False
+
+        # Restore old FPS
+        settings.change_parameter(IDX_FPS, self.fps_backup)
+
+    def test_gui_signalPlotter(self):
+        """Check if gui_signalPlotter.py gets dict values from gui_signalProcessor"""
+
+        # Store old FPS
+        self.curr_settings = settings.get_parameters()
+        self.fps_backup = self.curr_settings[IDX_FPS]
+
+        # Adjust to FPS of test video
+        settings.change_parameter(IDX_FPS, 25)
+
+        # Store frame location in video thread
+        file_names = ["1.jpg"]
+        for num in range(2, 1000):
+            file_names.append(str(num) + ".jpg")
+        self.videoThread.store_frames_from_disk("tests/test_frames", file_names)
+
+        # Activate video thread
+        self.videoThread.eventVideoReady.set()
+        self.videoThread.eventUserPressedStart.set()
+
+        # Get signal plotter
+        signal_plotter = self.winSignal.get_signal_plotter()
+
+        # Wait
+        time.sleep(10)
+
+        # Check if dict contains values
+        if signal_plotter.valuesOutput is not None:
+            assert True
+        else:
+            assert False
+
+        # Restore old FPS
+        settings.change_parameter(IDX_FPS, self.fps_backup)
 
     # Test simple getter
 
@@ -186,8 +257,7 @@ class Test(unittest.TestCase):
         assert_is_instance(self.winSignal, gui.WindowSignal)
 
     def test_gui_Root(self):
-        assert_is_instance(self.root, tk.Tk)
-
+        assert_is_instance(self.mainWindow.get_root(), tk.Tk)
 
 if __name__ == '__main__':
     nose.main()

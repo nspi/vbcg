@@ -74,25 +74,29 @@ class ToolbarROI(Tk.Frame):
         self.label_x1.pack(side=Tk.LEFT)
         self.textbox_x1 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_x1.pack(side=Tk.LEFT)
-        self.textbox_x1.insert(Tk.END, self.x_min)
+        if settings.determine_if_under_testing() is False:
+            self.textbox_x1.insert(Tk.END, self.x_min)
 
         self.label_x2 = Tk.Label(self.button_frame, text="X End:")
         self.label_x2.pack(side=Tk.LEFT)
         self.textbox_x2 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_x2.pack(side=Tk.LEFT)
-        self.textbox_x2.insert(Tk.END, self.x_max)
+        if settings.determine_if_under_testing() is False:
+            self.textbox_x2.insert(Tk.END, self.x_max)
 
         self.label_y1 = Tk.Label(self.button_frame, text="Y Begin:")
         self.label_y1.pack(side=Tk.LEFT)
         self.textbox_y1 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_y1.pack(side=Tk.LEFT)
-        self.textbox_y1.insert(Tk.END, self.y_min)
+        if settings.determine_if_under_testing() is False:
+            self.textbox_y1.insert(Tk.END, self.y_min)
 
         self.label_y2 = Tk.Label(self.button_frame, text="Y End:")
         self.label_y2.pack(side=Tk.LEFT)
         self.textbox_y2 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_y2.pack(side=Tk.LEFT)
-        self.textbox_y2.insert(Tk.END, self.y_max)
+        if settings.determine_if_under_testing() is False:
+            self.textbox_y2.insert(Tk.END, self.y_max)
 
         # Add empty box
         self.label_x0 = Tk.Label(self.button_frame, text="  ")
@@ -109,6 +113,9 @@ class ToolbarROI(Tk.Frame):
             self.textbox_x2.config(bg='lightgray')
             self.textbox_y1.config(bg='lightgray')
             self.textbox_y2.config(bg='lightgray')
+
+    def clear(self):
+        self.button_frame.destroy()
 
     def __enable_or_disable_viola_jones_algorithm(self):
         """Action to perform when Viola-Jones button is pressed"""
