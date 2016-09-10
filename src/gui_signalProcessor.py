@@ -41,7 +41,7 @@ class GuiSignalProcessor(threading.Thread):
         self.startTime = self.cameraActive = self.currSettings = self.dict = self.spectrumAxis = \
             self.spectrumMax = self.valuesOutput = self.valuesOutput2 = self.realFramesAvailable =\
             self.currentFrame = self.colorChannel = self.mean_value = self.HR = self.HRstring =\
-            self.spectrum = self.boolTrigger = self.valuesFiltered = None
+            self.spectrum = self.show_trigger_symbol = self.valuesFiltered = None
 
         # Create signal processing object
         self.signalProcessingInstance = SignalProcessor()
@@ -65,7 +65,7 @@ class GuiSignalProcessor(threading.Thread):
         self.spectrumMax = 1                                         # For HR algorithm only: Estimated Heart Rate
 
         # Update statusbar value
-        self.statusbarInstance.update_info_text("Please choose a camera")
+        self.statusbarInstance.update_info_text("Please choose a camera or folder containing frames")
 
         # Configure itself as thread
         threading.Thread.__init__(self)
@@ -74,6 +74,7 @@ class GuiSignalProcessor(threading.Thread):
 
     def close_signal_processor_thread(self):
         """Activate event to end thread"""
+        self.signalProcessingInstance.clear()
         self.eventProgramEnd.set()
 
     def __wait_to_adjust_fps(self, start_time, end_time):
@@ -143,16 +144,26 @@ class GuiSignalProcessor(threading.Thread):
                     elif self.currSettings[IDX_ALGORITHM] == 1:
 
                         # Compute algorithm
-                        self.boolTrigger, self.valuesFiltered = \
+                        self.show_trigger_symbol, self.valuesFiltered = \
                             self.signalProcessingInstance.filter_waveform(self.valuesRaw, self.valuesOutput2, 9, 3, 0.5)
 
-                        # Send trigger
-                        if self.boolTrigger is True:
+                        # Show symbol
+                        if self.show_trigger_symbol is True:
                             self.video_display.display_heart_trigger()
 
                         # Normalize signals for display
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
                         self.valuesOutput2 = self.valuesFiltered
+
+                    elif self.currSettings[IDX_ALGORITHM] == 2:
+
+                        # Compute algorithm
+                        self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = self.signalProcessingInstance.\
+                            estimate_trigger(self.valuesRaw, self.FPS)
+
+                        # Normalize signals for display
+                        self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
+                        self.valuesOutput2 = self.signalProcessingInstance.normalize(self.spectrum)
 
                     # Delete data points to maintain self.lengthSignal values
                     mask = np.ones(len(self.valuesRaw), dtype=bool)
@@ -168,7 +179,9 @@ class GuiSignalProcessor(threading.Thread):
                                  'spectrumAxis': self.spectrumAxis, 'spectrumMax': self.spectrumMax}
                 elif self.currSettings[IDX_ALGORITHM] == 1:
                     self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2}
-
+                elif self.currSettings[IDX_ALGORITHM] == 2:
+                    self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2,
+                                 'spectrumAxis': self.spectrumAxis, 'spectrumMax': self.spectrumMax}
                 # Put dictionary in queue
                 self.frameQueue.put(self.dict)
 

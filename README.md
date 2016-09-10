@@ -69,7 +69,7 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 
 #### Compatibility
 
-The current development branch is tested on Ubuntu 14.04 (and on Ubuntu 12.04 using [Travis-CI](https://travis-ci.org/nspi/vbcg)). The current master branch is additionally tested on Windows 7. 
+The current development branch is tested on Ubuntu 14.04 (and on Ubuntu 12.04 using [Travis-CI](https://travis-ci.org/nspi/vbcg)). The current master branch is additionally tested on Windows 7 but is far more unstable.
 
 ## Available data
 | Information   								  | FPS | Duration | Resolution | Download 	    |

@@ -66,6 +66,9 @@ class Statusbar(Tk.Frame):
         self.label_counter_7 = Tk.Label(self.text_frame, text=self.currentInfo, font="Verdana 9 bold")
         self.label_counter_7.pack(side=Tk.LEFT)
 
+    def clear(self):
+        self.text_frame.destroy()
+
     def __update_values(self):
 
         # Store new values in labels

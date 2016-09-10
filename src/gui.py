@@ -15,16 +15,19 @@ import cv2
 import numpy as np
 import Tkinter as Tk
 import logging
-
-# Create root widget
-root = Tk.Tk()
-
-# Set title in navigation bar
-root.wm_title("vbcg " + str(__version__))
+import settings
 
 
 class GUI(object):
     """This is the main class of the gui. Here, we use Tkinter for thread management"""
+
+    def __init__(self):
+
+        # Create root widget
+        self.root = Tk.Tk()
+
+        # Set title in navigation bar
+        self.root.wm_title("vbcg " + str(__version__))
 
     def start(self, video_thread):
         """Create GUI"""
@@ -34,7 +37,7 @@ class GUI(object):
         logging.info("Link to thread that delivers video frames was stored in GUI thread")
 
         # Create Window
-        MainWindow(self, self.cameraThread)
+        self.main_window = MainWindow(self, self.cameraThread, self.root)
         logging.info('Main window was created')
 
         # If we are under windows, we need an OpenCV window so that waitKey() works...
@@ -48,14 +51,27 @@ class GUI(object):
             cv2.imshow("win", img)
 
         # Start Tkinter thread
-        logging.info('Starting TkInter main loop')
-        root.mainloop()
+        if settings.determine_if_under_testing() is False:
+            logging.info('Starting TkInter main loop')
+            self.root.mainloop()
+
+    def get_window(self):
+        """Returns the main window"""
+        return self.main_window
+
+    def clear(self):
+        """Deletes main window and then quits Tkinter mainloop()"""
+        self.main_window.clear()
+        self.root.quit()
+        self.root.destroy()
 
 
 class MainWindow(object):
     """This class contains all GUI elements of the main window"""
 
-    def __init__(self, gui_thread, video_thread):
+    def __init__(self, gui_thread, video_thread, root):
+
+        self.root = root
 
         self.statusbar = Statusbar(self, root)
         logging.info('Created status bar')
@@ -71,6 +87,14 @@ class MainWindow(object):
 
         self.toolbar_buttons = ToolbarButtons(self, root, gui_thread, video_thread, self.signal_display)
         logging.info('Created toolbar with buttons')
+
+    def clear(self):
+        """"Delete all GUI elements"""
+        self.statusbar.clear()
+        self.toolbar_buttons.clear()
+        self.toolbar_roi.clear()
+        self.video_display.clear()
+        self.signal_display.clear()
 
     # Getter (for unit tests only)
 
@@ -94,7 +118,6 @@ class MainWindow(object):
         """"Returns signal display window"""
         return self.signal_display
 
-    @staticmethod
-    def get_root():
+    def get_root(self):
         """Return Tkinter root widget"""
-        return root
+        return self.root

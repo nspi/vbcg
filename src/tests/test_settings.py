@@ -9,7 +9,7 @@ import numpy as np
 
 from defines import *
 
-from nose.tools import assert_equal, assert_not_equal
+from nose.tools import assert_equal, assert_not_equal, assert_true
 
 
 class Test(unittest.TestCase):
@@ -43,12 +43,8 @@ class Test(unittest.TestCase):
         # Get current value
         curr_value = self.curr_settings[IDX_FPS]
 
-        print settings.get_parameters()
-
         # Change parameter in settings
         settings.change_parameter(IDX_FPS, curr_value+1)
-
-        print settings.get_parameters()
 
         # Check if both are equal
         assert_not_equal(np.count_nonzero(self.curr_settings - settings.get_parameters()), 0)
@@ -56,6 +52,8 @@ class Test(unittest.TestCase):
         # Change parameter in settings
         settings.change_parameter(IDX_FPS, curr_value+1)
 
+    def test_determine_if_under_testing(self):
+        assert_true(settings.determine_if_under_testing)
 
 if __name__ == '__main__':
     nose.main()

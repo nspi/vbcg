@@ -16,7 +16,7 @@ install:
 python:
   - "2.7"
 
-script: "nosetests --with-coverage --cover-erase --cover-package=."
+script: "nosetests --nocapture -v --with-coverage --cover-erase --cover-package=."
 
 after_success:
   - coveralls

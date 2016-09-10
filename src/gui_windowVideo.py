@@ -81,6 +81,9 @@ class WindowVideo(Tk.Frame):
         self.lmain = Tk.Label(self.video_frame)
         self.lmain.pack()
 
+    def clear(self):
+        self.video_frame.destroy()
+
     def __show_image(self):
         """Get frame from camera and display it"""
 
@@ -94,7 +97,7 @@ class WindowVideo(Tk.Frame):
         if self.isTrueFrame & self.first_frame:
 
             # Disable RGB selection button
-            self.roiToolbarInstance.disable_color_channel_selection()
+            self.roiToolbarInstance.disable_color_channel_selection_and_options()
 
             # If first frame from camera is received store dimensions
             x_max = np.size(self.frame, 0)
@@ -165,10 +168,11 @@ class WindowVideo(Tk.Frame):
                     self.eventShowTrigger.clear()
 
         # Display frame
-        self.frameConverted = Image.fromarray(self.frame)
-        self.imgTK = ImageTk.PhotoImage(image=self.frameConverted)
-        self.lmain.imgtk = self.imgTK
-        self.lmain.configure(image=self.imgTK)
+        if settings.determine_if_under_testing() is False:
+            self.frameConverted = Image.fromarray(self.frame)
+            self.imgTK = ImageTk.PhotoImage(image=self.frameConverted)
+            self.lmain.imgtk = self.imgTK
+            self.lmain.configure(image=self.imgTK)
 
         # Update values in statusbar
         self.statusbarInstance.set_frame_counter(self.get_frame_counter())

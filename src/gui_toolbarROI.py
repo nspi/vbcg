@@ -74,25 +74,29 @@ class ToolbarROI(Tk.Frame):
         self.label_x1.pack(side=Tk.LEFT)
         self.textbox_x1 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_x1.pack(side=Tk.LEFT)
-        self.textbox_x1.insert(Tk.END, self.x_min)
+        if settings.determine_if_under_testing() is False:
+            self.textbox_x1.insert(Tk.END, self.x_min)
 
         self.label_x2 = Tk.Label(self.button_frame, text="X End:")
         self.label_x2.pack(side=Tk.LEFT)
         self.textbox_x2 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_x2.pack(side=Tk.LEFT)
-        self.textbox_x2.insert(Tk.END, self.x_max)
+        if settings.determine_if_under_testing() is False:
+            self.textbox_x2.insert(Tk.END, self.x_max)
 
         self.label_y1 = Tk.Label(self.button_frame, text="Y Begin:")
         self.label_y1.pack(side=Tk.LEFT)
         self.textbox_y1 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_y1.pack(side=Tk.LEFT)
-        self.textbox_y1.insert(Tk.END, self.y_min)
+        if settings.determine_if_under_testing() is False:
+            self.textbox_y1.insert(Tk.END, self.y_min)
 
         self.label_y2 = Tk.Label(self.button_frame, text="Y End:")
         self.label_y2.pack(side=Tk.LEFT)
         self.textbox_y2 = Tk.Text(self.button_frame, width=6, height=1)
         self.textbox_y2.pack(side=Tk.LEFT)
-        self.textbox_y2.insert(Tk.END, self.y_max)
+        if settings.determine_if_under_testing() is False:
+            self.textbox_y2.insert(Tk.END, self.y_max)
 
         # Add empty box
         self.label_x0 = Tk.Label(self.button_frame, text="  ")
@@ -109,6 +113,9 @@ class ToolbarROI(Tk.Frame):
             self.textbox_x2.config(bg='lightgray')
             self.textbox_y1.config(bg='lightgray')
             self.textbox_y2.config(bg='lightgray')
+
+    def clear(self):
+        self.button_frame.destroy()
 
     def __enable_or_disable_viola_jones_algorithm(self):
         """Action to perform when Viola-Jones button is pressed"""
@@ -130,19 +137,20 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y2.config(bg='white')
             logging.info('Viola-Jones algorithm was disabled by the user')
 
-    def __enable_or_disable_fft_zero_padding(self):
+    def __enable_or_disable_option(self, idx_param):
         """Action to perform when corresponding button is pressed"""
 
         # Get current parameters
         curr_settings = settings.get_parameters()
 
         # Change parameter
-        settings.flip_parameter(IDX_ZERO_PADDING)
+        settings.flip_parameter(idx_param)
 
-        if curr_settings[IDX_ZERO_PADDING]:
-            logging.info('User enabled Zero padding for FFT algorithm')
+        if curr_settings[idx_param]:
+            logging.info('User enabled option: ' + str(idx_param))
         else:
-            logging.info('User disabled Zero padding for FFT algorithm')
+            logging.info('User disabled option: ' + str(idx_param))
+
 
     def __open_options_menu(self):
 
@@ -151,17 +159,28 @@ class ToolbarROI(Tk.Frame):
 
         # Create window
         menu = Tk.Toplevel()
-        menu.wm_geometry("300x70")
+        menu.wm_geometry("300x100")
 
         # Add label
-        self.label_y2 = Tk.Label(menu, text="Heart Rate estimation algorithm: ", anchor="w")
-        self.label_y2.pack(side=Tk.TOP, fill="both")
+        self.label_info_text_1 = Tk.Label(menu, text=LABEL_ALGORITHM_1 + ":", anchor="w")
+        self.label_info_text_1.pack(side=Tk.TOP, fill="both")
 
         # Add content
         button_zero_padding = Tk.Checkbutton(menu, text="Enable zero-padding when using FFT", anchor="w",
-                                             command=self.__enable_or_disable_fft_zero_padding)
+                                             command=lambda: self.__enable_or_disable_option(IDX_ZERO_PADDING))
         button_zero_padding.pack(side=Tk.TOP,fill="both")
         if curr_settings[IDX_ZERO_PADDING]:
+            button_zero_padding.toggle()
+
+        # Add label
+        self.label_info_text_2 = Tk.Label(menu, text=LABEL_ALGORITHM_2 + ":", anchor="w")
+        self.label_info_text_2.pack(side=Tk.TOP, fill="both")
+
+        # Add content
+        button_zero_padding = Tk.Checkbutton(menu, text="Use trigger device on serial port", anchor="w",
+                                             command=lambda: self.__enable_or_disable_option(IDX_TRIGGER))
+        button_zero_padding.pack(side=Tk.TOP,fill="both")
+        if curr_settings[IDX_TRIGGER]:
             button_zero_padding.toggle()
 
     def __store_color_channel(self):
@@ -216,9 +235,10 @@ class ToolbarROI(Tk.Frame):
 
     # Setter and getter following
 
-    def disable_color_channel_selection(self):
-        """Disables the button for RGB selection"""
+    def disable_color_channel_selection_and_options(self):
+        """Disables the button for RGB selection and options"""
         self.dropDownListColorChannel.config(state=Tk.DISABLED)
+        self.button_options.config(state=Tk.DISABLED)
 
     def get_roi(self):
         """Returns current ROI definition"""

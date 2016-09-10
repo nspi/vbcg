@@ -67,6 +67,15 @@ class WindowSignal(Tk.Frame):
         self.signalPlotThread.start()
         self.signalProcessorThread.start()
 
+    def get_signal_processor(self):
+        return self.signalProcessorThread
+
+    def get_signal_plotter(self):
+        return self.signalPlotThread
+
+    def clear(self):
+        self.figure.clf()
+
     def closeThreads(self):
         """Closes signal plotting and processing threads"""
         self.signalPlotThread.close_signal_plotter_thread()

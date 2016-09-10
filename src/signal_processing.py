@@ -5,6 +5,7 @@
 import numpy as np
 import datetime
 import settings
+import serial_interface
 
 from defines import *
 
@@ -23,6 +24,13 @@ class SignalProcessor:
         # Initialize variables
         self.time_diff = None
 
+        # Create serial interface object
+        self.serial_interface = serial_interface.SerialInterface()
+        self.serial_interface.start()
+
+    def clear(self):
+        self.serial_interface.clear()
+
     def filter_waveform(self, input_raw_signal, input_output_signal, input_param_1, input_param_2, input_param_3):
         """This function filters the video signal and thereby obtains a waveform more similar to pulse oximetry.
            This is a real-time implementation of the algorithm described in:
@@ -37,6 +45,9 @@ class SignalProcessor:
 
            Please note that the curve fit is at the moment no performed with Gaussian weights.
         """
+
+        # Get current settings
+        curr_settings = settings.get_parameters()
 
         # Get signals
         raw_signal = input_raw_signal
@@ -82,6 +93,10 @@ class SignalProcessor:
             # Reset time
             self.curr_time = datetime.datetime.now()
 
+            # Check if triggering is desired
+            if curr_settings[IDX_TRIGGER]:
+                self.serial_interface.send_trigger(0)
+
             return True, output_signal
 
         else:
@@ -119,7 +134,7 @@ class SignalProcessor:
         if curr_settings[IDX_ZERO_PADDING]:
 
             # Compute next power of 2 from N
-            next_n = self.nextpow2(self.nextpow2(self.nextpow2(n)))
+            next_n = self.nextpow2(self.nextpow2(n))
 
             # Zero padding: Fill before and after signal with zeros
             number_before, number_after = self.compute_zero_padding_values(next_n - n)
@@ -148,6 +163,68 @@ class SignalProcessor:
 
         # Get index of maximum frequency in FFT spectrum
         max_val = limits[np.argmax(abs(signal_fft[limits]))]
+
+        # Return HR, spectrum with frequency axis, and found maximum
+        return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], max_val - limits[0]
+
+    def estimate_trigger(self, input_raw_signal, estimated_fps):
+        """This simple algorithm computes MRI trigger as described in:
+
+        Spicher N, Kukuk M, Ladd ME and Maderwald S. In vivo 7T MR imaging triggered by phase information obtained from
+        video signals of the human skin. Proceedings of the 23nd Annual Meeting of the ISMRM, Toronto, Canada,
+        30.05.-05.06.2015.
+        """
+
+        # Get normalized signal
+        signal = self.normalize(input_raw_signal)
+
+        # Store number of elements in signal
+        n = np.size(signal)
+
+        # Store FPS of video stream
+        fps = estimated_fps
+
+        # Parameters: Minimal and maximum HR (48..180 bpm)
+        hr_min = 0.5
+        hr_max = 3
+
+        # Get current settings
+        curr_settings = settings.get_parameters()
+
+        # Use Hamming window on signal
+        values_win = signal[0:n] * np.hamming(n)
+
+        # Compute FFT
+        signal_fft = np.fft.fft(values_win)
+
+        # Get phase
+        signal_phase = np.angle(signal_fft)
+
+        # Compute frequency axis
+        x = np.linspace(0, n / fps, n + 1)
+        freq_axis = np.fft.fftfreq(len(values_win), x[1] - x[0])
+
+        # Get boolean values if values are between hrMin and hrMax
+        limits_bool = (hr_min < freq_axis) & (hr_max > freq_axis)
+        limits_idx = np.linspace(0, n - 1, n)
+
+        # Get indices of frequencies between hrMin and hrMax
+        limits = limits_idx[limits_bool.nonzero()]
+        limits = limits.astype(int)
+
+        # Get index of maximum frequency in FFT spectrum
+        max_val = limits[np.argmax(abs(signal_fft[limits]))]
+
+        # Compute time until next maximum in signal
+        if signal_phase[max_val] < 0:
+            delta = np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
+        else:
+            delta = (1 / freq_axis[max_val]) - np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
+
+        # Check if triggering is desired and the signal is filled with non-zero values
+        if curr_settings[IDX_TRIGGER] == 1:
+                if np.count_nonzero(input_raw_signal) >= 400:
+                    self.serial_interface.send_trigger(delta)
 
         # Return HR, spectrum with frequency axis, and found maximum
         return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], max_val - limits[0]

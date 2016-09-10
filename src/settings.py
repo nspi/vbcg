@@ -7,16 +7,17 @@ import io
 import numpy as np
 import logging
 import os
+import sys
 
 # Standard parameters if no settings.ini is available
-std_param = [1, 1, 0, 1, 0, 0, 30, 1, 1]
+std_param = [1, 1, 0, 1, 0, 0, 30, 1, 1, 0]
 
 
 def get_parameters():
     """Load parameters from configuration file. The first return value is a flag and true if everything is okay."""
 
     # Store data from configuration file in array
-    param = np.zeros(9)
+    param = np.zeros(10)
     parameter_acquired = False
 
     # Acquire parameters until they are acquired
@@ -136,6 +137,9 @@ def __store_parameters(param):
             config.set('settings', '# Apply zero-padding when using FFT?')
             config.set('settings', 'bool_zero_padding', param[8])
 
+            config.set('settings', '# Use trigger device?')
+            config.set('settings', 'bool_trigger_device', param[9])
+
             # Write and close file
             config.write(config_file)
             config_file.close()
@@ -147,3 +151,10 @@ def __store_parameters(param):
             logging.warn("Writing to settings.ini was not successful. Trying again.")
 
     return 0
+
+def determine_if_under_testing():
+    """This function returns true is we are currently using nosetests. This is required for testing of the GUI"""
+    if 'nose' in sys.modules.keys():
+        return True
+    else:
+        return False
