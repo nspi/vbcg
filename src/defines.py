@@ -38,7 +38,7 @@ VAL_COLORCHANNEL = 1
 VAL_ZERO_PADDING = 1
 VAL_TRIGGER      = 1
 
-# Labels of parameters
+# Labels of algorithms in GUI
 LABEL_ALGORITHM_1 = "Estimate HR"
 LABEL_ALGORITHM_2 = "Filter signal"
 LABEL_ALGORITHM_3 = "Trigger MRI"
