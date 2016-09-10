@@ -65,7 +65,7 @@ class GuiSignalProcessor(threading.Thread):
         self.spectrumMax = 1                                         # For HR algorithm only: Estimated Heart Rate
 
         # Update statusbar value
-        self.statusbarInstance.update_info_text("Please choose a camera")
+        self.statusbarInstance.update_info_text("Please choose a camera or folder containing frames")
 
         # Configure itself as thread
         threading.Thread.__init__(self)

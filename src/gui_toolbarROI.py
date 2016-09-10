@@ -235,9 +235,10 @@ class ToolbarROI(Tk.Frame):
 
     # Setter and getter following
 
-    def disable_color_channel_selection(self):
-        """Disables the button for RGB selection"""
+    def disable_color_channel_selection_and_options(self):
+        """Disables the button for RGB selection and options"""
         self.dropDownListColorChannel.config(state=Tk.DISABLED)
+        self.button_options.config(state=Tk.DISABLED)
 
     def get_roi(self):
         """Returns current ROI definition"""

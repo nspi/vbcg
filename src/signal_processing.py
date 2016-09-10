@@ -171,7 +171,7 @@ class SignalProcessor:
         """This simple algorithm computes MRI trigger as described in:
 
         Spicher N, Kukuk M, Ladd ME and Maderwald S. In vivo 7T MR imaging triggered by phase information obtained from
-        video signals of the human skin Proceedings of the 23nd Annual Meeting of the ISMRM, Toronto, Canada,
+        video signals of the human skin. Proceedings of the 23nd Annual Meeting of the ISMRM, Toronto, Canada,
         30.05.-05.06.2015.
         """
 
@@ -215,13 +215,14 @@ class SignalProcessor:
         # Get index of maximum frequency in FFT spectrum
         max_val = limits[np.argmax(abs(signal_fft[limits]))]
 
+        # Compute time until next maximum in signal
         if signal_phase[max_val] < 0:
             delta = np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
         else:
             delta = (1 / freq_axis[max_val]) - np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
 
         # Check if triggering is desired and the signal is filled with non-zero values
-        if curr_settings[IDX_TRIGGER]==1:
+        if curr_settings[IDX_TRIGGER] == 1:
                 if np.count_nonzero(input_raw_signal) >= 400:
                     self.serial_interface.send_trigger(delta)
 

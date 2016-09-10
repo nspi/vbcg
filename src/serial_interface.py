@@ -1,16 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: ascii -*-
-"""serial_interface.py - tool for sending trigger to MRI using the serial port"""
+"""serial_interface.py - tool for sending trigger to MRI using a device connected via the serial port"""
 
 import logging
 import serial
 import time
 import threading
+import settings
+
+from defines import *
 
 class SerialInterface(threading.Thread):
     """This class provides access to a device connected via the serial port"""
 
     def __init__(self):
+        """If possible, connect to serial port"""
+
+        # Get current settings
+        curr_settings = settings.get_parameters()
 
         # Try to establish connection to serial port
         try:
@@ -22,6 +29,9 @@ class SerialInterface(threading.Thread):
         except serial.SerialException:
 
             self.serial_connection_established = False
+
+            if curr_settings[IDX_TRIGGER]:
+                print "Warning: Using a trigger device is enabled but it is not connected"
 
             logging.warning("There is no serial connection to the trigger device")
 
@@ -36,10 +46,12 @@ class SerialInterface(threading.Thread):
         threading.Thread.__init__(self)
 
     def send_trigger(self, waiting_time):
+        """Send command to serial connection after certain time"""
 
-        # Send command to serial connection after certain time
+        # If connection on serial port is available
         if self.serial_connection_established:
 
+            # Get current time
             self.curr_trigger_time = time.time()
 
             # Only send if the last command was sent >0.5 second ago
@@ -54,6 +66,7 @@ class SerialInterface(threading.Thread):
                 self.trigger_event.set()
 
     def run(self):
+        """Main functionality of thread"""
 
         while self.eventProgramEnd.is_set() is False:
 
@@ -72,8 +85,13 @@ class SerialInterface(threading.Thread):
                 # Clear event
                 self.trigger_event.clear()
 
+            # Sleep so that other threads are not blocked
             time.sleep(0.01)
 
     def clear(self):
+        # End thread
         self.eventProgramEnd.set()
-        self.serial_connection.close()
+
+        # Close serial connection
+        if self.serial_connection_established:
+            self.serial_connection.close()

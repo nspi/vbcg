@@ -97,7 +97,7 @@ class WindowVideo(Tk.Frame):
         if self.isTrueFrame & self.first_frame:
 
             # Disable RGB selection button
-            self.roiToolbarInstance.disable_color_channel_selection()
+            self.roiToolbarInstance.disable_color_channel_selection_and_options()
 
             # If first frame from camera is received store dimensions
             x_max = np.size(self.frame, 0)
