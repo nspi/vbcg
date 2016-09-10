@@ -72,7 +72,8 @@ class GuiSignalPlotter(threading.Thread):
                 self.dict = self.frameQueue.get()
 
                 # Get data from dictionary
-                if self.currSettings[IDX_ALGORITHM] == 0:
+                if self.currSettings[IDX_ALGORITHM] in (0,2):
+
                     try:
                         self.valuesOutput = self.dict['valuesOutput']
                         self.valuesOutput2 = self.dict['valuesOutput2']
@@ -84,6 +85,7 @@ class GuiSignalPlotter(threading.Thread):
                         self.valuesOutput2 = self.dict['valuesOutput2']
 
                 elif self.currSettings[IDX_ALGORITHM] == 1:
+
                     self.valuesOutput = self.dict['valuesOutput']
                     self.valuesOutput2 = self.dict['valuesOutput2']
 
@@ -97,7 +99,7 @@ class GuiSignalPlotter(threading.Thread):
                         self.subplotInstanceBottom.clear()
 
                         # Plot results based on algorithm
-                        if self.currSettings[IDX_ALGORITHM] == 0:
+                        if self.currSettings[IDX_ALGORITHM] in (0,2):
 
                             self.subplotInstanceTop.plot(self.valuesOutput)
                             self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)

@@ -19,6 +19,10 @@ class Test(unittest.TestCase):
         # Create instance
         self.signal_processor = SignalProcessor()
 
+    def tearDown(self):
+        # Clear instance
+        self.signal_processor.clear()
+
     def test__curve_fit(self):
         m = self.signal_processor._SignalProcessor__curve_fit([0, 1, 2, 3, 4], [0, 5, 10, 15, 20])
         assert_almost_equal(m[0], 5)

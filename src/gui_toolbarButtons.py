@@ -155,11 +155,17 @@ class ToolbarButtons(Tk.Frame):
 
         # Choose preferred algorithm from settings
         if self.curr_settings[IDX_ALGORITHM] == 0:
-            list_of_algorithms.append("Estimate Heart rate")
-            list_of_algorithms.append("Filter waveform")
+            list_of_algorithms.append(LABEL_ALGORITHM_1)
+            list_of_algorithms.append(LABEL_ALGORITHM_2)
+            list_of_algorithms.append(LABEL_ALGORITHM_3)
         elif self.curr_settings[IDX_ALGORITHM] == 1:
-            list_of_algorithms.append("Filter waveform")
-            list_of_algorithms.append("Estimate Heart rate")
+            list_of_algorithms.append(LABEL_ALGORITHM_2)
+            list_of_algorithms.append(LABEL_ALGORITHM_3)
+            list_of_algorithms.append(LABEL_ALGORITHM_1)
+        elif self.curr_settings[IDX_ALGORITHM] == 2:
+            list_of_algorithms.append(LABEL_ALGORITHM_3)
+            list_of_algorithms.append(LABEL_ALGORITHM_2)
+            list_of_algorithms.append(LABEL_ALGORITHM_1)
 
         # Remove empty entry
         list_of_algorithms.pop(0)
@@ -191,10 +197,12 @@ class ToolbarButtons(Tk.Frame):
         self.button_frame.destroy()
 
     def __change_algorithm(self):
-        if self.dropDownListAlgorithm.cget("text") == "Estimate Heart rate":
+        if self.dropDownListAlgorithm.cget("text") == LABEL_ALGORITHM_1:
             settings.change_parameter(IDX_ALGORITHM, 0)
-        elif self.dropDownListAlgorithm.cget("text") == "Filter waveform":
+        elif self.dropDownListAlgorithm.cget("text") == LABEL_ALGORITHM_2:
             settings.change_parameter(IDX_ALGORITHM, 1)
+        elif self.dropDownListAlgorithm.cget("text") == LABEL_ALGORITHM_3:
+            settings.change_parameter(IDX_ALGORITHM, 2)
 
     def __open_files(self):
         self.root.option_add('*Dialog.msg.font', 'Helvetica 10')

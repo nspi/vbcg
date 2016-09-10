@@ -12,12 +12,12 @@ import video
 import gui
 import Tkinter as tk
 import settings
-import time
 import datetime
 import threading
+import time
 
 from defines import *
-from nose.tools import assert_is_instance, assert_equal, assert_true, assert_not_equal, assert_dict_contains_subset
+from nose.tools import assert_is_instance, assert_equal, assert_true, assert_not_equal
 
 
 class Test(unittest.TestCase):
@@ -33,10 +33,6 @@ class Test(unittest.TestCase):
         print datetime.datetime.now()
         self.videoThread = video.VideoThread()
         self.videoThread.start()
-
-        # Reload gui module (because of global Tk.Tk())
-        print "Reload gui.py"
-        print datetime.datetime.now()
 
         # Create GUI
         print "Create gui thread"
@@ -75,11 +71,15 @@ class Test(unittest.TestCase):
         self.guiThread.clear()
         self.videoThread.close_camera_thread()
 
-        print "printing list of threads"
+        # Waiting for threads to close
+        time.sleep(10)
+
+        print "Printing list of threads"
         print threading.enumerate()
 
-        print "teardown has ended. "
+        print "Teardown has ended. "
         print datetime.datetime.now()
+
     # gui_windowVideo.py
 
     def test_gui_VideoDisplay_get_frame_counter(self):
@@ -109,9 +109,11 @@ class Test(unittest.TestCase):
         # Get options
         curr_settings = settings.get_parameters()
 
-        if curr_settings[IDX_ALGORITHM] == 0 and curr_text == "Estimate Heart rate":
+        if curr_settings[IDX_ALGORITHM] == 0 and curr_text == LABEL_ALGORITHM_1:
             assert True
-        elif curr_settings[IDX_ALGORITHM] == 1 and curr_text == "Filter waveform":
+        elif curr_settings[IDX_ALGORITHM] == 1 and curr_text == LABEL_ALGORITHM_2:
+            assert True
+        elif curr_settings[IDX_ALGORITHM] == 2 and curr_text == LABEL_ALGORITHM_3:
             assert True
         else:
             assert False
@@ -170,14 +172,14 @@ class Test(unittest.TestCase):
         # Compare
         assert_not_equal(before, after)
 
-    def test_gui_ToolbarROI_enable_or_disable_fft_zero_padding(self):
+    def test_gui_ToolbarROI___enable_or_disable_option(self):
         """Check if zero padding button function works"""
 
         # Get options before
         curr_settings = settings.get_parameters()
         before = curr_settings[IDX_ZERO_PADDING]
         # Simulate button click
-        self.toolbar_roi._ToolbarROI__enable_or_disable_fft_zero_padding()
+        self.toolbar_roi._ToolbarROI__enable_or_disable_option(IDX_ZERO_PADDING)
         # Get options after
         curr_settings = settings.get_parameters()
         after = curr_settings[IDX_ZERO_PADDING]
@@ -186,86 +188,6 @@ class Test(unittest.TestCase):
 
         # Compare
         assert_not_equal(before, after)
-
-    def test_gui_signalProcessor(self):
-        """Check if output of gui_signalProcessor.py contains correct dictionary"""
-
-        # Store old FPS
-        self.curr_settings = settings.get_parameters()
-        self.fps_backup = self.curr_settings[IDX_FPS]
-
-        # Adjust to FPS of test video
-        settings.change_parameter(IDX_FPS, 25)
-
-        # Store frame location in video thread
-        file_names = ["1.jpg"]
-        for num in range(2, 1000):
-            file_names.append(str(num) + ".jpg")
-        self.videoThread.store_frames_from_disk("tests/test_frames", file_names)
-
-        # Activate video thread
-        self.videoThread.eventVideoReady.set()
-        self.videoThread.eventUserPressedStart.set()
-
-        # Get signal processor
-        signal_processor = self.winSignal.get_signal_processor()
-
-        # Wait
-        time.sleep(1)
-
-        # Get dict
-        current_dictionary = signal_processor.dict
-
-        # Get current options
-        self.currSettings = settings.get_parameters()
-
-        # Compare returned value to expected value
-        if self.currSettings[IDX_ALGORITHM] == 0:
-            expected_dictionary = {'valuesOutput': 1, 'valuesOutput2': 1, 'spectrumAxis': 1, 'spectrumMax': 1}
-            self.assertEquals(expected_dictionary.keys(), current_dictionary.keys())
-        elif self.currSettings[IDX_ALGORITHM] == 1:
-            expected_dictionary = {'valuesOutput': 1, 'valuesOutput2': 1}
-            self.assertEquals(expected_dictionary.keys(), current_dictionary.keys())
-        else:
-            assert False
-
-        # Restore old FPS
-        settings.change_parameter(IDX_FPS, self.fps_backup)
-
-    def test_gui_signalPlotter(self):
-        """Check if gui_signalPlotter.py gets dict values from gui_signalProcessor"""
-
-        # Store old FPS
-        self.curr_settings = settings.get_parameters()
-        self.fps_backup = self.curr_settings[IDX_FPS]
-
-        # Adjust to FPS of test video
-        settings.change_parameter(IDX_FPS, 25)
-
-        # Store frame location in video thread
-        file_names = ["1.jpg"]
-        for num in range(2, 1000):
-            file_names.append(str(num) + ".jpg")
-        self.videoThread.store_frames_from_disk("tests/test_frames", file_names)
-
-        # Activate video thread
-        self.videoThread.eventVideoReady.set()
-        self.videoThread.eventUserPressedStart.set()
-
-        # Get signal plotter
-        signal_plotter = self.winSignal.get_signal_plotter()
-
-        # Wait
-        time.sleep(10)
-
-        # Check if dict contains values
-        if signal_plotter.valuesOutput is not None:
-            assert True
-        else:
-            assert False
-
-        # Restore old FPS
-        settings.change_parameter(IDX_FPS, self.fps_backup)
 
     # Test simple getter
 

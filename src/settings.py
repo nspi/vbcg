@@ -10,14 +10,14 @@ import os
 import sys
 
 # Standard parameters if no settings.ini is available
-std_param = [1, 1, 0, 1, 0, 0, 30, 1, 1]
+std_param = [1, 1, 0, 1, 0, 0, 30, 1, 1, 0]
 
 
 def get_parameters():
     """Load parameters from configuration file. The first return value is a flag and true if everything is okay."""
 
     # Store data from configuration file in array
-    param = np.zeros(9)
+    param = np.zeros(10)
     parameter_acquired = False
 
     # Acquire parameters until they are acquired
@@ -136,6 +136,9 @@ def __store_parameters(param):
 
             config.set('settings', '# Apply zero-padding when using FFT?')
             config.set('settings', 'bool_zero_padding', param[8])
+
+            config.set('settings', '# Use trigger device?')
+            config.set('settings', 'bool_trigger_device', param[9])
 
             # Write and close file
             config.write(config_file)
