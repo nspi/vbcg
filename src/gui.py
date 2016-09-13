@@ -58,16 +58,19 @@ class GUI(object):
         if settings.determine_if_under_testing() is False:
             logging.info('Starting TkInter main loop')
             self.root.mainloop()
-        # If using tests, quit the Tkinter thread after some time so that the mainloop is haltd
+        # If using tests, quit the Tkinter thread after some time so that the mainloop is halted
         else:
             print "Adding after() command"
+            self.root.after(1, self.test_function)
             self.root.after(2000, self.root.quit)
-            self.root.after(1000, self.test_function)
             print "Starting main loop (hopefully for 2s)"
+            print datetime.datetime.now()
             self.root.mainloop()
+            print "Mainloop ended at:" + str(datetime.datetime.now())
 
     def test_function(self):
-        print "I was called by after()"
+        print "I was called by after() at: " + str(datetime.datetime.now())
+        self.root.after(250, self.test_function)
 
     def get_window(self):
         """Returns the main window"""
