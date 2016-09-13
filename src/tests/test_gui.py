@@ -6,14 +6,15 @@
 import sys
 sys.path.insert(0, '/usr/lib/pyshared/python2.7')
 
+# Disabling this test class because of incompatibility with Travis CI
+__test__ = 0
+
 import unittest
 import nose
 import video
 import gui
 import Tkinter as tk
 import settings
-import datetime
-import threading
 import time
 
 from defines import *
@@ -26,42 +27,31 @@ class Test(unittest.TestCase):
         """ Initialize GUI and GUI elements """
 
         # Create video thread
-        print "Creating video thread"
         self.videoThread = video.VideoThread()
         self.videoThread.start()
 
         # Create and start GUI
-        print "Creating GUI thread"
         self.guiThread = gui.GUI()
         self.guiThread.start(self.videoThread)
 
         # Get window
-        print "Get main window"
         self.mainWindow = self.guiThread.get_window()
 
         # Get GUI elements
-        print "Get GUI elements"
         self.toolbar_roi = self.mainWindow.get_toolbar_roi()
         self.toolbar_buttons = self.mainWindow.get_toolbar_buttons()
         self.statusbar = self.mainWindow.get_statusbar()
         self.winSignal = self.mainWindow.get_signal_display()
         self.winVideo = self.mainWindow.get_video_display()
 
-        print "Starting test"
-
     def tearDown(self):
 
         # Close threads
-        print "Teardown thread"
-        print "Close winSignal thread"
         self.winSignal.closeThreads()
-        print "Close gui thread"
         self.guiThread.clear()
-        print "Close video thread"
         self.videoThread.close_camera_thread()
 
         # Waiting for threads to close
-        print "sleep"
         time.sleep(3)
 
     # gui_windowVideo.py
