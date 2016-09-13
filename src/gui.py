@@ -60,8 +60,14 @@ class GUI(object):
             self.root.mainloop()
         # If using tests, quit the Tkinter thread after some time so that the mainloop is haltd
         else:
-            self.root.after(2000, lambda: self.root.quit)
+            print "Adding after() command"
+            self.root.after(2000, self.root.quit)
+            self.root.after(1000, self.test_function)
+            print "Starting main loop (hopefully for 2s)"
             self.root.mainloop()
+
+    def test_function(self):
+        print "I was called by after()"
 
     def get_window(self):
         """Returns the main window"""
