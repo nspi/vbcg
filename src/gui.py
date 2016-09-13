@@ -16,7 +16,7 @@ import numpy as np
 import Tkinter as Tk
 import logging
 import settings
-import time
+import datetime
 
 class GUI(object):
     """This is the main class of the gui. Here, we use Tkinter for thread management"""
@@ -37,10 +37,14 @@ class GUI(object):
         logging.info("Link to thread that delivers video frames was stored in GUI thread")
 
         # Create Window
+        print "Create main window"
+        print datetime.datetime.now()
         self.main_window = MainWindow(self, self.cameraThread, self.root)
         logging.info('Main window was created')
 
         # If we are under windows, we need an OpenCV window so that waitKey() works...
+        print "Check if under windows"
+        print datetime.datetime.now()
         if platform == "win32":
             img = np.zeros((150, 600, 3), np.uint8)
             cv2.putText(img, 'Please do not close this window', (10, 50),
@@ -76,18 +80,23 @@ class MainWindow(object):
 
         self.root = root
 
+        print datetime.datetime.now()
         self.statusbar = Statusbar(self, root)
         logging.info('Created status bar')
 
+        print datetime.datetime.now()
         self.toolbar_roi = ToolbarROI(self, root)
         logging.info('Created toolbar for ROI definition')
 
+        print datetime.datetime.now()
         self.video_display = WindowVideo(self, root, gui_thread, video_thread, self.toolbar_roi, self.statusbar)
         logging.info('Created part of the GUI that shows video')
 
+        print datetime.datetime.now()
         self.signal_display = WindowSignal(self, root, gui_thread, video_thread, self.statusbar, self.video_display)
         logging.info('Created part of the GUI that shows the signal extracted from the video')
 
+        print datetime.datetime.now()
         self.toolbar_buttons = ToolbarButtons(self, root, gui_thread, video_thread, self.signal_display)
         logging.info('Created toolbar with buttons')
 
