@@ -16,7 +16,7 @@ import numpy as np
 import Tkinter as Tk
 import logging
 import settings
-
+import time
 
 class GUI(object):
     """This is the main class of the gui. Here, we use Tkinter for thread management"""
@@ -54,15 +54,18 @@ class GUI(object):
         if settings.determine_if_under_testing() is False:
             logging.info('Starting TkInter main loop')
             self.root.mainloop()
+        # If using tests, quit the Tkinter thread after some time so that the mainloop is haltd
+        else:
+            self.root.after(2000, lambda: self.root.quit)
+            self.root.mainloop()
 
     def get_window(self):
         """Returns the main window"""
         return self.main_window
 
     def clear(self):
-        """Deletes main window and then quits Tkinter mainloop()"""
+        """Deletes main window and then quits Tkinter mainloop() completely"""
         self.main_window.clear()
-        self.root.quit()
         self.root.destroy()
 
 
