@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
         self.curr_settings[IDX_CURVES] = 1 - self.curr_settings[IDX_CURVES]
 
         # Check if both are equal
-        assert_equal(np.count_nonzero(self.curr_settings-settings.get_parameters()), 0)
+        assert_equal(np.count_nonzero(self.curr_settings - settings.get_parameters()), 0)
 
     def test_change_parameter(self):
         # Get current settings
@@ -44,13 +44,13 @@ class Test(unittest.TestCase):
         curr_value = self.curr_settings[IDX_FPS]
 
         # Change parameter in settings
-        settings.change_parameter(IDX_FPS, curr_value+1)
+        settings.change_parameter(IDX_FPS, curr_value + 1)
 
         # Check if both are equal
         assert_not_equal(np.count_nonzero(self.curr_settings - settings.get_parameters()), 0)
 
         # Change parameter in settings
-        settings.change_parameter(IDX_FPS, curr_value+1)
+        settings.change_parameter(IDX_FPS, curr_value + 1)
 
     def test_determine_if_under_testing(self):
         assert_true(settings.determine_if_under_testing)
