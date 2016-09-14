@@ -70,8 +70,8 @@ class SerialInterface(threading.Thread):
                     return False, 0
 
                 else:
-
                     return True, (self.curr_trigger_time - self.last_trigger_time) + waiting_time
+
             else:
                 return False, (self.curr_trigger_time - self.last_trigger_time) + waiting_time
 
@@ -81,7 +81,7 @@ class SerialInterface(threading.Thread):
         while self.eventProgramEnd.is_set() is False:
 
             # If a application of trigger is desired
-            if self.trigger_event.is_set() and (np.isnan(self.waiting_time) is False):
+            if self.trigger_event.is_set() and not np.isnan(self.waiting_time):
 
                 # Wait
                 time.sleep(self.waiting_time)
