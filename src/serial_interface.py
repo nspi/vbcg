@@ -11,10 +11,11 @@ import numpy as np
 
 from defines import *
 
+
 class SerialInterface(threading.Thread):
     """This class provides access to a device connected via the serial port"""
 
-    def __init__(self):
+    def __init__(self, name):
         """If possible, connect to serial port"""
 
         # Get current settings
@@ -23,7 +24,7 @@ class SerialInterface(threading.Thread):
         # Try to establish connection to serial port
         try:
 
-            self.serial_connection = serial.Serial('/dev/ttyUSB0', 9600)
+            self.serial_connection = serial.Serial(name, 9600)
             self.serial_connection_established = True
 
         except serial.SerialException:
@@ -64,9 +65,12 @@ class SerialInterface(threading.Thread):
 
                 # Return value for plotting, except if it is the first value that is always wrong
                 if self.firstRun:
+
                     self.firstRun = False
                     return False, 0
+
                 else:
+
                     return True, (self.curr_trigger_time - self.last_trigger_time) + waiting_time
             else:
                 return False, (self.curr_trigger_time - self.last_trigger_time) + waiting_time
@@ -77,7 +81,7 @@ class SerialInterface(threading.Thread):
         while self.eventProgramEnd.is_set() is False:
 
             # If a application of trigger is desired
-            if self.trigger_event.is_set() and (np.isnan(self.waiting_time)==False):
+            if self.trigger_event.is_set() and (np.isnan(self.waiting_time) is False):
 
                 # Wait
                 time.sleep(self.waiting_time)

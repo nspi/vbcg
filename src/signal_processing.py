@@ -6,7 +6,6 @@ import numpy as np
 import datetime
 import settings
 import serial_interface
-import time
 
 from defines import *
 
@@ -28,7 +27,7 @@ class SignalProcessor:
         self.curr_time = datetime.datetime.now()
 
         # Create serial interface object
-        self.serial_interface = serial_interface.SerialInterface()
+        self.serial_interface = serial_interface.SerialInterface('/dev/ttyUSB0')
         self.serial_interface.start()
 
     def clear(self):
@@ -191,9 +190,6 @@ class SignalProcessor:
         hr_min = 0.5
         hr_max = 3
 
-        # Get current settings
-        curr_settings = settings.get_parameters()
-
         # Use Hamming window on signal
         values_win = signal[0:n] * np.hamming(n)
 
@@ -236,8 +232,8 @@ class SignalProcessor:
                 self.delta_times = np.append(self.delta_times, ret_2)
 
         # Return HR and waiting time until next trigger
-        return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], \
-               max_val - limits[0], self.delta_times
+        return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), \
+            freq_axis[limits], max_val - limits[0], self.delta_times
 
     def normalize(self, input_signal):
         """Normalize the signal to lie between 0 and 1"""

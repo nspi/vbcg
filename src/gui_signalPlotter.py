@@ -147,15 +147,15 @@ class GuiSignalPlotter(threading.Thread):
                             if np.count_nonzero(self.valuesOutput2) >= 1:
                                 self.subplotInstanceTop.plot(self.spectrumAxis, self.valuesOutput2)
                                 self.subplotInstanceTop.plot(self.spectrumAxis[self.spectrumMax],
-                                                                self.valuesOutput2[self.spectrumMax], 'r*')
+                                                             self.valuesOutput2[self.spectrumMax], 'r*')
 
                             self.subplotInstanceTop.legend(["One-sided Amplitude spectrum",
-                                                               "Maximum value"], fontsize=9)
+                                                            "Maximum value"], fontsize=9)
                             self.subplotInstanceTop.set_xlabel('Hz')
 
                             # Plot bar plot if it is available
                             if np.count_nonzero(self.triggerTimes) >= 1:
-                                self.subplotInstanceBottom.bar(np.arange(self.triggerTimes.size),self.triggerTimes)
+                                self.subplotInstanceBottom.bar(np.arange(self.triggerTimes.size), self.triggerTimes)
                                 self.subplotInstanceBottom.legend(["Trigger durations"], fontsize=9)
                                 self.subplotInstanceBottom.set_xlabel('Trigger Index')
 

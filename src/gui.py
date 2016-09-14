@@ -8,7 +8,6 @@ from gui_toolbarButtons import ToolbarButtons
 from gui_windowVideo import WindowVideo
 from gui_windowSignal import WindowSignal
 from defines import __version__
-
 from sys import platform
 
 import cv2
@@ -16,7 +15,7 @@ import numpy as np
 import Tkinter as Tk
 import logging
 import settings
-import datetime
+
 
 class GUI(object):
     """This is the main class of the gui. Here, we use Tkinter for thread management"""

@@ -152,6 +152,7 @@ def __store_parameters(param):
 
     return 0
 
+
 def determine_if_under_testing():
     """This function returns true is we are currently using nosetests. This is required for testing of the GUI"""
     if 'nose' in sys.modules.keys():

@@ -55,18 +55,26 @@ class Test(unittest.TestCase):
         # This configuration of filter_waveform() should return true
         # (if time passed is > 0.5 and input_signal_2 is stable for 3 values)
         for num in range(0, 4):
-            self.ret_1, self.ret_2 = self.signal_processor.filter_waveform(input_signal,
-                                                                 input_signal_2,
-                                                                 9,
-                                                                 3,
-                                                                 0.5)
+            self.ret_1, self.ret_2 = self.signal_processor.filter_waveform(input_signal, input_signal_2, 9, 3, 0.5)
             input_signal_2 = self.ret_2
             time.sleep(0.5)
 
         assert_true(self.ret_1)
         assert_is_instance(self.ret_2, np.ndarray)
 
-    def test_compute_heart_rate_without_zero_padding(self):
+    def test_compute_heart_rate(self):
+        t = np.arange(600) * 0.1
+        signal = np.sin(2 * np.pi * t)
+        ret_1, ret_2, ret_3, ret_4 = self.signal_processor.compute_heart_rate(signal, 10)
+        assert_equal(ret_1, 60)
+
+    def test_estimate_trigger(self):
+        t = np.arange(600) * 0.1
+        signal = np.sin(2 * np.pi * t)
+        ret_1, ret_2, ret_3, ret_4, ret_5 = self.signal_processor.estimate_trigger(signal, 10)
+        assert_equal(ret_1, 60)
+
+    def test_compute_heart_rate_without_zero_padding_data_types(self):
         ret_1, ret_2, ret_3, ret_4 = self.signal_processor.compute_heart_rate(np.random.rand(100),
                                                                               np.random.randint(10) + 10)
         assert_is_instance(ret_1, float)
@@ -74,7 +82,7 @@ class Test(unittest.TestCase):
         assert_is_instance(ret_3, np.ndarray)
         assert_is_instance(ret_4, int)
 
-    def test_compute_heart_rate_with_zero_padding(self):
+    def test_compute_heart_rate_with_zero_padding_data_types(self):
         settings.flip_parameter(IDX_ZERO_PADDING)
 
         ret_1, ret_2, ret_3, ret_4 = self.signal_processor.compute_heart_rate(np.random.rand(100),

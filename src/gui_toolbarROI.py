@@ -151,7 +151,6 @@ class ToolbarROI(Tk.Frame):
         else:
             logging.info('User disabled option: ' + str(idx_param))
 
-
     def __open_options_menu(self):
 
         # Get current option
@@ -168,7 +167,7 @@ class ToolbarROI(Tk.Frame):
         # Add content
         button_zero_padding = Tk.Checkbutton(menu, text="Enable zero-padding when using FFT", anchor="w",
                                              command=lambda: self.__enable_or_disable_option(IDX_ZERO_PADDING))
-        button_zero_padding.pack(side=Tk.TOP,fill="both")
+        button_zero_padding.pack(side=Tk.TOP, fill="both")
         if curr_settings[IDX_ZERO_PADDING]:
             button_zero_padding.toggle()
 
@@ -179,7 +178,7 @@ class ToolbarROI(Tk.Frame):
         # Add content
         button_zero_padding = Tk.Checkbutton(menu, text="Use trigger device on serial port", anchor="w",
                                              command=lambda: self.__enable_or_disable_option(IDX_TRIGGER))
-        button_zero_padding.pack(side=Tk.TOP,fill="both")
+        button_zero_padding.pack(side=Tk.TOP, fill="both")
         if curr_settings[IDX_TRIGGER]:
             button_zero_padding.toggle()
 
@@ -202,20 +201,20 @@ class ToolbarROI(Tk.Frame):
 
         # Get values from textboxes
         if len(self.textbox_x1.get("1.0", Tk.END + "-1c")) > 0 & (
-            self.textbox_x1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x1.get("1.0", Tk.END + "-1c"))):
-            self.x_min = int(self.textbox_x1.get("1.0", Tk.END + "-1c"))
+                self.textbox_x1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x1.get("1.0", Tk.END + "-1c"))):
+                self.x_min = int(self.textbox_x1.get("1.0", Tk.END + "-1c"))
 
         if len(self.textbox_x2.get("1.0", Tk.END + "-1c")) > 0 & (
-            self.textbox_x2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x2.get("1.0", Tk.END + "-1c"))):
-            self.x_max = int(self.textbox_x2.get("1.0", Tk.END + "-1c"))
+                self.textbox_x2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x2.get("1.0", Tk.END + "-1c"))):
+                self.x_max = int(self.textbox_x2.get("1.0", Tk.END + "-1c"))
 
         if len(self.textbox_y1.get("1.0", Tk.END + "-1c")) > 0 & (
-            self.textbox_y1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y1.get("1.0", Tk.END + "-1c"))):
-            self.y_min = int(self.textbox_y1.get("1.0", Tk.END + "-1c"))
+                self.textbox_y1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y1.get("1.0", Tk.END + "-1c"))):
+                self.y_min = int(self.textbox_y1.get("1.0", Tk.END + "-1c"))
 
         if len(self.textbox_y2.get("1.0", Tk.END + "-1c")) > 0 & (
-            self.textbox_y2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y2.get("1.0", Tk.END + "-1c"))):
-            self.y_max = int(self.textbox_y2.get("1.0", Tk.END + "-1c"))
+                self.textbox_y2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y2.get("1.0", Tk.END + "-1c"))):
+                self.y_max = int(self.textbox_y2.get("1.0", Tk.END + "-1c"))
 
         # If *_min < *_max: Correct values
         if self.x_min > self.x_max:

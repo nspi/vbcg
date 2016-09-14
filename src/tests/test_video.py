@@ -4,7 +4,7 @@
 
 # Needed so that Travis CI can find cv2.so
 import sys
-sys.path.insert(0,'/usr/lib/pyshared/python2.7')
+sys.path.insert(0, '/usr/lib/pyshared/python2.7')
 
 import unittest
 import nose
@@ -15,7 +15,7 @@ import settings
 import time
 
 from defines import *
-from nose.tools import assert_is_instance, assert_false, assert_equal, assert_true, assert_greater
+from nose.tools import assert_is_instance, assert_false, assert_equal, assert_true
 
 
 class Test(unittest.TestCase):
@@ -33,12 +33,12 @@ class Test(unittest.TestCase):
 
     def test_set_camera_idx(self):
         self.videoThread.set_camera_idx(5)
-        assert_equal(self.videoThread.cameraIdx,5)
+        assert_equal(self.videoThread.cameraIdx, 5)
 
     def test_store_frames_from_disk(self):
         self.videoThread.store_frames_from_disk("test_frames/", "files")
-        assert_equal(self.videoThread.files,"files")
-        assert_equal(self.videoThread.filesDir,"test_frames/")
+        assert_equal(self.videoThread.files, "files")
+        assert_equal(self.videoThread.filesDir, "test_frames/")
 
     def test_close_camera_thread(self):
         assert_false(self.videoThread.eventProgramEnd.is_set())
@@ -66,7 +66,7 @@ class Test(unittest.TestCase):
         time.sleep(4)
 
         # Restore old FPS
-        settings.change_parameter(IDX_FPS,self.fps_backup)
+        settings.change_parameter(IDX_FPS, self.fps_backup)
 
     # Test simple getter
 
