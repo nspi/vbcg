@@ -6,8 +6,10 @@ import numpy as np
 import datetime
 import settings
 import serial_interface
+import time
 
 from defines import *
+
 
 class SignalProcessor:
     """This class provides the essential signal processing algorithms"""
@@ -17,12 +19,13 @@ class SignalProcessor:
         # Define variables for function filterWaveform()
         self.value_last_running_max = 0
         self.counter_running_max = 0
-
-        # Get time for filterWaveform() algorithm
-        self.curr_time = datetime.datetime.now()
-
-        # Initialize variables
         self.time_diff = None
+
+        # Define variables for function estimate_trigger()
+        self.delta_times = np.zeros(30)
+
+        # Get time for trigger algorithm
+        self.curr_time = datetime.datetime.now()
 
         # Create serial interface object
         self.serial_interface = serial_interface.SerialInterface()
@@ -168,7 +171,7 @@ class SignalProcessor:
         return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], max_val - limits[0]
 
     def estimate_trigger(self, input_raw_signal, estimated_fps):
-        """This simple algorithm computes MRI trigger as described in:
+        """This simple algorithm computes MRI triggers as described in:
 
         Spicher N, Kukuk M, Ladd ME and Maderwald S. In vivo 7T MR imaging triggered by phase information obtained from
         video signals of the human skin. Proceedings of the 23nd Annual Meeting of the ISMRM, Toronto, Canada,
@@ -221,13 +224,20 @@ class SignalProcessor:
         else:
             delta = (1 / freq_axis[max_val]) - np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
 
-        # Check if triggering is desired and the signal is filled with non-zero values
-        if curr_settings[IDX_TRIGGER] == 1:
-                if np.count_nonzero(input_raw_signal) >= 400:
-                    self.serial_interface.send_trigger(delta)
+        # If there are enough values
+        if np.count_nonzero(input_raw_signal) >= 400:
 
-        # Return HR, spectrum with frequency axis, and found maximum
-        return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], max_val - limits[0]
+            ret_1, ret_2 = self.serial_interface.send_trigger(delta)
+
+            if ret_1:
+
+                # Drop first value of array and add at end
+                self.delta_times = np.delete(self.delta_times, 0)
+                self.delta_times = np.append(self.delta_times, ret_2)
+
+        # Return HR and waiting time until next trigger
+        return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], \
+               max_val - limits[0], self.delta_times
 
     def normalize(self, input_signal):
         """Normalize the signal to lie between 0 and 1"""

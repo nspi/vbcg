@@ -36,7 +36,7 @@ Develop branch [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=devel
 
 - ''Prediction'' of next cardiac cycle as described in [5]
 
-## Screenshots (from v0.1-beta (57a4d62ad3bb765ba600094b99baf16128824485))
+## Screenshots (from v0.1-beta)
 |  |  |
 |:-------------:|:-------------:| 
 | Screenshot (click to enlarge) | Screenshot (click to enlarge) |

@@ -7,6 +7,7 @@ import serial
 import time
 import threading
 import settings
+import numpy as np
 
 from defines import *
 
@@ -23,17 +24,14 @@ class SerialInterface(threading.Thread):
         try:
 
             self.serial_connection = serial.Serial('/dev/ttyUSB0', 9600)
-
             self.serial_connection_established = True
 
         except serial.SerialException:
 
             self.serial_connection_established = False
-
             if curr_settings[IDX_TRIGGER]:
                 print "Warning: Using a trigger device is enabled but it is not connected"
-
-            logging.warning("There is no serial connection to the trigger device")
+                logging.warning("There is no serial connection to the trigger device")
 
         # Create events
         self.trigger_event = threading.Event()
@@ -41,6 +39,7 @@ class SerialInterface(threading.Thread):
 
         # Store current time
         self.last_trigger_time = time.time()
+        self.firstRun = True
 
         # Call initialization of thread class
         threading.Thread.__init__(self)
@@ -57,13 +56,20 @@ class SerialInterface(threading.Thread):
             # Only send if the last command was sent >0.5 second ago
             if (self.curr_trigger_time - self.last_trigger_time) > 0.5 and (self.trigger_event.is_set() is False):
 
-                print "Send trigger in: "+ str( (self.curr_trigger_time - self.last_trigger_time) + waiting_time)
-
                 # Store waiting time
                 self.waiting_time = waiting_time
 
                 # Activate event
                 self.trigger_event.set()
+
+                # Return value for plotting, except if it is the first value that is always wrong
+                if self.firstRun:
+                    self.firstRun = False
+                    return False, 0
+                else:
+                    return True, (self.curr_trigger_time - self.last_trigger_time) + waiting_time
+            else:
+                return False, (self.curr_trigger_time - self.last_trigger_time) + waiting_time
 
     def run(self):
         """Main functionality of thread"""
@@ -71,7 +77,7 @@ class SerialInterface(threading.Thread):
         while self.eventProgramEnd.is_set() is False:
 
             # If a application of trigger is desired
-            if self.trigger_event.is_set():
+            if self.trigger_event.is_set() and (np.isnan(self.waiting_time)==False):
 
                 # Wait
                 time.sleep(self.waiting_time)

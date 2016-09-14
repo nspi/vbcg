@@ -158,8 +158,12 @@ class GuiSignalProcessor(threading.Thread):
                     elif self.currSettings[IDX_ALGORITHM] == 2:
 
                         # Compute algorithm
-                        self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = self.signalProcessingInstance.\
-                            estimate_trigger(self.valuesRaw, self.FPS)
+                        self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax, self.triggerTimes =\
+                            self.signalProcessingInstance.estimate_trigger(self.valuesRaw, self.FPS)
+
+                        # Store heart rate value
+                        self.HRstring = str(self.HR)
+                        self.video_display.set_heart_rate_text(self.HRstring[0:self.HRstring.find('.')])
 
                         # Normalize signals for display
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
@@ -181,7 +185,8 @@ class GuiSignalProcessor(threading.Thread):
                     self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2}
                 elif self.currSettings[IDX_ALGORITHM] == 2:
                     self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2,
-                                 'spectrumAxis': self.spectrumAxis, 'spectrumMax': self.spectrumMax}
+                                 'spectrumAxis': self.spectrumAxis, 'spectrumMax': self.spectrumMax,
+                                 'triggerTimes': self.triggerTimes}
                 # Put dictionary in queue
                 self.frameQueue.put(self.dict)
 
