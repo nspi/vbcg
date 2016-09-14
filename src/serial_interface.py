@@ -2,14 +2,13 @@
 # -*- coding: ascii -*-
 """serial_interface.py - tool for sending trigger to MRI using a device connected via the serial port"""
 
-import logging
 import serial
 import time
 import threading
 import settings
 import numpy as np
-
-from defines import *
+import pty
+import os
 
 
 class SerialInterface(threading.Thread):
@@ -18,21 +17,34 @@ class SerialInterface(threading.Thread):
     def __init__(self, name):
         """If possible, connect to serial port"""
 
-        # Get current settings
-        curr_settings = settings.get_parameters()
+        # If using tests, create virtual serial port
+        if settings.determine_if_under_testing():
 
-        # Try to establish connection to serial port
-        try:
-
-            self.serial_connection = serial.Serial(name, 9600)
+            self.master, self.slave = pty.openpty()
+            self.vPort = os.ttyname(self.slave)
+            self.serial_connection = serial.Serial(self.vPort, 9600)
             self.serial_connection_established = True
 
-        except serial.SerialException:
+        # If not under testing, try to open connection to actual serial port
+        else:
 
-            self.serial_connection_established = False
-            if curr_settings[IDX_TRIGGER]:
-                print "Warning: Using a trigger device is enabled but it is not connected"
-                logging.warning("There is no serial connection to the trigger device")
+            # Try to establish connection to serial port
+            try:
+                self.serial_connection = serial.Serial(name, 9600)
+                self.serial_connection_established = True
+
+            # If it fails, use virtual serial port
+            except serial.SerialException:
+
+                # Create virtual serial port
+                self.master, self.slave = pty.openpty()
+                self.vPort = os.ttyname(self.slave)
+
+                # Create instance
+                self.serial_connection = serial.Serial(self.vPort, 9600)
+                self.serial_connection_established = True
+
+                print "Warning: Using a trigger device is enabled but it is not connected -> Using virtual device"
 
         # Create events
         self.trigger_event = threading.Event()

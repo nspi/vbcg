@@ -6,7 +6,6 @@ import unittest
 import nose
 import time
 import os
-import pty
 
 from serial_interface import SerialInterface
 from nose.tools import assert_false, assert_equal, assert_true
@@ -15,12 +14,8 @@ from nose.tools import assert_false, assert_equal, assert_true
 class Test(unittest.TestCase):
 
     def setUp(self):
-        # Create virtual serial connection
-        self.master, self.slave = pty.openpty()
-        self.vPort = os.ttyname(self.slave)
-
         # Create instance
-        self.serial_interface = SerialInterface(self.vPort)
+        self.serial_interface = SerialInterface("test")
 
         # Start
         self.serial_interface.start()
@@ -49,7 +44,7 @@ class Test(unittest.TestCase):
         time.sleep(1)
 
         # Has the trigger been written to serial port?
-        assert_equal(os.read(self.master, 1024), 'T\n')
+        assert_equal(os.read(self.serial_interface.master, 1024), 'T\n')
 
     def test_run(self):
         """Check if thread functionality works correctly"""

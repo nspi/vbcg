@@ -26,8 +26,13 @@ class SignalProcessor:
         # Get time for trigger algorithm
         self.curr_time = datetime.datetime.now()
 
-        # Create serial interface object
-        self.serial_interface = serial_interface.SerialInterface('/dev/ttyUSB0')
+        # Create serial interface thread:
+        if settings.determine_if_under_testing():
+            self.serial_interface = serial_interface.SerialInterface('')
+        else:
+            self.serial_interface = serial_interface.SerialInterface('/dev/ttyUSB0')
+
+        # Start serial interface thread
         self.serial_interface.start()
 
     def clear(self):
