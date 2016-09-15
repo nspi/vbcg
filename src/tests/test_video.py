@@ -6,7 +6,6 @@
 import sys
 sys.path.insert(0, '/usr/lib/pyshared/python2.7')
 
-import unittest
 import nose
 import threading
 import numpy as np
@@ -18,7 +17,7 @@ from defines import *
 from nose.tools import assert_is_instance, assert_false, assert_equal, assert_true
 
 
-class Test(unittest.TestCase):
+class Test(object):
 
     def setUp(self):
         # Create thread

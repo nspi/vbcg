@@ -2,7 +2,6 @@
 # -*- coding: ascii -*-
 """test_settings.py - tests for src/settings.py"""
 
-import unittest
 import nose
 import settings
 import numpy as np
@@ -12,7 +11,7 @@ from defines import *
 from nose.tools import assert_equal, assert_not_equal, assert_true
 
 
-class Test(unittest.TestCase):
+class Test(object):
 
     def setUp(self):
         # Backup current options
@@ -53,6 +52,7 @@ class Test(unittest.TestCase):
         settings.change_parameter(IDX_FPS, curr_value + 1)
 
     def test_determine_if_under_testing(self):
+        # Check if currently under testing
         assert_true(settings.determine_if_under_testing)
 
 if __name__ == '__main__':

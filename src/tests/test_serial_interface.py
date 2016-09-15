@@ -2,7 +2,6 @@
 # -*- coding: ascii -*-
 """test_serial_interface.py - tests for src/serial_interface.py"""
 
-import unittest
 import nose
 import time
 import os
@@ -11,7 +10,7 @@ from serial_interface import SerialInterface
 from nose.tools import assert_false, assert_equal, assert_true
 
 
-class Test(unittest.TestCase):
+class Test(object):
 
     def setUp(self):
         # Create instance

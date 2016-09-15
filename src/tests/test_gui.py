@@ -9,7 +9,6 @@ sys.path.insert(0, '/usr/lib/pyshared/python2.7')
 # Disabling this test class because of incompatibility with Travis CI
 __test__ = 0
 
-import unittest
 import nose
 import video
 import gui
@@ -21,7 +20,7 @@ from defines import *
 from nose.tools import assert_is_instance, assert_equal, assert_true, assert_not_equal
 
 
-class Test(unittest.TestCase):
+class Test(object):
 
     def setUp(self):
         """ Initialize GUI and GUI elements """

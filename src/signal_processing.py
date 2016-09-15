@@ -50,7 +50,7 @@ class SignalProcessor:
            inputParam2: Number of times the running maximum signal has to be stable (standard value: 3)
            inputParam3: Minimum time (in sec) until a new trigger can be sent (standard value: 0.5)
 
-           Please note that the curve fit is at the moment no performed with Gaussian weights.
+           Please note that the curve fit is computed at the moment without Gaussian weights.
         """
 
         # Get current settings
@@ -221,14 +221,14 @@ class SignalProcessor:
 
         # Compute time until next maximum in signal
         if signal_phase[max_val] < 0:
-            delta = np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
+            self.delta = np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
         else:
-            delta = (1 / freq_axis[max_val]) - np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
+            self.delta = (1 / freq_axis[max_val]) - np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
 
         # If there are enough values
         if np.count_nonzero(input_raw_signal) >= 400:
 
-            ret_1, ret_2 = self.serial_interface.send_trigger(delta)
+            ret_1, ret_2 = self.serial_interface.send_trigger(self.delta)
 
             if ret_1:
 
