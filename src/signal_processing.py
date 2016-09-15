@@ -100,9 +100,8 @@ class SignalProcessor:
             # Reset time
             self.curr_time = datetime.datetime.now()
 
-            # Check if triggering is desired
-            if curr_settings[IDX_TRIGGER]:
-                self.serial_interface.send_trigger(0)
+            # Send trigger
+            self.serial_interface.send_trigger(0)
 
             return True, output_signal
 

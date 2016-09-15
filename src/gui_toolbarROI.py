@@ -158,7 +158,7 @@ class ToolbarROI(Tk.Frame):
 
         # Create window
         menu = Tk.Toplevel()
-        menu.wm_geometry("300x100")
+        menu.wm_geometry("300x50")
 
         # Add label
         self.label_info_text_1 = Tk.Label(menu, text=LABEL_ALGORITHM_1 + ":", anchor="w")
@@ -169,17 +169,6 @@ class ToolbarROI(Tk.Frame):
                                              command=lambda: self.__enable_or_disable_option(IDX_ZERO_PADDING))
         button_zero_padding.pack(side=Tk.TOP, fill="both")
         if curr_settings[IDX_ZERO_PADDING]:
-            button_zero_padding.toggle()
-
-        # Add label
-        self.label_info_text_2 = Tk.Label(menu, text=LABEL_ALGORITHM_2 + ":", anchor="w")
-        self.label_info_text_2.pack(side=Tk.TOP, fill="both")
-
-        # Add content
-        button_zero_padding = Tk.Checkbutton(menu, text="Use trigger device on serial port", anchor="w",
-                                             command=lambda: self.__enable_or_disable_option(IDX_TRIGGER))
-        button_zero_padding.pack(side=Tk.TOP, fill="both")
-        if curr_settings[IDX_TRIGGER]:
             button_zero_padding.toggle()
 
     def __store_color_channel(self):

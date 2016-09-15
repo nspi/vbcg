@@ -24,7 +24,6 @@ IDX_FACE = 5
 IDX_FPS = 6
 IDX_COLORCHANNEL = 7
 IDX_ZERO_PADDING = 8
-IDX_TRIGGER = 9
 
 # Standard values of parameters
 VAL_WEBCAM = 1
@@ -36,7 +35,6 @@ VAL_FACE = 0
 VAL_FPS = 25
 VAL_COLORCHANNEL = 1
 VAL_ZERO_PADDING = 1
-VAL_TRIGGER = 1
 
 # Labels of algorithms in GUI
 LABEL_ALGORITHM_1 = "Estimate HR"
