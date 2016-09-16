@@ -9,6 +9,7 @@ import settings
 import numpy as np
 import pty
 import os
+import logging
 
 
 class SerialInterface(threading.Thread):
@@ -44,7 +45,7 @@ class SerialInterface(threading.Thread):
                 self.serial_connection = serial.Serial(self.vPort, 9600)
                 self.serial_connection_established = True
 
-                print "Warning: Using a trigger device is enabled but it is not connected -> Using virtual device"
+                logging.warn("Trigger device not found -> Using virtual device")
 
         # Create events
         self.trigger_event = threading.Event()

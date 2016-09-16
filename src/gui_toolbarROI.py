@@ -158,10 +158,11 @@ class ToolbarROI(Tk.Frame):
 
         # Create window
         menu = Tk.Toplevel()
-        menu.wm_geometry("300x50")
+        menu.wm_geometry("300x300")
+        menu.title("Algorithm parameters")
 
         # Add label
-        self.label_info_text_1 = Tk.Label(menu, text=LABEL_ALGORITHM_1 + ":", anchor="w")
+        self.label_info_text_1 = Tk.Label(menu, text=LABEL_ALGORITHM_1 + ":", anchor="w", font="Verdana 10 bold")
         self.label_info_text_1.pack(side=Tk.TOP, fill="both")
 
         # Add content
@@ -170,6 +171,25 @@ class ToolbarROI(Tk.Frame):
         button_zero_padding.pack(side=Tk.TOP, fill="both")
         if curr_settings[IDX_ZERO_PADDING]:
             button_zero_padding.toggle()
+
+        # Add label
+        self.label_info_text_2 = Tk.Label(menu, text=LABEL_ALGORITHM_2 + ":", anchor="w", font="Verdana 10 bold")
+        self.label_info_text_2.pack(side=Tk.TOP, fill="both")
+
+        self.label_param_1 = Tk.Label(menu, text="Used values", anchor="w")
+        self.label_param_1.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_1 = Tk.Text(menu, width=6, height=1)
+        self.textbox_param_1.pack(side=Tk.TOP, fill="both")
+
+        self.label_param_1 = Tk.Label(menu, text="Running max window size", anchor="w")
+        self.label_param_1.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_1 = Tk.Text(menu, width=6, height=1)
+        self.textbox_param_1.pack(side=Tk.TOP, fill="both")
+
+        self.label_param_1 = Tk.Label(menu, text="Minimum trigger time", anchor="w")
+        self.label_param_1.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_1 = Tk.Text(menu, width=6, height=1)
+        self.textbox_param_1.pack(side=Tk.TOP, fill="both")
 
     def __store_color_channel(self):
         """ Stores the desired color channel that is used for signal processing"""

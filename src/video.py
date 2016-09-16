@@ -25,6 +25,9 @@ class VideoThread(threading.Thread):
         # Has a connection been established to the camera or the hard disk?
         connection_established = False
 
+        # When using frames from hard disk: Has the last file in the folder been reached?
+        last_file_reached = False
+
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
 
@@ -68,7 +71,10 @@ class VideoThread(threading.Thread):
                         self.frameCounter += 1
 
                     except IndexError:
-                        logging.info("Reached last file.")
+                        # Print info to logging only once
+                        if last_file_reached is False:
+                            logging.info("Reached last file.")
+                            last_file_reached = True
 
                     # Wait and start from beginning of thread
                     self.__wait_to_adjust_fps(self.startTime, datetime.datetime.now())

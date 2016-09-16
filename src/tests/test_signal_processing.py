@@ -93,6 +93,8 @@ class Test(object):
     def test_filter_waveform_trigger_true(self):
         """Running the algorithm with this parameters should result in a trigger"""
 
+        time.sleep(1)
+
         ret_1, ret_2 = self.signal_processor.filter_waveform(np.random.rand(100), np.random.rand(100), 10, 2, 0)
         ret_1, ret_2 = self.signal_processor.filter_waveform(np.random.rand(100), ret_2, 10, 2, 0)
         ret_1, ret_2 = self.signal_processor.filter_waveform(np.random.rand(100), ret_2, 10, 2, 0)

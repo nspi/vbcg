@@ -49,7 +49,7 @@ def get_parameters():
             __store_parameters(std_param)
 
         except:
-            logging.warn("Unexpected error when reading configuration. Trying again.")
+            logging.info("Unexpected error when reading configuration. Trying again.")
 
     # Return parameters
     return param
@@ -145,13 +145,13 @@ def __store_parameters(param):
             parameter_stored = True
 
         except:
-            logging.warn("Writing to settings.ini was not successful. Trying again.")
+            logging.info("Writing to settings.ini was not successful. Trying again.")
 
     return 0
 
 
 def determine_if_under_testing():
-    """This function returns true is we are currently using nosetests. This is required for testing of the GUI"""
+    """This function returns true is we are currently using nosetests"""
     if 'nose' in sys.modules.keys():
         return True
     else:

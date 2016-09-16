@@ -20,11 +20,11 @@ GNU GPL v3.0
 
 #### Build status
 
-Latest release&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=v0.1-beta)](https://travis-ci.org/nspi/vbcg)  [![GitHub tag](https://img.shields.io/github/tag/nspi/vbcg.svg?maxAge=2592000)](https://github.com/nspi/vbcg/releases/tag/v0.1-beta)  [![GitHub commits](https://img.shields.io/github/commits-since/nspi/vbcg/v0.1-beta.svg?maxAge=2592000)](https://github.com/nspi/vbcg/releases/tag/v0.1-beta)
+Develop branch [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=develop)](https://travis-ci.org/nspi/vbcg) [![Coverage Status](https://coveralls.io/repos/github/nspi/vbcg/badge.svg?branch=develop)](https://coveralls.io/github/nspi/vbcg?branch=develop)
 
 Master branch&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=master)](https://travis-ci.org/nspi/vbcg) [![Coverage Status](https://coveralls.io/repos/github/nspi/vbcg/badge.svg?branch=master)](https://coveralls.io/github/nspi/vbcg?branch=master) 
 
-Develop branch [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=develop)](https://travis-ci.org/nspi/vbcg) [![Coverage Status](https://coveralls.io/repos/github/nspi/vbcg/badge.svg?branch=develop)](https://coveralls.io/github/nspi/vbcg?branch=develop)
+Latest release&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=v0.1-beta)](https://travis-ci.org/nspi/vbcg)  [![GitHub tag](https://img.shields.io/github/tag/nspi/vbcg.svg?maxAge=2592000)](https://github.com/nspi/vbcg/releases/tag/v0.1-beta)  [![GitHub commits](https://img.shields.io/github/commits-since/nspi/vbcg/v0.1-beta.svg?maxAge=2592000)](https://github.com/nspi/vbcg/releases/tag/v0.1-beta)
 
 Use the *release* version if you want to use a manually tested and stable version. The *master* branch contains the most current version that **should** be stable and the *develop* branch contains the current bleeding-edge development version.
 

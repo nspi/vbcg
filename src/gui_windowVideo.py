@@ -145,7 +145,7 @@ class WindowVideo(Tk.Frame):
         current_location = os.path.dirname(os.path.realpath(__file__)) + os.sep
 
         # Heart icon
-        if self.curr_settings[IDX_ALGORITHM] == 0:
+        if self.curr_settings[IDX_ALGORITHM] in (0, 2):
             # Add heart icon
             heart_location = current_location + 'data/heart.png'
             self.frame = self.__add_figure_to_frame(self.frame, heart_location)

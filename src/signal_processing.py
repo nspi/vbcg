@@ -53,9 +53,6 @@ class SignalProcessor:
            Please note that the curve fit is computed at the moment without Gaussian weights.
         """
 
-        # Get current settings
-        curr_settings = settings.get_parameters()
-
         # Get signals
         raw_signal = input_raw_signal
         output_signal = input_output_signal
