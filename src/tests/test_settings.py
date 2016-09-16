@@ -62,35 +62,17 @@ class Test(object):
         """Check if settings.py writes settings.ini file if it does not exist"""
 
         # Backup settings and remove file
-        os.rename('settings.ini', 'settings_backup.ini')
+        os.rename('src/settings.ini', 'src/settings_backup.ini')
         # Let settings find no file
         settings.get_parameters()
         # Check if file has been written
-        ret = os.path.exists('settings.ini')
+        ret = os.path.exists('src/settings.ini')
         # Remove file created by settings.py()
-        os.remove('settings.ini')
+        os.remove('src/settings.ini')
         # Restore backup file
-        os.rename('settings_backup.ini', 'settings.ini')
+        os.rename('src/settings_backup.ini', 'src/settings.ini')
 
         assert_true(ret)
-
-    def test_enforce_exception_when_reading_file(self):
-        """Call multiple threads so that the settings file can not be read"""
-
-        # Get number of lines in logfile
-        num_lines_before = sum(1 for line in open('data/LOGFILE'))
-
-        for x in range(0, 10000):
-            curr_settings = settings
-            t = threading.Thread(target=curr_settings.get_parameters)
-            t.start()
-
-        # Get number in files in logfile
-        num_lines_after = sum(1 for line in open('data/LOGFILE'))
-
-        # Has warning has been written to logfile?
-        assert_not_equal(num_lines_before, num_lines_after)
-
 
 if __name__ == '__main__':
     nose.main()
