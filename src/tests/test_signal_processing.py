@@ -188,7 +188,7 @@ class Test(object):
     def test_compute_heart_rate_with_zero_padding_data_types(self):
         """Test if data types returned by compute_heart_rate() are valid"""
 
-        settings.flip_parameter(IDX_ZERO_PADDING)
+        settings.flip_setting(IDX_ZERO_PADDING)
 
         ret_1, ret_2, ret_3, ret_4 = self.signal_processor.compute_heart_rate(np.random.rand(100),
                                                                               np.random.randint(10) + 10)
@@ -197,7 +197,7 @@ class Test(object):
         assert_is_instance(ret_3, np.ndarray)
         assert_is_instance(ret_4, int)
 
-        settings.flip_parameter(IDX_ZERO_PADDING)
+        settings.flip_setting(IDX_ZERO_PADDING)
 
 
 if __name__ == '__main__':

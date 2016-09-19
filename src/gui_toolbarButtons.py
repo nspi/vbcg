@@ -29,7 +29,7 @@ class ToolbarButtons(Tk.Frame):
 
         # Use and store new FPS value
         self.curr_settings[IDX_FPS] = int(self.textbox_fps.get("1.0", Tk.END + "-1c"))
-        settings.change_parameter(IDX_FPS, self.curr_settings[IDX_FPS])
+        settings.change_settings(IDX_FPS, self.curr_settings[IDX_FPS])
 
         # Get Event
         self.eventCameraChosen = self.cameraInstance.get_event_camera_chosen()
@@ -106,7 +106,7 @@ class ToolbarButtons(Tk.Frame):
             self.listCamerasStr = self.dropDownListCamera = self.listAlgorithmStr = self.dropDownListAlgorithm = None
 
         # Get current settings
-        self.curr_settings = settings.get_parameters()
+        self.curr_settings, _ = settings.get_parameters()
 
         # Create GUI
         self.__create_gui()
@@ -177,14 +177,14 @@ class ToolbarButtons(Tk.Frame):
 
         # Add checkbox: Show curves
         self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Show curves",
-                                             command=lambda: settings.flip_parameter(IDX_CURVES))
+                                             command=lambda: settings.flip_setting(IDX_CURVES))
         self.check_button_1.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_CURVES]:
             self.check_button_1.toggle()
 
         # Add checkbox: Store frames on hard disk
         self.check_button_2 = Tk.Checkbutton(master=self.button_frame, text="Store frames",
-                                             command=lambda: settings.flip_parameter(IDX_FRAMES))
+                                             command=lambda: settings.flip_setting(IDX_FRAMES))
         self.check_button_2.pack(side=Tk.LEFT)
         if self.curr_settings[IDX_FRAMES]:
             self.check_button_2.toggle()
@@ -198,11 +198,11 @@ class ToolbarButtons(Tk.Frame):
 
     def __change_algorithm(self):
         if self.dropDownListAlgorithm.cget("text") == LABEL_ALGORITHM_1:
-            settings.change_parameter(IDX_ALGORITHM, 0)
+            settings.change_settings(IDX_ALGORITHM, 0)
         elif self.dropDownListAlgorithm.cget("text") == LABEL_ALGORITHM_2:
-            settings.change_parameter(IDX_ALGORITHM, 1)
+            settings.change_settings(IDX_ALGORITHM, 1)
         elif self.dropDownListAlgorithm.cget("text") == LABEL_ALGORITHM_3:
-            settings.change_parameter(IDX_ALGORITHM, 2)
+            settings.change_settings(IDX_ALGORITHM, 2)
 
     def __open_files(self):
         self.root.option_add('*Dialog.msg.font', 'Helvetica 10')

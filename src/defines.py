@@ -14,7 +14,7 @@ __url__ = "https://github.com/nspi/vbcg"
 __description__ = "A real-time application for video-based estimation of the heart rate" \
                   " frequency and the phase of the cardiac cycle."
 
-# Indices of parameters
+# Indices of program settings
 IDX_WEBCAM = 0
 IDX_CAMERA = 1
 IDX_ALGORITHM = 2
@@ -23,9 +23,14 @@ IDX_FRAMES = 4
 IDX_FACE = 5
 IDX_FPS = 6
 IDX_COLORCHANNEL = 7
-IDX_ZERO_PADDING = 8
 
-# Standard values of parameters
+# Indices of algorithm parameters
+IDX_ZERO_PADDING = 0
+IDX_WIN_SIZE = 1
+IDX_RUN_MAX = 2
+IDX_MIN_TIME = 3
+
+# Standard values of program settings
 VAL_WEBCAM = 1
 VAL_CAMERA = 1
 VAL_ALGORITHM = 0
@@ -34,7 +39,12 @@ VAL_FRAMES = 0
 VAL_FACE = 0
 VAL_FPS = 25
 VAL_COLORCHANNEL = 1
+
+# Standard values of algorithm parameters
 VAL_ZERO_PADDING = 1
+VAL_WIN_SIZE = 9
+VAL_RUN_MAX = 3
+VAL_MIN_TIME = 0.5
 
 # Labels of algorithms in GUI
 LABEL_ALGORITHM_1 = "Estimate HR (BMT 2015)"

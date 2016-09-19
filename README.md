@@ -41,11 +41,10 @@ Use the *release* version if you want to use a manually tested and stable versio
 - MRI triggering algorithms as described in [5]
 
 ## Screenshots (v0.1-beta)
-|  |  |
-|:-------------:|:-------------:| 
 | Screenshot (click to enlarge) | Screenshot (click to enlarge) |
+|:-------------:|:-------------:| 
 | <a href="http://www.fh-dortmund.de/spicher/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_1.png" width="200"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_2.png" width="200"></a> | 
-| Video (click to play) | Screenshot (click to enlarge) |
+| **Video (click to play)** | **Screenshot (click to enlarge)** |
 | <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshot_3.png" width="200"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_4.png" width="200"></a> |
 
 **Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration (see screenshot 2, there are four well-pronounced breathing cycles). Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions. Additionally, we used the videos from the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website for evaluation (see screenshot 4).
@@ -73,7 +72,7 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 
 #### Compatibility
 
-The current master branch is tested on Ubuntu 14.04 (and on Ubuntu 12.04 using [Travis-CI](https://travis-ci.org/nspi/vbcg)). The current master branch is additionally tested on Windows 7 but the performance on Windows is inferior.
+The current development branch is tested on Ubuntu 14.04 (and on Ubuntu 12.04 using [Travis-CI](https://travis-ci.org/nspi/vbcg)). The current master branch is additionally tested on Windows 7 but the performance on Windows is inferior.
 
 ## Available data
 | Information   								  | FPS | Duration | Resolution | Download 	    |

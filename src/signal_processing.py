@@ -131,10 +131,10 @@ class SignalProcessor:
         hr_max = 3
 
         # Get current settings
-        curr_settings = settings.get_parameters()
+        curr_settings, curr_parameters = settings.get_parameters()
 
         # Apply zero padding if it is enabled
-        if curr_settings[IDX_ZERO_PADDING]:
+        if curr_parameters[IDX_ZERO_PADDING]:
 
             # Compute next power of 2 from N
             next_n = self.nextpow2(self.nextpow2(n))

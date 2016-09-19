@@ -56,7 +56,7 @@ class WindowVideo(Tk.Frame):
         self.__create_gui()
 
         # Get current settings
-        self.curr_settings = settings.get_parameters()
+        self.curr_settings, _ = settings.get_parameters()
 
         # Create variable to adjust thread sleeping time to desired FPS
         self.sleep_time = 1000 / self.curr_settings[IDX_FPS]
@@ -88,7 +88,7 @@ class WindowVideo(Tk.Frame):
         """Get frame from camera and display it"""
 
         # Get current settings
-        self.curr_settings = settings.get_parameters()
+        self.curr_settings, _ = settings.get_parameters()
 
         # Get current frame
         self.isTrueFrame, self.frame = self.cameraInstance.get_frame()

@@ -46,11 +46,11 @@ class Test(object):
 
     def test_read_frames_from_disk(self):
         # Store old FPS
-        self.curr_settings = settings.get_parameters()
+        self.curr_settings, _ = settings.get_parameters()
         self.fps_backup = self.curr_settings[IDX_FPS]
 
         # Adjust to FPS of test video
-        settings.change_parameter(IDX_FPS, 25)
+        settings.change_settings(IDX_FPS, 25)
 
         # Store frame location in video thread
         file_names = ["1.jpg"]
@@ -65,7 +65,7 @@ class Test(object):
         time.sleep(4)
 
         # Restore old FPS
-        settings.change_parameter(IDX_FPS, self.fps_backup)
+        settings.change_settings(IDX_FPS, self.fps_backup)
 
     # Test simple getter
 

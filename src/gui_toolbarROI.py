@@ -44,7 +44,7 @@ class ToolbarROI(Tk.Frame):
         self.button_frame.pack(side=Tk.BOTTOM)
 
         # Add Checkbutton to decide whether to use Viola-Jones algorithm or manual ROI definition
-        curr_settings = settings.get_parameters()
+        curr_settings, _ = settings.get_parameters()
         self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Face Detection",
                                              command=lambda: self.__enable_or_disable_viola_jones_algorithm())
         self.check_button_1.pack(side=Tk.LEFT)
@@ -121,8 +121,8 @@ class ToolbarROI(Tk.Frame):
         """Action to perform when Viola-Jones button is pressed"""
 
         # Get current parameters
-        settings.flip_parameter(IDX_FACE)
-        curr_settings = settings.get_parameters()
+        settings.flip_setting(IDX_FACE)
+        curr_settings, _ = settings.get_parameters()
 
         if curr_settings[IDX_FACE]:
             self.textbox_x1.config(bg='lightgray')
@@ -137,28 +137,42 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y2.config(bg='white')
             logging.info('Viola-Jones algorithm was disabled by the user')
 
-    def __enable_or_disable_option(self, idx_param):
+    def __enable_or_disable_algorithm_parameter(self, idx_param):
         """Action to perform when corresponding button is pressed"""
 
         # Get current parameters
-        curr_settings = settings.get_parameters()
+        _, curr_parameters = settings.get_parameters()
 
         # Change parameter
-        settings.flip_parameter(idx_param)
+        settings.change_parameters(idx_param, 1 - curr_parameters[idx_param])
 
-        if curr_settings[idx_param]:
+        if curr_parameters[idx_param]:
             logging.info('User enabled option: ' + str(idx_param))
         else:
             logging.info('User disabled option: ' + str(idx_param))
 
+    def __change_algorithm_parameter(self, idx_param, value):
+        """Action to perform when corresponding button is pressed"""
+
+        # Get current parameters
+        _, curr_parameters = settings.get_parameters()
+
+        # Change parameter
+        settings.change_parameters(idx_param, value)
+
+        if curr_parameters[idx_param]:
+            logging.info('User changed algorithm parameter: ' + str(value))
+        else:
+            logging.info('User changed algorithm parameter: ' + str(value))
+
     def __open_options_menu(self):
 
         # Get current option
-        curr_settings = settings.get_parameters()
+        curr_settings, curr_param = settings.get_parameters()
 
         # Create window
         menu = Tk.Toplevel()
-        menu.wm_geometry("300x300")
+        menu.wm_geometry("275x275")
         menu.title("Algorithm parameters")
 
         # Add label
@@ -167,9 +181,9 @@ class ToolbarROI(Tk.Frame):
 
         # Add content
         button_zero_padding = Tk.Checkbutton(menu, text="Enable zero-padding when using FFT", anchor="w",
-                                             command=lambda: self.__enable_or_disable_option(IDX_ZERO_PADDING))
+                                             command=lambda: self.__enable_or_disable_algorithm_parameter(IDX_ZERO_PADDING))
         button_zero_padding.pack(side=Tk.TOP, fill="both")
-        if curr_settings[IDX_ZERO_PADDING]:
+        if curr_param[IDX_ZERO_PADDING]:
             button_zero_padding.toggle()
 
         # Add label
@@ -180,16 +194,22 @@ class ToolbarROI(Tk.Frame):
         self.label_param_1.pack(side=Tk.TOP, fill="both")
         self.textbox_param_1 = Tk.Text(menu, width=6, height=1)
         self.textbox_param_1.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_1.insert(Tk.END, curr_param[IDX_WIN_SIZE])
 
-        self.label_param_1 = Tk.Label(menu, text="Running max window size", anchor="w")
-        self.label_param_1.pack(side=Tk.TOP, fill="both")
-        self.textbox_param_1 = Tk.Text(menu, width=6, height=1)
-        self.textbox_param_1.pack(side=Tk.TOP, fill="both")
+        self.label_param_2 = Tk.Label(menu, text="Running max window size", anchor="w")
+        self.label_param_2.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_2 = Tk.Text(menu, width=6, height=1)
+        self.textbox_param_2.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_2.insert(Tk.END, curr_param[IDX_RUN_MAX])
 
-        self.label_param_1 = Tk.Label(menu, text="Minimum trigger time", anchor="w")
-        self.label_param_1.pack(side=Tk.TOP, fill="both")
-        self.textbox_param_1 = Tk.Text(menu, width=6, height=1)
-        self.textbox_param_1.pack(side=Tk.TOP, fill="both")
+        self.label_param_3 = Tk.Label(menu, text="Minimum trigger time", anchor="w")
+        self.label_param_3.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_3 = Tk.Text(menu, width=6, height=1)
+        self.textbox_param_3.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_3.insert(Tk.END, curr_param[IDX_MIN_TIME])
+
+        self.button_options = Tk.Button(menu, text="Save", width=6)
+        self.button_options.pack(side=Tk.TOP)
 
     def __store_color_channel(self):
         """ Stores the desired color channel that is used for signal processing"""
@@ -197,11 +217,11 @@ class ToolbarROI(Tk.Frame):
         chan = self.list_color_channelsStr.get()
 
         if chan == "R":
-            settings.change_parameter(IDX_COLORCHANNEL, 0)
+            settings.change_settings(IDX_COLORCHANNEL, 0)
         elif chan == "G":
-            settings.change_parameter(IDX_COLORCHANNEL, 1)
+            settings.change_settings(IDX_COLORCHANNEL, 1)
         else:
-            settings.change_parameter(IDX_COLORCHANNEL, 2)
+            settings.change_settings(IDX_COLORCHANNEL, 2)
 
         self.button_frame.after(1000, lambda: self.__store_color_channel())
 

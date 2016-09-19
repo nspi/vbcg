@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: ascii -*-
-"""settings.py - tool for reading/storing settings of the main program"""
+"""settings.py - tool for reading/storing settings of the main program and algorithm parameters"""
 
 import ConfigParser
 import io
@@ -9,15 +9,20 @@ import logging
 import os
 import sys
 
+from defines import *
+
 # Standard parameters if no settings.ini is available
-std_param = [1, 1, 0, 1, 0, 0, 30, 1, 1]
+std_settings = [VAL_WEBCAM, VAL_CAMERA, VAL_ALGORITHM, VAL_CURVES, VAL_FRAMES, VAL_FACE, VAL_FPS, VAL_COLORCHANNEL]
+std_param = [1, 9, 3, 0.5]
 
 
 def get_parameters():
-    """Load parameters from configuration file. The first return value is a flag and true if everything is okay."""
+    """Load data from configuration file."""
 
-    # Store data from configuration file in array
-    param = np.zeros(9)
+    # Initialize vector for data
+    settings = np.zeros(8)
+    parameters = np.zeros(4)
+
     parameter_acquired = False
 
     # Acquire parameters until they are acquired
@@ -35,10 +40,19 @@ def get_parameters():
             # Read settings
             options = config.options('settings')
 
-            # Iterate throughout each option and store them
+            # Iterate throughout all program settings and store them
             i = 0
             for option in options:
-                param[i] = config.get('settings', option)
+                settings[i] = config.get('settings', option)
+                i += 1
+
+            # Read parameter
+            options = config.options('parameters')
+
+            # Iterate throughout each all algorithm parameters and store them
+            i = 0
+            for option in options:
+                parameters[i] = config.get('parameters', option)
                 i += 1
 
             # Set marker
@@ -46,53 +60,74 @@ def get_parameters():
 
         except IOError:
             logging.warning("Settings file not found! Creating one with standard values.")
-            __store_parameters(std_param)
+            __store_parameters(std_settings, std_param)
 
         except:
             logging.info("Unexpected error when reading configuration. Trying again.")
 
     # Return parameters
-    return param
+    return settings, parameters
 
 
-def flip_parameter(idx):
+def flip_setting(idx):
     """Flip a boolean value in parameters"""
 
     # Get parameters
-    param = get_parameters()
+    settings, parameters = get_parameters()
 
-    # Flip boolean value
-    param[idx] = 1 - param[idx]
+    if idx < 8:
 
-    # Log to file
-    tmp_str = "Parameter: %d was changed" % idx
-    logging.info(tmp_str)
+        # Flip boolean value
+        settings[idx] = 1 - settings[idx]
 
-    # Store in file
-    __store_parameters(param)
+        # Log to file
+        tmp_str = "Program setting: %d was changed" % idx
+        logging.info(tmp_str)
+
+        # Store in file
+        __store_parameters(settings, parameters)
+
+    else:
+        logging.warning("Algorithm parameters can not be modified using this function.")
 
     # Return parameters
-    return param
+    return settings, parameters
 
 
-def change_parameter(idx, val):
-    """Change a non-boolean value in parameters"""
+def change_settings(idx, val):
+    """Change a non-boolean value in settings or parameters"""
 
     # Get parameters
-    param = get_parameters()
+    settings, parameters = get_parameters()
 
-    # Change parameter value
-    param[idx] = val
+    # Change settings value
+    settings[idx] = val
 
     # Store in file
-    __store_parameters(param)
+    __store_parameters(settings, parameters)
 
     # Return parameters
-    return param
+    return settings, parameters
 
 
-def __store_parameters(param):
-    """Store parameters in file"""
+def change_parameters(idx, val):
+    """Change a non-boolean value in settings or parameters"""
+
+    # Get parameters
+    settings, parameters = get_parameters()
+
+    # Change settings value
+    parameters[idx] = val
+
+    # Store in file
+    __store_parameters(settings, parameters)
+
+    # Return parameters
+    return settings, parameters
+
+
+def __store_parameters(settings, parameters):
+    """Store settings and parameters in file"""
 
     parameter_stored = False
 
@@ -111,31 +146,42 @@ def __store_parameters(param):
             config.add_section('settings')
 
             config.set('settings', '# use webcam or frames from hard disk?')  # Comment
-            config.set('settings', 'bool_use_webcam', param[0])  # Parameter
+            config.set('settings', 'bool_use_webcam', settings[0])  # Parameter
 
             config.set('settings', '# use which camera port?')  # ...
-            config.set('settings', 'idx_camera', param[1])  # ...
+            config.set('settings', 'idx_camera', settings[1])  # ...
 
             config.set('settings', '# use which algorithm?')
-            config.set('settings', 'idx_algorithm', param[2])
+            config.set('settings', 'idx_algorithm', settings[2])
 
             config.set('settings', '# Show curves?')
-            config.set('settings', 'bool_show_curves', param[3])
+            config.set('settings', 'bool_show_curves', settings[3])
 
             config.set('settings', '# Store frames on hard disk?')
-            config.set('settings', 'bool_store_frames', param[4])
+            config.set('settings', 'bool_store_frames', settings[4])
 
             config.set('settings', '# Use viola jones algorithm?')
-            config.set('settings', 'bool_use_face_detection', param[5])
+            config.set('settings', 'bool_use_face_detection', settings[5])
 
             config.set('settings', '# What is the FPS of the camera?')
-            config.set('settings', 'val_fps', param[6])
+            config.set('settings', 'val_fps', settings[6])
 
             config.set('settings', '# Which color channel should be used?')
-            config.set('settings', 'val_color', param[7])
+            config.set('settings', 'val_color', settings[7])
 
-            config.set('settings', '# Apply zero-padding when using FFT?')
-            config.set('settings', 'bool_zero_padding', param[8])
+            config.add_section('parameters')
+
+            config.set('parameters', '# Algorithm 1: Apply Zero padding?')
+            config.set('parameters', 'bool_zero_padding', parameters[0])
+
+            config.set('parameters', '# Algorithm 2: Window Size')
+            config.set('parameters', 'val_win_size', parameters[1])
+
+            config.set('parameters', '# Algorithm 2: Number of running max values that has to be reached')
+            config.set('parameters', 'val_run_max', parameters[2])
+
+            config.set('parameters', '# Algorithm 2: Minimum time until new trigger')
+            config.set('parameters', 'val_min_time', parameters[3])
 
             # Write and close file
             config.write(config_file)

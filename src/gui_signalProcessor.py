@@ -48,7 +48,7 @@ class GuiSignalProcessor(threading.Thread):
 
         # Get current parameters
         self.settingsInstance = settings
-        self.currSettings = self.settingsInstance.get_parameters()
+        self.currSettings, _ = self.settingsInstance.get_parameters()
 
         # Fix FPS and length of shown signal
         self.FPS = self.currSettings[IDX_FPS]
@@ -104,7 +104,7 @@ class GuiSignalProcessor(threading.Thread):
             if self.realFramesAvailable is True:
 
                 # Get current settings
-                self.currSettings = self.settingsInstance.get_parameters()
+                self.currSettings, _ = self.settingsInstance.get_parameters()
 
                 if self.firstRun is True:
 

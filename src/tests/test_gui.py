@@ -140,7 +140,7 @@ class Test(object):
         curr_settings = settings.get_parameters()
         after = curr_settings[IDX_FACE]
         # Restore value
-        settings.change_parameter(IDX_FACE, before)
+        settings.change_settings(IDX_FACE, before)
 
         # Compare
         assert_not_equal(before, after)
@@ -157,7 +157,7 @@ class Test(object):
         curr_settings = settings.get_parameters()
         after = curr_settings[IDX_ZERO_PADDING]
         # Restore value
-        settings.change_parameter(IDX_ZERO_PADDING, before)
+        settings.change_settings(IDX_ZERO_PADDING, before)
 
         # Compare
         assert_not_equal(before, after)

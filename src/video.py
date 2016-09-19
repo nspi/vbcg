@@ -48,7 +48,7 @@ class VideoThread(threading.Thread):
                         logging.info("User pressed start and wants to use frames from hard disk")
 
                         # Create variable to adjust thread sleeping time to desired FPS
-                        self.currSettings = settings.get_parameters()
+                        self.currSettings, _ = settings.get_parameters()
                         self.FPS = self.currSettings[IDX_FPS]
 
                         # Set event for other threads
@@ -93,7 +93,7 @@ class VideoThread(threading.Thread):
                         logging.info("User pressed start and wants to use the camera")
 
                         # Create variable to adjust thread sleeping time to desired FPS
-                        self.currSettings = settings.get_parameters()
+                        self.currSettings, _ = settings.get_parameters()
                         self.FPS = self.currSettings[IDX_FPS]
 
                         # Open connection to camera
@@ -140,7 +140,7 @@ class VideoThread(threading.Thread):
         self.eventProgramEnd = threading.Event()
 
         # Create variable to adjust thread sleeping time to desired FPS
-        self.currSettings = settings.get_parameters()
+        self.currSettings, _ = settings.get_parameters()
         self.FPS = self.currSettings[IDX_FPS]
 
         # Initialize variables

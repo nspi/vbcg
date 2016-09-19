@@ -64,7 +64,7 @@ class GuiSignalPlotter(threading.Thread):
             self.cameraActive = self.cameraInstance.get_event_camera_ready()
 
             # Get current options
-            self.currSettings = self.settingsInstance.get_parameters()
+            self.currSettings, _ = self.settingsInstance.get_parameters()
 
             # Get dictionary from queue
             if self.frameQueue.empty() is False:
