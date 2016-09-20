@@ -25,7 +25,7 @@ class Test(object):
     def test__curve_fit(self):
         """Test if curve fit computes approximately correct values"""
 
-        for n in range(0, 100):
+        for n in range(0, 25):
 
             size_signal = np.random.randint(100) + 10
 
@@ -69,7 +69,7 @@ class Test(object):
     def test_filter_waveform_return_false(self):
         """Running the algorithm with this parameter combination should not never result in a trigger"""
 
-        for n in range(0, 100):
+        for n in range(0, 25):
             signal_1 = np.random.rand(100)
             signal_2 = np.random.rand(100)
             param_1 = np.random.randint(10) + 1
@@ -77,7 +77,7 @@ class Test(object):
             param_3 = np.inf
             yield self.filter_waveform_trigger_false, signal_1, signal_2, param_1, param_2, param_3
 
-        for n in range(0, 100):
+        for n in range(0, 25):
             signal_1 = np.random.rand(100)
             signal_2 = np.random.rand(100)
             param_1 = np.random.randint(10) + 1
@@ -92,12 +92,22 @@ class Test(object):
 
     def test_filter_waveform_trigger_true(self):
         """Running the algorithm with this parameters should result in a trigger"""
+        for n in range(0, 25):
+            test_signal = np.random.rand(100)
+            param_1 = 10
+            param_2 = 2
+            param_3 = 0.1
+            yield self.filter_waveform_trigger_true, test_signal, np.zeros(100), param_1, param_2, param_3
 
-        time.sleep(1)
+    def filter_waveform_trigger_true(self, signal_1, signal_2, param_1, param_2, param_3):
+        """Called by test generators in test_filter_waveform_trigger_true"""
 
-        ret_1, ret_2 = self.signal_processor.filter_waveform(np.random.rand(100), np.random.rand(100), 10, 2, 0)
-        ret_1, ret_2 = self.signal_processor.filter_waveform(np.random.rand(100), ret_2, 10, 2, 0)
-        ret_1, ret_2 = self.signal_processor.filter_waveform(np.random.rand(100), ret_2, 10, 2, 0)
+        # Sleep a bit longer, just to be safe that we waited longer than param_3
+        time.sleep(param_3 + 0.1)
+
+        ret_1, ret_2 = self.signal_processor.filter_waveform(signal_1, signal_2, param_1, param_2, param_3)
+        ret_1, ret_2 = self.signal_processor.filter_waveform(signal_1, ret_2, param_1, param_2, param_3)
+        ret_1, ret_2 = self.signal_processor.filter_waveform(signal_1, ret_2, param_1, param_2, param_3)
 
         assert_true(ret_1)
 
@@ -122,15 +132,26 @@ class Test(object):
     def test_compute_heart_rate_frequency(self):
         """Test if HR is computed correctly"""
 
+        # Get algorithm parameters
+        _, self.curr_parameters = settings.get_parameters()
+
+        # Enable zero padding
+        if self.curr_parameters[IDX_ZERO_PADDING] != 1.0:
+            settings.change_parameters(IDX_ZERO_PADDING, 1)
+
         # Time vector
         t = np.arange(600) * 0.1
 
         # Test signal with variable frequency and 10 Hz sampling frequency
-        for n in range(0, 100):
+        for n in range(0, 25):
             frequency = np.random.uniform(0.8, 1.5, 1)
             phase = np.random.rand(1) - 0.5
             signal = np.cos(2 * np.pi * t * frequency + phase)
             yield self.compute_heart_rate_frequency, signal, frequency
+
+        # Undo changes
+        if self.curr_parameters[IDX_ZERO_PADDING] != 1.0:
+            settings.change_parameters(IDX_ZERO_PADDING, 0)
 
     def compute_heart_rate_frequency(self, signal, frequency):
         """Called by test generators in test_compute_heart_rate_frequency"""

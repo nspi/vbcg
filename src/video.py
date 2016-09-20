@@ -117,6 +117,10 @@ class VideoThread(threading.Thread):
                 # Wait and start from beginning of thread
                 self.__wait_to_adjust_fps(self.startTime, datetime.datetime.now())
 
+            # Break if last file is reached
+            if last_file_reached:
+                break
+
         # Shutdown reached: Close connection to camera if it was used
         if self.files is None:
             self.__close_camera()

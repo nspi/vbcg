@@ -44,6 +44,9 @@ class ToolbarButtons(Tk.Frame):
         self.button_files.config(state=Tk.DISABLED)
         self.textbox_fps.config(bg='lightgray')
 
+        # Close popup options menu
+        self.toolbar_roi.close_options_menu()
+
         # Store index of camera in thread
         if self.numberOfCameras > 0:
             logging.info("Camera is started")
@@ -79,7 +82,7 @@ class ToolbarButtons(Tk.Frame):
             logging.info("Program will halt now...")
             sys.exit()
 
-    def __init__(self, parent, tk_root, thread, cam, signal_display):
+    def __init__(self, parent, tk_root, thread, cam, signal_display, roi_toolbar):
 
         # Store variables
         global root
@@ -100,6 +103,9 @@ class ToolbarButtons(Tk.Frame):
 
         # Store connection to signal display
         self.signalDisplayInstance = signal_display
+
+        # Store connection to ROI toolbar
+        self.toolbar_roi = roi_toolbar
 
         # Initialize buttons
         self.check_button_1 = self.check_button_2 = self.check_button_2 = self.check_button_4 = \

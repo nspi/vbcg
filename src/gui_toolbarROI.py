@@ -27,6 +27,9 @@ class ToolbarROI(Tk.Frame):
         # Initialize buttons
         self.textbox_x1 = self.textbox_x2 = self.textbox_y1 = self.textbox_y2 = None
 
+        # Initialize popup menu
+        self.menu = None
+
         # Create GUI
         self.__create_gui()
 
@@ -146,10 +149,7 @@ class ToolbarROI(Tk.Frame):
         # Change parameter
         settings.change_parameters(idx_param, 1 - curr_parameters[idx_param])
 
-        if curr_parameters[idx_param]:
-            logging.info('User enabled option: ' + str(idx_param))
-        else:
-            logging.info('User disabled option: ' + str(idx_param))
+        logging.info('User enabled option: ' + str(idx_param))
 
     def __change_algorithm_parameter(self, idx_param, value):
         """Action to perform when corresponding button is pressed"""
@@ -160,10 +160,7 @@ class ToolbarROI(Tk.Frame):
         # Change parameter
         settings.change_parameters(idx_param, value)
 
-        if curr_parameters[idx_param]:
-            logging.info('User changed algorithm parameter: ' + str(value))
-        else:
-            logging.info('User changed algorithm parameter: ' + str(value))
+        logging.info('User changed algorithm parameter: ' + str(value))
 
     def __open_options_menu(self):
 
@@ -171,45 +168,78 @@ class ToolbarROI(Tk.Frame):
         curr_settings, curr_param = settings.get_parameters()
 
         # Create window
-        menu = Tk.Toplevel()
-        menu.wm_geometry("275x275")
-        menu.title("Algorithm parameters")
+        self.menu = Tk.Toplevel()
+        self.menu.wm_geometry("270x210")
+        self.menu.title("Algorithm parameters")
 
         # Add label
-        self.label_info_text_1 = Tk.Label(menu, text=LABEL_ALGORITHM_1 + ":", anchor="w", font="Verdana 10 bold")
+        self.label_info_text_1 = Tk.Label(self.menu, text=LABEL_ALGORITHM_1 + ":", anchor="w", font="Verdana 10 bold")
         self.label_info_text_1.pack(side=Tk.TOP, fill="both")
 
         # Add content
-        button_zero_padding = Tk.Checkbutton(menu, text="Enable zero-padding when using FFT", anchor="w",
+        button_zero_padding = Tk.Checkbutton(self.menu, text="Enable zero-padding when using FFT", anchor="w",
                                              command=lambda: self.__enable_or_disable_algorithm_parameter(IDX_ZERO_PADDING))
         button_zero_padding.pack(side=Tk.TOP, fill="both")
         if curr_param[IDX_ZERO_PADDING]:
             button_zero_padding.toggle()
 
         # Add label
-        self.label_info_text_2 = Tk.Label(menu, text=LABEL_ALGORITHM_2 + ":", anchor="w", font="Verdana 10 bold")
+        self.label_info_text_2 = Tk.Label(self.menu, text=LABEL_ALGORITHM_2 + ":", anchor="w", font="Verdana 10 bold")
         self.label_info_text_2.pack(side=Tk.TOP, fill="both")
 
-        self.label_param_1 = Tk.Label(menu, text="Used values", anchor="w")
+        self.label_param_1 = Tk.Label(self.menu, text="Used values", anchor="w")
         self.label_param_1.pack(side=Tk.TOP, fill="both")
-        self.textbox_param_1 = Tk.Text(menu, width=6, height=1)
+        self.textbox_param_1 = Tk.Text(self.menu, width=6, height=1)
         self.textbox_param_1.pack(side=Tk.TOP, fill="both")
         self.textbox_param_1.insert(Tk.END, curr_param[IDX_WIN_SIZE])
 
-        self.label_param_2 = Tk.Label(menu, text="Running max window size", anchor="w")
+        self.label_param_2 = Tk.Label(self.menu, text="Running max window size", anchor="w")
         self.label_param_2.pack(side=Tk.TOP, fill="both")
-        self.textbox_param_2 = Tk.Text(menu, width=6, height=1)
+        self.textbox_param_2 = Tk.Text(self.menu, width=6, height=1)
         self.textbox_param_2.pack(side=Tk.TOP, fill="both")
         self.textbox_param_2.insert(Tk.END, curr_param[IDX_RUN_MAX])
 
-        self.label_param_3 = Tk.Label(menu, text="Minimum trigger time", anchor="w")
+        self.label_param_3 = Tk.Label(self.menu, text="Minimum trigger time", anchor="w")
         self.label_param_3.pack(side=Tk.TOP, fill="both")
-        self.textbox_param_3 = Tk.Text(menu, width=6, height=1)
+        self.textbox_param_3 = Tk.Text(self.menu, width=6, height=1)
         self.textbox_param_3.pack(side=Tk.TOP, fill="both")
         self.textbox_param_3.insert(Tk.END, curr_param[IDX_MIN_TIME])
 
-        self.button_options = Tk.Button(menu, text="Save", width=6)
+        self.button_options = Tk.Button(self.menu, text="Save", width=6,
+                                        command=lambda: self.__store_values_in_options_menu())
         self.button_options.pack(side=Tk.TOP)
+
+    def __store_values_in_options_menu(self):
+        """Stores values from option menu if they are valid"""
+
+        if len(self.textbox_param_1.get("1.0", Tk.END + "-1c")) > 0 & (
+                self.textbox_param_1.get("1.0", Tk.END + "-1c").isdigit()
+                == len(self.textbox_param_1.get("1.0", Tk.END + "-1c"))):
+            self.__change_algorithm_parameter(IDX_WIN_SIZE, self.textbox_param_1.get("1.0", Tk.END + "-1c"))
+        else:
+            logging.warn('Option WIN_SIZE was invalid and not stored')
+
+        if len(self.textbox_param_2.get("1.0", Tk.END + "-1c")) > 0 & (
+                self.textbox_param_2.get("1.0", Tk.END + "-1c").isdigit()
+                == len(self.textbox_param_2.get("1.0", Tk.END + "-1c"))):
+            self.__change_algorithm_parameter(IDX_RUN_MAX, self.textbox_param_2.get("1.0", Tk.END + "-1c"))
+        else:
+            logging.warn('Option RUN_MAX was invalid and not stored')
+
+        if len(self.textbox_param_3.get("1.0", Tk.END + "-1c")) > 0 & (
+                self.textbox_param_3.get("1.0", Tk.END + "-1c").isdigit()
+                == len(self.textbox_param_3.get("1.0", Tk.END + "-1c"))):
+            self.__change_algorithm_parameter(IDX_MIN_TIME, self.textbox_param_3.get("1.0", Tk.END + "-1c"))
+        else:
+            logging.warn('Option MIN_TIME was invalid and not stored')
+
+        # Close menu
+        self.menu.destroy()
+
+    def close_options_menu(self):
+        """Allows other parts of the GUI to close the menu"""
+        if self.menu is not None:
+            self.menu.destroy()
 
     def __store_color_channel(self):
         """ Stores the desired color channel that is used for signal processing"""

@@ -8,12 +8,16 @@ import numpy as np
 import logging
 import os
 import sys
+import threading
 
 from defines import *
 
 # Standard parameters if no settings.ini is available
 std_settings = [VAL_WEBCAM, VAL_CAMERA, VAL_ALGORITHM, VAL_CURVES, VAL_FRAMES, VAL_FACE, VAL_FPS, VAL_COLORCHANNEL]
-std_param = [1, 9, 3, 0.5]
+std_param = [VAL_ZERO_PADDING, VAL_WIN_SIZE, VAL_RUN_MAX, VAL_MIN_TIME]
+
+# Used for synchronization of threads
+lock = threading.Lock()
 
 
 def get_parameters():
@@ -25,45 +29,44 @@ def get_parameters():
 
     parameter_acquired = False
 
-    # Acquire parameters until they are acquired
-    while parameter_acquired is False:
+    # Block thread
+    lock.acquire()
 
-        try:
-            # Open file
-            current_location = os.path.dirname(os.path.realpath(__file__))
-            current_location_settings = current_location + os.sep + 'settings.ini'
-            with open(current_location_settings) as f:
-                sample_config = f.read()
-            config = ConfigParser.RawConfigParser()
-            config.readfp(io.BytesIO(sample_config))
+    # Get parameters
+    try:
+        # Open file
+        current_location = os.path.dirname(os.path.realpath(__file__))
+        current_location_settings = current_location + os.sep + 'settings.ini'
+        with open(current_location_settings) as f:
+            sample_config = f.read()
+        config = ConfigParser.RawConfigParser()
+        config.readfp(io.BytesIO(sample_config))
 
-            # Read settings
-            options = config.options('settings')
+        # Read settings
+        options = config.options('settings')
 
-            # Iterate throughout all program settings and store them
-            i = 0
-            for option in options:
-                settings[i] = config.get('settings', option)
-                i += 1
+        # Iterate throughout all program settings and store them
+        i = 0
+        for option in options:
+            settings[i] = config.get('settings', option)
+            i += 1
 
-            # Read parameter
-            options = config.options('parameters')
+        # Read parameter
+        options = config.options('parameters')
 
-            # Iterate throughout each all algorithm parameters and store them
-            i = 0
-            for option in options:
-                parameters[i] = config.get('parameters', option)
-                i += 1
+        # Iterate throughout each all algorithm parameters and store them
+        i = 0
+        for option in options:
+            parameters[i] = config.get('parameters', option)
+            i += 1
 
-            # Set marker
-            parameter_acquired = True
+        # Release thread
+        lock.release()
 
-        except IOError:
-            logging.warning("Settings file not found! Creating one with standard values.")
-            __store_parameters(std_settings, std_param)
-
-        except:
-            logging.info("Unexpected error when reading configuration. Trying again.")
+    except IOError:
+        logging.warning("Settings file not found! Creating one with standard values.")
+        lock.release()
+        __store_parameters(std_settings, std_param)
 
     # Return parameters
     return settings, parameters
@@ -131,7 +134,10 @@ def __store_parameters(settings, parameters):
 
     parameter_stored = False
 
-    # Acquire parameters until they are acquired
+    # Block thread
+    lock.acquire()
+
+    # Get parameters
     while parameter_stored is False:
 
         try:
@@ -192,6 +198,9 @@ def __store_parameters(settings, parameters):
 
         except:
             logging.info("Writing to settings.ini was not successful. Trying again.")
+
+    # Release thread
+    lock.release()
 
     return 0
 

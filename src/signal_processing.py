@@ -16,7 +16,7 @@ class SignalProcessor:
     def __init__(self):
 
         # Define variables for function filterWaveform()
-        self.value_last_running_max = 0
+        self.value_last_running_max = -np.inf
         self.counter_running_max = 0
         self.time_diff = None
 

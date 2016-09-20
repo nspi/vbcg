@@ -104,7 +104,7 @@ class GuiSignalProcessor(threading.Thread):
             if self.realFramesAvailable is True:
 
                 # Get current settings
-                self.currSettings, _ = self.settingsInstance.get_parameters()
+                self.currSettings, self.currParameter = self.settingsInstance.get_parameters()
 
                 if self.firstRun is True:
 
@@ -145,7 +145,10 @@ class GuiSignalProcessor(threading.Thread):
 
                         # Compute algorithm
                         self.show_trigger_symbol, self.valuesFiltered = \
-                            self.signalProcessingInstance.filter_waveform(self.valuesRaw, self.valuesOutput2, 9, 3, 0.5)
+                            self.signalProcessingInstance.filter_waveform(self.valuesRaw, self.valuesOutput2,
+                                                                          self.currParameter[IDX_WIN_SIZE],
+                                                                          self.currParameter[IDX_RUN_MAX],
+                                                                          self.currParameter[IDX_MIN_TIME])
 
                         # Show symbol
                         if self.show_trigger_symbol is True:

@@ -18,34 +18,23 @@ class SerialInterface(threading.Thread):
     def __init__(self, name):
         """If possible, connect to serial port"""
 
-        # If using tests, create virtual serial port
-        if settings.determine_if_under_testing():
+        # Try to establish connection to serial port
+        try:
+            self.serial_connection = serial.Serial(name, 9600)
+            self.serial_connection_established = True
 
+        # If it fails because there is no device, use virtual serial port
+        except serial.SerialException:
+
+            # Create virtual serial port
             self.master, self.slave = pty.openpty()
             self.vPort = os.ttyname(self.slave)
+
+            # Create instance
             self.serial_connection = serial.Serial(self.vPort, 9600)
             self.serial_connection_established = True
 
-        # If not under testing, try to open connection to actual serial port
-        else:
-
-            # Try to establish connection to serial port
-            try:
-                self.serial_connection = serial.Serial(name, 9600)
-                self.serial_connection_established = True
-
-            # If it fails, use virtual serial port
-            except serial.SerialException:
-
-                # Create virtual serial port
-                self.master, self.slave = pty.openpty()
-                self.vPort = os.ttyname(self.slave)
-
-                # Create instance
-                self.serial_connection = serial.Serial(self.vPort, 9600)
-                self.serial_connection_established = True
-
-                logging.warn("Trigger device not found -> Using virtual device")
+            logging.warn("Trigger device not found -> Using virtual device")
 
         # Create events
         self.trigger_event = threading.Event()

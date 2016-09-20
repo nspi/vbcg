@@ -87,7 +87,8 @@ class MainWindow(object):
         self.signal_display = WindowSignal(self, root, gui_thread, video_thread, self.statusbar, self.video_display)
         logging.info('Created part of the GUI that shows the signal extracted from the video')
 
-        self.toolbar_buttons = ToolbarButtons(self, root, gui_thread, video_thread, self.signal_display)
+        self.toolbar_buttons = ToolbarButtons(self, root, gui_thread, video_thread,
+                                              self.signal_display, self.toolbar_roi)
         logging.info('Created toolbar with buttons')
 
     def clear(self):

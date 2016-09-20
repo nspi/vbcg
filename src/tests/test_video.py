@@ -11,7 +11,6 @@ import threading
 import numpy as np
 import video
 import settings
-import time
 
 from defines import *
 from nose.tools import assert_is_instance, assert_false, assert_equal, assert_true
@@ -54,15 +53,18 @@ class Test(object):
 
         # Store frame location in video thread
         file_names = ["1.jpg"]
-        for num in range(2, 1000):
+        for num in range(2, 1002):
             file_names.append(str(num) + ".jpg")
         self.videoThread.store_frames_from_disk("tests/test_frames", file_names)
 
         # Activate video thread
         self.videoThread.eventUserPressedStart.set()
 
-        # Sleep
-        time.sleep(4)
+        # Wait until thread has finished
+        self.videoThread.join()
+
+        # Compare number of stored frames
+        assert_equal(self.videoThread.frameCounter, 1001)
 
         # Restore old FPS
         settings.change_settings(IDX_FPS, self.fps_backup)

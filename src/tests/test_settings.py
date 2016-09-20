@@ -10,7 +10,7 @@ import os.path
 
 from defines import *
 
-from nose.tools import assert_equal, assert_not_equal, assert_true
+from nose.tools import assert_equal, assert_true
 
 
 class Test(object):
@@ -40,7 +40,7 @@ class Test(object):
         # Return original value
         settings.flip_setting(IDX_CURVES)
 
-    def test_change_parameter(self):
+    def test_change_settings(self):
 
         # Get current settings
         self.curr_settings_before, _ = settings.get_parameters()
@@ -57,8 +57,27 @@ class Test(object):
         # Check if value has been changed
         assert_equal(self.curr_settings_after[IDX_FPS], curr_value + 1)
 
+        # Undo changes
+        settings.change_settings(IDX_FPS, curr_value)
+
+    def test_change_parameters(self):
+        # Get current settings
+        _, self.curr_parameters_before = settings.get_parameters()
+
+        # Get current value
+        curr_value = self.curr_parameters_before[IDX_WIN_SIZE]
+
         # Change parameter in settings
-        settings.change_settings(IDX_FPS, curr_value + 1)
+        settings.change_parameters(IDX_WIN_SIZE, curr_value + 1)
+
+        # Get new value
+        _, self.curr_parameters_after = settings.get_parameters()
+
+        # Check if value has been changed
+        assert_equal(self.curr_parameters_after[IDX_WIN_SIZE], curr_value + 1)
+
+        # Change parameter in settings
+        settings.change_parameters(IDX_WIN_SIZE, curr_value)
 
     def test_determine_if_under_testing(self):
         # Check if currently under testing
