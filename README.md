@@ -10,7 +10,7 @@ We aim to apply this techniques in the context of ultra-high-field MRI but other
 
 The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the algorithms we have developed so far.
 
-Regarding video-based heart rate frequency estimation, there are other valuable open-source projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) or commercial products (e.g. [Philips Vital Signs Camera](http://www.ip.philips.com/licensing/program/115)). This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately.
+Regarding video-based heart rate frequency estimation, there are other valuable open-source projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) or commercial products (e.g. [Philips Vital Signs Camera](http://www.ip.philips.com/licensing/program/115)). This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately. See the literature list if you are interested in the scientific background.
 
 > This software can NOT be used for diagnosis. Results are estimated and for entertainment purposes only!
 
@@ -20,9 +20,13 @@ GNU GPL v3.0
 
 #### Build status
 
-Master branch&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=master)](https://travis-ci.org/nspi/vbcg) [![Coverage Status](https://coveralls.io/repos/github/nspi/vbcg/badge.svg?branch=master)](https://coveralls.io/github/nspi/vbcg?branch=master)
-
 Develop branch [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=develop)](https://travis-ci.org/nspi/vbcg) [![Coverage Status](https://coveralls.io/repos/github/nspi/vbcg/badge.svg?branch=develop)](https://coveralls.io/github/nspi/vbcg?branch=develop)
+
+Master branch&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=master)](https://travis-ci.org/nspi/vbcg) [![Coverage Status](https://coveralls.io/repos/github/nspi/vbcg/badge.svg?branch=master)](https://coveralls.io/github/nspi/vbcg?branch=master) 
+
+Latest release&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=v0.2-beta)](https://travis-ci.org/nspi/vbcg)  [![GitHub tag](https://img.shields.io/github/tag/nspi/vbcg.svg?maxAge=2592000)](https://github.com/nspi/vbcg/releases/tag/v0.2-beta) 
+
+Use the *release* version if you want to use a manually tested and stable version. The *master* branch contains the most current version that **should** be stable and the *develop* branch contains the current bleeding-edge development version.
 
 #### Features
 
@@ -32,17 +36,18 @@ Develop branch [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=devel
 
 - Store frames from camera on hard disk
 
-- Heart rate estimation as described in [4] 
+- Heart rate estimation as described in [4]
+ 
+- Signal filtering as described in [5]
 
-- ''Prediction'' of next cardiac cycle as described in [5]
+- MRI triggering by phase information as described in [6]
 
 ## Screenshots
-|  |  |
-|:-------------:|:-------------:| 
 | Screenshot (click to enlarge) | Screenshot (click to enlarge) |
-| <a href="http://www.fh-dortmund.de/spicher/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_1.png" width="200"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_2.png" width="200"></a> | 
-| Video (click to play) | Screenshot (click to enlarge) |
-| <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshot_3.png" width="200"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_4.png" width="200"></a> |
+|:-------------:|:-------------:| 
+| <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_1.png" width="200"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_2.png" width="200"></a> | 
+| **Video (click to play)** | **Screenshot (click to enlarge)** |
+| <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_3.png" width="200"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_4.png" width="200"></a> |
 
 **Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration (see screenshot 2, there are four well-pronounced breathing cycles). Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions. Additionally, we used the videos from the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website for evaluation (see screenshot 4).
 
@@ -69,7 +74,7 @@ OpenCV/TK bindings have to be installed manually (e.g. by `sudo apt-get install 
 
 #### Compatibility
 
-The current development branch is tested on Ubuntu 14.04 (and on Ubuntu 12.04 using [Travis-CI](https://travis-ci.org/nspi/vbcg)). The current master branch is additionally tested on Windows 7 but is far more unstable.
+The current development branch is tested on Ubuntu 14.04 (and on Ubuntu 12.04 using [Travis-CI](https://travis-ci.org/nspi/vbcg)). The current master branch is additionally tested on Windows 7 but the performance on Windows is inferior.
 
 ## Available data
 | Information   								  | FPS | Duration | Resolution | Download 	    |
@@ -77,6 +82,8 @@ The current development branch is tested on Ubuntu 14.04 (and on Ubuntu 12.04 us
 | The finger of a volunteer was placed directly on the camera of an off-the-shelf smartphone (see screenshot 1). | 25 | 2:00 | 640x360 |  [here](https://fh-dortmund.sciebo.de/index.php/s/HtU70L5jz73wOJd/download)    |
 | The forehead of a volunteer undergoing MRI examination was recorded with a MRI-compatible camera (see screenshot 2).| 25 | 2:00 | 720x480 | [here](https://fh-dortmund.sciebo.de/index.php/s/nuQtY1f8x31FYqc/download)    |
 | A volunteer was recorded during office work using the webcam of an off-the-shelf business laptop. A pulse oximeter was applied as reference (see screenshot 3). | 30 | 1:00 | 640x480 | [here](https://fh-dortmund.sciebo.de/index.php/s/Q3pmdOvhDInk5oi/download)    |
+
+More videos from persons in different situations can be found on the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website. More videos from subjects inside the MR bore can be found in the [supplemental material](https://dx.doi.org/10.1002%2Fmrm.25781) of the paper by Maclaren et al. [7].
 
 ## Credits
 heart.png and heartbeat.png: Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> are licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
@@ -118,3 +125,7 @@ Proceedings of the 24th Annual Meeting of the ISMRM, Singapore, Singapore,
 triggered by phase information obtained from video signals of the human
 skin* Proceedings of the 23nd Annual Meeting of the ISMRM, Toronto,
 Canada, 30.05.-05.06.2015. [(PDF)](http://www.fh-dortmund.de/spicher/2548.pdf)
+
+[7] Maclaren J., Aksoy M. and Bammer R. *Contact-free physiological 
+monitoring using a markerless optical system.* Magnetic resonance in
+medicine. 74(2):571-7 2015. [(PDF)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4515196/pdf/nihms687662.pdf)

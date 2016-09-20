@@ -9,23 +9,30 @@ import serial_interface
 
 from defines import *
 
+
 class SignalProcessor:
     """This class provides the essential signal processing algorithms"""
 
     def __init__(self):
 
         # Define variables for function filterWaveform()
-        self.value_last_running_max = 0
+        self.value_last_running_max = -np.inf
         self.counter_running_max = 0
-
-        # Get time for filterWaveform() algorithm
-        self.curr_time = datetime.datetime.now()
-
-        # Initialize variables
         self.time_diff = None
 
-        # Create serial interface object
-        self.serial_interface = serial_interface.SerialInterface()
+        # Define variables for function estimate_trigger()
+        self.delta_times = np.zeros(30)
+
+        # Get time for trigger algorithm
+        self.curr_time = datetime.datetime.now()
+
+        # Create serial interface thread:
+        if settings.determine_if_under_testing():
+            self.serial_interface = serial_interface.SerialInterface('')
+        else:
+            self.serial_interface = serial_interface.SerialInterface('/dev/ttyUSB0')
+
+        # Start serial interface thread
         self.serial_interface.start()
 
     def clear(self):
@@ -43,11 +50,8 @@ class SignalProcessor:
            inputParam2: Number of times the running maximum signal has to be stable (standard value: 3)
            inputParam3: Minimum time (in sec) until a new trigger can be sent (standard value: 0.5)
 
-           Please note that the curve fit is at the moment no performed with Gaussian weights.
+           Please note that the curve fit is computed at the moment without Gaussian weights.
         """
-
-        # Get current settings
-        curr_settings = settings.get_parameters()
 
         # Get signals
         raw_signal = input_raw_signal
@@ -93,9 +97,8 @@ class SignalProcessor:
             # Reset time
             self.curr_time = datetime.datetime.now()
 
-            # Check if triggering is desired
-            if curr_settings[IDX_TRIGGER]:
-                self.serial_interface.send_trigger(0)
+            # Send trigger
+            self.serial_interface.send_trigger(0)
 
             return True, output_signal
 
@@ -128,10 +131,10 @@ class SignalProcessor:
         hr_max = 3
 
         # Get current settings
-        curr_settings = settings.get_parameters()
+        curr_settings, curr_parameters = settings.get_parameters()
 
         # Apply zero padding if it is enabled
-        if curr_settings[IDX_ZERO_PADDING]:
+        if curr_parameters[IDX_ZERO_PADDING]:
 
             # Compute next power of 2 from N
             next_n = self.nextpow2(self.nextpow2(n))
@@ -168,7 +171,7 @@ class SignalProcessor:
         return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], max_val - limits[0]
 
     def estimate_trigger(self, input_raw_signal, estimated_fps):
-        """This simple algorithm computes MRI trigger as described in:
+        """This simple algorithm computes MRI triggers as described in:
 
         Spicher N, Kukuk M, Ladd ME and Maderwald S. In vivo 7T MR imaging triggered by phase information obtained from
         video signals of the human skin. Proceedings of the 23nd Annual Meeting of the ISMRM, Toronto, Canada,
@@ -187,9 +190,6 @@ class SignalProcessor:
         # Parameters: Minimal and maximum HR (48..180 bpm)
         hr_min = 0.5
         hr_max = 3
-
-        # Get current settings
-        curr_settings = settings.get_parameters()
 
         # Use Hamming window on signal
         values_win = signal[0:n] * np.hamming(n)
@@ -217,17 +217,24 @@ class SignalProcessor:
 
         # Compute time until next maximum in signal
         if signal_phase[max_val] < 0:
-            delta = np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
+            self.delta = np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
         else:
-            delta = (1 / freq_axis[max_val]) - np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
+            self.delta = (1 / freq_axis[max_val]) - np.abs(signal_phase[max_val] / (2 * np.pi * freq_axis[max_val]))
 
-        # Check if triggering is desired and the signal is filled with non-zero values
-        if curr_settings[IDX_TRIGGER] == 1:
-                if np.count_nonzero(input_raw_signal) >= 400:
-                    self.serial_interface.send_trigger(delta)
+        # If there are enough values
+        if np.count_nonzero(input_raw_signal) >= 400:
 
-        # Return HR, spectrum with frequency axis, and found maximum
-        return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], max_val - limits[0]
+            ret_1, ret_2 = self.serial_interface.send_trigger(self.delta)
+
+            if ret_1:
+
+                # Drop first value of array and add at end
+                self.delta_times = np.delete(self.delta_times, 0)
+                self.delta_times = np.append(self.delta_times, ret_2)
+
+        # Return HR and waiting time until next trigger
+        return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), \
+            freq_axis[limits], max_val - limits[0], self.delta_times
 
     def normalize(self, input_signal):
         """Normalize the signal to lie between 0 and 1"""

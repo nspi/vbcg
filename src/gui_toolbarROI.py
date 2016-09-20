@@ -27,6 +27,9 @@ class ToolbarROI(Tk.Frame):
         # Initialize buttons
         self.textbox_x1 = self.textbox_x2 = self.textbox_y1 = self.textbox_y2 = None
 
+        # Initialize popup menu
+        self.menu = None
+
         # Create GUI
         self.__create_gui()
 
@@ -44,7 +47,7 @@ class ToolbarROI(Tk.Frame):
         self.button_frame.pack(side=Tk.BOTTOM)
 
         # Add Checkbutton to decide whether to use Viola-Jones algorithm or manual ROI definition
-        curr_settings = settings.get_parameters()
+        curr_settings, _ = settings.get_parameters()
         self.check_button_1 = Tk.Checkbutton(master=self.button_frame, text="Face Detection",
                                              command=lambda: self.__enable_or_disable_viola_jones_algorithm())
         self.check_button_1.pack(side=Tk.LEFT)
@@ -99,11 +102,11 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y2.insert(Tk.END, self.y_max)
 
         # Add empty box
-        self.label_x0 = Tk.Label(self.button_frame, text="  ")
+        self.label_x0 = Tk.Label(self.button_frame, text="     ")
         self.label_x0.pack(side=Tk.LEFT)
 
         # Add button for option menu
-        self.button_options = Tk.Button(self.button_frame, text="Options", width=4, command=self.__open_options_menu)
+        self.button_options = Tk.Button(self.button_frame, text="Options", width=5, command=self.__open_options_menu)
         self.button_options.pack(side=Tk.LEFT)
 
         # Disable text boxes when Viola-Jones algorithm is active
@@ -121,8 +124,8 @@ class ToolbarROI(Tk.Frame):
         """Action to perform when Viola-Jones button is pressed"""
 
         # Get current parameters
-        settings.flip_parameter(IDX_FACE)
-        curr_settings = settings.get_parameters()
+        settings.flip_setting(IDX_FACE)
+        curr_settings, _ = settings.get_parameters()
 
         if curr_settings[IDX_FACE]:
             self.textbox_x1.config(bg='lightgray')
@@ -137,51 +140,106 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y2.config(bg='white')
             logging.info('Viola-Jones algorithm was disabled by the user')
 
-    def __enable_or_disable_option(self, idx_param):
+    def __enable_or_disable_algorithm_parameter(self, idx_param):
         """Action to perform when corresponding button is pressed"""
 
         # Get current parameters
-        curr_settings = settings.get_parameters()
+        _, curr_parameters = settings.get_parameters()
 
         # Change parameter
-        settings.flip_parameter(idx_param)
+        settings.change_parameters(idx_param, 1 - curr_parameters[idx_param])
 
-        if curr_settings[idx_param]:
-            logging.info('User enabled option: ' + str(idx_param))
-        else:
-            logging.info('User disabled option: ' + str(idx_param))
+        logging.info('User enabled option: ' + str(idx_param))
 
+    def __change_algorithm_parameter(self, idx_param, value):
+        """Action to perform when corresponding button is pressed"""
+
+        # Get current parameters
+        _, curr_parameters = settings.get_parameters()
+
+        # Change parameter
+        settings.change_parameters(idx_param, value)
+
+        logging.info('User changed algorithm parameter: ' + str(value))
 
     def __open_options_menu(self):
 
         # Get current option
-        curr_settings = settings.get_parameters()
+        curr_settings, curr_param = settings.get_parameters()
 
         # Create window
-        menu = Tk.Toplevel()
-        menu.wm_geometry("300x100")
+        self.menu = Tk.Toplevel()
+        self.menu.wm_geometry("270x210")
+        self.menu.title("Algorithm parameters")
 
         # Add label
-        self.label_info_text_1 = Tk.Label(menu, text=LABEL_ALGORITHM_1 + ":", anchor="w")
+        self.label_info_text_1 = Tk.Label(self.menu, text=LABEL_ALGORITHM_1 + ":", anchor="w", font="Verdana 10 bold")
         self.label_info_text_1.pack(side=Tk.TOP, fill="both")
 
         # Add content
-        button_zero_padding = Tk.Checkbutton(menu, text="Enable zero-padding when using FFT", anchor="w",
-                                             command=lambda: self.__enable_or_disable_option(IDX_ZERO_PADDING))
-        button_zero_padding.pack(side=Tk.TOP,fill="both")
-        if curr_settings[IDX_ZERO_PADDING]:
+        button_zero_padding = Tk.Checkbutton(self.menu, text="Enable zero-padding when using FFT", anchor="w",
+                                             command=lambda: self.__enable_or_disable_algorithm_parameter(IDX_ZERO_PADDING))
+        button_zero_padding.pack(side=Tk.TOP, fill="both")
+        if curr_param[IDX_ZERO_PADDING]:
             button_zero_padding.toggle()
 
         # Add label
-        self.label_info_text_2 = Tk.Label(menu, text=LABEL_ALGORITHM_2 + ":", anchor="w")
+        self.label_info_text_2 = Tk.Label(self.menu, text=LABEL_ALGORITHM_2 + ":", anchor="w", font="Verdana 10 bold")
         self.label_info_text_2.pack(side=Tk.TOP, fill="both")
 
-        # Add content
-        button_zero_padding = Tk.Checkbutton(menu, text="Use trigger device on serial port", anchor="w",
-                                             command=lambda: self.__enable_or_disable_option(IDX_TRIGGER))
-        button_zero_padding.pack(side=Tk.TOP,fill="both")
-        if curr_settings[IDX_TRIGGER]:
-            button_zero_padding.toggle()
+        self.label_param_1 = Tk.Label(self.menu, text="Used values", anchor="w")
+        self.label_param_1.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_1 = Tk.Text(self.menu, width=6, height=1)
+        self.textbox_param_1.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_1.insert(Tk.END, curr_param[IDX_WIN_SIZE])
+
+        self.label_param_2 = Tk.Label(self.menu, text="Running max window size", anchor="w")
+        self.label_param_2.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_2 = Tk.Text(self.menu, width=6, height=1)
+        self.textbox_param_2.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_2.insert(Tk.END, curr_param[IDX_RUN_MAX])
+
+        self.label_param_3 = Tk.Label(self.menu, text="Minimum trigger time", anchor="w")
+        self.label_param_3.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_3 = Tk.Text(self.menu, width=6, height=1)
+        self.textbox_param_3.pack(side=Tk.TOP, fill="both")
+        self.textbox_param_3.insert(Tk.END, curr_param[IDX_MIN_TIME])
+
+        self.button_options = Tk.Button(self.menu, text="Save", width=6,
+                                        command=lambda: self.__store_values_in_options_menu())
+        self.button_options.pack(side=Tk.TOP)
+
+    def __store_values_in_options_menu(self):
+        """Stores values from option menu if they are valid"""
+
+        if len(self.textbox_param_1.get("1.0", Tk.END + "-1c")) > 0 & (
+                self.textbox_param_1.get("1.0", Tk.END + "-1c").isdigit() ==
+                len(self.textbox_param_1.get("1.0", Tk.END + "-1c"))):
+            self.__change_algorithm_parameter(IDX_WIN_SIZE, self.textbox_param_1.get("1.0", Tk.END + "-1c"))
+        else:
+            logging.warn('Option WIN_SIZE was invalid and not stored')
+
+        if len(self.textbox_param_2.get("1.0", Tk.END + "-1c")) > 0 & (
+                self.textbox_param_2.get("1.0", Tk.END + "-1c").isdigit() ==
+                len(self.textbox_param_2.get("1.0", Tk.END + "-1c"))):
+            self.__change_algorithm_parameter(IDX_RUN_MAX, self.textbox_param_2.get("1.0", Tk.END + "-1c"))
+        else:
+            logging.warn('Option RUN_MAX was invalid and not stored')
+
+        if len(self.textbox_param_3.get("1.0", Tk.END + "-1c")) > 0 & (
+                self.textbox_param_3.get("1.0", Tk.END + "-1c").isdigit() ==
+                len(self.textbox_param_3.get("1.0", Tk.END + "-1c"))):
+            self.__change_algorithm_parameter(IDX_MIN_TIME, self.textbox_param_3.get("1.0", Tk.END + "-1c"))
+        else:
+            logging.warn('Option MIN_TIME was invalid and not stored')
+
+        # Close menu
+        self.menu.destroy()
+
+    def close_options_menu(self):
+        """Allows other parts of the GUI to close the menu"""
+        if self.menu is not None:
+            self.menu.destroy()
 
     def __store_color_channel(self):
         """ Stores the desired color channel that is used for signal processing"""
@@ -189,11 +247,11 @@ class ToolbarROI(Tk.Frame):
         chan = self.list_color_channelsStr.get()
 
         if chan == "R":
-            settings.change_parameter(IDX_COLORCHANNEL, 0)
+            settings.change_settings(IDX_COLORCHANNEL, 0)
         elif chan == "G":
-            settings.change_parameter(IDX_COLORCHANNEL, 1)
+            settings.change_settings(IDX_COLORCHANNEL, 1)
         else:
-            settings.change_parameter(IDX_COLORCHANNEL, 2)
+            settings.change_settings(IDX_COLORCHANNEL, 2)
 
         self.button_frame.after(1000, lambda: self.__store_color_channel())
 
@@ -202,20 +260,20 @@ class ToolbarROI(Tk.Frame):
 
         # Get values from textboxes
         if len(self.textbox_x1.get("1.0", Tk.END + "-1c")) > 0 & (
-            self.textbox_x1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x1.get("1.0", Tk.END + "-1c"))):
-            self.x_min = int(self.textbox_x1.get("1.0", Tk.END + "-1c"))
+                self.textbox_x1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x1.get("1.0", Tk.END + "-1c"))):
+                self.x_min = int(self.textbox_x1.get("1.0", Tk.END + "-1c"))
 
         if len(self.textbox_x2.get("1.0", Tk.END + "-1c")) > 0 & (
-            self.textbox_x2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x2.get("1.0", Tk.END + "-1c"))):
-            self.x_max = int(self.textbox_x2.get("1.0", Tk.END + "-1c"))
+                self.textbox_x2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_x2.get("1.0", Tk.END + "-1c"))):
+                self.x_max = int(self.textbox_x2.get("1.0", Tk.END + "-1c"))
 
         if len(self.textbox_y1.get("1.0", Tk.END + "-1c")) > 0 & (
-            self.textbox_y1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y1.get("1.0", Tk.END + "-1c"))):
-            self.y_min = int(self.textbox_y1.get("1.0", Tk.END + "-1c"))
+                self.textbox_y1.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y1.get("1.0", Tk.END + "-1c"))):
+                self.y_min = int(self.textbox_y1.get("1.0", Tk.END + "-1c"))
 
         if len(self.textbox_y2.get("1.0", Tk.END + "-1c")) > 0 & (
-            self.textbox_y2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y2.get("1.0", Tk.END + "-1c"))):
-            self.y_max = int(self.textbox_y2.get("1.0", Tk.END + "-1c"))
+                self.textbox_y2.get("1.0", Tk.END + "-1c").isdigit() == len(self.textbox_y2.get("1.0", Tk.END + "-1c"))):
+                self.y_max = int(self.textbox_y2.get("1.0", Tk.END + "-1c"))
 
         # If *_min < *_max: Correct values
         if self.x_min > self.x_max:

@@ -64,7 +64,7 @@ class GuiSignalPlotter(threading.Thread):
             self.cameraActive = self.cameraInstance.get_event_camera_ready()
 
             # Get current options
-            self.currSettings = self.settingsInstance.get_parameters()
+            self.currSettings, _ = self.settingsInstance.get_parameters()
 
             # Get dictionary from queue
             if self.frameQueue.empty() is False:
@@ -72,7 +72,7 @@ class GuiSignalPlotter(threading.Thread):
                 self.dict = self.frameQueue.get()
 
                 # Get data from dictionary
-                if self.currSettings[IDX_ALGORITHM] in (0,2):
+                if self.currSettings[IDX_ALGORITHM] == 0:
 
                     try:
                         self.valuesOutput = self.dict['valuesOutput']
@@ -89,6 +89,19 @@ class GuiSignalPlotter(threading.Thread):
                     self.valuesOutput = self.dict['valuesOutput']
                     self.valuesOutput2 = self.dict['valuesOutput2']
 
+                elif self.currSettings[IDX_ALGORITHM] == 2:
+
+                    try:
+                        self.valuesOutput = self.dict['valuesOutput']
+                        self.valuesOutput2 = self.dict['valuesOutput2']
+                        self.spectrumAxis = self.dict['spectrumAxis']
+                        self.spectrumMax = self.dict['spectrumMax']
+                        self.triggerTimes = self.dict['triggerTimes']
+                    except KeyError:
+                        # just to be safe if the algorithm has been changed since initialization of self.curr_settings
+                        self.valuesOutput = self.dict['valuesOutput']
+                        self.valuesOutput2 = self.dict['valuesOutput2']
+
                 try:
 
                     # If camera available and the user enabled the option, plot signal
@@ -99,7 +112,7 @@ class GuiSignalPlotter(threading.Thread):
                         self.subplotInstanceBottom.clear()
 
                         # Plot results based on algorithm
-                        if self.currSettings[IDX_ALGORITHM] in (0,2):
+                        if self.currSettings[IDX_ALGORITHM] == 0:
 
                             self.subplotInstanceTop.plot(self.valuesOutput)
                             self.subplotInstanceTop.legend(["Average video signal in ROI"], fontsize=9)
@@ -127,6 +140,24 @@ class GuiSignalPlotter(threading.Thread):
                                 self.subplotInstanceBottom.plot(self.valuesOutput2)
                                 self.subplotInstanceBottom.legend(["Filtered waveform"], fontsize=9)
                                 self.subplotInstanceBottom.set_xlabel('Frames')
+
+                        elif self.currSettings[IDX_ALGORITHM] == 2:
+
+                            # Plot spectrum if it is available, i.e. the algorithm has been computed once
+                            if np.count_nonzero(self.valuesOutput2) >= 1:
+                                self.subplotInstanceTop.plot(self.spectrumAxis, self.valuesOutput2)
+                                self.subplotInstanceTop.plot(self.spectrumAxis[self.spectrumMax],
+                                                             self.valuesOutput2[self.spectrumMax], 'r*')
+
+                            self.subplotInstanceTop.legend(["One-sided Amplitude spectrum",
+                                                            "Maximum value"], fontsize=9)
+                            self.subplotInstanceTop.set_xlabel('Hz')
+
+                            # Plot bar plot if it is available
+                            if np.count_nonzero(self.triggerTimes) >= 1:
+                                self.subplotInstanceBottom.bar(np.arange(self.triggerTimes.size), self.triggerTimes)
+                                self.subplotInstanceBottom.legend(["Trigger durations"], fontsize=9)
+                                self.subplotInstanceBottom.set_xlabel('Trigger Index')
 
                     else:
                         # Needed for windows implementation, otherwise the whole GUI stays blank

@@ -25,6 +25,9 @@ class VideoThread(threading.Thread):
         # Has a connection been established to the camera or the hard disk?
         connection_established = False
 
+        # When using frames from hard disk: Has the last file in the folder been reached?
+        last_file_reached = False
+
         # run() method of cameraThread waits for shutdown event
         while self.eventProgramEnd.is_set() is False:
 
@@ -45,7 +48,7 @@ class VideoThread(threading.Thread):
                         logging.info("User pressed start and wants to use frames from hard disk")
 
                         # Create variable to adjust thread sleeping time to desired FPS
-                        self.currSettings = settings.get_parameters()
+                        self.currSettings, _ = settings.get_parameters()
                         self.FPS = self.currSettings[IDX_FPS]
 
                         # Set event for other threads
@@ -68,7 +71,10 @@ class VideoThread(threading.Thread):
                         self.frameCounter += 1
 
                     except IndexError:
-                        logging.info("Reached last file.")
+                        # Print info to logging only once
+                        if last_file_reached is False:
+                            logging.info("Reached last file.")
+                            last_file_reached = True
 
                     # Wait and start from beginning of thread
                     self.__wait_to_adjust_fps(self.startTime, datetime.datetime.now())
@@ -87,7 +93,7 @@ class VideoThread(threading.Thread):
                         logging.info("User pressed start and wants to use the camera")
 
                         # Create variable to adjust thread sleeping time to desired FPS
-                        self.currSettings = settings.get_parameters()
+                        self.currSettings, _ = settings.get_parameters()
                         self.FPS = self.currSettings[IDX_FPS]
 
                         # Open connection to camera
@@ -110,6 +116,10 @@ class VideoThread(threading.Thread):
 
                 # Wait and start from beginning of thread
                 self.__wait_to_adjust_fps(self.startTime, datetime.datetime.now())
+
+            # Break if last file is reached
+            if last_file_reached:
+                break
 
         # Shutdown reached: Close connection to camera if it was used
         if self.files is None:
@@ -134,7 +144,7 @@ class VideoThread(threading.Thread):
         self.eventProgramEnd = threading.Event()
 
         # Create variable to adjust thread sleeping time to desired FPS
-        self.currSettings = settings.get_parameters()
+        self.currSettings, _ = settings.get_parameters()
         self.FPS = self.currSettings[IDX_FPS]
 
         # Initialize variables

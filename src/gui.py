@@ -8,7 +8,6 @@ from gui_toolbarButtons import ToolbarButtons
 from gui_windowVideo import WindowVideo
 from gui_windowSignal import WindowSignal
 from defines import __version__
-
 from sys import platform
 
 import cv2
@@ -54,15 +53,18 @@ class GUI(object):
         if settings.determine_if_under_testing() is False:
             logging.info('Starting TkInter main loop')
             self.root.mainloop()
+        # If using tests, quit the Tkinter thread after some time so that the mainloop is halted
+        else:
+            self.root.after(2000, self.root.quit)
+            self.root.mainloop()
 
     def get_window(self):
         """Returns the main window"""
         return self.main_window
 
     def clear(self):
-        """Deletes main window and then quits Tkinter mainloop()"""
+        """Deletes main window and then quits Tkinter mainloop() completely"""
         self.main_window.clear()
-        self.root.quit()
         self.root.destroy()
 
 
@@ -85,7 +87,8 @@ class MainWindow(object):
         self.signal_display = WindowSignal(self, root, gui_thread, video_thread, self.statusbar, self.video_display)
         logging.info('Created part of the GUI that shows the signal extracted from the video')
 
-        self.toolbar_buttons = ToolbarButtons(self, root, gui_thread, video_thread, self.signal_display)
+        self.toolbar_buttons = ToolbarButtons(self, root, gui_thread, video_thread,
+                                              self.signal_display, self.toolbar_roi)
         logging.info('Created toolbar with buttons')
 
     def clear(self):

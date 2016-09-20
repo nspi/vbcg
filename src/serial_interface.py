@@ -2,38 +2,39 @@
 # -*- coding: ascii -*-
 """serial_interface.py - tool for sending trigger to MRI using a device connected via the serial port"""
 
-import logging
 import serial
 import time
 import threading
 import settings
+import numpy as np
+import pty
+import os
+import logging
 
-from defines import *
 
 class SerialInterface(threading.Thread):
     """This class provides access to a device connected via the serial port"""
 
-    def __init__(self):
+    def __init__(self, name):
         """If possible, connect to serial port"""
-
-        # Get current settings
-        curr_settings = settings.get_parameters()
 
         # Try to establish connection to serial port
         try:
-
-            self.serial_connection = serial.Serial('/dev/ttyUSB0', 9600)
-
+            self.serial_connection = serial.Serial(name, 9600)
             self.serial_connection_established = True
 
+        # If it fails because there is no device, use virtual serial port
         except serial.SerialException:
 
-            self.serial_connection_established = False
+            # Create virtual serial port
+            self.master, self.slave = pty.openpty()
+            self.vPort = os.ttyname(self.slave)
 
-            if curr_settings[IDX_TRIGGER]:
-                print "Warning: Using a trigger device is enabled but it is not connected"
+            # Create instance
+            self.serial_connection = serial.Serial(self.vPort, 9600)
+            self.serial_connection_established = True
 
-            logging.warning("There is no serial connection to the trigger device")
+            logging.warn("Trigger device not found -> Using virtual device")
 
         # Create events
         self.trigger_event = threading.Event()
@@ -41,6 +42,7 @@ class SerialInterface(threading.Thread):
 
         # Store current time
         self.last_trigger_time = time.time()
+        self.firstRun = True
 
         # Call initialization of thread class
         threading.Thread.__init__(self)
@@ -57,13 +59,23 @@ class SerialInterface(threading.Thread):
             # Only send if the last command was sent >0.5 second ago
             if (self.curr_trigger_time - self.last_trigger_time) > 0.5 and (self.trigger_event.is_set() is False):
 
-                print "Send trigger in: "+ str( (self.curr_trigger_time - self.last_trigger_time) + waiting_time)
-
                 # Store waiting time
                 self.waiting_time = waiting_time
 
                 # Activate event
                 self.trigger_event.set()
+
+                # Return value for plotting, except if it is the first value that is always wrong
+                if self.firstRun:
+
+                    self.firstRun = False
+                    return False, 0
+
+                else:
+                    return True, (self.curr_trigger_time - self.last_trigger_time) + waiting_time
+
+            else:
+                return False, (self.curr_trigger_time - self.last_trigger_time) + waiting_time
 
     def run(self):
         """Main functionality of thread"""
@@ -71,7 +83,7 @@ class SerialInterface(threading.Thread):
         while self.eventProgramEnd.is_set() is False:
 
             # If a application of trigger is desired
-            if self.trigger_event.is_set():
+            if self.trigger_event.is_set() and not np.isnan(self.waiting_time):
 
                 # Wait
                 time.sleep(self.waiting_time)

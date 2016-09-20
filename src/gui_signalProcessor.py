@@ -48,7 +48,7 @@ class GuiSignalProcessor(threading.Thread):
 
         # Get current parameters
         self.settingsInstance = settings
-        self.currSettings = self.settingsInstance.get_parameters()
+        self.currSettings, _ = self.settingsInstance.get_parameters()
 
         # Fix FPS and length of shown signal
         self.FPS = self.currSettings[IDX_FPS]
@@ -83,9 +83,9 @@ class GuiSignalProcessor(threading.Thread):
         self.waitTime = 1.0 / self.FPS - self.diffTime
 
         # Wait the remaining to reach desired FPS
-        if int(self.waitTime*1000) > 0:
+        if int(self.waitTime * 1000) > 0:
             cv2.waitKey(int(self.waitTime * 1000))
-        elif int(self.waitTime*1000) == 0:
+        elif int(self.waitTime * 1000) == 0:
             cv2.waitKey(33)  # cv2.waitKey(0) results in error
 
     def run(self):
@@ -104,7 +104,7 @@ class GuiSignalProcessor(threading.Thread):
             if self.realFramesAvailable is True:
 
                 # Get current settings
-                self.currSettings = self.settingsInstance.get_parameters()
+                self.currSettings, self.currParameter = self.settingsInstance.get_parameters()
 
                 if self.firstRun is True:
 
@@ -145,7 +145,10 @@ class GuiSignalProcessor(threading.Thread):
 
                         # Compute algorithm
                         self.show_trigger_symbol, self.valuesFiltered = \
-                            self.signalProcessingInstance.filter_waveform(self.valuesRaw, self.valuesOutput2, 9, 3, 0.5)
+                            self.signalProcessingInstance.filter_waveform(self.valuesRaw, self.valuesOutput2,
+                                                                          self.currParameter[IDX_WIN_SIZE],
+                                                                          self.currParameter[IDX_RUN_MAX],
+                                                                          self.currParameter[IDX_MIN_TIME])
 
                         # Show symbol
                         if self.show_trigger_symbol is True:
@@ -158,8 +161,12 @@ class GuiSignalProcessor(threading.Thread):
                     elif self.currSettings[IDX_ALGORITHM] == 2:
 
                         # Compute algorithm
-                        self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax = self.signalProcessingInstance.\
-                            estimate_trigger(self.valuesRaw, self.FPS)
+                        self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax, self.triggerTimes =\
+                            self.signalProcessingInstance.estimate_trigger(self.valuesRaw, self.FPS)
+
+                        # Store heart rate value
+                        self.HRstring = str(self.HR)
+                        self.video_display.set_heart_rate_text(self.HRstring[0:self.HRstring.find('.')])
 
                         # Normalize signals for display
                         self.valuesOutput = self.signalProcessingInstance.normalize(self.valuesRaw)
@@ -181,7 +188,8 @@ class GuiSignalProcessor(threading.Thread):
                     self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2}
                 elif self.currSettings[IDX_ALGORITHM] == 2:
                     self.dict = {'valuesOutput': self.valuesOutput, 'valuesOutput2': self.valuesOutput2,
-                                 'spectrumAxis': self.spectrumAxis, 'spectrumMax': self.spectrumMax}
+                                 'spectrumAxis': self.spectrumAxis, 'spectrumMax': self.spectrumMax,
+                                 'triggerTimes': self.triggerTimes}
                 # Put dictionary in queue
                 self.frameQueue.put(self.dict)
 
