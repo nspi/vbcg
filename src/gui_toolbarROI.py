@@ -213,22 +213,22 @@ class ToolbarROI(Tk.Frame):
         """Stores values from option menu if they are valid"""
 
         if len(self.textbox_param_1.get("1.0", Tk.END + "-1c")) > 0 & (
-                self.textbox_param_1.get("1.0", Tk.END + "-1c").isdigit()
-                == len(self.textbox_param_1.get("1.0", Tk.END + "-1c"))):
+                self.textbox_param_1.get("1.0", Tk.END + "-1c").isdigit() ==
+                len(self.textbox_param_1.get("1.0", Tk.END + "-1c"))):
             self.__change_algorithm_parameter(IDX_WIN_SIZE, self.textbox_param_1.get("1.0", Tk.END + "-1c"))
         else:
             logging.warn('Option WIN_SIZE was invalid and not stored')
 
         if len(self.textbox_param_2.get("1.0", Tk.END + "-1c")) > 0 & (
-                self.textbox_param_2.get("1.0", Tk.END + "-1c").isdigit()
-                == len(self.textbox_param_2.get("1.0", Tk.END + "-1c"))):
+                self.textbox_param_2.get("1.0", Tk.END + "-1c").isdigit() ==
+                len(self.textbox_param_2.get("1.0", Tk.END + "-1c"))):
             self.__change_algorithm_parameter(IDX_RUN_MAX, self.textbox_param_2.get("1.0", Tk.END + "-1c"))
         else:
             logging.warn('Option RUN_MAX was invalid and not stored')
 
         if len(self.textbox_param_3.get("1.0", Tk.END + "-1c")) > 0 & (
-                self.textbox_param_3.get("1.0", Tk.END + "-1c").isdigit()
-                == len(self.textbox_param_3.get("1.0", Tk.END + "-1c"))):
+                self.textbox_param_3.get("1.0", Tk.END + "-1c").isdigit() ==
+                len(self.textbox_param_3.get("1.0", Tk.END + "-1c"))):
             self.__change_algorithm_parameter(IDX_MIN_TIME, self.textbox_param_3.get("1.0", Tk.END + "-1c"))
         else:
             logging.warn('Option MIN_TIME was invalid and not stored')
