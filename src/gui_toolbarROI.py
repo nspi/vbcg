@@ -102,11 +102,11 @@ class ToolbarROI(Tk.Frame):
             self.textbox_y2.insert(Tk.END, self.y_max)
 
         # Add empty box
-        self.label_x0 = Tk.Label(self.button_frame, text="  ")
+        self.label_x0 = Tk.Label(self.button_frame, text="     ")
         self.label_x0.pack(side=Tk.LEFT)
 
         # Add button for option menu
-        self.button_options = Tk.Button(self.button_frame, text="Options", width=4, command=self.__open_options_menu)
+        self.button_options = Tk.Button(self.button_frame, text="Options", width=5, command=self.__open_options_menu)
         self.button_options.pack(side=Tk.LEFT)
 
         # Disable text boxes when Viola-Jones algorithm is active

@@ -24,11 +24,11 @@ Develop branch [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=devel
 
 Master branch&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=master)](https://travis-ci.org/nspi/vbcg) [![Coverage Status](https://coveralls.io/repos/github/nspi/vbcg/badge.svg?branch=master)](https://coveralls.io/github/nspi/vbcg?branch=master) 
 
-Latest release&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=v0.1-beta)](https://travis-ci.org/nspi/vbcg)  [![GitHub tag](https://img.shields.io/github/tag/nspi/vbcg.svg?maxAge=2592000)](https://github.com/nspi/vbcg/releases/tag/v0.1-beta)  [![GitHub commits](https://img.shields.io/github/commits-since/nspi/vbcg/v0.1-beta.svg?maxAge=2592000)](https://github.com/nspi/vbcg/releases/tag/v0.1-beta)
+Latest release&nbsp;&nbsp; [![Build Status](https://travis-ci.org/nspi/vbcg.svg?branch=v0.2-beta)](https://travis-ci.org/nspi/vbcg)  [![GitHub tag](https://img.shields.io/github/tag/nspi/vbcg.svg?maxAge=2592000)](https://github.com/nspi/vbcg/releases/tag/v0.2-beta) 
 
 Use the *release* version if you want to use a manually tested and stable version. The *master* branch contains the most current version that **should** be stable and the *develop* branch contains the current bleeding-edge development version.
 
-#### Features (v0.1-beta)
+#### Features
 
 - Read video stream from OpenCV compatible camera *or* read video stream from hard disk
 
@@ -36,16 +36,18 @@ Use the *release* version if you want to use a manually tested and stable versio
 
 - Store frames from camera on hard disk
 
-- Heart rate estimation as described in [4] 
+- Heart rate estimation as described in [4]
+ 
+- Signal filtering as described in [5]
 
-- MRI triggering algorithms as described in [5]
+- MRI triggering by phase information as described in [6]
 
-## Screenshots (v0.1-beta)
+## Screenshots
 | Screenshot (click to enlarge) | Screenshot (click to enlarge) |
 |:-------------:|:-------------:| 
-| <a href="http://www.fh-dortmund.de/spicher/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_1.png" width="200"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_2.png" width="200"></a> | 
+| <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_1.png" width="200"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_2.png" width="200"></a> | 
 | **Video (click to play)** | **Screenshot (click to enlarge)** |
-| <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshot_3.png" width="200"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshot_4.png" width="200"></a> |
+| <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_3.png" width="200"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_4.png" width="200"></a> |
 
 **Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration (see screenshot 2, there are four well-pronounced breathing cycles). Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions. Additionally, we used the videos from the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website for evaluation (see screenshot 4).
 

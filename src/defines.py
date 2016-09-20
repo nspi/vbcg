@@ -6,13 +6,12 @@
 __author__ = "Nicolai Spicher"
 __credits__ = ["Nicolai Spicher", "Stefan Maderwald", "Markus Kukuk", "Mark E. Ladd"]
 __license__ = "GPL v3"
-__version__ = "v0.1-beta"
+__version__ = "v0.2-beta"
 __maintainer__ = "Nicolai Spicher"
 __email__ = "nicolai[dot]spicher[at]fh-dortmund[dot]de"
 __status__ = "Beta"
 __url__ = "https://github.com/nspi/vbcg"
-__description__ = "A real-time application for video-based estimation of the heart rate" \
-                  " frequency and the phase of the cardiac cycle."
+__description__ = "real-time application for video-based estimation of the hearts activity"
 
 # Indices of program settings
 IDX_WEBCAM = 0
