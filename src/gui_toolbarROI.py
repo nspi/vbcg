@@ -206,7 +206,7 @@ class ToolbarROI(Tk.Frame):
         self.textbox_param_3.insert(Tk.END, curr_param[IDX_MIN_TIME])
 
         self.button_options_store = Tk.Button(self.menu, text="Save", width=6,
-                                        command=lambda: self.__store_values_in_options_menu())
+                                              command=lambda: self.__store_values_in_options_menu())
         self.button_options_store.pack(side=Tk.TOP)
 
     def __store_values_in_options_menu(self):
