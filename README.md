@@ -43,13 +43,16 @@ Use the *release* version if you want to use a manually tested and stable versio
 - MRI triggering by phase information as described in [6]
 
 ## Screenshots
-| Screenshot (click to enlarge) | Screenshot (click to enlarge) |
+| **HR estimation** | **MRI triggering** |
 |:-------------:|:-------------:| 
 | <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_1.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_1.png" width="200"></a>     | <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_2.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_2.png" width="200"></a> | 
-| **Video (click to play)** | **Screenshot (click to enlarge)** |
-| <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_3.png" width="200"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_4.png" width="200"></a> |
+| **Signal filtering** | **HR estimation** |
+| <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_3.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_3.png" width="200"></a> | <a href="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_4.png"> <img src="http://www.fh-dortmund.de/spicher/screenshots/v0.2-beta/screenshot_4.png" width="200"></a> |
+
+**Video Demonstration:** You can find a video of v0.1-beta here: <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f">here</a>
 
 **Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration (see screenshot 2, there are four well-pronounced breathing cycles). Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions. Additionally, we used the videos from the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website for evaluation (see screenshot 4).
+
 
 ## Installation and usage
 
