@@ -52,7 +52,7 @@ class GuiSignalProcessor(threading.Thread):
 
         # Fix FPS and length of shown signal
         self.FPS = self.currSettings[IDX_FPS]
-        self.lengthSignal = 500
+        self.lengthSignal = 400
 
         # Temporary variable
         self.firstRun = True

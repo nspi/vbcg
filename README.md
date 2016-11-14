@@ -1,18 +1,21 @@
 # video-based cardiac gating (vbcg) 
 
-This is a prototype demonstrating our research activities concerning *video-based vital sign monitoring*. 
-
-We aim to apply this techniques in the context of ultra-high-field MRI but other scenarios are possible (e.g. gaming, sports)
+This is a freely available hardware and software prototype demonstrating our research activities concerning processing of video signals from human skin.
+We apply this technique in the context of ultra-high-field MRI for heart rate measurement and image acquisition but other scenarios are possible (e.g. gaming, sports).
 
 ## About
 
-#### Software description
+#### Software
 
-The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. pulse oximetry) as they are error-prone, especially during ultra-high-field MRI. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the algorithms we have developed so far.
+The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. electrocardiography, pulse oximetry) as they are error-prone, especially during long or ultra-high-field MRI examinations. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the methods we have developed so far.
 
 Regarding video-based heart rate frequency estimation, there are other valuable open-source projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) or commercial products (e.g. [Philips Vital Signs Camera](http://www.ip.philips.com/licensing/program/115)). This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately. See the literature list if you are interested in the scientific background.
 
-> This software can NOT be used for diagnosis. Results are estimated and for entertainment purposes only!
+#### Hardware
+
+Next to the software, you can find information on a low-cost device, based on an <a href="https://www.arduino.cc/en/Main/ArduinoBoardNano">Arduino Nano</a>, for sending triggers from the software to the MR scanner. This is needed, when applying algorithms for video-based cardiac gating. Additionally, you can find the schematics of an LED array for increasing illumination of the skin.
+
+> Proposed software and hardware can NOT be used for diagnosis or treatment. Results are estimated and for entertainment purposes only!
 
 #### License
 
@@ -36,6 +39,9 @@ Use the *release* version if you want to use a manually tested and stable versio
 
 - Store frames from camera on hard disk
 
+- A virtual serial device is used if the trigger device is not available
+(Please note that the emulation decreases performance)
+
 - Heart rate estimation as described in [4]
  
 - Signal filtering as described in [5]
@@ -51,7 +57,7 @@ Use the *release* version if you want to use a manually tested and stable versio
 
 **Video Demonstration:** You can find a video of v0.1-beta here: <a href="https://fh-dortmund.sciebo.de/index.php/s/kc4xA39mpfN2c8f">here</a>
 
-**Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration (see screenshot 2, there are four well-pronounced breathing cycles). Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions. Additionally, we used the videos from the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website for evaluation (see screenshot 4).
+**Important notice:** For most accurate results, place your finger tip directly on the camera sensor (see screenshot 1). The higher the distance to the camera sensor, the lower the signal-to-noise ratio. If you want to obtain accurate results from remote skin, good illumination conditions and minimal subject motion is crucial. Additionally, there may be artefacts by other biosignals such as respiration. Comparing the results of heart rate estimation to a pulse oximeter from clinical practice (see screenshot 3), underlines the accuracy of the algorithm under adequate conditions. Additionally, we used the videos from the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website for evaluation (see screenshot 4).
 
 
 ## Installation and usage
@@ -59,7 +65,7 @@ Use the *release* version if you want to use a manually tested and stable versio
 #### Required software
 
 - Python 2.7
-	- modules: scipy, numpy, matplotlib, Pillow, pyserial, and several other modules
+	- modules: scipy, numpy, matplotlib, pillow, pyserial, and several other modules
 	- see <a href="https://github.com/nspi/vbcg/blob/master/requirements.txt">requirements.txt</a> for detailed information
 - TK toolkit python bindings (tkInter >= 2.7.5)
 - OpenCV 2.4 python bindings
@@ -104,7 +110,7 @@ Engineering, Vol. 63 (3), 2016 [(PDF)](https://www.researchgate.net/profile/Yu_S
 [2] Spicher N. *Cardiac activity measurement from video signals of the
 human skin in ultra-high-field magnetic resonance imaging* Proceedings
 of the 46nd Annual Meeting of the German Informatics Society,
-Klagenfurt, Austria, 26.-30.09.2016. [(URL)](http://www.informatik2016.de/1227.html)
+Klagenfurt, Austria, 26.-30.09.2016. [(PDF)](http://subs.emis.de/LNI/Proceedings/Proceedings259/1999.pdf)
 
 [3] Viola P., Jones M. *Rapid object detection using a boosted cascade
 of simple features* Proceedings of the 2001 IEEE Computer Society 

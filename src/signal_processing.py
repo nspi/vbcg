@@ -219,12 +219,14 @@ class SignalProcessor:
         max_val = limits[np.argmax(abs(signal_fft[limits]))]
 
         # Average
-        if np.size(self.max_val_list) < input_param_1:
-            self.max_val_list = np.append(self.max_val_list, max_val)
-        else:
-            self.max_val_list = np.delete(self.max_val_list, 0)
-            self.max_val_list = np.append(self.max_val_list, max_val)
-            max_val = np.round(np.mean(self.max_val_list), 0)
+        if np.count_nonzero(input_raw_signal) >= 400:
+
+            if np.size(self.max_val_list) < input_param_1:
+                self.max_val_list = np.append(self.max_val_list, max_val)
+            else:
+                self.max_val_list = np.delete(self.max_val_list, 0)
+                self.max_val_list = np.append(self.max_val_list, max_val)
+                max_val = np.round(np.mean(self.max_val_list), 0)
 
         # Compute time until next maximum in signal
         if signal_phase[max_val] < 0:

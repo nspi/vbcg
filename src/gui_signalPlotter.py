@@ -126,6 +126,7 @@ class GuiSignalPlotter(threading.Thread):
                             else:
                                 self.subplotInstanceBottom.plot(self.valuesOutput2)
 
+                            self.subplotInstanceBottom.set_ylim([0, 1.1])
                             self.subplotInstanceBottom.legend(["One-sided Amplitude spectrum",
                                                                "Maximum value"], fontsize=9)
                             self.subplotInstanceBottom.set_xlabel('Hz')
