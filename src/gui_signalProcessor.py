@@ -52,7 +52,7 @@ class GuiSignalProcessor(threading.Thread):
 
         # Fix FPS and length of shown signal
         self.FPS = self.currSettings[IDX_FPS]
-        self.lengthSignal = 500
+        self.lengthSignal = 400
 
         # Temporary variable
         self.firstRun = True
@@ -162,7 +162,7 @@ class GuiSignalProcessor(threading.Thread):
 
                         # Compute algorithm
                         self.HR, self.spectrum, self.spectrumAxis, self.spectrumMax, self.triggerTimes =\
-                            self.signalProcessingInstance.estimate_trigger(self.valuesRaw, self.FPS)
+                            self.signalProcessingInstance.estimate_trigger(self.valuesRaw, self.FPS, 50)
 
                         # Store heart rate value
                         self.HRstring = str(self.HR)

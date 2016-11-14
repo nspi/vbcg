@@ -5,7 +5,6 @@
 import serial
 import time
 import threading
-import settings
 import numpy as np
 import pty
 import os

@@ -19,6 +19,7 @@ class SignalProcessor:
         self.value_last_running_max = -np.inf
         self.counter_running_max = 0
         self.time_diff = None
+        self.max_val_list = np.array([])
 
         # Define variables for function estimate_trigger()
         self.delta_times = np.zeros(30)
@@ -170,12 +171,14 @@ class SignalProcessor:
         # Return HR, spectrum with frequency axis, and found maximum
         return (np.round(freq_axis[max_val] * 60)), abs(signal_fft[limits]), freq_axis[limits], max_val - limits[0]
 
-    def estimate_trigger(self, input_raw_signal, estimated_fps):
+    def estimate_trigger(self, input_raw_signal, estimated_fps, input_param_1):
         """This simple algorithm computes MRI triggers as described in:
 
         Spicher N, Kukuk M, Ladd ME and Maderwald S. In vivo 7T MR imaging triggered by phase information obtained from
         video signals of the human skin. Proceedings of the 23nd Annual Meeting of the ISMRM, Toronto, Canada,
         30.05.-05.06.2015.
+
+        inputParam1: Number of preceding values used for filtering
         """
 
         # Get normalized signal
@@ -214,6 +217,16 @@ class SignalProcessor:
 
         # Get index of maximum frequency in FFT spectrum
         max_val = limits[np.argmax(abs(signal_fft[limits]))]
+
+        # Average
+        if np.count_nonzero(input_raw_signal) >= 400:
+
+            if np.size(self.max_val_list) < input_param_1:
+                self.max_val_list = np.append(self.max_val_list, max_val)
+            else:
+                self.max_val_list = np.delete(self.max_val_list, 0)
+                self.max_val_list = np.append(self.max_val_list, max_val)
+                max_val = np.round(np.mean(self.max_val_list), 0)
 
         # Compute time until next maximum in signal
         if signal_phase[max_val] < 0:

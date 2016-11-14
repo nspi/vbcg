@@ -170,7 +170,7 @@ class Test(object):
         signal = np.cos(2 * np.pi * t)
 
         # Compute heart rate frequency using algorithm
-        ret_1, ret_2, ret_3, ret_4, ret_5 = self.signal_processor.estimate_trigger(signal, 10)
+        ret_1, ret_2, ret_3, ret_4, ret_5 = self.signal_processor.estimate_trigger(signal, 10, np.inf)
         assert_equal(ret_1, 60)
 
     def test_estimate_trigger_phase(self):
@@ -189,7 +189,7 @@ class Test(object):
         """Called by test generators in test_estimate_trigger_phase"""
 
         # Compute results
-        self.signal_processor.estimate_trigger(signal, 10)
+        self.signal_processor.estimate_trigger(signal, 10, np.inf)
 
         if phase > 0:
             assert_almost_equal(self.signal_processor.delta, 1 - np.abs(phase / (2 * np.pi)))
