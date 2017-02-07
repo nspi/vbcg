@@ -3,13 +3,21 @@
 This is a freely available hardware and software prototype demonstrating our research activities concerning processing of video signals from human skin.
 We apply this technique in the context of ultra-high-field MRI for heart rate measurement and image acquisition but other scenarios are possible (e.g. gaming, sports).
 
+#### News 
+- **Feb. 2017:**
+I am pleased to announce that this project will be presented at the <a href="http://www.ismrm.org/2017-annual-meeting-exhibition/">ISMRM 25th Annual Meeting & Exhibition</a> as a Power Pitch presentation. Additionally, I present our recent investigation of local skin color phase variations. 
+- **Dec 2016:**
+Our initial study on video-based MRI triggering has been accepted recently for open-access publication in <a href="http://biomedical-engineering-online.biomedcentral.com/articles/10.1186/s12938-016-0245-3">Biomedical Engineering Online</a>.
+
+
 ## About
 
 #### Software
 
-The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. electrocardiography, pulse oximetry) as they are error-prone, especially during long or ultra-high-field MRI examinations. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this topic (unrelated to MRI) can be found in [1] and a summary of our current state of research (early 2016) can be found in [2]. This prototype will be used to demonstrate some of the methods we have developed so far.
+The aim of our research is to overcome the limitations of contact-based hardware for MRI patient monitoring (e.g. electrocardiography, pulse oximetry) as they are error-prone, especially during long or ultra-high-field MRI examinations. Instead, we develop video-based (and therefore contact-free) real-time methods based on recent findings in remote vital sign measurement. A valuable overview of this field of research (unrelated to MRI) can be found in <a href=#1>[1]</a>. So far, journal papers within the context of MRI were published by a Stanford group <a href=#2>[2]</a> and our group <a href=#3>[3]</a>. 
 
-Regarding video-based heart rate frequency estimation, there are other valuable open-source projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) or commercial products (e.g. [Philips Vital Signs Camera](http://www.ip.philips.com/licensing/program/115)). This aspect is part of our past work [4]; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately. See the literature list if you are interested in the scientific background.
+
+The software presented here will be used to demonstrate some of the methods we have developed so far. Regarding video-based heart rate frequency estimation, there are other valuable open-source projects (e.g. [webcam-pulse-detector](https://github.com/thearn/webcam-pulse-detector)) or commercial products (e.g. [Philips Vital Signs Camera](http://www.ip.philips.com/licensing/program/115)). This aspect is part of our past work <a href=#5>[5]</a>; however we are more interested in developing methods for estimating the current phase of the cardiac cycle accurately. See the literature list if you are interested in the scientific background.
 
 #### Hardware
 
@@ -35,18 +43,18 @@ Use the *release* version if you want to use a manually tested and stable versio
 
 - Read video stream from OpenCV compatible camera *or* read video stream from hard disk
 
-- Crop video to manually-defined ROI *or* use Viola-Jones algorithm for face detection [3]
+- Crop video to manually-defined ROI *or* use Viola-Jones algorithm for face detection <a href=#4>[4]</a>
 
 - Store frames from camera on hard disk
 
 - A virtual serial device is used if the trigger device is not available
 (Please note that the emulation decreases performance)
 
-- Heart rate estimation as described in [4]
+- Heart rate estimation as described in <a href=#5>[5]</a>
  
-- Signal filtering as described in [5]
+- Signal filtering as described in <a href=#6>[6]</a>
 
-- MRI triggering by phase information as described in [6]
+- MRI triggering by phase information as described in <a href=#7>[7]</a>
 
 ## Screenshots
 | **HR estimation** | **MRI triggering** |
@@ -90,7 +98,7 @@ The current development branch is tested on Ubuntu 14.04 (and on Ubuntu 12.04 us
 | The forehead of a volunteer undergoing MRI examination was recorded with a MRI-compatible camera (see screenshot 2).| 25 | 2:00 | 720x480 | [here](https://fh-dortmund.sciebo.de/index.php/s/nuQtY1f8x31FYqc/download)    |
 | A volunteer was recorded during office work using the webcam of an off-the-shelf business laptop. A pulse oximeter was applied as reference (see screenshot 3). | 30 | 1:00 | 640x480 | [here](https://fh-dortmund.sciebo.de/index.php/s/Q3pmdOvhDInk5oi/download)    |
 
-More videos from persons in different situations can be found on the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website. More videos from subjects inside the MR bore can be found in the [supplemental material](https://dx.doi.org/10.1002%2Fmrm.25781) of the paper by Maclaren et al. [7].
+More videos from persons in different situations can be found on the [Eulerian Video Magnification](http://people.csail.mit.edu/mrub/evm/) website. More videos from subjects inside the MR bore can be found in the [supplemental material](https://dx.doi.org/10.1002%2Fmrm.25781) of the paper by Maclaren et al. <a id="2">[2]</a> 
 
 ## Credits
 heart.png and heartbeat.png: Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> are licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
@@ -103,36 +111,34 @@ See website for email address and please use my [PGP key](http://www.fh-dortmund
 Department of Computer Science, University of Applied Sciences and Arts Dortmund
 
 ## References
-[1] Sun Y. and Thakor N. *Photoplethysmography Revisited: From Contact
+<a id="1">[1]</a> Sun Y. and Thakor N. *Photoplethysmography Revisited: From Contact
 to Noncontact, From Point to Imaging* IEEE Transactions on Biomedical
 Engineering, Vol. 63 (3), 2016 [(PDF)](https://www.researchgate.net/profile/Yu_Sun27/publication/282047098_Photoplethysmography_Revisited_From_Contact_to_Noncontact_From_Point_to_Imaging/links/5603f85608aefaf89ef9d0dc.pdf)
 
-[2] Spicher N. *Cardiac activity measurement from video signals of the
-human skin in ultra-high-field magnetic resonance imaging* Proceedings
-of the 46nd Annual Meeting of the German Informatics Society,
-Klagenfurt, Austria, 26.-30.09.2016. [(PDF)](http://subs.emis.de/LNI/Proceedings/Proceedings259/1999.pdf)
+<a id="2">[2]</a>  Maclaren J., Aksoy M. and Bammer R. *Contact-free physiological 
+monitoring using a markerless optical system.* Magnetic resonance in medicine. 74(2):571-7 2015. [(PDF)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4515196/pdf/nihms687662.pdf)
 
-[3] Viola P., Jones M. *Rapid object detection using a boosted cascade
+<a id="3">[3]</a>  Spicher N., Kukuk M., Maderwald S., Ladd ME. *Initial evaluation of prospective cardiac triggering using photoplethysmography signals recorded with a video camera compared to pulse oximetry and electrocardiography at 7T MRI* Biomedical Engineering Online. 15(1):126, 2016. [(PDF)](http://biomedical-engineering-online.biomedcentral.com/track/pdf/10.1186/s12938-016-0245-3?site=biomedical-engineering-online.biomedcentral.com)
+
+<a id="4">[4]</a>  Viola P., Jones M. *Rapid object detection using a boosted cascade
 of simple features* Proceedings of the 2001 IEEE Computer Society 
 Conference on on Computer Vision and Pattern Recognition, Kauai, USA, 
-08.-14.12.2001 [(PDF)](https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf)
+08.-14.12.2001. [(PDF)](https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf)
 
-[4] Spicher N, Maderwald S, Ladd ME and Kukuk M. *Heart rate monitoring
+<a id="5">[5]</a>  Spicher N., Maderwald S., Ladd ME. and Kukuk M. *Heart rate monitoring
 in ultra-high-field MRI using frequency information obtained from video
 signals of the human skin compared to electrocardiography and pulse
 oximetry* Proceedings of the 49th Annual Conference of the German
 Society for Biomedical Engineering, Luebeck, Germany, 16.-18.09.2015. [(PDF)](http://www.degruyter.com/view/j/cdbme.2015.1.issue-1/cdbme-2015-0018/cdbme-2015-0018.pdf)
 
-[5] Spicher N, Maderwald S, Ladd ME and Kukuk M. *High-speed, contact-
+<a id="6">[6]</a>  Spicher N., Maderwald S., Ladd ME. and Kukuk M. *High-speed, contact-
 free measurement of the photoplethysmography waveform for MRI triggering*
 Proceedings of the 24th Annual Meeting of the ISMRM, Singapore, Singapore,
 07.05.-13.05.2016. [(PDF)](http://www.fh-dortmund.de/spicher/1861.pdf)
 
-[6] Spicher N, Kukuk M, Ladd ME and Maderwald S. *In vivo 7T MR imaging
+<a id="7">[7]</a>  Spicher N., Kukuk M., Ladd ME. and Maderwald S. *In vivo 7T MR imaging
 triggered by phase information obtained from video signals of the human
 skin* Proceedings of the 23nd Annual Meeting of the ISMRM, Toronto,
 Canada, 30.05.-05.06.2015. [(PDF)](http://www.fh-dortmund.de/spicher/2548.pdf)
 
-[7] Maclaren J., Aksoy M. and Bammer R. *Contact-free physiological 
-monitoring using a markerless optical system.* Magnetic resonance in
-medicine. 74(2):571-7 2015. [(PDF)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4515196/pdf/nihms687662.pdf)
+
