@@ -142,7 +142,7 @@ class SignalProcessor:
 
             # Zero padding: Fill before and after signal with zeros
             number_before, number_after = self.compute_zero_padding_values(next_n - n)
-            signal = np.concatenate((np.zeros(number_before), signal, np.zeros(number_after)), 0)
+            signal = np.concatenate((np.zeros(int(number_before)), signal, np.zeros(int(number_after))), 0)
 
             # Use new N value instead
             n = next_n
