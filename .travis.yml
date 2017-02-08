@@ -22,11 +22,10 @@ before_script:
   - pep8 -v --ignore=E402 --max-line-length=125 src
 
 script:
-  - cd src
-  - nosetests --nocapture -vvv --with-coverage --cover-erase --cover-package=logger.py,serial_interface.py,signal_processing.py,video.py,setup.py,main.py,defines.py,settings.py
+  - nosetests #--with-coverage --cover-erase --cover-package=src/logger.py,src/serial_interface.py,src/signal_processing.py,src/video.py,src/setup.py,src/main.py,src/defines.py,src/settings.py
 
 after_success:
-  - coveralls
+  #- coveralls
 
 notifications:
   email: false
