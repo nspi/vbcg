@@ -65,10 +65,10 @@ class SignalProcessor:
         values_norm_diff = np.abs(np.diff(values_norm))
 
         # Apply window
-        values_norm_diff_window = values_norm_diff[-input_param_1:]
+        values_norm_diff_window = values_norm_diff[-int(input_param_1):]
 
         # Prepare fit
-        values_x_data = np.linspace(0, 1, input_param_1)
+        values_x_data = np.linspace(0, 1, int(input_param_1))
 
         # Apply curve fit
         value_m = self.__curve_fit(values_x_data, values_norm_diff_window)
@@ -77,7 +77,7 @@ class SignalProcessor:
         output_signal = np.append(output_signal, value_m[0])
 
         # Apply running max window
-        value_running_max = np.amax(output_signal[-input_param_1:])
+        value_running_max = np.amax(output_signal[-int(input_param_1):])
 
         # Increase counter if running max is equal to last value. Otherwise reset counter.
         if value_running_max == self.value_last_running_max:
@@ -216,7 +216,7 @@ class SignalProcessor:
         limits = limits.astype(int)
 
         # Get index of maximum frequency in FFT spectrum
-        max_val = limits[np.argmax(abs(signal_fft[limits]))]
+        max_val = int(limits[np.argmax(abs(signal_fft[limits]))])
 
         # Average
         if np.count_nonzero(input_raw_signal) >= 400:
@@ -226,7 +226,7 @@ class SignalProcessor:
             else:
                 self.max_val_list = np.delete(self.max_val_list, 0)
                 self.max_val_list = np.append(self.max_val_list, max_val)
-                max_val = np.round(np.mean(self.max_val_list), 0)
+                max_val = int(np.round(np.mean(self.max_val_list), 0))
 
         # Compute time until next maximum in signal
         if signal_phase[max_val] < 0:
